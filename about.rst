@@ -1,17 +1,9 @@
 ---
 title: About
 ---
-Nullam imperdiet sodales orci vitae molestie. Nunc quam orci, pharetra a
-rhoncus vitae, eleifend id felis. Suspendisse potenti. Etiam vitae urna orci.
-Quisque pellentesque dignissim felis, egestas tempus urna luctus vitae. In hac
-habitasse platea dictumst. Morbi fringilla mattis odio, et mattis tellus
-accumsan vitae.
 
-1. Amamus Unicode 碁
-2. Interdum nex magna.
+Hi, I'm a PhD student at `HKU Programming Languages Group`_. I'm currently working on contextual type inference by generlising techniques of bidirectional typing.
 
-Vivamus eget mauris sit amet nulla laoreet lobortis. Nulla in diam elementum
-risus convallis commodo. Cras vehicula varius dui vitae facilisis. Proin
-elementum libero eget leo aliquet quis euismod orci vestibulum. Duis rhoncus
-lorem consequat tellus vestibulum aliquam. Quisque orci orci, malesuada porta
-blandit et, interdum nec magna.
+Previously I've got my MPhil degree from HKU in 2023 and BEng degree from Nankai University in 2020. I did two internships before doing PL research: Ubisoft and Lilith Games.
+
+.. _HKU Programming Languages Group: https://hkuplg.github.io
