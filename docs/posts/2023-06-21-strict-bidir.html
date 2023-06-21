@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>TYPES.HK - Strict Bidirectional Type Checking</title>
+        <title>TYPES.HK - Relevance Logic and Bidirectional Typing</title>
         <link rel="stylesheet" href="../css/default.css" />
     </head>
     <body>
@@ -21,16 +21,17 @@
         </header>
 
         <main role="main">
-            <h1>Strict Bidirectional Type Checking</h1>
+            <h1>Relevance Logic and Bidirectional Typing</h1>
             <article>
     <section class="header">
         Posted on June 21, 2023
         
     </section>
     <section>
-        <p>Bidirectional typing is helpful in giving the annotation only in the outermost part of the expression. The type information will propagate inside. For example,</p>
-<pre><code>(\x. \y. x) &lt;= Int -&gt; Int -&gt; Int</code></pre>
-<p>But this is more or less</p>
+        <p>First, let’s take some words from <a href="https://arxiv.org/pdf/1908.05839.pdf">Bidirectional Typing Survey</a></p>
+<blockquote>
+<p>Drawing inspiration from relevance logic, which requires variables to be used at least once (as opposed to the exactly-once constraint of linear logic), Chlipala et al. [2005] require a let-bound variable to be used at least once. This allows them to reverse the typing rule for let-expressions, reducing the annotation burden of the basic Pfenning recipe: no annotation is needed on the let-bound expression. Their typing contexts contain checking variables, whose moding is similar to the variables in our backwards bidirectional system. Such a variable must occur at least once in a checking position; that occurrence determines the type of the variable, which can be treated as synthesizing in all other occurrences.</p>
+</blockquote>
     </section>
 </article>
 
