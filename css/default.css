@@ -10,6 +10,7 @@ html {
 body {
   font-size: 1.6rem;
   color: #000;
+  line-height: 1.2;
 }
 
 header {
@@ -177,3 +178,7 @@ pre {
 pre code {
   font-family: mononoki;
 }
+
+/* body main ul {
+  padding: 0;
+} */
