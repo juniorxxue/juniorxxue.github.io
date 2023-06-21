@@ -12,6 +12,10 @@ config = defaultConfiguration
 
 main :: IO ()
 main = hakyllWith config $ do
+    match "mononoki/*" $ do
+        route   idRoute
+        compile copyFileCompiler
+
     match "slides/*" $ do
         route   idRoute
         compile copyFileCompiler
