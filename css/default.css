@@ -21,6 +21,10 @@ body a {
   text-decoration: none;
 }
 
+body a:link {
+  color: #0679A7;
+}
+
 nav a {
   font-size: 1.8rem;
   font-weight: lighter;
