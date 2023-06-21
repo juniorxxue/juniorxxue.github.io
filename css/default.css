@@ -179,6 +179,10 @@ pre code {
   font-family: mononoki;
 }
 
+p code {
+  font-family: mononoki;
+}
+
 /* body main ul {
   padding: 0;
 } */
