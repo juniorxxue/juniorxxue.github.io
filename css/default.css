@@ -17,6 +17,10 @@ nav {
   text-align: right;
 }
 
+body a {
+  text-decoration: none;
+}
+
 nav a {
   font-size: 1.8rem;
   font-weight: lighter;
