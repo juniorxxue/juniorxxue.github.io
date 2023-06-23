@@ -1,6 +1,8 @@
 ---
-title: 初夏之戀
+title: 初夏之戀（短）
 ---
+
+[【刘欣媛】20230421 小杏 刘欣媛《初夏之恋》focus](https://www.bilibili.com/video/BV1im4y1y7CA/?share_source=copy_web&vd_source=828efb05ba27338ac35bbe1522f3749b)
 
 ```
 うーおい　x４
