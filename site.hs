@@ -45,6 +45,12 @@ main = hakyllWith config $ do
             >>= loadAndApplyTemplate "templates/default.html" postCtx
             >>= relativizeUrls
 
+    match "idolcall/*" $ do
+        route $ setExtension "html"
+        compile $ pandocCompiler
+            >>= loadAndApplyTemplate "templates/idolcall.html"    postCtx
+            >>= relativizeUrls
+
     match "index.html" $ do
         route idRoute
         compile $ do
