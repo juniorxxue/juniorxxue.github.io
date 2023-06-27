@@ -11,8 +11,8 @@ title: 初夏之戀（短）
 ダイバー！バイバー！ジャージャー！
 虎(とら)！火(ひ)！人造(じんぞう)！繊維(せんい)！
 あー！もういっちょ行くぞー！
-タイガー！ファイヤー！サイバー！
-ジャージャー！
+タイガー！ファイヤー！サイバー！ファイバー！
+ダイバー！バイバー！ジャージャー！
 ```
 
 
@@ -36,7 +36,7 @@ Hey just kiss me
 
 要你對我不離不棄\
 `オーレーのー　OOO`
- 
+
 情竇初開那樣對了嗎
 
 這是first love first love\
@@ -49,7 +49,7 @@ That is summer love\
 `That is summer love`
 
 `イェッタイガー！`
- 
+
 怎麼辦我無法自拔
 
 我們戀愛了嗎
@@ -71,15 +71,15 @@ That is summer love\
 松たか子！松たか子！
 ヤマザキ春のパンまつり！
 ```
- 
-Hey boy can you be my first love
-
-Let me be your good girl
 
 Hey boy can you be my first love
 
 Let me be your good girl
- 
+
+Hey boy can you be my first love
+
+Let me be your good girl
+
 情竇初開那樣對了嗎
 
 這是first love first love\
@@ -92,7 +92,7 @@ That is summer love\
 `That is summer love`
 
 `イェッタイガー！`
- 
+
 怎麼辦我無法自拔
 
 我們戀愛了嗎
@@ -106,7 +106,7 @@ That is summer love\
 多麼的頭痛多麼的溫柔
 
 愛開始萌芽戀夏
- 
+
 怎麼辦我無法自拔
 
 我們戀愛了嗎

@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>TYPES.HK - Intersection Subtyping and Counters</title>
+        <link rel="stylesheet" href="../css/default.css" />
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <a href="../">TYPES.HK</a>
+            </div>
+            <nav>
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+            </nav>
+        </header>
+
+        <main role="main">
+            <h1>Intersection Subtyping and Counters</h1>
+            <article>
+    <section class="header">
+        Posted on June 25, 2023
+        
+    </section>
+    <section>
+        <h1 id="motivation">Motivation</h1>
+<p>It all came from that we want to type check: the lambda abstraction annotated with intersection types can be applied to a integer.</p>
+<pre><code>T |-0 ((\x. x) : (Int -&gt; Int) &amp; (Bool -&gt; Bool)) 1 : Int</code></pre>
+<p>With a few tries, we decided to delegate the counter solution to the subtyping, which appeared only in the subsumption rule</p>
+<pre><code>T |-0 e : A      A &lt;:n B
+-------------------------- Sub
+T |-n e : B</code></pre>
+<h1 id="problem">Problem</h1>
+<p>We’re worried about a problem that</p>
+<pre><code>T |-0 (\x.x : (I -&gt; I) &amp; (S -&gt; S)) : (I -&gt; I) &amp; (S -&gt; S)        (I -&gt; I) &amp; (S -&gt; S) &lt;:1 (I -&gt; I) &amp; (S -&gt; S)
+------------------------------------------------------------------------------------------------------------ Sub
+T |-1 (\x.x : (I -&gt; I) &amp; (S -&gt; S)) : (I -&gt; I) &amp; (S -&gt; S)</code></pre>
+<p>Counter is <code>1</code> simply means we have 1 argument information available. In the algorithmic system, it would be like</p>
+<pre><code>T |- Top =&gt; (\x. x) : (I -&gt; I) &amp; (S -&gt; S) =&gt; (I -&gt; I) &amp; (S -&gt; S)   (I -&gt; I) &amp; (S -&gt; S) &lt;: [1] -&gt; Top ~~&gt; I -&gt; I
+----------------------------------------------------------------------------------------------------------------- Sub
+T |- [1] -&gt; Top =&gt; ((\x. x) : (I -&gt; I) &amp; (S -&gt; S)) =&gt; I -&gt; I</code></pre>
+<p>The problem is that our algorithmic system derives a <code>I -&gt; I</code> while the declarative one derives a <code>(I -&gt; I) &amp; (S -&gt; S)</code>, which is the subtyping of <code>I -&gt; I</code> and thus should be rejected.</p>
+<p>So one direct idea is to restrict the form of subtyping (decl.).</p>
+<p>To reject</p>
+<pre><code>(I -&gt; I) &amp; (S -&gt; S) &lt;:1 (I -&gt; I) &amp; (S -&gt; S)</code></pre>
+<p>is also meant to settle a canonical form of subtyping: the shape of RHS of subtyping should respect the counter.</p>
+<p>If counter is n, then <code>A &lt;:n A1 -&gt; ... -&gt; An -&gt; ?</code>
+If counter is ∞, then <code>A &lt;:∞ B</code></p>
+<p>What about the n is <code>0</code>, we have nothing in hand, it probably means refl rule:</p>
+<pre><code>--------- Refl
+A &lt;:0 A</code></pre>
+<h1 id="plain-subtyping">Plain Subtyping</h1>
+<pre><code>----------- Refl
+Int &lt;: Int
+
+-------- Top
+A &lt;: Top
+
+C &lt;:A    B &lt;: D
+-------------------- Arr
+A -&gt; B &lt;: C -&gt; D
+
+A &lt;: C
+----------- And-L
+A &amp; B &lt;: C
+
+B &lt;: C
+------------ And-R
+A &amp; B &lt;: C
+
+A &lt;: B
+A &lt;: C
+------------ And
+A &lt;: B &amp; C</code></pre>
+<h1 id="subtyping-w-counters">Subtyping w/ Counters</h1>
+<p>I put comments in each rule;</p>
+<p>I use syntactic sugar: <code>∞/0</code> means <code>∞ | 0</code>, <code>∞/n</code> means <code>∞ | n</code>.</p>
+<pre><code>----------- Refl (if counter is 0, we know nothing but itself, if counter is ∞, we know everything (A is given))
+A &lt;:∞/0 A
+
+-------- Top
+A &lt;:∞ Top
+
+C &lt;:∞ A    B &lt;:∞/n- D
+----------------------- Arr (if counter is ∞, we know everything, otherwise, C is given,
+-----------------------      note here there's a contra, but i think it's fine since in ∞, LHS and RHS are all known)
+A -&gt; B &lt;:∞/n C -&gt; D
+
+A &lt;:∞/n C
+----------- And-L (delegate to some branch)
+A &amp; B &lt;:∞/n C
+
+B &lt;:∞/n C
+------------ And-R
+A &amp; B &lt;:∞/n C
+
+A &lt;:∞ B
+A &lt;:∞ C
+------------ And (?)
+A &lt;:∞ B &amp; C</code></pre>
+<p>Let’s justify those rules</p>
+<h1 id="examples">Examples</h1>
+<ul>
+<li>To accept <code>T |-0 ((\x. x) : (I -&gt; I) &amp; (B -&gt; B)) 1 : I</code></li>
+</ul>
+<pre><code>                                                  ----------- Refl   ---------- Refl
+                                                     I &lt;:∞ I          I &lt;:0 I
+                                                  ----------------------------------- Arr
+                                                     I -&gt; I &lt;:1 I -&gt; I
+                                                  ----------------------------------- And-L
+T |-0 (\x. x) : (I -&gt; I) &amp; (B -&gt; B) : I -&gt; I        (I -&gt; I) &amp; (B -&gt; B) &lt;:1 I -&gt; I
+----------------------------------------------------------------------------------- Sub
+T |-1 (\x. x) : (I -&gt; I) &amp; (B -&gt; B) : I -&gt; I      T |-0 1 : I
+------------------------------------------------------------------- App2
+T |-0 ((\x. x) : (I -&gt; I) &amp; (B -&gt; B)) 1 : I</code></pre>
+<ul>
+<li>To reject <code>T |-1 (\x. x) : (I -&gt; I) &amp; (B -&gt; B) : (I -&gt; I) &amp; (B -&gt; B)</code></li>
+</ul>
+<pre><code>(I -&gt; I) &amp; (B -&gt; B) &lt;:1 (I -&gt; I)    (I -&gt; I) &amp; (B -&gt; B) &lt;:1 (B -&gt; B)
+-------------------------------------------------------------------- And &lt;- we reject it in this rule
+(I -&gt; I) &amp; (B -&gt; B) &lt;:1 (I -&gt; I) &amp; (B -&gt; B)
+----------------------------------------------------------- Sub
+T |-1 (\x. x) : (I -&gt; I) &amp; (B -&gt; B) : (I -&gt; I) &amp; (B -&gt; B)</code></pre>
+<p>This is obviously not rejected, then the problem is, should we reject this term?</p>
+<p>Note that the reason to reject it is to keep the completeness property,</p>
+<h1 id="typing">Typing</h1>
+<p>The changes on typing is subtle, after generalizing the subsumption rule, we only need to append one rule for introducing intersection types.</p>
+<pre><code>T |-j e : A   T |-j e : B
+---------------------------- Ty-And
+T |-j e : A &amp; B</code></pre>
+<p>This is also the same with algo rule</p>
+<pre><code>T |- H =&gt; e =&gt; A     T |- H =&gt; e =&gt; B
+--------------------------------------- Ty-And
+T |- H =&gt; e =&gt; A &amp; B</code></pre>
+<h1 id="algo.-subtyping">Algo. Subtyping</h1>
+<pre><code>T |- Top =&gt; e =&gt; B       T |- B &lt;: H ~&gt; C
+------------------------------------------ Sub
+T |- H =&gt; e =&gt; C</code></pre>
+<p>This is general form of the subsumption rule, it should respect the previous cases:</p>
+<pre><code>T |- Top =&gt; e =&gt; A      T |- A &lt;: B
+------------------------------------------------
+T |- B =&gt; e =&gt; A</code></pre>
+<p>In the form of <code>T |- A &lt;: H ~&gt; B</code></p>
+<ul>
+<li>if <code>H</code> is a normal type, which corresponds to the “∞” in decl., we probably don’t need care about the output type, just return A</li>
+<li>if <code>H</code> is a hint</li>
+</ul>
+<pre><code>----------------- Refl
+T |- A &lt;: A ~&gt; A
+
+
+--------------------- Top
+T |- A &lt;: Top ~&gt; A
+
+
+T |- C &lt;: A ~&gt; C      T |- B &lt;: D ~&gt; B
+------------------------------------------- Arr
+T |- A -&gt; B &lt;: C -&gt; D ~&gt; C -&gt; B
+
+
+T |- A =&gt; e =&gt; C     T |- B &lt;: H ~&gt; D
+-------------------------------------- Hole
+T |- A -&gt; B &lt;: [e] -&gt; H ~&gt; A -&gt; D
+
+
+T |- A &lt;: H ~&gt; C
+-------------------------------- And-L
+T |- A &amp; B &lt;: H ~&gt; C
+
+
+T |- B &lt;: H ~&gt; C
+-------------------------------- And-R
+T |- A &amp; B &lt;: H ~&gt; C
+
+
+T |- A &lt;: B ~&gt; B
+T |- A &lt;: C ~&gt; C
+--------------------------- And
+T |- A &lt;: B &amp; C ~&gt; B &amp; C</code></pre>
+<h1 id="examples-algo.">Examples (Algo.)</h1>
+<ul>
+<li>To accept <code>T |- Top =&gt; ((\x. x) : (I -&gt; I) &amp; (B -&gt; B)) 1 =&gt; I</code></li>
+</ul>
+<pre><code>T |- Top =&gt; (\x. x) : (I -&gt; I) &amp; (B -&gt; B) =&gt; (I -&gt; I) &amp; (B -&gt; B)   T |-  (I -&gt; I) &amp; (B -&gt; B) &lt;: [1] -&gt; Top ~&gt; I -&gt; I
+----------------------------------------------------------------------------------------------------------------- Sub
+T |- [1] -&gt; Top =&gt; (\x. x) : (I -&gt; I) &amp; (B -&gt; B) =&gt; I -&gt; I
+------------------------------------------------------------------ App
+T |- Top =&gt; ((\x. x) : (I -&gt; I) &amp; (B -&gt; B)) 1 =&gt; I</code></pre>
+<p>Then about subtyping derivation:</p>
+<pre><code>T |- I =&gt; 1 =&gt; I     I &lt;: Top ~&gt; I
+-------------------------------------------- Hole
+T |- (I -&gt; I) &lt;: [1] -&gt; Top ~&gt; I -&gt; I
+------------------------------------------------------ And-L
+T |-  (I -&gt; I) &amp; (B -&gt; B) &lt;: [1] -&gt; Top ~&gt; I -&gt; I</code></pre>
+<p>I’m worried about the checking case, let’s test</p>
+    </section>
+</article>
+
+        </main>
+
+        <footer>
+            Site powered by Hakyll</a>
+        </footer>
+    </body>
+</html>
