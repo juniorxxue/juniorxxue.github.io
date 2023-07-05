@@ -24,7 +24,7 @@ main = hakyllWith config $ do
         route   idRoute
         compile copyFileCompiler
 
-    match "proof/*" $ do
+    match "proof/coqdoc/*" $ do
         route   idRoute
         compile copyFileCompiler
 
