@@ -2,6 +2,8 @@
 title: What Is Gradual Guarantee?
 ---
 
+**Warning: Don't read. Till then, I haven't really understood all the details, give me some time to sort it out**
+
 ::: ask
 Any prerequisites before reading this post?
 :::
