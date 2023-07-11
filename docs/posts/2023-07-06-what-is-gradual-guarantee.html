@@ -26,28 +26,67 @@
         
     </section>
     <section>
-        <div class="qblock">
-Any prerequisites before reading this post?
+        <div class="ask">
+<p>Any prerequisites before reading this post?</p>
 </div>
-<div class="ablock">
-I suggest reading Jeremy Siek’s <a href="https://wphomes.soic.indiana.edu/jsiek/what-is-gradual-typing/">What is Gradual Typing</a>, which gives an intuitive explanation of gradual typing.
+<div class="answer">
+<p>I suggest reading Jeremy Siek’s <a href="https://wphomes.soic.indiana.edu/jsiek/what-is-gradual-typing/">What is Gradual Typing</a>, which gives an intuitive explanation of gradual typing.</p>
 </div>
-<div class="qblock">
-Okay, so why are you curious about gradual guarantee?
+<div class="ask">
+<p>Okay, so why are you curious about gradual guarantee?</p>
 </div>
-<div class="ablock">
-There’re three main reasons:
+<div class="answer">
+<p>There’re three main reasons:</p>
 <ul>
-<li>When I was a Racket fan during my undergraduate, I was informed and curious about that Typed Racket is a well-designed gradual language and there’s a soundness proof which is ensured by a contract system that interacts between Racket (untyped) and its type system.</li>
-<li>One of my colleagues keep working on designing gradual type systems, and she’s given many talks involved with gradual guarantee in our seminars, shamelessly, I never really got its idea.</li>
-<li>Sometimes I learn some formalisation techniques from Jeremy Siek’s gradual-typing-in-agda. It might be a good chance to study GTLC (Gradually Typed Lambda Calculus) seriously.</li>
+<li><p>When I was a Racket fan during my undergraduate, I was informed and curious that Typed Racket is a well-designed gradual language and there’s a soundness proof which is ensured by a contract system that interacts between Racket (untyped) and its type system.</p></li>
+<li><p>One of my colleagues keeps working on designing gradual type systems, and she’s given many talks involved with gradual guarantee in our seminars, shamelessly, I never really got its idea.</p></li>
+<li><p>Sometimes I learn some formalisation techniques from Jeremy Siek’s gradual-typing-in-agda. It might be a good chance to study GTLC (Gradually Typed Lambda Calculus) seriously.</p></li>
 </ul>
 </div>
-<div class="qblock">
-Then, why should I learn about it?
+<div class="ask">
+<p>Then, why should I learn about it?</p>
 </div>
-<div class="ablock">
-Gradual guarantee has already been widely taken as a criteria in designing gradual type systems.
+<div class="answer">
+<p>Gradual guarantee has already been widely taken as a criteria in designing gradual type systems.</p>
+</div>
+<div class="ask">
+<p>So, what does the gradual guarantee guarantee?</p>
+</div>
+<div class="answer">
+<p>Good point. It guarantees that:</p>
+<ul>
+<li></li>
+<li></li>
+<li></li>
+</ul>
+<p>I will also show explanations in a formal way (how it hits the theorem).</p>
+</div>
+<div class="answer">
+<p>Let’s just check the theorem first, it’s taken from <a href="https://drops.dagstuhl.de/opus/volltexte/2015/5031/pdf/21.pdf">Refined Criteria for Gradual Typing</a>.</p>
+</div>
+<div class="answer">
+<p>Suppose <span class="math inline"><em>e</em> ⊑ <em>e</em>′</span> and <span class="math inline"> ⊢ <em>e</em> : <em>T</em></span>.</p>
+<ul>
+<li><p><span class="math inline"> ⊢ <em>e</em>′ : <em>T</em>′</span> and <span class="math inline"><em>T</em> ⊑ <em>T</em>′</span>.</p></li>
+<li><p>If <span class="math inline"><em>e</em> ⇓ <em>v</em></span>, then <span class="math inline"><em>e</em>′ ⇓ <em>v</em>′</span> and <span class="math inline"><em>v</em> ⊑ <em>v</em>′</span>. If <span class="math inline"><em>e</em>⇑</span> then <span class="math inline"><em>e</em>′⇑</span>.</p></li>
+<li><p>If <span class="math inline"><em>e</em>′ ⇓ <em>v</em>′</span>, then <span class="math inline"><em>e</em> ⇓ <em>v</em></span> where <span class="math inline"><em>v</em> ⊑ <em>v</em>′</span>, or <span class="math inline"><em>e</em> ⇓ <em>b</em><em>l</em><em>a</em><em>m</em><em>e</em><sub><em>T</em></sub><em>l</em></span>. If <span class="math inline"><em>e</em>′⇑</span>, then <span class="math inline"><em>e</em>⇑</span> or <span class="math inline"><em>e</em> ⇓ <em>b</em><em>l</em><em>a</em><em>m</em><em>e</em><sub><em>T</em></sub><em>l</em></span>.</p></li>
+</ul>
+</div>
+<div class="ask">
+<p>What do these notations mean?</p>
+</div>
+<div class="answer">
+<ul>
+<li><p><span class="math inline"> ⊢ <em>e</em> : <em>T</em></span> and <span class="math inline"><em>e</em> ⇓ <em>v</em></span> are what we are familiar with, they mean that <span class="math inline"><em>e</em></span> is well-typed and <span class="math inline"><em>e</em></span> evaluates to <span class="math inline"><em>v</em></span>.</p></li>
+<li><p><span class="math inline"><em>T</em> ⊑ <em>T</em>′</span> means that <span class="math inline"><em>T</em></span> is more precise than <span class="math inline"><em>T</em>′</span> and <span class="math inline"><em>e</em> ⊑ <em>e</em>′</span> means that <span class="math inline"><em>e</em></span> is more precisely annotated than <span class="math inline"><em>e</em>′</span>.</p></li>
+</ul>
+</div>
+<div class="ask">
+<p>What about the theorem then?</p>
+</div>
+<div class="answer">
+<p>The first theorem is called “static gradual guarantee”, it simply tells you that making terms more dynamic doesn’t affect its well-typedness.</p>
+<p>Note here “more dynamic” means that you can replace the annotation to a less precise one, for example, changing <span class="math inline"><em>λ</em><em>x</em> : <em>I</em><em>n</em><em>t</em>. <em>x</em></span> to <span class="math inline"><em>λ</em><em>x</em> :  * . <em>x</em></span>.</p>
 </div>
     </section>
 </article>
