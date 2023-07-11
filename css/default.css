@@ -76,6 +76,25 @@ blockquote {
   font-weight: lighter;
 }
 
+.qblock {
+  background-color: whitesmoke;
+  border-radius: 20px;
+  display: inline-block;
+  margin-right: 10%;
+  margin-top: 20px;
+  padding: 2%;
+}
+
+.ablock {
+  background-color: aliceblue;
+  border-radius: 20px;
+  /* padding: 10px; */
+  display: inline-block;
+  margin-left: 10%;
+  margin-top: 20px;
+  padding: 2%;
+}
+
 .logo a {
   font-weight: normal;
   color: #000;
@@ -185,7 +204,3 @@ section code {
   font-family: mononoki;
   font-size: small;
 }
-
-/* body main ul {
-  padding: 0;
-} */
