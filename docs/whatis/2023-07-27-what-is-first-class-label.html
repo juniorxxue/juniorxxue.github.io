@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>TYPES.HK - What Is First Class Label?</title>
+        <link rel="stylesheet" href="../css/default.css" />
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <a href="../">TYPES.HK</a>
+            </div>
+            <nav>
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+            </nav>
+        </header>
+
+        <main role="main">
+            <h1>What Is First Class Label?</h1>
+            <article>
+    <section class="header">
+        Posted on July 27, 2023
+        
+    </section>
+    <section>
+        <p>Take the definition from “First-class labels for extensible rows”:</p>
+<blockquote>
+<p>In language with first class labels, Labels become first-class values that can be passed as arguments.</p>
+</blockquote>
+<p>I use Javascript to illustrate the difference between it and our familiar ones.</p>
+<pre><code>const person = {
+  name: &quot;john&quot;,
+  age: 50,
+};
+
+static_access = person.age;
+dyn_label = &quot;age&quot;;
+dynamic_access = person[dyn_label];</code></pre>
+<p>In normal record calculi, labels are part of syntax and always statically known, as <code>static_access</code>. Thus, <code>age</code> is not a first-class label.</p>
+<p>Javascript also supports a <em>computed field access</em> which allows you to give a variable which value can be assigned in runtime, then compute the result. And <code>dyn_label</code> is a first-class label.</p>
+<h2 id="why-bother">Why bother?</h2>
+<p>The behavior of dynamic semantics is straightforward,</p>
+    </section>
+</article>
+
+        </main>
+
+        <footer>
+            Site powered by Hakyll</a>
+        </footer>
+    </body>
+</html>

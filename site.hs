@@ -49,6 +49,13 @@ main = hakyllWith config $ do
             >>= loadAndApplyTemplate "templates/default.html" postCtx
             >>= relativizeUrls
 
+    match "whatis/*" $ do
+        route $ setExtension "html"
+        compile $ pandocCompiler
+            >>= loadAndApplyTemplate "templates/post.html"    postCtx
+            >>= loadAndApplyTemplate "templates/default.html" postCtx
+            >>= relativizeUrls
+
     match "notes/*" $ do
         route $ setExtension "html"
         compile $ pandocCompiler
@@ -66,8 +73,10 @@ main = hakyllWith config $ do
         route idRoute
         compile $ do
             posts <- recentFirst =<< loadAll "posts/*"
+            whatis <- recentFirst =<< loadAll "whatis/*"
             let indexCtx =
                     listField "posts" postCtx (return posts) `mappend`
+                    listField "whatis" postCtx (return whatis) `mappend`
                     constField "title" "Home"                `mappend`
                     defaultContext
 
