@@ -2,3 +2,4 @@ explain - elucidate
 strange - peculiar
 much - considerable
 make it difficult - hamper
+mean - indicate
