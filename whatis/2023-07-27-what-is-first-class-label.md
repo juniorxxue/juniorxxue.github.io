@@ -6,7 +6,7 @@ Take the definition from "First-class labels for extensible rows":
 
 >  In language with first class labels, Labels become first-class values that can be passed as arguments.
 
-I use Javascript to illustrate the difference between it and our familiar ones.
+I'll use Javascript to explain how it differs from our familiar ones.
 
 ```
 const person = {
@@ -25,4 +25,25 @@ Javascript also supports a *computed field access* which allows you to give a va
 
 ## Why bother?
 
-The behavior of dynamic semantics is straightforward, 
+While the behavior of dynamic semantics is straightforward, designing the corresponding type system is a challenge. I use *qualified type system* to demo it:
+
+In expression `person.age`, `_.age` is a operator that access constant label age, so its type can be
+
+```
+(_.age) :: ∀ r a. (r\age) => {age :: a | r} -> a
+```
+
+`_age` simply means given a record containing label `age`, return the term with the type associated with label `age`.
+
+In expression `person["age"]`, since `"age"` can be given in runtime, `_._` become a operator and its type is
+
+```
+(_[_]) ::∀ r l a. (r\l) => {l :: a | r} -> Lab l -> a
+```
+
+Though `"age"` is a string, we view it as a `Lab` type. The type of `_[_]` means given a record containing a arbitrary label `l`, and a label `l`, return the term with the type associated with label `l`.
+
+
+## Further Reading
+
+* First-class labels for extensible rows
