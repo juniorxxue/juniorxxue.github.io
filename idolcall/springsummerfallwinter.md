@@ -2,7 +2,7 @@
 title: 春夏秋冬
 ---
 
-[【SNH48】春夏秋冬（打call字幕版）](https://www.bilibili.com/video/BV13x411u7f1/?p=2&share_source=copy_web&vd_source=828efb05ba27338ac35bbe1522f3749b)
+[音頻 🎶](https://search.bilibili.com/all?keyword=BV13x411u7f1)
 
 ```
 那時那日此門中，桃花樹下初相逢。

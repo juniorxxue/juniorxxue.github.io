@@ -2,7 +2,7 @@
 title: 初夏之戀（短）
 ---
 
-[【刘欣媛】20230421 小杏 刘欣媛《初夏之恋》focus](https://www.bilibili.com/video/BV1im4y1y7CA/?share_source=copy_web&vd_source=828efb05ba27338ac35bbe1522f3749b)
+[音頻 🎶](https://search.bilibili.com/all?vt=97455380&keyword=BV1im4y1y7CA)
 
 ```
 うーおい　x４
@@ -48,7 +48,7 @@ True love true love\
 That is summer love\
 `That is summer love`
 
-`イェッタイガー！`
+`(👏) イェッタイガー！`
 
 怎麼辦我無法自拔
 
@@ -91,7 +91,7 @@ True love true love\
 That is summer love\
 `That is summer love`
 
-`イェッタイガー！`
+`(👏) イェッタイガー！`
 
 怎麼辦我無法自拔
 
