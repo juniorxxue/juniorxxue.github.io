@@ -1,5 +1,5 @@
 ---
-title: TypeFamilies
+title: "[Haskell] TypeFamilies"
 ---
 
 

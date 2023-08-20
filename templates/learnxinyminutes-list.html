@@ -1,5 +1,7 @@
-<p>
-$for(learnxinyminutes)$
-<a href="$url$">▸ $title$</a>
-$endfor$
-</p>
+<ul class="double-col">
+    $for(learnxinyminutes)$
+        <li>
+            <a href="$url$">$title$</a> - $date$
+        </li>
+    $endfor$
+</ul>
