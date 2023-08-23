@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>TYPES.HK - \x.x Is Not Polymorphic?</title>
+        <link rel="stylesheet" href="../css/default.css" />
+    </head>
+    <body>
+        <header>
+            <div class="logo">
+                <a href="../">TYPES.HK</a>
+            </div>
+            <nav>
+                <a href="../">Home</a>
+                <a href="../about.html">About</a>
+            </nav>
+        </header>
+
+        <main role="main">
+            <h1>\x.x Is Not Polymorphic?</h1>
+            <article>
+    <section class="header">
+        Posted on 2023-08-23
+        
+    </section>
+    <section>
+        <p>Recently I’ve been doing type inference work on System F with subtyping, which basically does the job of Pierce’s local type inference, but in a different flavor and mechanical formalisation in Agda.</p>
+<p>When crafting concrete examples, I wrote down the following one:</p>
+<pre><code>((\x. x) : ∀a. a -&gt; a) 1</code></pre>
+<p>This expression was however, commented on by my colleague: “<code>\x.x</code> is a monomorphic function, you can’t annotate it with a forall type”. I paused for several seconds and started drafting on my paper:</p>
+<pre><code>-------------------- Lam
+⊢ (\x. x) : a -&gt; a
+------------------------ ?
+⊢ (\x. x) : ∀a. a -&gt; a
+--------------------------------------- Ann
+⊢ ((\x. x) : ∀a. a -&gt; a) : Int -&gt; Int
+-------------------------------------- App
+⊢ ((\x. x) : ∀a. a -&gt; a) 1</code></pre>
+<p>Well, which rule we are missing here? Gen rule!</p>
+<pre><code>Γ ⊢ e : A       a ∉ free(Γ)
+---------------------------- Gen
+Γ ⊢ e : ∀a. A</code></pre>
+<p>This rule usually appears in HM-like type systems, while not in our settings. Without the Gen rule, we only can write polymorphic functions using big lambda:</p>
+<pre><code>(/\a. (\x. x : a -&gt; a)) 1</code></pre>
+<p>To conclude, without adopting techniques like generalisation, <code>\x. x</code> is not a polymorphic function.</p>
+    </section>
+</article>
+
+        </main>
+
+        <footer>
+            Site powered by Hakyll</a>
+        </footer>
+    </body>
+</html>
