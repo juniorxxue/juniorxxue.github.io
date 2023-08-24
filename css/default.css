@@ -203,7 +203,7 @@ pre {
 }
 
 section code {
-  font-family: mononoki;
+  font-family: mononoki, monospace;
   font-size: small;
 }
 
