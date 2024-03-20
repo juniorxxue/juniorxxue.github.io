@@ -16,11 +16,7 @@ main = hakyllWith config $ do
         route   idRoute
         compile copyFileCompiler
 
-    match "slides/*" $ do
-        route   idRoute
-        compile copyFileCompiler
-
-    match "slides/fp2023/*" $ do
+    match "slides/**" $ do
         route   idRoute
         compile copyFileCompiler
 
