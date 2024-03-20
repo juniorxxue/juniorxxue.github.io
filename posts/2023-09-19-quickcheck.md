@@ -1,5 +1,5 @@
 ---
-title: "[Haskell] QuickCheck"
+title: "Snippets of QuickCheck"
 ---
 
 QuickCheck is a Haskell's package used to test properties of programs. The snippets are based on Koen Claessen and John Hughes's *"QuickCheck: A Lightweight Tool for Random Testing of Haskell Programs"*.
@@ -19,7 +19,7 @@ import Test.QuickCheck
 -- The programmer must specify a fixed type at which the law is to be tested
 -- in some cases, we can use parametricity to argue that a property holds polymorphically
 prop_RevUnit :: Int -> Bool
-prop_RevUnit x = 
+prop_RevUnit x =
     reverse [x] == [x]
 
 prop_RevApp :: [Int] -> [Int] -> Bool
@@ -62,7 +62,7 @@ prop_InsertCollect x xs =
         collect (length xs) $
             ordered (insert x xs)
 
--- to guide the generator to generate less trivial cases            
+-- to guide the generator to generate less trivial cases
 prop_InsertOrdered :: Int -> Property
 prop_InsertOrdered x =
     forAll orderedList $ \xs ->

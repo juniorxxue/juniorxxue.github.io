@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>TYPES.HK - [Haskell] QuickCheck</title>
+        <title>TYPES.HK - Snippets of QuickCheck</title>
         <link rel="stylesheet" href="../css/default.css" />
     </head>
     <body>
@@ -19,7 +19,7 @@
         </header>
 
         <main role="main">
-            <h1>[Haskell] QuickCheck</h1>
+            <h1>Snippets of QuickCheck</h1>
             <article>
     <section class="header">
         Posted on 2023-09-19
@@ -41,7 +41,7 @@
 <span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">-- The programmer must specify a fixed type at which the law is to be tested</span></span>
 <span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">-- in some cases, we can use parametricity to argue that a property holds polymorphically</span></span>
 <span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="ot">prop_RevUnit ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Bool</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>prop_RevUnit x <span class="ot">=</span> </span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>prop_RevUnit x <span class="ot">=</span></span>
 <span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">reverse</span> [x] <span class="op">==</span> [x]</span>
 <span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="ot">prop_RevApp ::</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> [<span class="dt">Int</span>] <span class="ot">-&gt;</span> <span class="dt">Bool</span></span>
@@ -84,7 +84,7 @@
 <span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>        collect (<span class="fu">length</span> xs) <span class="op">$</span></span>
 <span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>            ordered (insert x xs)</span>
 <span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="co">-- to guide the generator to generate less trivial cases            </span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a><span class="co">-- to guide the generator to generate less trivial cases</span></span>
 <span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a><span class="ot">prop_InsertOrdered ::</span> <span class="dt">Int</span> <span class="ot">-&gt;</span> <span class="dt">Property</span></span>
 <span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>prop_InsertOrdered x <span class="ot">=</span></span>
 <span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a>    forAll orderedList <span class="op">$</span> \xs <span class="ot">-&gt;</span></span>

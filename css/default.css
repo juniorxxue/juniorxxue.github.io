@@ -76,25 +76,8 @@ blockquote {
   font-weight: lighter;
 }
 
-.ask {
-  background-color: whitesmoke;
-  border-radius: 20px;
-  display: inline-block;
-  margin-right: 10%;
-  margin-top: 20px;
-  padding-left: 2%;
-  padding-right: 2%;
-}
-
-.answer {
-  background-color: aliceblue;
-  border-radius: 20px;
-  /* padding: 10px; */
-  display: inline-block;
-  margin-left: 10%;
-  margin-top: 20px;
-  padding-left: 2%;
-  padding-right: 2%;
+li + li {
+  margin: 5px 0;
 }
 
 .logo a {

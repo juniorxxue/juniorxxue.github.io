@@ -32,7 +32,7 @@ main = hakyllWith config $ do
         route   idRoute
         compile copyFileCompiler
 
-    match "proof/coqdoc/*" $ do
+    match "proof/appinter/*" $ do
         route   idRoute
         compile copyFileCompiler
 
@@ -53,7 +53,7 @@ main = hakyllWith config $ do
             >>= loadAndApplyTemplate "templates/default.html" postCtx
             >>= relativizeUrls
 
-    match "whatis/*" $ do
+    match "notes/*" $ do
         route $ setExtension "html"
         compile $ pandocCompiler
             >>= loadAndApplyTemplate "templates/post.html"    postCtx
@@ -67,30 +67,17 @@ main = hakyllWith config $ do
             >>= loadAndApplyTemplate "templates/default.html" postCtx
             >>= relativizeUrls
 
-    match "notes/*" $ do
-        route $ setExtension "html"
-        compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/post.html"    postCtx
-            >>= loadAndApplyTemplate "templates/default.html" postCtx
-            >>= relativizeUrls
-
-    match "idolcall/*" $ do
-        route $ setExtension "html"
-        compile $ pandocCompiler
-            >>= loadAndApplyTemplate "templates/idolcall.html"    postCtx
-            >>= relativizeUrls
-
     match "index.html" $ do
         route idRoute
         compile $ do
-            posts <- recentFirst =<< loadAll "posts/*"
-            whatis <- recentFirst =<< loadAll "whatis/*"
+            posts            <- recentFirst =<< loadAll "posts/*"
+            notes            <- recentFirst =<< loadAll "notes/*"
             learnxinyminutes <- recentFirst =<< loadAll "learnxinyminutes/*"
             let indexCtx =
-                    listField "posts" postCtx (return posts) `mappend`
-                    listField "whatis" postCtx (return whatis) `mappend`
+                    listField "posts"            postCtx (return posts)            `mappend`
+                    listField "notes"            postCtx (return notes)            `mappend`
                     listField "learnxinyminutes" postCtx (return learnxinyminutes) `mappend`
-                    constField "title" "Home"                `mappend`
+                    constField "title" "Home"                                      `mappend`
                     defaultContext
 
             getResourceBody
@@ -106,4 +93,3 @@ postCtx :: Context String
 postCtx =
     dateField "date" "%Y-%m-%d" `mappend`
     defaultContext
-
