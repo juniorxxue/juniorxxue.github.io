@@ -12,7 +12,7 @@ config = defaultConfiguration
 
 main :: IO ()
 main = hakyllWith config $ do
-    match "mononoki/*" $ do
+    match "fonts/**" $ do
         route   idRoute
         compile copyFileCompiler
 

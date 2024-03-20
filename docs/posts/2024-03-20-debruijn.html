@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>TYPES.HK - De Bruijn, Weakening and Strengthening</title>
+        <title>TYPES.HK - De Bruijn Indices, in TAPL and PLFA style</title>
         <link rel="stylesheet" href="../css/default.css" />
     </head>
     <body>
@@ -19,15 +19,74 @@
         </header>
 
         <main role="main">
-            <h1>De Bruijn, Weakening and Strengthening</h1>
+            <h1>De Bruijn Indices, in TAPL and PLFA style</h1>
             <article>
     <section class="header">
         Posted on 2024-03-20
         
     </section>
     <section>
-        <iframe src="../posts/html/STLC.html">
-</iframe>
+        <p>In this article, we demostrate two ways in STLC using Agda with well-scoped syntax.
+The reason of choosing Agda is author’s familiarity; the reason of choosing
+well-scoped syntax is that it is less error-prone to write code without losing scalability. One more virtue perhaps is the types of many operations are self-explanatory.</p>
+<p>You can use another proof assistant of course, and you can use plain syntax by just erasing the indices in the datatype.</p>
+<h2 id="commons">Commons</h2>
+<p>Types are two instances: Int and Function type.</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode agda"><code class="sourceCode agda"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> Type <span class="ot">:</span> <span class="dt">Set</span> <span class="kw">where</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  Int    <span class="ot">:</span> Type</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="ot">_</span>`→<span class="ot">_</span>   <span class="ot">:</span> <span class="ot">(</span>A <span class="ot">:</span> Type<span class="ot">)</span> <span class="ot">→</span> <span class="ot">(</span>B <span class="ot">:</span> Type<span class="ot">)</span> <span class="ot">→</span> Type</span></code></pre></div>
+<p>Terms are indexed by a number, which speficies the number of free variables can be used in the term. There’re four instances:</p>
+<ul>
+<li>literal numbers: it is a term with artibirary number of free variables;</li>
+<li>variables: the number can only be less than the index, we use <code>Fin n</code> to do this;</li>
+<li>lambdas: the body has one more free variable than the expression since one variable is introduced by the binder;</li>
+<li>applications: both subterms have the same number of free variables.</li>
+</ul>
+<div class="sourceCode" id="cb2"><pre class="sourceCode agda"><code class="sourceCode agda"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> Term <span class="ot">:</span> ℕ <span class="ot">→</span> <span class="dt">Set</span> <span class="kw">where</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  lit   <span class="ot">:</span> <span class="ot">(</span>i <span class="ot">:</span> ℕ<span class="ot">)</span> <span class="ot">→</span> Term n</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  `<span class="ot">_</span>    <span class="ot">:</span> <span class="ot">(</span>x <span class="ot">:</span> Fin n<span class="ot">)</span> <span class="ot">→</span> Term n</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  ƛ<span class="ot">_</span>⇒<span class="ot">_</span>  <span class="ot">:</span> <span class="ot">(</span>A <span class="ot">:</span> Type<span class="ot">)</span> <span class="ot">→</span> <span class="ot">(</span>e <span class="ot">:</span> Term <span class="ot">(</span><span class="dv">1</span> + n<span class="ot">))</span> <span class="ot">→</span> Term n</span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="ot">_</span>·<span class="ot">_</span>   <span class="ot">:</span> <span class="ot">(</span>e₁ <span class="ot">:</span> Term n<span class="ot">)</span> <span class="ot">→</span> <span class="ot">(</span>e₂ <span class="ot">:</span> Term n<span class="ot">)</span> <span class="ot">→</span> Term n</span></code></pre></div>
+<p>We model contexts by a datatype, use <code>Vector</code> is also a good choice.
+The context is also indexed by a number with the same meaning as the term.</p>
+<ul>
+<li>A empty context has no free variables;</li>
+<li>A context followed by a type has one more free variable;</li>
+</ul>
+<p>The contexts are accessed by a number, which defines on simutanious induction of the context and the number until we reach the <code>#0</code>.
+Note that the type <code>Context n → Fin n → Type</code> ensures that we can always find the type of a variable in a context.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode agda"><code class="sourceCode agda"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">infix</span> <span class="dv">6</span> <span class="ot">_</span>,<span class="ot">_</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> Context <span class="ot">:</span> ℕ <span class="ot">→</span> <span class="dt">Set</span> <span class="kw">where</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  ∅     <span class="ot">:</span> Context <span class="dv">0</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>  <span class="ot">_</span>,<span class="ot">_</span>   <span class="ot">:</span> Context n <span class="ot">→</span> <span class="ot">(</span>A <span class="ot">:</span> Type<span class="ot">)</span> <span class="ot">→</span> Context <span class="ot">(</span><span class="dv">1</span> + n<span class="ot">)</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="kw">infix</span> <span class="dv">3</span> <span class="ot">_</span>∋<span class="ot">_</span>⦂<span class="ot">_</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="ot">_</span>∋<span class="ot">_</span>⦂<span class="ot">_</span> <span class="ot">:</span> Context n <span class="ot">→</span> Fin n <span class="ot">→</span> Type <span class="ot">→</span> <span class="dt">Set</span> <span class="kw">where</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>  Z <span class="ot">:</span> <span class="ot">∀</span> <span class="ot">{</span>Γ <span class="ot">:</span> Context n<span class="ot">}</span> <span class="ot">{</span>A<span class="ot">}</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="ot">→</span> Γ , A ∋ #0 ⦂ A</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>  S <span class="ot">:</span> <span class="ot">∀</span> <span class="ot">{</span>Γ <span class="ot">:</span> Context n<span class="ot">}</span> <span class="ot">{</span>k A B<span class="ot">}</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="ot">→</span> Γ ∋ k ⦂ A</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="ot">→</span> Γ , B ∋ #S k ⦂ A</span></code></pre></div>
+<p>Right now we reach the point that could differ: how to define the shift/subst? And how to state and prove the weakening and substituition lemma.</p>
+<h2 id="tapl-style-of-de-bruijn-indices">TAPL style of De Bruijn Indices</h2>
+<h2 id="plfa-style-of-de-bruijn-indices">PLFA style of De Bruijn Indices</h2>
+<h2 id="references">References</h2>
+<p>We list the choices of some formalisation take:</p>
+<ul>
+<li><a href="https://github.com/coq-community/dblib">coq-community/dblib</a> defines lift (shift) in TAPL style.</li>
+<li><a href="https://github.com/coq-community/autosubst">coq-community/autosubst</a> choose the PLFA style.</li>
+<li><a href="https://www.seas.upenn.edu/~plclub/poplmark/">Vouillon’s solution</a> is TAPL style.</li>
+</ul>
+<h2 id="my-story-of-binding-feel-free-to-skip">My story of binding (Feel free to skip)</h2>
+<p>At the first meeting, my advisor dropped me a paper around forty pages: <a href="https://chargueraud.org/research/2009/ln/main.pdf">Locally nameless</a>, along with serveral tutorials of formalisation of lambda calculus in Coq. In that day, I got to know that our group mostly deals with binders using this lib/technique. If someone want a newer version, there is a alternative library maintained by plclub.</p>
+<p>I was happy at that moment, actually in my first two years of research, choose
+which binding techniques in the formalisation does not trouble me: just use one widely used by our group.</p>
+<p>The main reasons I decided to take a closer look at de Bruijn are two:</p>
+<ul>
+<li>In recent POPLmark panel discussion, the survey from BCP said “more and more people stick to old good de Bruijn”;</li>
+<li>I switched to Agda in my second project, where de bruijn is mostly used.</li>
+</ul>
     </section>
 </article>
 
