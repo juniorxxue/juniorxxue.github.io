@@ -20,14 +20,6 @@ main = hakyllWith config $ do
         route   idRoute
         compile copyFileCompiler
 
-    match "teaching/*" $ do
-        route   idRoute
-        compile copyFileCompiler
-
-    match "imgs/*" $ do
-        route   idRoute
-        compile copyFileCompiler
-
     match "paper/*" $ do
         route   idRoute
         compile copyFileCompiler
@@ -86,7 +78,6 @@ main = hakyllWith config $ do
                 >>= relativizeUrls
 
     match "templates/*" $ compile templateCompiler
-
 
 --------------------------------------------------------------------------------
 postCtx :: Context String
