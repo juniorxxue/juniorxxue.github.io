@@ -70,6 +70,24 @@ Note that the type <code>Context n → Fin n → Type</code> ensures that we can
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>    <span class="ot">→</span> Γ , B ∋ #S k ⦂ A</span></code></pre></div>
 <p>Right now we reach the point that could differ: how to define the shift/subst? And how to state and prove the weakening and substituition lemma.</p>
 <h2 id="tapl-style-of-de-bruijn-indices">TAPL style of De Bruijn Indices</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode agda"><code class="sourceCode agda"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>↑tm <span class="ot">:</span> Fin <span class="ot">(</span>suc n<span class="ot">)</span> <span class="ot">→</span> Term n <span class="ot">→</span> Term <span class="ot">(</span>suc n<span class="ot">)</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>↑tm k <span class="ot">(</span>lit i<span class="ot">)</span>    <span class="ot">=</span> lit i</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>↑tm k <span class="ot">(</span>` x<span class="ot">)</span>      <span class="ot">=</span> ` <span class="ot">(</span>punchIn k x<span class="ot">)</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>↑tm k <span class="ot">(</span>ƛ A ⇒ e<span class="ot">)</span>  <span class="ot">=</span> ƛ A ⇒ <span class="ot">(</span>↑tm <span class="ot">(</span>#S k<span class="ot">)</span> e<span class="ot">)</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>↑tm k <span class="ot">(</span>e₁ · e₂<span class="ot">)</span>  <span class="ot">=</span> ↑tm k e₁ · ↑tm k e₂</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>↑tm0 <span class="ot">:</span> Term n <span class="ot">→</span> Term <span class="ot">(</span>suc n<span class="ot">)</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>↑tm0 <span class="ot">=</span> ↑tm #0</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode agda"><code class="sourceCode agda"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="ot">_</span>[<span class="ot">_</span>:=<span class="ot">_</span>] <span class="ot">:</span> Term <span class="ot">(</span>suc n<span class="ot">)</span> <span class="ot">→</span> Term n <span class="ot">→</span> Fin <span class="ot">(</span>suc n<span class="ot">)</span> <span class="ot">→</span> Term n</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>lit i [ v := k ] <span class="ot">=</span> lit i</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="ot">(</span>` x<span class="ot">)</span> [ v := k ] <span class="kw">with</span> k #≟ x</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="ot">...</span> <span class="ot">|</span> yes refl <span class="ot">=</span> v</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="ot">...</span> <span class="ot">|</span> no ¬p    <span class="ot">=</span> ` <span class="ot">(</span>punchOut <span class="ot">{</span>i <span class="ot">=</span> k<span class="ot">}</span> <span class="ot">{</span>j <span class="ot">=</span> x<span class="ot">}</span> ¬p<span class="ot">)</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="ot">(</span>ƛ A ⇒ e<span class="ot">)</span> [ v := k ] <span class="ot">=</span> ƛ A ⇒ <span class="ot">(</span>e [ ↑tm0 v := #S k ]<span class="ot">)</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="ot">(</span>e₁ · e₂<span class="ot">)</span> [ v := k ] <span class="ot">=</span> e₁ [ v := k ] · e₂ [ v := k ]</span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="ot">_</span>[<span class="ot">_</span>] <span class="ot">:</span> Term <span class="ot">(</span>suc n<span class="ot">)</span> <span class="ot">→</span> Term n <span class="ot">→</span> Term n</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>e [ v ] <span class="ot">=</span> <span class="ot">_</span>[<span class="ot">_</span>:=<span class="ot">_</span>] e v #0</span></code></pre></div>
 <h2 id="plfa-style-of-de-bruijn-indices">PLFA style of De Bruijn Indices</h2>
 <h2 id="references">References</h2>
 <p>We list the choices of some formalisation take:</p>
