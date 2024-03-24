@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta http-equiv="x-ua-compatible" content="ie=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>TYPES.HK - De Bruijn Indices, in TAPL or PLFA style</title>
+        <title>TYPES.HK - De Bruijn Indices, in TAPL or PLFA style?</title>
         <link rel="stylesheet" href="../css/default.css" />
     </head>
     <body>
@@ -19,16 +19,16 @@
         </header>
 
         <main role="main">
-            <h1>De Bruijn Indices, in TAPL or PLFA style</h1>
+            <h1>De Bruijn Indices, in TAPL or PLFA style?</h1>
             <article>
     <section class="header">
         Posted on 2024-03-20
         
     </section>
     <section>
-        <p>Many research about de Bruijn indices focus on the definition of subst function, and how it commutes with shift/rename operation, mostly in the context of untyped lambda calculus.</p>
-<p>In this article, we look at it from a different perspective: how to define and generlise the weakening lemma, and how the generalistion affect the design choices about shifting and contexts.</p>
-<p>We demostrate two ways in STLC using Agda with well-scoped syntax.
+        <p>Much research about de Bruijn indices focus on the definition of subst function, and how it commutes with shift/rename operation, mostly in the context of untyped lambda calculus.</p>
+<p>In this article, we look at it from a different perspective: how to define and generalise the weakening lemma, and how the generalistion affect the design choices about shifting and contexts.</p>
+<p>We demonstrate two ways in STLC using Agda with well-scoped syntax.
 The reason of choosing Agda is author’s familiarity; the reason of choosing
 well-scoped syntax is that it is less error-prone to write code without losing scalability. One more virtue perhaps is the types of many operations are self-explanatory.</p>
 <h2 id="common-syntax">Common Syntax</h2>
@@ -37,9 +37,9 @@ well-scoped syntax is that it is less error-prone to write code without losing s
 <div class="sourceCode" id="cb1"><pre class="sourceCode agda"><code class="sourceCode agda"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> Type <span class="ot">:</span> <span class="dt">Set</span> <span class="kw">where</span></span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  Int    <span class="ot">:</span> Type</span>
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="ot">_</span>`→<span class="ot">_</span>   <span class="ot">:</span> <span class="ot">(</span>A <span class="ot">:</span> Type<span class="ot">)</span> <span class="ot">→</span> <span class="ot">(</span>B <span class="ot">:</span> Type<span class="ot">)</span> <span class="ot">→</span> Type</span></code></pre></div>
-<p>Terms are indexed by a number, which speficies the number of free variables can be used in the term. There’re four instances:</p>
+<p>Terms are indexed by a number, which specifies the number of free variables can be used in the term. There’re four instances:</p>
 <ul>
-<li>literal numbers: it is a term with artibirary number of free variables;</li>
+<li>literal numbers: it is a term with arbitrary number of free variables;</li>
 <li>variables: the number can only be less than the index, we use <code>Fin n</code> to do this;</li>
 <li>lambdas: the body has one more free variable than the expression since one variable is introduced by the binder;</li>
 <li>applications: both subterms have the same number of free variables.</li>
@@ -110,7 +110,7 @@ Note that the type <code>Context n → Fin n → Type</code> ensures that we can
 <span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>    <span class="ot">→</span> Γ ⊢ e₂ ⦂ A</span>
 <span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>    <span class="ot">→</span> Γ ⊢ e₁ · e₂ ⦂ B</span></code></pre></div>
 <h2 id="weakening">Weakening</h2>
-<p>Right now we reach the decsion-making point: how to define the general version of the weakening lemma, and how it affects the design of the shift operation.</p>
+<p>Right now we reach the decision-making point: how to define the general version of the weakening lemma, and how it affects the design of the shift operation.</p>
 <p>The most concrete definition is:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode agda"><code class="sourceCode agda"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>weaken0 <span class="ot">:</span> <span class="ot">∀</span> <span class="ot">{</span>Γ <span class="ot">:</span> Context n<span class="ot">}</span> <span class="ot">{</span>e A B<span class="ot">}</span></span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="ot">→</span> Γ ⊢ e ⦂ A</span>
@@ -118,8 +118,8 @@ Note that the type <code>Context n → Fin n → Type</code> ensures that we can
 <p>If a term <code>e</code> has the type <code>A</code> in the context <code>Γ</code>, then the shifted term <code>↑0 e</code> has the same type <code>A</code> in the extended context <code>Γ, B</code>. Specifically, <code>↑tm0 e</code> means we shift <code>e</code> by one, in the lowest level, which means every free variables will be increased by one. This is intuitive: we extend the context, free variables pointing to the context becomes one more “mile” away from its original distance.</p>
 <p>However this is too specific to prove, we usually need a general version of it, which differs in two ways:</p>
 <ul>
-<li><p>generlise the level we increase the indices: we could allow term to be shifted by level <code>k</code>; which means free variables only equal/bigger than <code>k</code> will be increased by one. This design corresponds to the idea we insert the type <code>B</code> at the middle of the context: at the <code>k</code> position, thus only types after this position will be affected.</p></li>
-<li><p>generlise the operation we manipulate the indices: we could define a operation <code>ρ : ℕ → ℕ</code> to change the indices, but still at the level 0. This corresponds “how many types” we insert into the end of the contexts (an almost correct explanation).</p></li>
+<li><p>generalise the level we increase the indices: we could allow term to be shifted by level <code>k</code>; which means free variables only equal/bigger than <code>k</code> will be increased by one. This design corresponds to the idea we insert the type <code>B</code> at the middle of the context: at the <code>k</code> position, thus only types after this position will be affected.</p></li>
+<li><p>generalise the operation we manipulate the indices: we could define a operation <code>ρ : ℕ → ℕ</code> to change the indices, but still at the level 0. This corresponds “how many types” we insert into the end of the contexts (an almost correct explanation).</p></li>
 </ul>
 <p>Those two design choices will affect the definition of the shift operations. I call them TAPL style and PLFA style to distinguish them.</p>
 <h2 id="tapl-style-of-shift-and-weakening-lemma">TAPL style of Shift and Weakening Lemma</h2>
@@ -144,7 +144,7 @@ is <code>f(i,j) = if j≥i then j+1 else j</code>.</p>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>  <span class="ot">→</span> Γ ⊢ e ⦂ A</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="ot">→</span> [ Γ &lt;&lt; B ] k ⊢ ↑tm k e ⦂ A</span></code></pre></div>
 <h2 id="plfa-style-of-shift-and-weakening-lemma">PLFA style of Shift and Weakening Lemma</h2>
-<p>PLFA style, on the other hand, generlises the operation we manipulate the indices, we call this operation <code>Renaming</code>. And <code>rename</code> function is the generlised form of shifting, which applies the <code>Renaming</code> recursively to the term.</p>
+<p>PLFA style, on the other hand, generalises the operation we manipulate the indices, we call this operation <code>Renaming</code>. And <code>rename</code> function is the generalised form of shifting, which applies the <code>Renaming</code> recursively to the term.</p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode agda"><code class="sourceCode agda"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>Renaming <span class="ot">:</span> ℕ <span class="ot">→</span> ℕ <span class="ot">→</span> <span class="dt">Set</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>Renaming n m <span class="ot">=</span> Fin n <span class="ot">→</span> Fin m</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -153,26 +153,45 @@ is <code>f(i,j) = if j≥i then j+1 else j</code>.</p>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>rename ρ <span class="ot">(</span>` x<span class="ot">)</span> <span class="ot">=</span> ` <span class="ot">(</span>ρ x<span class="ot">)</span></span>
 <span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>rename ρ <span class="ot">(</span>ƛ A ⇒ e<span class="ot">)</span> <span class="ot">=</span> ƛ A ⇒ rename <span class="ot">(</span>ext ρ<span class="ot">)</span> e</span>
 <span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>rename ρ <span class="ot">(</span>e₁ · e₂<span class="ot">)</span> <span class="ot">=</span> rename ρ e₁ · rename ρ e₂</span></code></pre></div>
-<p>We could get our <code>↑tm0</code> by instantiating <code>ρ</code>. The signature is very useful here: we rename/rebase a index from <code>n</code> level to <code>n+1</code> level.</p>
+<p>We could get our <code>↑tm0</code> by instantiating <code>ρ</code>. The signature is very useful here: we shift a term from <code>n</code> level to <code>1 + n</code> level.</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode agda"><code class="sourceCode agda"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>ρ-incr <span class="ot">:</span> Renaming n <span class="ot">(</span><span class="dv">1</span> + n<span class="ot">)</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>ρ-incr x <span class="ot">=</span> #S x</span></code></pre></div>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>ρ-incr x <span class="ot">=</span> #S x</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="ot">_</span>↑ <span class="ot">:</span> Term n <span class="ot">→</span> Term <span class="ot">(</span><span class="dv">1</span> + n<span class="ot">)</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="ot">_</span>↑ <span class="ot">=</span> rename ρ-incr</span></code></pre></div>
 <p>However, the trouble we then encounter is hard to find the general version of weakening lemma, in the datatype definition of context. The intuition should be a context following a sequence of types reflecting the <code>ρ</code> operation.</p>
-<p>The easitest approach, which I learnt from <code>coq-community/autosubst</code>, is to define contexts as functions, then the new context is just a composition of the old context and <code>ρ</code>. The details can be found here: <a href="https://www.ps.uni-saarland.de/autosubst/doc/Plain.Demo.html#ty_ren">ty_ren</a>.</p>
+<p>The easiest approach, which I learnt from <code>coq-community/autosubst</code>, is to define contexts as functions, then the new context is just a composition of the old context and <code>ρ</code>. The details can be found here: <a href="https://www.ps.uni-saarland.de/autosubst/doc/Plain.Demo.html#ty_ren">ty_ren</a>.</p>
 <h2 id="conclusion">Conclusion</h2>
-<p>I believe that two styles just generlise the shift function in two diamensions. No one is better than the other, but for different conditions, we need to make a choice. For example, I often need to use weakening/strenghening lemma and need to directly manipulate the context, then TAPL style is more suitable for me. However, if I need to frequently commute subst/rename operations, then PLFA style is more suitable for me.</p>
+<p>I believe that two styles just generalise the shift function in two diamensions. No one is better than the other, but for different conditions, we need to make a choice. For example, I often need to use weakening/strenghening lemma and need to directly manipulate the context, then TAPL style is more suitable for me. However, if I need to frequently commute subst/rename operations, then PLFA style is more suitable for me.</p>
 <p>Note: In PLFA book, the weakening lemma can be defined directly on the datatype definition, but I belive it benifits from the intrinsic approach, which does not scale to plain or well-scoped approach.</p>
 <h2 id="appendix-subtitution">Appendix: Subtitution</h2>
 <p>The substitution operatoins of two styles are put here for reference.</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode agda"><code class="sourceCode agda"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="ot">_</span>[<span class="ot">_</span>:=<span class="ot">_</span>] <span class="ot">:</span> Term <span class="ot">(</span>suc n<span class="ot">)</span> <span class="ot">→</span> Term n <span class="ot">→</span> Fin <span class="ot">(</span>suc n<span class="ot">)</span> <span class="ot">→</span> Term n</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>lit i [ v := k ] <span class="ot">=</span> lit i</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="ot">(</span>` x<span class="ot">)</span> [ v := k ] <span class="kw">with</span> k #≟ x</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="ot">...</span> <span class="ot">|</span> yes refl <span class="ot">=</span> v</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="ot">...</span> <span class="ot">|</span> no ¬p    <span class="ot">=</span> ` <span class="ot">(</span>punchOut <span class="ot">{</span>i <span class="ot">=</span> k<span class="ot">}</span> <span class="ot">{</span>j <span class="ot">=</span> x<span class="ot">}</span> ¬p<span class="ot">)</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="ot">(</span>ƛ A ⇒ e<span class="ot">)</span> [ v := k ] <span class="ot">=</span> ƛ A ⇒ <span class="ot">(</span>e [ ↑0 v := #S k ]<span class="ot">)</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="ot">(</span>e₁ · e₂<span class="ot">)</span> [ v := k ] <span class="ot">=</span> e₁ [ v := k ] · e₂ [ v := k ]</span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a><span class="ot">_</span>[<span class="ot">_</span>] <span class="ot">:</span> Term <span class="ot">(</span>suc n<span class="ot">)</span> <span class="ot">→</span> Term n <span class="ot">→</span> Term n</span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>e [ v ] <span class="ot">=</span> <span class="ot">_</span>[<span class="ot">_</span>:=<span class="ot">_</span>] e v #0</span></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode agda"><code class="sourceCode agda"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">-- TAPL style</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="ot">_</span>[<span class="ot">_</span>:=<span class="ot">_</span>] <span class="ot">:</span> Term <span class="ot">(</span>suc n<span class="ot">)</span> <span class="ot">→</span> Term n <span class="ot">→</span> Fin <span class="ot">(</span>suc n<span class="ot">)</span> <span class="ot">→</span> Term n</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>lit i [ v := k ] <span class="ot">=</span> lit i</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="ot">(</span>` x<span class="ot">)</span> [ v := k ] <span class="kw">with</span> k #≟ x</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="ot">...</span> <span class="ot">|</span> yes refl <span class="ot">=</span> v</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="ot">...</span> <span class="ot">|</span> no ¬p    <span class="ot">=</span> ` <span class="ot">(</span>punchOut <span class="ot">{</span>i <span class="ot">=</span> k<span class="ot">}</span> <span class="ot">{</span>j <span class="ot">=</span> x<span class="ot">}</span> ¬p<span class="ot">)</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="ot">(</span>ƛ A ⇒ e<span class="ot">)</span> [ v := k ] <span class="ot">=</span> ƛ A ⇒ <span class="ot">(</span>e [ ↑0 v := #S k ]<span class="ot">)</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a><span class="ot">(</span>e₁ · e₂<span class="ot">)</span> [ v := k ] <span class="ot">=</span> e₁ [ v := k ] · e₂ [ v := k ]</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a><span class="ot">_</span>[<span class="ot">_</span>] <span class="ot">:</span> Term <span class="ot">(</span>suc n<span class="ot">)</span> <span class="ot">→</span> Term n <span class="ot">→</span> Term n</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>e [ v ] <span class="ot">=</span> <span class="ot">_</span>[<span class="ot">_</span>:=<span class="ot">_</span>] e v #0</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co">-- PLFA style</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>exts <span class="ot">:</span> Substitution n m <span class="ot">→</span> Substitution <span class="ot">(</span><span class="dv">1</span> + n<span class="ot">)</span> <span class="ot">(</span><span class="dv">1</span> + m<span class="ot">)</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>exts σ #0 <span class="ot">=</span> ` #0</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>exts σ <span class="ot">(</span>#S x<span class="ot">)</span> <span class="ot">=</span> rename ρ-incr <span class="ot">(</span>σ x<span class="ot">)</span></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>subst <span class="ot">:</span> Substitution n m <span class="ot">→</span> Term n <span class="ot">→</span> Term m</span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>subst σ <span class="ot">(</span>lit i<span class="ot">)</span> <span class="ot">=</span> lit i</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>subst σ <span class="ot">(</span>` x<span class="ot">)</span> <span class="ot">=</span> σ x</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>subst σ <span class="ot">(</span>ƛ A ⇒ e<span class="ot">)</span> <span class="ot">=</span> ƛ A ⇒ subst <span class="ot">(</span>exts σ<span class="ot">)</span> e</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>subst σ <span class="ot">(</span>e₁ · e₂<span class="ot">)</span> <span class="ot">=</span> subst σ e₁ · subst σ e₂</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>subst-zero <span class="ot">:</span> Term n <span class="ot">→</span> Substitution <span class="ot">(</span><span class="dv">1</span> + n<span class="ot">)</span> n</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>subst-zero e #0 <span class="ot">=</span> e</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>subst-zero e <span class="ot">(</span>#S x<span class="ot">)</span> <span class="ot">=</span> ` x</span></code></pre></div>
 <h2 id="references-and-further-reading">References and Further Reading</h2>
 <p>We list the choices of some formalisation take:</p>
 <ul>
