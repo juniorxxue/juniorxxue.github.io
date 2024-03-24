@@ -27,10 +27,8 @@
     </section>
     <section>
         <p>Much research about de Bruijn indices focus on the definition of subst function, and how it commutes with shift/rename operation, mostly in the context of untyped lambda calculus.</p>
-<p>In this article, we look at it from a different perspective: how to define and generalise the weakening lemma, and how the generalistion affect the design choices about shifting and contexts.</p>
-<p>We demonstrate two ways in STLC using Agda with well-scoped syntax.
-The reason of choosing Agda is author’s familiarity; the reason of choosing
-well-scoped syntax is that it is less error-prone to write code without losing scalability. One more virtue perhaps is the types of many operations are self-explanatory.</p>
+<p>In this article, we look at it from a different perspective: how to define and generalise the weakening lemma, and how the generalistion affects the design choices about shifting and contexts.</p>
+<p>We demonstrate two different approaches in STLC using Agda with well-scoped syntax. The reason of choosing Agda is author’s familiarity; the reason of choosing well-scoped syntax is that it is less error-prone to write code without losing scalability. One more virtue perhaps is the types of many operations are self-explanatory.</p>
 <h2 id="common-syntax">Common Syntax</h2>
 <p>We first introduce the syntax that doesn’t differ in the two ways.</p>
 <p>Types are two instances: Int and Function type.</p>
