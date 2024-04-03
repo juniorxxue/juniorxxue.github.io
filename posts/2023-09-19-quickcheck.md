@@ -1,5 +1,5 @@
 ---
-title: "Snippets of QuickCheck"
+title: "Snippets of QuickCheck In Haskell"
 ---
 
 QuickCheck is a Haskell's package used to test properties of programs. The snippets are based on Koen Claessen and John Hughes's *"QuickCheck: A Lightweight Tool for Random Testing of Haskell Programs"*.

@@ -44,6 +44,18 @@ main = hakyllWith config $ do
         >>= loadAndApplyTemplate "templates/default.html" defaultContext
         >>= relativizeUrls
 
+    match "haskell/toc.md" $ do
+        route $ setExtension "html"
+        compile $ pandocCompiler
+          >>= loadAndApplyTemplate "templates/default.html" defaultContext
+          >>= relativizeUrls
+
+    match "haskell/chapters/*" $ do
+        route $ setExtension "html"
+        compile $ pandocCompiler
+          >>= loadAndApplyTemplate "templates/haskell.html" defaultContext
+          >>= loadAndApplyTemplate "templates/default.html" defaultContext
+          >>= relativizeUrls
 
     match "posts/*" $ do
         route $ setExtension "html"
@@ -56,12 +68,8 @@ main = hakyllWith config $ do
         route idRoute
         compile $ do
             posts            <- recentFirst =<< loadAll "posts/*"
-            notes            <- recentFirst =<< loadAll "notes/*"
-            learnxinyminutes <- recentFirst =<< loadAll "learnxinyminutes/*"
             let indexCtx =
                     listField "posts"            postCtx (return posts)            `mappend`
-                    listField "notes"            postCtx (return notes)            `mappend`
-                    listField "learnxinyminutes" postCtx (return learnxinyminutes) `mappend`
                     constField "title" "Home"                                      `mappend`
                     defaultContext
 
