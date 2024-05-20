@@ -3,15 +3,10 @@
   src: url("/fonts/mononoki.ttf");
 }
 
-/* @font-face {
-  font-family: wenkai;
-  src: url("/fonts/LXGWWenKaiScreen.ttf");
-}
-
 @font-face {
-  font-family: wenkaimono;
-  src: url("/fonts/LXGWWenKaiMonoScreen.ttf");
-} */
+  font-family: klee;
+  src: url("/fonts/Klee.ttf");
+}
 
 * {
   font-variant-ligatures: normal;
@@ -19,7 +14,7 @@
 
 html {
   font-size: 62.5%;
-  font-family: Calibri, 'Trebuchet MS', sans-serif;
+  font-family: klee, Calibri, 'Trebuchet MS', sans-serif;
   /* font-family: normal normal 14px 'Trebuchet MS', Trebuchet, Verdana, sans-serif; */
   /* font-family: Merriweather, sans-serif; */
 }
