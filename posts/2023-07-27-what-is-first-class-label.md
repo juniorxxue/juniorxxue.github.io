@@ -1,5 +1,5 @@
 ---
-title: What Is First Class Label?
+title: What is first class label?
 ---
 
 In languages with first-class labels, labels are treated as first-class values that can be passed as arguments. I'll use Javascript to explain how it differs from our familiar ones.

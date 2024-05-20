@@ -1,5 +1,5 @@
 ---
-title: On Eliminating Nat
+title: On eliminating nat
 ---
 
 

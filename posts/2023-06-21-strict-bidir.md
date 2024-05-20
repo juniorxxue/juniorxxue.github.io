@@ -1,5 +1,5 @@
 ---
-title: Relevance Logic and Bidirectional Typing
+title: Relevance logic and bidirectional typing
 ---
 
 Let's take some words from [Bidirectional Typing Survey](https://arxiv.org/pdf/1908.05839.pdf):

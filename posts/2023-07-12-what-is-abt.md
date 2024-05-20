@@ -1,5 +1,5 @@
 ---
-title: What Is Abstracting Binding Trees?
+title: What is abstracting binding trees?
 ---
 
 In PFPL:

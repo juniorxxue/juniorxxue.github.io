@@ -1,11 +1,16 @@
-@font-face {
+/* @font-face {
   font-family: mononoki;
   src: url("/fonts/mononoki/mononoki.ttf");
+} */
+
+@font-face {
+  font-family: wenkai;
+  src: url("/fonts/LXGWWenKaiScreen.ttf");
 }
 
 @font-face {
-  font-family: Merriweather;
-  src: url("/fonts/merriweather/merriweather.ttf");
+  font-family: wenkaimono;
+  src: url("/fonts/LXGWWenKaiMonoScreen.ttf");
 }
 
 * {
@@ -14,7 +19,7 @@
 
 html {
   font-size: 62.5%;
-  font-family: Calibri, 'Trebuchet MS', sans-serif;
+  font-family: wenkai, Calibri, 'Trebuchet MS', sans-serif;
   /* font-family: normal normal 14px 'Trebuchet MS', Trebuchet, Verdana, sans-serif; */
   /* font-family: Merriweather, sans-serif; */
 }
@@ -193,8 +198,8 @@ pre {
 }
 
 section code {
-  font-family: mononoki, monospace;
-  font-size: small;
+  font-family: wenkaimono, monospace;
+  /* font-size: small; */
 }
 
 a.sourceLine { display: inline-block; line-height: 1.25; }

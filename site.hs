@@ -24,7 +24,7 @@ main = hakyllWith config $ do
         route   idRoute
         compile copyFileCompiler
 
-    match "proof/appinter/*" $ do
+    match "proof/**" $ do
         route   idRoute
         compile copyFileCompiler
 
@@ -51,6 +51,13 @@ main = hakyllWith config $ do
           >>= relativizeUrls
 
     match "haskell/chapters/*" $ do
+        route $ setExtension "html"
+        compile $ pandocCompiler
+          >>= loadAndApplyTemplate "templates/haskell.html" defaultContext
+          >>= loadAndApplyTemplate "templates/default.html" defaultContext
+          >>= relativizeUrls
+
+    match "haskell/12weeks/*" $ do
         route $ setExtension "html"
         compile $ pandocCompiler
           >>= loadAndApplyTemplate "templates/haskell.html" defaultContext

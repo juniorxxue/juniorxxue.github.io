@@ -1,5 +1,5 @@
 ---
-title: \x.x Is Not Polymorphic?
+title: \x.x is not polymorphic?
 ---
 
 Recently I've been working on type inference work on System F with subtyping, which basically does the job of Pierce's local type inference, but in a different flavor and mechanical formalisation in Agda.

@@ -1,5 +1,5 @@
 ---
-title: Formalise Your Type System, Intrinsically
+title: Formalise your type system, intrinsically
 ---
 
 This is [a problem session talk](https://hkuplg.github.io/2023/04/27/intrinsical-typing/) I gave in HKU PL Gruop, the abstract of the talk is:
@@ -8,9 +8,4 @@ In this week, I will be discussing the basic idea of intrinsically typed systems
 
 Interested readers may want to skim over first three chapters (Lambda, Properties and Debruijn) of PLFA Part 2.
 
-<iframe
-    src="/slides/intrinsic.pdf#toolbar=0&navpanes=0&scrollbar=0"
-    scrolling="auto"
-    height="100%"
-    width="100%"
-></iframe>
+[Find the slides here](/slides/intrinsic.pdf).

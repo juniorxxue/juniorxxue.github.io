@@ -10,9 +10,4 @@ I believe Baber has already [presented a great introduction](https://hkuplg.gith
 
 Interested audiences may want to skim the introduction in Andrew M. Kent’s Ph.D. dissertation “Advanced Logical Type Systems for Untyped Languages” or play with some trivial examples in Liquid Haskell but it’s not compulsory.
 
-<iframe
-    src="/slides/typed-racket-occurrence-typing.pdf#toolbar=0&navpanes=0&scrollbar=0"
-    scrolling="auto"
-    height="100%"
-    width="100%"
-></iframe>
+[Find the slides here](/slides/typed-racket-occurrence-typing.pdf).
