@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Occurrence Typing in Typed Racket
+title: "Occurrence Typing in Typed Racket"
 date: 2021-11-12 00:00:00 +0000
 categories: [programming]
 tags: [types]
@@ -14,4 +14,4 @@ I believe Baber has already [presented a great introduction](https://hkuplg.gith
 
 Interested audiences may want to skim the introduction in Andrew M. Kent's Ph.D. dissertation "Advanced Logical Type Systems for Untyped Languages" or play with some trivial examples in Liquid Haskell but it's not compulsory.
 
-[Find the slides here](/slides/typed-racket-occurrence-typing.pdf).
+[Find the slides here]({{ site.url }}/slides/typed-racket-occurrence-typing.pdf).

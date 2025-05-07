@@ -12,4 +12,4 @@ In this week, I will be discussing the basic idea of intrinsically typed systems
 
 Interested readers may want to skim over first three chapters (Lambda, Properties and Debruijn) of PLFA Part 2.
 
-[Find the slides here](/slides/intrinsic.pdf).
+[Find the slides here]({{ site.url }}/slides/intrinsic.pdf).
