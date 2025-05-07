@@ -24,3 +24,4 @@ cabal.project.local~
 _cache/
 .DS_Store
 *.swp
+_site/

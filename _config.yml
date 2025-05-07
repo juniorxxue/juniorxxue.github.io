@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 ###########
 # site.title
 
@@ -18,6 +20,10 @@ whitelist:
   - jekyll-redirect-from
 
 markdown: kramdown
+kramdown:
+  syntax_highlighter: rouge
+  syntax_highlighter_opts:
+    default_lang: haskell
 
 compress_html:
   clippings: all
