@@ -60,17 +60,43 @@ a:hover {
     text-decoration: underline; 
 }
 
+/* Header layout */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2em;
+}
+
 .title {
     text-decoration: none;
     border: 0;
+    margin: 0;
 }
 
 .title h1 {
     font-size: 1.5em;
+    margin: 0;
 }
 
 .title span {
     font-weight: 400;
+}
+
+nav {
+    display: flex;
+    gap: 1em;
+    align-items: center;
+}
+
+nav a {
+    margin-right: 0;
+    text-decoration: none;
+    font-size: 1.2em;
+}
+
+nav a:hover {
+    text-decoration: underline;
 }
 
 .bear::before {
@@ -81,10 +107,6 @@ a:hover {
 .bear:hover::before {
     content: "ᕙʕ ಠᴥಠʔᕗ";
     font-weight: 400;
-}
-
-nav a {
-    margin-right: 10px;
 }
 
 textarea,
