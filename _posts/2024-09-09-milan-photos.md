@@ -52,8 +52,7 @@ tags: [photography]
 }
 
 .photo-gallery img:hover {
-    transform: scale(1.02);
-    cursor: pointer;
+    transform: scale(1.05);
 }
 
 @media (max-width: 768px) {
@@ -61,46 +60,4 @@ tags: [photography]
         grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     }
 }
-
-/* Modal styles */
-.modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.9);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 1000;
-    cursor: pointer;
-}
-
-.modal img {
-    max-width: 90%;
-    max-height: 90vh;
-    object-fit: contain;
-    aspect-ratio: 3/2;
-}
 </style>
-
-<script>
-document.querySelectorAll('.photo-gallery img').forEach(img => {
-    img.addEventListener('click', function() {
-        const modal = document.createElement('div');
-        modal.className = 'modal';
-
-        const modalImg = document.createElement('img');
-        modalImg.src = this.src;
-        modalImg.alt = this.alt;
-
-        modal.appendChild(modalImg);
-        document.body.appendChild(modal);
-
-        modal.addEventListener('click', function() {
-            document.body.removeChild(modal);
-        });
-    });
-});
-</script>
