@@ -1,0 +1,60 @@
+<!DOCTYPE html><html lang="en" dir="ltr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>On eliminating nat | TYPES.HK</title><meta name="description" content="A minimal, text focused blog"><link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon"><link rel="icon" href="/assets/favicon.ico" type="image/x-icon"><link href='/feed.xml' rel='alternate' type='application/atom+xml'><link rel="canonical" href="/blog/eliminating-nat"><link rel="stylesheet" href="/assets/style.css"><body><main><h2 class="title">TYPES.HK</h2><nav> <a href="http://localhost:4000/">Home</a> <a href="http://localhost:4000/about">About</a> <!-- --></nav><h1>On eliminating nat</h1><i>Dec 24, 2021</i><h4 class="subtitle"></h4><p><em>This article can be treated as an extended version of “The Little Typer”</em></p><p>Nat stands for Natural Number.</p><p>In Pie, four eliminators of Nat: <code class="language-plaintext highlighter-rouge">which-Nat</code>, <code class="language-plaintext highlighter-rouge">iter-Nat</code>, <code class="language-plaintext highlighter-rouge">rec-Nat</code> and <code class="language-plaintext highlighter-rouge">ind-Nat</code> are introduced for safe (guarded) recursive style. And we know in ordinary typed languages like Coq, pattern matching is chosen as a primitive and only way to eliminate data constructor. To demonstrate two different flavours of eliminating, I am going to desugar these four Nat eliminators in a pattern matching style in Coq, and see how it captures the idea of safe recursion which ensures that function always terminates.</p><p>Let’s start with which-Nat, introduced as the first eliminator for Nat. The usage of which-Nat is simply removing its constructor (add1 in Pie, S in Coq) and then applying operation on a smaller one. It’s primitive in Pie and can be defined in Coq below:</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Definition which_nat {A : Type} (target : nat) (base : A) (step : nat -&gt; A) : A :=
+match target with
+  | O   =&gt; base
+  | S n =&gt; step n
+end.
+</code></pre></div></div><p>Believe it or not, it’s all we need for implementing any opeartions on Nat if you are familiar with recursion. For example addition of two Nats:</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Fixpoint addition (n : nat) (m : nat) : nat :=
+  which_nat n m (fun p =&gt; S (addition p m)).
+</code></pre></div></div><p>We can compare it with the official implementation in Coq.</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Nat.add =
+fix add (n m : nat) : nat := match n with
+                             | 0   =&gt; m
+                             | S p =&gt; S (add p m)
+end.
+</code></pre></div></div><p>Obviously authors are not satified with single which-Nat because “recursion is not an option” as they repeated. Unrestricted recursion could lead program never terminate. Coq owns positivity check to avoid such situations but that’s not appropriate for a minimial language like Pie. Thus they introduce iter-Nat, which captures a guarded recursion pattern.</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Fixpoint iter_nat {A : Type} (target : nat) (base : A) (step : A -&gt; A) : A :=
+match target with
+  | O   =&gt; base
+  | S n =&gt; step (iter_nat n base step)
+end.
+</code></pre></div></div><p>Thus the addition could be implemented, returning the ability of recursion back to language itself.</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Definition addition_iter (n : nat) (m : nat) : nat :=
+  iter_nat n m S.
+</code></pre></div></div><p>We can go back to check the implementation of Nat.add again: the abstracted part become smaller: only S (add1 in Pie). It can be understood that which-Nat destructs n and then pass the smaller n to the lambda function (3rd argument); iter-Nat destructs n and pass the result of orginal funtion with same set of arguments (but with smaller n) to the lambda function.</p><p>Let’s give it a try to apply the idea of iter-Nat to the implementation of gauss addition, we shall know: iter-Nat desturcts Nat and pass the result of functional call with smaller Nat to the function.</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Definition gauss_iter (n : nat) : nat :=
+  iter_nat n 0 (fun r =&gt; n + r).
+</code></pre></div></div><p>Dumbs like me could’ve somehow implemented gauss_iter above but it’s completely wrong. Check the correct pattern matching implementation:</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Fixpoint gauss_pm (n : nat) : nat :=
+match n with
+  | O    =&gt; 0
+  | S n1 =&gt; S n1 + gauss_pm n1
+end.
+</code></pre></div></div><p>Oops, it seems that we pass a constant n to inter_nat instead of one that keeps changing in recursion. Like statement in the The Little Typer (Page 77), “gauss needs an eliminator that combines the expressiveness of both which-Nat and iter-Nat”. Then here comes rec-Nat.</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Fixpoint rec_nat {A : Type} (target : nat) (base : A) (step : nat -&gt; A -&gt; A) : A :=
+match target with
+  | O   =&gt; base
+  | S n =&gt; step n (rec_nat n base step)
+end.
+</code></pre></div></div><p>gauss appears naturally:</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Definition gauss_rec (n : nat) : nat :=
+  rec_nat n 0 (fun n' r =&gt; S n' + r).
+</code></pre></div></div><p>ind-Nat, the last one, is in a differnt story that about dependent elimination.</p><p>And the classical example of dependent types is List type with length indexed, we name it Vect here.</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(1 :: Nil)           : (Vect 1 Integer)
+(1 :: 1 :: Nil)      : (Vect 2 Integer)
+(1 :: 1 :: 1 :: Nil) : (Vect 3 Integer)
+</code></pre></div></div><p>Let’s try to define a function ones that generates a list of integer 1 with specified number n.</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ones : (n : Nat) -&gt; Vect n Integer
+ones n = iter_nat n Nil (1 ::)
+</code></pre></div></div><p>Well, the problem lies in the above code is mismatch of types:</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>base   : A
+step   : A -&gt; A
+Nil    : Vect 0 Integer
+(1 ::) : Vect n Integer -&gt; Vect (S n) Integer
+</code></pre></div></div><p>So we introduce ind-Nat, which is rec-Nat for dependent types.</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Fixpoint ind_nat (target : nat) (mot : nat -&gt; Type) (base : mot O)
+  (step : forall (n : nat), mot n -&gt; mot (S n)) : mot target :=
+match target with
+  | O      =&gt; base
+  | (S n') =&gt; step n' (ind_nat n' mot base step)
+end.
+</code></pre></div></div><p>Compared with rec_nat, there’re some type-level computations on base, step and result type repectively.</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Fixpoint iter_nat {A : Type} (target : nat) (base : A) (step : A -&gt; A) : A :=
+match target with
+  | O   =&gt; base
+  | S n =&gt; step (iter_nat n base step)
+end.
+</code></pre></div></div><h2 id="additional-readings">Additional Readings</h2><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>forall (n : Nat), mot n -&gt; mot (S n)
+</code></pre></div></div><p>should have no differences with (except default implicitness in Coq)</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(n : Nat) -&gt; mot n -&gt; mot (S n)
+</code></pre></div></div><p>Dependent types allows us to define more expressive types, we can view some types we deal with everyday as special cases of it. For example,</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>map : (a -&gt; b) -&gt; [a] -&gt; [b]
+</code></pre></div></div><p>is a special case of</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>map : (a : Type) -&gt; (b : Type) -&gt; (a -&gt; b) -&gt; [a] -&gt; [b]
+</code></pre></div></div><p>we can also change it into implicit parameters form in order to make it feel less verbose:</p><div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>map : {a : Type} -&gt; {b : Type} -&gt; (a -&gt; b) -&gt; [a] -&gt; [b]
+</code></pre></div></div><h2 id="godel-system-t">Godel System T</h2><div class="language-jsx highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nx">natrec</span> <span class="p">:</span> <span class="p">{</span><span class="nl">C</span> <span class="p">:</span> <span class="nb">Set</span><span class="p">}</span> <span class="o">-&gt;</span> <span class="nx">C</span> <span class="o">-&gt;</span> <span class="p">(</span><span class="nx">Nat</span> <span class="o">-&gt;</span> <span class="nx">C</span> <span class="o">-&gt;</span> <span class="nx">C</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nx">Nat</span> <span class="o">-&gt;</span> <span class="nx">C</span>
+</code></pre></div></div></main><footer> <!--<nav class="sans"><hr> <input class="menu-btn" type="checkbox" id="menu-btn" /><p><label class="menu-icon" for="menu-btn">Menu</label></p><ul class="site-nav"><li><a href="/">Home</a><li><a href="/blog">Blog</a><li><a href="/designs">Designs</a><li><a href="/about">About</a><li><a href="https://canisee.xyz" title="Confirm your vision functionality">[Can I See]</a></ul></nav>--> <!-- <span class="mini-note">You've reached the end of the page. Good job!</span> --> <!--<nav class="sans"><hr><p><label class="menu-icon" for="menu-btn">Menu</label></p><ul class="site-nav"><li><a href="/">Home</a><li><a href="/blog">Blog</a><li><a href="/designs">Designs</a><li><a href="/about">About</a><li><a href="https://canisee.xyz" title="Confirm your vision functionality">[Can I See]</a></ul></nav>--><div class="bottom-footer"></div></footer><script> MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] } }; </script> <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"> </script>

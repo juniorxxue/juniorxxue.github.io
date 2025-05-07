@@ -1,0 +1,74 @@
+<!DOCTYPE html><html lang="en" dir="ltr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>Snippets of QuickCheck in Haskell | TYPES.HK</title><meta name="description" content="A minimal, text focused blog"><link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon"><link rel="icon" href="/assets/favicon.ico" type="image/x-icon"><link href='/feed.xml' rel='alternate' type='application/atom+xml'><link rel="canonical" href="/blog/quickcheck"><link rel="stylesheet" href="/assets/style.css"><body><main><h2 class="title">TYPES.HK</h2><nav> <a href="http://localhost:4000/">Home</a> <a href="http://localhost:4000/about">About</a> <!-- --></nav><h1>Snippets of QuickCheck in Haskell</h1><i>Sep 18, 2023</i><h4 class="subtitle"></h4><p>QuickCheck is a Haskell’s package used to test properties of programs. The snippets are based on Koen Claessen and John Hughes’s <em>“QuickCheck: A Lightweight Tool for Random Testing of Haskell Programs”</em>.</p><div class="language-haskell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kr">module</span> <span class="nn">Main</span> <span class="kr">where</span>
+
+<span class="kr">import</span> <span class="nn">Test.QuickCheck</span>
+    <span class="p">(</span> <span class="nf">orderedList</span><span class="p">,</span>
+      <span class="p">(</span><span class="o">==&gt;</span><span class="p">),</span>
+      <span class="nf">classify</span><span class="p">,</span>
+      <span class="nf">collect</span><span class="p">,</span>
+      <span class="nf">forAll</span><span class="p">,</span>
+      <span class="nf">quickCheck</span><span class="p">,</span>
+      <span class="kt">Property</span> <span class="p">)</span>
+
+<span class="c1">-- The programmer must specify a fixed type at which the law is to be tested</span>
+<span class="c1">-- in some cases, we can use parametricity to argue that a property holds polymorphically</span>
+<span class="n">prop_RevUnit</span> <span class="o">::</span> <span class="kt">Int</span> <span class="o">-&gt;</span> <span class="kt">Bool</span>
+<span class="n">prop_RevUnit</span> <span class="n">x</span> <span class="o">=</span>
+    <span class="n">reverse</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span> <span class="o">==</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+
+<span class="n">prop_RevApp</span> <span class="o">::</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="kt">Bool</span>
+<span class="n">prop_RevApp</span> <span class="n">xs</span> <span class="n">ys</span> <span class="o">=</span>
+    <span class="n">reverse</span> <span class="p">(</span><span class="n">xs</span> <span class="o">++</span> <span class="n">ys</span><span class="p">)</span> <span class="o">==</span> <span class="n">reverse</span> <span class="n">ys</span> <span class="o">++</span> <span class="n">reverse</span> <span class="n">xs</span>
+
+<span class="n">prop_RevRev</span> <span class="o">::</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="kt">Bool</span>
+<span class="n">prop_RevRev</span> <span class="n">xs</span> <span class="o">=</span>
+    <span class="n">reverse</span> <span class="p">(</span><span class="n">reverse</span> <span class="n">xs</span><span class="p">)</span> <span class="o">==</span> <span class="n">xs</span>
+
+<span class="c1">-- you can use implication (==&gt;) to express conditional properties</span>
+<span class="n">prop_MaxLe</span> <span class="o">::</span> <span class="kt">Int</span> <span class="o">-&gt;</span> <span class="kt">Int</span> <span class="o">-&gt;</span> <span class="kt">Property</span>
+<span class="n">prop_MaxLe</span> <span class="n">x</span> <span class="n">y</span> <span class="o">=</span>
+    <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="o">==&gt;</span> <span class="n">max</span> <span class="n">x</span> <span class="n">y</span> <span class="o">==</span> <span class="n">y</span>
+
+<span class="c1">-- you can use "classify" and "collect" to monitor test data</span>
+<span class="n">ordered</span> <span class="o">::</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="kt">Bool</span>
+<span class="n">ordered</span> <span class="kt">[]</span> <span class="o">=</span> <span class="kt">True</span>
+<span class="n">ordered</span> <span class="p">(</span><span class="n">x</span><span class="o">:</span><span class="n">xs</span><span class="p">)</span> <span class="o">=</span> <span class="n">all</span> <span class="p">(</span><span class="o">&gt;=</span> <span class="n">x</span><span class="p">)</span> <span class="n">xs</span> <span class="o">&amp;&amp;</span> <span class="n">ordered</span> <span class="n">xs</span>
+
+<span class="n">insert</span> <span class="o">::</span> <span class="kt">Int</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span>
+<span class="n">insert</span> <span class="n">x</span> <span class="kt">[]</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">]</span>
+<span class="n">insert</span> <span class="n">x</span> <span class="p">(</span><span class="n">y</span><span class="o">:</span><span class="n">ys</span><span class="p">)</span> <span class="o">=</span> <span class="kr">if</span> <span class="n">x</span> <span class="o">&lt;=</span> <span class="n">y</span> <span class="kr">then</span> <span class="n">x</span> <span class="o">:</span> <span class="n">y</span> <span class="o">:</span> <span class="n">ys</span> <span class="kr">else</span> <span class="n">y</span> <span class="o">:</span> <span class="n">insert</span> <span class="n">x</span> <span class="n">ys</span>
+
+<span class="n">prop_Insert</span> <span class="o">::</span> <span class="kt">Int</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="kt">Property</span>
+<span class="n">prop_Insert</span> <span class="n">x</span> <span class="n">xs</span> <span class="o">=</span>
+    <span class="n">ordered</span> <span class="n">xs</span> <span class="o">==&gt;</span> <span class="n">ordered</span> <span class="p">(</span><span class="n">insert</span> <span class="n">x</span> <span class="n">xs</span><span class="p">)</span>
+
+<span class="c1">-- we sieve out the case of empty lists</span>
+<span class="n">prop_InsertClassify</span> <span class="o">::</span> <span class="kt">Int</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="kt">Property</span>
+<span class="n">prop_InsertClassify</span> <span class="n">x</span> <span class="n">xs</span> <span class="o">=</span>
+    <span class="n">ordered</span> <span class="n">xs</span> <span class="o">==&gt;</span>
+        <span class="n">classify</span> <span class="p">(</span><span class="n">null</span> <span class="n">xs</span><span class="p">)</span> <span class="s">"trivial cases"</span> <span class="o">$</span>
+            <span class="n">ordered</span> <span class="p">(</span><span class="n">insert</span> <span class="n">x</span> <span class="n">xs</span><span class="p">)</span>
+
+<span class="c1">-- we list the percent of cases according to the length of the list</span>
+<span class="n">prop_InsertCollect</span> <span class="o">::</span> <span class="kt">Int</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">Int</span><span class="p">]</span> <span class="o">-&gt;</span> <span class="kt">Property</span>
+<span class="n">prop_InsertCollect</span> <span class="n">x</span> <span class="n">xs</span> <span class="o">=</span>
+    <span class="n">ordered</span> <span class="n">xs</span> <span class="o">==&gt;</span>
+        <span class="n">collect</span> <span class="p">(</span><span class="n">length</span> <span class="n">xs</span><span class="p">)</span> <span class="o">$</span>
+            <span class="n">ordered</span> <span class="p">(</span><span class="n">insert</span> <span class="n">x</span> <span class="n">xs</span><span class="p">)</span>
+
+<span class="c1">-- to guide the generator to generate less trivial cases</span>
+<span class="n">prop_InsertOrdered</span> <span class="o">::</span> <span class="kt">Int</span> <span class="o">-&gt;</span> <span class="kt">Property</span>
+<span class="n">prop_InsertOrdered</span> <span class="n">x</span> <span class="o">=</span>
+    <span class="n">forAll</span> <span class="n">orderedList</span> <span class="o">$</span> <span class="nf">\</span><span class="n">xs</span> <span class="o">-&gt;</span>
+        <span class="n">ordered</span> <span class="p">(</span><span class="n">insert</span> <span class="n">x</span> <span class="n">xs</span><span class="p">)</span>
+
+<span class="n">main</span> <span class="o">::</span> <span class="kt">IO</span> <span class="nb">()</span>
+<span class="n">main</span> <span class="o">=</span> <span class="kr">do</span>
+    <span class="n">quickCheck</span> <span class="n">prop_RevUnit</span>
+    <span class="n">quickCheck</span> <span class="n">prop_RevApp</span>
+    <span class="n">quickCheck</span> <span class="n">prop_RevRev</span>
+    <span class="n">quickCheck</span> <span class="n">prop_MaxLe</span>
+    <span class="n">quickCheck</span> <span class="n">prop_Insert</span>
+    <span class="n">quickCheck</span> <span class="n">prop_InsertClassify</span>
+    <span class="n">quickCheck</span> <span class="n">prop_InsertCollect</span>
+    <span class="n">quickCheck</span> <span class="n">prop_InsertOrdered</span>
+</code></pre></div></div><h2 id="todo">TODO</h2><ul><li>Defining Generators<li>Implementing QuickCheck</ul></main><footer> <!--<nav class="sans"><hr> <input class="menu-btn" type="checkbox" id="menu-btn" /><p><label class="menu-icon" for="menu-btn">Menu</label></p><ul class="site-nav"><li><a href="/">Home</a><li><a href="/blog">Blog</a><li><a href="/designs">Designs</a><li><a href="/about">About</a><li><a href="https://canisee.xyz" title="Confirm your vision functionality">[Can I See]</a></ul></nav>--> <!-- <span class="mini-note">You've reached the end of the page. Good job!</span> --> <!--<nav class="sans"><hr><p><label class="menu-icon" for="menu-btn">Menu</label></p><ul class="site-nav"><li><a href="/">Home</a><li><a href="/blog">Blog</a><li><a href="/designs">Designs</a><li><a href="/about">About</a><li><a href="https://canisee.xyz" title="Confirm your vision functionality">[Can I See]</a></ul></nav>--><div class="bottom-footer"></div></footer><script> MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] } }; </script> <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"> </script>

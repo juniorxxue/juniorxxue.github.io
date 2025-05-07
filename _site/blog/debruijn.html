@@ -1,0 +1,98 @@
+<!DOCTYPE html><html lang="en" dir="ltr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta http-equiv="X-UA-Compatible" content="ie=edge"><title>De Bruijn indices, in TAPL or PLFA style? | TYPES.HK</title><meta name="description" content="A minimal, text focused blog"><link rel="shortcut icon" href="/assets/favicon.ico" type="image/x-icon"><link rel="icon" href="/assets/favicon.ico" type="image/x-icon"><link href='/feed.xml' rel='alternate' type='application/atom+xml'><link rel="canonical" href="/blog/debruijn"><link rel="stylesheet" href="/assets/style.css"><body><main><h2 class="title">TYPES.HK</h2><nav> <a href="http://localhost:4000/">Home</a> <a href="http://localhost:4000/about">About</a> <!-- --></nav><h1>De Bruijn indices, in TAPL or PLFA style?</h1><i>Mar 19, 2024</i><h4 class="subtitle"></h4><p>Much research about de Bruijn indices focus on the definition of subst function, and how it commutes with shift/rename operation, mostly in the context of untyped lambda calculus.</p><p>In this article, we look at it from a different perspective: how to define and generalise the weakening lemma, and how the generalistion affects the design choices about shifting and contexts.</p><p>We demonstrate two different approaches in STLC using Agda with well-scoped syntax. The reason of choosing Agda is author’s familiarity; the reason of choosing well-scoped syntax is that it is less error-prone to write code without losing scalability. One more virtue perhaps is the types of many operations are self-explanatory.</p><h2 id="common-syntax">Common Syntax</h2><p>We first introduce the syntax that doesn’t differ in the two ways.</p><p>Types are two instances: Int and Function type.</p><pre><code class="language-agda">data Type : Set where
+  Int    : Type
+  _`→_   : (A : Type) → (B : Type) → Type
+</code></pre><p>Terms are indexed by a number, which specifies the number of free variables can be used in the term. There’re four instances:</p><ul><li>literal numbers: it is a term with arbitrary number of free variables;<li>variables: the number can only be less than the index, we use <code class="language-plaintext highlighter-rouge">Fin n</code> to do this;<li>lambdas: the body has one more free variable than the expression since one variable is introduced by the binder;<li>applications: both subterms have the same number of free variables.</ul><pre><code class="language-agda">data Term : ℕ → Set where
+  lit   : (i : ℕ) → Term n
+  `_    : (x : Fin n) → Term n
+  ƛ_⇒_  : (A : Type) → (e : Term (1 + n)) → Term n
+  _·_   : (e₁ : Term n) → (e₂ : Term n) → Term n
+</code></pre><h2 id="typing-contexts">Typing Contexts</h2><p>We reach a point that have some options. We could define a context as datatype with two instances, cloest to the paper presentation:</p><h3 id="datatype-definition">Datatype Definition</h3><ul><li>A empty context has no free variables;<li>A context followed by a type has one more free variable;</ul><p>The contexts are accessed by a number, which defines on simutanious induction of the context and the number until we reach the <code class="language-plaintext highlighter-rouge">#0</code>. Note that the type <code class="language-plaintext highlighter-rouge">Context n → Fin n → Type</code> ensures that we can always find the type of a variable in a context.</p><pre><code class="language-agda">infix 6 _,_
+
+data Context : ℕ → Set where
+  ∅     : Context 0
+  _,_   : Context n → (A : Type) → Context (1 + n)
+
+infix 3 _∋_⦂_
+data _∋_⦂_ : Context n → Fin n → Type → Set where
+  Z : ∀ {Γ : Context n} {A}
+    → Γ , A ∋ #0 ⦂ A
+  S : ∀ {Γ : Context n} {k A B}
+    → Γ ∋ k ⦂ A
+    → Γ , B ∋ #S k ⦂ A
+</code></pre><h3 id="vector-definition">Vector Definition</h3><p>We could use a <code class="language-plaintext highlighter-rouge">Vector</code> (lengh-indexed version of <code class="language-plaintext highlighter-rouge">List</code>, which should be similar to the datatype definition, we don’t show it here.</p><h3 id="function-definition">Function Definition</h3><p>Contexts appear in several situations:</p><ul><li>Lookup: given a number, we need to find its associated type; which is used in typing rule for variables;<li>Extension: we need to insert a type into the context, which is used in typing rule for lambdas;</ul><p>Those two operations can be functionlised as:</p><pre><code class="language-agda">context : Set
+context = ℕ → Type
+</code></pre><p>Then the lookup is function application and the extension is to wrap this function with more arguments. A similiar idea can be found at Software Foundatoins.</p><h2 id="typing">Typing</h2><p>Typing rules have small differences according to the context definition. We use the datatype definition here to demonstrate.</p><p>There’re four instances:</p><ul><li>literals are always of type Int;<li>variables has a type <code class="language-plaintext highlighter-rouge">A</code> by lookup <code class="language-plaintext highlighter-rouge">x</code> in the context;<li>lambdas have a type <code class="language-plaintext highlighter-rouge">A → B</code> if the body has type <code class="language-plaintext highlighter-rouge">B</code> with the extended context;<li>applications have type <code class="language-plaintext highlighter-rouge">B</code> if the function has type <code class="language-plaintext highlighter-rouge">A → B</code> and the argument has type <code class="language-plaintext highlighter-rouge">A</code>.</ul><pre><code class="language-agda">data _⊢_⦂_ : Context n → Term n → Type → Set where
+
+  ⊢lit : ∀ {i}
+    → Γ ⊢ (lit i) ⦂ Int
+
+  ⊢var : ∀ {x A}
+    → Γ ∋ x ⦂ A
+    → Γ ⊢ ` x ⦂ A
+
+  ⊢abs : ∀ {e A B}
+    → Γ , A ⊢ e ⦂ B
+    → Γ ⊢ ƛ A ⇒ e ⦂ A `→ B
+
+  ⊢app : ∀ {e₁ e₂ A B}
+    → Γ ⊢ e₁ ⦂ A `→ B
+    → Γ ⊢ e₂ ⦂ A
+    → Γ ⊢ e₁ · e₂ ⦂ B
+</code></pre><h2 id="weakening">Weakening</h2><p>Right now we reach the decision-making point: how to define the general version of the weakening lemma, and how it affects the design of the shift operation.</p><p>The most concrete definition is:</p><pre><code class="language-agda">weaken0 : ∀ {Γ : Context n} {e A B}
+  → Γ ⊢ e ⦂ A
+  → Γ , B ⊢ ↑tm0 e ⦂ A
+</code></pre><p>If a term <code class="language-plaintext highlighter-rouge">e</code> has the type <code class="language-plaintext highlighter-rouge">A</code> in the context <code class="language-plaintext highlighter-rouge">Γ</code>, then the shifted term <code class="language-plaintext highlighter-rouge">↑tm0 e</code> has the same type <code class="language-plaintext highlighter-rouge">A</code> in the extended context <code class="language-plaintext highlighter-rouge">Γ, B</code>. Specifically, <code class="language-plaintext highlighter-rouge">↑tm0 e</code> means we shift <code class="language-plaintext highlighter-rouge">e</code> by one, in the lowest level. In other words, each free variable in term <code class="language-plaintext highlighter-rouge">e</code> will be increased by one. This is intuitive: we extend the context at the end, free variables pointing to the context becomes one more “mile” away from its original distance.</p><p>However <code class="language-plaintext highlighter-rouge">weaken0</code> is too specific to prove, we usually need a general version of it, which differs in two ways:</p><ul><li><p>generalise the level we increase the indices: we could allow term to be shifted by level <code class="language-plaintext highlighter-rouge">k</code>; which means free variables only equal/bigger than <code class="language-plaintext highlighter-rouge">k</code> will be increased by one. This design corresponds to the idea we insert the type <code class="language-plaintext highlighter-rouge">B</code> at the middle of the context: at the <code class="language-plaintext highlighter-rouge">k</code> position, thus only types after this position will be affected.</p><li><p>generalise the operation we manipulate the indices: we could define a operation <code class="language-plaintext highlighter-rouge">ρ : ℕ → ℕ</code> to change the indices, but still at the level 0. This corresponds “how many types” we insert into the end of the contexts (an almost correct explanation).</p></ul><p>Those two design choices will affect the definition of the shift operations. I call them TAPL style and PLFA style to distinguish them.</p><h2 id="tapl-style-of-shift-and-weakening-lemma">TAPL style of Shift and Weakening Lemma</h2><p>The shift operation is defined as below. Just like mentioned, we only shift indices equal and bigger than <code class="language-plaintext highlighter-rouge">k</code>. <code class="language-plaintext highlighter-rouge">punchIn</code> is a Agda library function that is ` f(i,j) = if j≥i then j+1 else j `.</p><pre><code class="language-agda">↑tm : Fin (suc n) → Term n → Term (suc n)
+↑tm k (lit i)    = lit i
+↑tm k (` x)      = ` (punchIn k x)
+↑tm k (ƛ A ⇒ e)  = ƛ A ⇒ (↑tm (#S k) e)
+↑tm k (e₁ · e₂)  = ↑tm k e₁ · ↑tm k e₂
+
+↑tm0 : Term n → Term (suc n)
+↑tm0 = ↑tm #0
+</code></pre><p>The weakening lemma further requires an operation that inserts a type into the <code class="language-plaintext highlighter-rouge">k</code>th position.</p><pre><code class="language-agda">infix 4 [_&lt;&lt;_]_
+[_&lt;&lt;_]_ : Context n → Type → Fin (suc n) → Context (suc n)
+[ Γ &lt;&lt; B ] #0 = Γ , B
+[ Γ , A &lt;&lt; B ] #S k = ([ Γ &lt;&lt; B ] k) , A
+</code></pre><p>Then the generalised weakening lemma is defined as:</p><pre><code class="language-agda">weaken : ∀ {Γ : Context n} {k : Fin (suc n)} {e A B}
+  → Γ ⊢ e ⦂ A
+  → [ Γ &lt;&lt; B ] k ⊢ ↑tm k e ⦂ A
+</code></pre><h2 id="plfa-style-of-shift-and-weakening-lemma">PLFA style of Shift and Weakening Lemma</h2><p>PLFA style, on the other hand, generalises the operation we manipulate the indices, we call this operation <code class="language-plaintext highlighter-rouge">Renaming</code>. And <code class="language-plaintext highlighter-rouge">rename</code> function is the generalised form of shifting, which applies the <code class="language-plaintext highlighter-rouge">Renaming</code> recursively to the term.</p><pre><code class="language-agda">Renaming : ℕ → ℕ → Set
+Renaming n m = Fin n → Fin m
+
+rename : Renaming n m → Term n → Term m
+rename ρ (lit i) = lit i
+rename ρ (` x) = ` (ρ x)
+rename ρ (ƛ A ⇒ e) = ƛ A ⇒ rename (ext ρ) e
+rename ρ (e₁ · e₂) = rename ρ e₁ · rename ρ e₂
+</code></pre><p>We could get our <code class="language-plaintext highlighter-rouge">↑tm0</code> by instantiating <code class="language-plaintext highlighter-rouge">ρ</code>. The signature is very useful here: we shift a term from <code class="language-plaintext highlighter-rouge">n</code> level to <code class="language-plaintext highlighter-rouge">1 + n</code> level.</p><pre><code class="language-agda">ρ-incr : Renaming n (1 + n)
+ρ-incr x = #S x
+
+_↑ : Term n → Term (1 + n)
+_↑ = rename ρ-incr
+</code></pre><p>However, the trouble we then encounter is hard to find the general version of weakening lemma, in the datatype definition of context. The intuition should be a context following a sequence of types reflecting the <code class="language-plaintext highlighter-rouge">ρ</code> operation.</p><p>The easiest approach, which I learnt from <code class="language-plaintext highlighter-rouge">coq-community/autosubst</code>, is to define contexts as functions, then the new context is just a composition of the old context and <code class="language-plaintext highlighter-rouge">ρ</code>. The details can be found here: <a href="https://www.ps.uni-saarland.de/autosubst/doc/Plain.Demo.html#ty_ren">ty_ren</a>.</p><h2 id="conclusion">Conclusion</h2><p>I believe that two styles just generalise the shift function in two diamensions. No one is better than the other, but for different conditions, we need to make a choice. For example, I often need to use weakening/strenghening lemma and need to directly manipulate the context, then TAPL style is more suitable for me. However, if I need to frequently commute subst/rename operations, then PLFA style is more suitable for me.</p><p>Note: In PLFA book, the weakening lemma can be defined directly on the datatype definition, but I belive it benifits from the intrinsic approach, which does not scale to plain or well-scoped approach.</p><h2 id="appendix-subtitution">Appendix: Subtitution</h2><p>The substitution operatoins of two styles are put here for reference.</p><pre><code class="language-agda">-- TAPL style
+_[_:=_] : Term (suc n) → Term n → Fin (suc n) → Term n
+lit i [ v := k ] = lit i
+(` x) [ v := k ] with k #≟ x
+... | yes refl = v
+... | no ¬p    = ` (punchOut {i = k} {j = x} ¬p)
+(ƛ A ⇒ e) [ v := k ] = ƛ A ⇒ (e [ ↑0 v := #S k ])
+(e₁ · e₂) [ v := k ] = e₁ [ v := k ] · e₂ [ v := k ]
+
+_[_] : Term (suc n) → Term n → Term n
+e [ v ] = _[_:=_] e v #0
+
+-- PLFA style
+exts : Substitution n m → Substitution (1 + n) (1 + m)
+exts σ #0 = ` #0
+exts σ (#S x) = rename ρ-incr (σ x)
+
+subst : Substitution n m → Term n → Term m
+subst σ (lit i) = lit i
+subst σ (` x) = σ x
+subst σ (ƛ A ⇒ e) = ƛ A ⇒ subst (exts σ) e
+subst σ (e₁ · e₂) = subst σ e₁ · subst σ e₂
+
+subst-zero : Term n → Substitution (1 + n) n
+subst-zero e #0 = e
+subst-zero e (#S x) = ` x
+</code></pre><h2 id="references-and-further-reading">References and Further Reading</h2><p>We list the choices of some formalisation take:</p><ul><li><a href="https://github.com/coq-community/dblib">coq-community/dblib</a> defines lift (shift) in TAPL style.<li><a href="https://github.com/coq-community/autosubst">coq-community/autosubst</a> choose the PLFA style.<li><a href="https://www.seas.upenn.edu/~plclub/poplmark/">Vouillon’s solution</a> is TAPL style.<li><a href="https://github.com/plclub/cis6700-23sp/blob/main/agda/debruijn.agda">Stephanie Weirich’s sript</a> is helpful for understanding the original de Bruijn approach and explicit substitution.</ul><h2 id="side-story-of-de-bruijn">Side Story of de Bruijn</h2><p>POPLmark, gives <a href="https://www.seas.upenn.edu/~plclub/poplmark/poplmark.pdf">some opinions</a> on the de Bruijn approach at the beginning:</p><blockquote><p>Another popular concrete representation is de Bruijn’s nameless representa- tion. De Bruijn indices are easy to understand and support the full range of induction principles needed to reason over terms. In our experience, however, de Bruijn representations have two major flaws. First, the statements of theo- rems require complicated clauses involving “shifted” terms and contexts. These extra clauses make it difficult to see the correspondence between informal and formal versions of the same theorem—there is no question of simply typesetting the formal statement and pasting it into a paper. Second, while the notational clutter is manageable for “toy” examples of the size of the simply-typed lambda calculus, we have found it becomes quite a heavy burden even for fairly small languages like F&lt;:.</p></blockquote><p>However, in the <a href="https://youtu.be/2M2ZWNzpzkE?si=DTldiJKCGbGeie1H&amp;t=862">POPLmark 15 Year Retrospective Panel</a>, survey results showed that more and more people seem to be sticking with “good old deBruijn”.</p></main><footer> <!--<nav class="sans"><hr> <input class="menu-btn" type="checkbox" id="menu-btn" /><p><label class="menu-icon" for="menu-btn">Menu</label></p><ul class="site-nav"><li><a href="/">Home</a><li><a href="/blog">Blog</a><li><a href="/designs">Designs</a><li><a href="/about">About</a><li><a href="https://canisee.xyz" title="Confirm your vision functionality">[Can I See]</a></ul></nav>--> <!-- <span class="mini-note">You've reached the end of the page. Good job!</span> --> <!--<nav class="sans"><hr><p><label class="menu-icon" for="menu-btn">Menu</label></p><ul class="site-nav"><li><a href="/">Home</a><li><a href="/blog">Blog</a><li><a href="/designs">Designs</a><li><a href="/about">About</a><li><a href="https://canisee.xyz" title="Confirm your vision functionality">[Can I See]</a></ul></nav>--><div class="bottom-footer"></div></footer><script> MathJax = { tex: { inlineMath: [['$', '$'], ['\\(', '\\)']], displayMath: [['$$', '$$'], ['\\[', '\\]']] } }; </script> <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"> </script>
