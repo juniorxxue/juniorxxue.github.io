@@ -393,7 +393,8 @@ ul {
 ul li {
     display: list-item;
     list-style-type: disc;
-    margin-left: 1em;
+    text-indent: -0.8em;
+    /* margin-left: 1em; */
     padding-left: 0.5em;
 }
 
