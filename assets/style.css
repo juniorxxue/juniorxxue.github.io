@@ -391,9 +391,15 @@ ul {
 }
 
 ul li {
-    padding-left: 0;
-    text-indent: -0.8em;
-    margin-left: 1.5em;
+    display: list-item;
+    list-style-type: disc;
+    margin-left: 1em;
+    padding-left: 0.5em;
+}
+
+ul li p {
+    display: inline;
+    margin: 0;
 }
 
 /* Syntax highlighting styles */
