@@ -29,7 +29,7 @@ Previously I've got my MPhil degree from HKU in 2023 and BEng degree from Nankai
 ## Tutorship (TA)
 
 COMP7503 Multimedia technologies, HKU, 2025 Spring  
-[COMP3258 Functional Programming, HKU, 2023 Fall](fpslides.html)  
+[COMP3258 Functional Programming, HKU, 2023 Fall](/fpslides)  
 COMP3258 Functional Programming, HKU, 2022 Fall
 
 ## Academic Services
