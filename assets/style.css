@@ -60,6 +60,10 @@ a:hover {
     text-decoration: underline; 
 }
 
+a:visited {
+    color: #8b6fcb;
+}
+
 /* Header layout */
 header {
     display: flex;
