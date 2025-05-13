@@ -182,7 +182,7 @@ img {
 }
 
 code {
-    font-family: "Mononoki", monospace;
+    font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
     padding: 2px;
     background-color: #f2f2f2;
     color: #222;
@@ -191,7 +191,7 @@ code {
 
 .highlight,
 .code {
-    font-family: "Mononoki", monospace;
+    font-family: ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
     padding: 1px 15px;
     background-color: #f2f2f2;
     color: #222;
