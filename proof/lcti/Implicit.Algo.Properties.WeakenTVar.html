@@ -1,0 +1,1959 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../css/Agda.css" />
+    <title>Implicit.Algo.Properties.WeakenTVar</title>
+    <style>
+      body {
+        font-family: monospace;
+        font-size: 13px;
+        display: flex;
+        flex-flow: row nowrap;
+        min-height: 100vh;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-weight: unset;
+        text-wrap: balance;
+      }
+      p {
+        text-wrap: pretty;
+      }
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        font-size: 12px;
+        font-family: 'mononoki';
+        line-height: 1.5;
+        padding: 2px;
+        padding-left: 0.5em;
+        padding-right: 1em;
+        margin-right: 2em;
+        overflow-y: auto;
+        flex-shrink: 0;
+        background: white;
+        z-index: 100;
+      }
+      /* Hide scrollbar for webkit browsers */
+      nav::-webkit-scrollbar {
+        width: 2px;
+      }
+      nav::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      nav::-webkit-scrollbar-thumb {
+        background: #ddd;
+        border-radius: 2px;
+      }
+      nav::-webkit-scrollbar-thumb:hover {
+        background: #bbb;
+      }
+      nav a {
+        display: block;
+        color: unset;
+      }
+      .module-tree {
+        list-style-type: none;
+        padding-left: 2ch;
+        margin: 0;
+      }
+      nav > .module-tree {
+        padding-left: 0;
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 1lh;
+      }
+      .module-tree a:any-link:hover {
+        color: #A020F0 !important;
+      }
+      .current-module {
+        color: #A020F0;
+        font-weight: bold;
+      }
+      .Agda {
+        margin: 0;
+        margin-left: 180px;
+        flex: 1;
+        overflow-y: auto;
+      }
+      
+      /* Toggle functionality styles */
+      .toggle-btn {
+        background: none;
+        border: none;
+        color: #666;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 10px;
+        padding: 0 4px;
+        margin-right: 2px;
+        border-radius: 2px;
+        display: inline-block;
+        vertical-align: middle;
+        flex-shrink: 0;
+      }
+      .toggle-btn:hover {
+        background-color: #f0f0f0;
+        color: #333;
+      }
+      .collapsed > ul {
+        display: none;
+      }
+      
+      .toggle-btn::after {
+        content: "[−]";
+      }
+      .collapsed .toggle-btn::after {
+        content: "[+]";
+      }
+      .module-item {
+        position: relative;
+      }
+      .module-item a {
+        display: inline-block;
+      }
+      .module-content {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <nav>
+      
+      <ul class="module-tree">
+        
+          <li class="module-item expanded" data-depth="0">
+            <div class="module-content">
+              
+                <a>Implicit</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a href="Implicit.README.html" class="">
+                  README
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.All.html" class="">
+                  Language
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Counter2Mask.html" class="">
+                  Counter2Mask
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Prelude.html" class="">
+                  Prelude
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Bitmap.html" class="">
+                  Bitmap
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Shift.All.html" class="">
+                  Shift
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Shift.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Shift.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Subst.All.html" class="">
+                  Subst
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Subst.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Subst.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Lookup.All.html" class="">
+                  Lookup
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Lookup.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Lookup.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Occur.All.html" class="">
+                  Occur
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Occur.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Occur.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Find.All.html" class="">
+                  Find
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Find.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Find.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Regular.All.html" class="">
+                  Regular
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Regular.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Regular.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.OpenClose.All.html" class="">
+                  OpenClose
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.OpenClose.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.All.html" class="">
+                  Extension
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.InputOutput.html" class="">
+                  InputOutput
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.ExSol.html" class="">
+                  ExSol
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.Occur.html" class="">
+                  Occur
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.EnvReplace.html" class="">
+                  EnvReplace
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Ground.All.html" class="">
+                  Ground
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Ground.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Ground.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.All.html" class="">
+                  EnvOps
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.Inst.html" class="">
+                  Inst
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.RemoveTVar.html" class="">
+                  RemoveTVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.RemoveSVar.html" class="">
+                  RemoveSVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.RemoveEVar.html" class="">
+                  RemoveEVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.InsertEVar.html" class="">
+                  InsertEVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.InsertTVar.html" class="">
+                  InsertTVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.InsertUVar.html" class="">
+                  InsertUVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.InsertSVar.html" class="">
+                  InsertSVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.Regular.html" class="">
+                  Regular
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.Replace.html" class="">
+                  Replace
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.RemoveUVar.html" class="">
+                  RemoveUVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.All.html" class="">
+                  Decl
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.Typing.html" class="">
+                  Typing
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.Trans.html" class="">
+                  Trans
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.Subtyping.html" class="">
+                  Subtyping
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.SubtypingV2.html" class="">
+                  SubtypingV2
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.Equiv.html" class="">
+                  Equiv
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.AuxLemmas.html" class="">
+                  AuxLemmas
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a>Annotatability</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Annotatability.Soundness.html" class="">
+                  Soundness
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Annotatability.Corollaries.html" class="">
+                  Corollaries
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Annotatability.DeclPartial.html" class="">
+                  DeclPartial
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Annotatability.IF.html" class="">
+                  IF
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Annotatability.Elaboration.html" class="">
+                  Elaboration
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a>Interm2Decl</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Decl.Corollaries.html" class="">
+                  Corollaries
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Decl.Main.html" class="">
+                  Main
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Decl.AuxLemmas.html" class="">
+                  AuxLemmas
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a>Decl2Interm</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl2Interm.Corollaries.html" class="">
+                  Corollaries
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl2Interm.Main.html" class="">
+                  Main
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.All.html" class="">
+                  Algo
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a>Properties</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Regularity.html" class="">
+                  Regularity
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Extension.html" class="">
+                  Extension
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Subsumption.html" class="">
+                  Subsumption
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Id.html" class="">
+                  Id
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Polarity.html" class="">
+                  Polarity
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Shift.html" class="">
+                  Shift
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Reflexivity.html" class="">
+                  Reflexivity
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.StrengthenTVar.html" class="">
+                  StrengthenTVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.StrengthenSVar.html" class="">
+                  StrengthenSVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.StrengthenEVar.html" class="">
+                  StrengthenEVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Weaken.html" class="">
+                  Weaken
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Irrelevance.html" class="">
+                  Irrelevance
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Trans.html" class="">
+                  Trans
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.SubIrrelevance.html" class="">
+                  SubIrrelevance
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Swap.html" class="">
+                  Swap
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Subst.html" class="">
+                  Subst
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.OpenK.html" class="">
+                  OpenK
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.WeakenEVar.html" class="">
+                  WeakenEVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.WeakenTVar.html" class="current-module">
+                  WeakenTVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.WeakenSVar.html" class="">
+                  WeakenSVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a>Constructs</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Constructs.Syntax.html" class="">
+                  Syntax
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Constructs.Shift.html" class="">
+                  Shift
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Constructs.Subst.html" class="">
+                  Subst
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Constructs.Lookup.html" class="">
+                  Lookup
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a>Algo2Interm</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.Find.html" class="">
+                  Find
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.Main.html" class="">
+                  Main
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.Corollaries.html" class="">
+                  Corollaries
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.AlgoCounter.All.html" class="">
+                  AlgoCounter
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.AlgoCounter.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.AlgoCounter.Sound.html" class="">
+                  Sound
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.Context2Counter.html" class="">
+                  Context2Counter
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a>Interm2Algo</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.Main.html" class="">
+                  Main
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.Corollaries.html" class="">
+                  Corollaries
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.Counter2Context.html" class="">
+                  Counter2Context
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.ExtIrrev.html" class="">
+                  ExtIrrev
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.EnvDiff.html" class="">
+                  EnvDiff
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.OpenClose.html" class="">
+                  OpenClose
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.Find.html" class="">
+                  Find
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.AuxLemmas.html" class="">
+                  AuxLemmas
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.FVClose.html" class="">
+                  FVClose
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.All.html" class="">
+                  Interm
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a>Properties</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.Properties.Regularity.html" class="">
+                  Regularity
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.Properties.Polarity.html" class="">
+                  Polarity
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.Properties.Extension.html" class="">
+                  Extension
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.Properties.Strengthen.html" class="">
+                  Strengthen
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.Properties.Ground.html" class="">
+                  Ground
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+      </ul>
+    
+    </nav>
+    <pre class="Agda"><a id="1" class="Keyword">module</a> <a id="8" href="Implicit.Algo.Properties.WeakenTVar.html" class="Module">Implicit.Algo.Properties.WeakenTVar</a> <a id="44" class="Keyword">where</a>
+
+<a id="51" class="Keyword">open</a> <a id="56" class="Keyword">import</a> <a id="63" href="Implicit.Language.All.html" class="Module">Implicit.Language.All</a>
+<a id="85" class="Keyword">open</a> <a id="90" class="Keyword">import</a> <a id="97" href="Implicit.Algo.Base.html" class="Module">Implicit.Algo.Base</a>
+<a id="116" class="Keyword">open</a> <a id="121" class="Keyword">import</a> <a id="128" href="Implicit.Algo.Properties.Extension.html" class="Module">Implicit.Algo.Properties.Extension</a>
+<a id="163" class="Keyword">open</a> <a id="168" class="Keyword">import</a> <a id="175" href="Implicit.Algo.Properties.Shift.html" class="Module">Implicit.Algo.Properties.Shift</a>
+<a id="206" class="Keyword">open</a> <a id="211" class="Keyword">import</a> <a id="218" href="Implicit.Algo.Properties.Id.html" class="Module">Implicit.Algo.Properties.Id</a>
+
+<a id="▶s⨟,-Ω-exist"></a><a id="247" href="Implicit.Algo.Properties.WeakenTVar.html#247" class="Function">▶s⨟,-Ω-exist</a> <a id="260" class="Symbol">:</a> <a id="262" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="264" href="Implicit.Language.EnvOps.InsertTVar.html#2013" class="Datatype Operator">⨟</a> <a id="266" href="Implicit.Language.Base.html#1745" class="Generalizable">Δ</a> <a id="268" href="Implicit.Language.EnvOps.InsertTVar.html#2013" class="Datatype Operator">▶s</a> <a id="271" href="Implicit.Language.Prelude.html#2679" class="Generalizable">k</a> <a id="273" href="Implicit.Language.EnvOps.InsertTVar.html#2013" class="Datatype Operator">,</a> <a id="275" href="Implicit.Language.Base.html#399" class="Generalizable">T</a> <a id="277" href="Implicit.Language.EnvOps.InsertTVar.html#2013" class="Datatype Operator">⇘</a> <a id="279" href="Implicit.Language.Base.html#1697" class="Generalizable">Γ&#39;</a> <a id="282" href="Implicit.Language.EnvOps.InsertTVar.html#2013" class="Datatype Operator">⨟</a> <a id="284" href="Implicit.Language.Base.html#1747" class="Generalizable">Δ&#39;</a>
+            <a id="299" class="Symbol">→</a> <a id="301" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="303" href="Implicit.Language.Extension.Base.html#186" class="Datatype Operator">⊆</a> <a id="305" href="Implicit.Language.Base.html#1758" class="Generalizable">Ω</a>
+            <a id="319" class="Symbol">→</a> <a id="321" href="Implicit.Language.Base.html#1758" class="Generalizable">Ω</a> <a id="323" href="Implicit.Language.Extension.Base.html#186" class="Datatype Operator">⊆</a> <a id="325" href="Implicit.Language.Base.html#1745" class="Generalizable">Δ</a>
+            <a id="339" class="Symbol">→</a> <a id="341" href="Data.Product.Base.html#1371" class="Function">∃[</a> <a id="344" href="Implicit.Algo.Properties.WeakenTVar.html#344" class="Bound">Ω&#39;</a> <a id="347" href="Data.Product.Base.html#1371" class="Function">]</a><a id="348" class="Symbol">(</a><a id="349" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="351" href="Implicit.Language.EnvOps.InsertTVar.html#2013" class="Datatype Operator">⨟</a> <a id="353" href="Implicit.Language.Base.html#1758" class="Generalizable">Ω</a> <a id="355" href="Implicit.Language.EnvOps.InsertTVar.html#2013" class="Datatype Operator">▶s</a> <a id="358" href="Implicit.Language.Prelude.html#2679" class="Generalizable">k</a> <a id="360" href="Implicit.Language.EnvOps.InsertTVar.html#2013" class="Datatype Operator">,</a> <a id="362" href="Implicit.Language.Base.html#399" class="Generalizable">T</a> <a id="364" href="Implicit.Language.EnvOps.InsertTVar.html#2013" class="Datatype Operator">⇘</a> <a id="366" href="Implicit.Language.Base.html#1697" class="Generalizable">Γ&#39;</a> <a id="369" href="Implicit.Language.EnvOps.InsertTVar.html#2013" class="Datatype Operator">⨟</a> <a id="371" href="Implicit.Algo.Properties.WeakenTVar.html#344" class="Bound">Ω&#39;</a> <a id="374" href="Data.Product.Base.html#1618" class="Function Operator">×</a>
+                      <a id="398" href="Implicit.Language.Base.html#1758" class="Generalizable">Ω</a> <a id="400" href="Implicit.Language.EnvOps.InsertTVar.html#2013" class="Datatype Operator">⨟</a> <a id="402" href="Implicit.Language.Base.html#1745" class="Generalizable">Δ</a> <a id="404" href="Implicit.Language.EnvOps.InsertTVar.html#2013" class="Datatype Operator">▶s</a> <a id="407" href="Implicit.Language.Prelude.html#2679" class="Generalizable">k</a> <a id="409" href="Implicit.Language.EnvOps.InsertTVar.html#2013" class="Datatype Operator">,</a> <a id="411" href="Implicit.Language.Base.html#399" class="Generalizable">T</a> <a id="413" href="Implicit.Language.EnvOps.InsertTVar.html#2013" class="Datatype Operator">⇘</a> <a id="415" href="Implicit.Algo.Properties.WeakenTVar.html#344" class="Bound">Ω&#39;</a> <a id="418" href="Implicit.Language.EnvOps.InsertTVar.html#2013" class="Datatype Operator">⨟</a> <a id="420" href="Implicit.Language.Base.html#1747" class="Generalizable">Δ&#39;</a><a id="422" class="Symbol">)</a>
+<a id="424" href="Implicit.Algo.Properties.WeakenTVar.html#247" class="Function">▶s⨟,-Ω-exist</a> <a id="437" class="Symbol">(</a><a id="438" href="Implicit.Language.EnvOps.InsertTVar.html#2277" class="InductiveConstructor">▶sS^</a> <a id="443" href="Implicit.Algo.Properties.WeakenTVar.html#443" class="Bound">new</a> <a id="447" href="Implicit.Algo.Properties.WeakenTVar.html#447" class="Bound">x</a><a id="448" class="Symbol">)</a> <a id="450" class="Symbol">(</a><a id="451" href="Implicit.Language.Extension.Base.html#263" class="InductiveConstructor">evar</a> <a id="456" href="Implicit.Algo.Properties.WeakenTVar.html#456" class="Bound">ext1</a><a id="460" class="Symbol">)</a> <a id="462" class="Symbol">(</a><a id="463" href="Implicit.Language.Extension.Base.html#263" class="InductiveConstructor">evar</a> <a id="468" href="Implicit.Algo.Properties.WeakenTVar.html#468" class="Bound">ext2</a><a id="472" class="Symbol">)</a> <a id="474" class="Symbol">=</a> <a id="476" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="478" href="Implicit.Algo.Properties.WeakenTVar.html#247" class="Function">▶s⨟,-Ω-exist</a> <a id="491" href="Implicit.Algo.Properties.WeakenTVar.html#443" class="Bound">new</a> <a id="495" href="Implicit.Algo.Properties.WeakenTVar.html#456" class="Bound">ext1</a> <a id="500" href="Implicit.Algo.Properties.WeakenTVar.html#468" class="Bound">ext2</a> <a id="505" class="Symbol">.</a><a id="506" href="Data.Product.Base.html#636" class="Field">proj₁</a> <a id="512" href="Implicit.Language.Base.html#1540" class="InductiveConstructor Operator">,^</a> <a id="515" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a>
+                                                   <a id="568" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="570" href="Implicit.Language.EnvOps.InsertTVar.html#2277" class="InductiveConstructor">▶sS^</a> <a id="575" class="Symbol">(</a><a id="576" href="Implicit.Algo.Properties.WeakenTVar.html#247" class="Function">▶s⨟,-Ω-exist</a> <a id="589" href="Implicit.Algo.Properties.WeakenTVar.html#443" class="Bound">new</a> <a id="593" href="Implicit.Algo.Properties.WeakenTVar.html#456" class="Bound">ext1</a> <a id="598" href="Implicit.Algo.Properties.WeakenTVar.html#468" class="Bound">ext2</a> <a id="603" class="Symbol">.</a><a id="604" href="Data.Product.Base.html#650" class="Field">proj₂</a> <a id="610" class="Symbol">.</a><a id="611" href="Data.Product.Base.html#636" class="Field">proj₁</a><a id="616" class="Symbol">)</a> <a id="618" href="Implicit.Algo.Properties.WeakenTVar.html#447" class="Bound">x</a> <a id="620" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a>
+                                                   <a id="673" href="Implicit.Language.EnvOps.InsertTVar.html#2277" class="InductiveConstructor">▶sS^</a> <a id="678" class="Symbol">(</a><a id="679" href="Implicit.Algo.Properties.WeakenTVar.html#247" class="Function">▶s⨟,-Ω-exist</a> <a id="692" href="Implicit.Algo.Properties.WeakenTVar.html#443" class="Bound">new</a> <a id="696" href="Implicit.Algo.Properties.WeakenTVar.html#456" class="Bound">ext1</a> <a id="701" href="Implicit.Algo.Properties.WeakenTVar.html#468" class="Bound">ext2</a> <a id="706" class="Symbol">.</a><a id="707" href="Data.Product.Base.html#650" class="Field">proj₂</a> <a id="713" class="Symbol">.</a><a id="714" href="Data.Product.Base.html#650" class="Field">proj₂</a><a id="719" class="Symbol">)</a> <a id="721" href="Implicit.Algo.Properties.WeakenTVar.html#447" class="Bound">x</a> <a id="723" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a>
+                                                   <a id="776" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a>
+<a id="778" href="Implicit.Algo.Properties.WeakenTVar.html#247" class="Function">▶s⨟,-Ω-exist</a> <a id="791" class="Symbol">(</a><a id="792" href="Implicit.Language.EnvOps.InsertTVar.html#2377" class="InductiveConstructor">▶sS∙</a> <a id="797" href="Implicit.Algo.Properties.WeakenTVar.html#797" class="Bound">new</a> <a id="801" href="Implicit.Algo.Properties.WeakenTVar.html#801" class="Bound">x</a><a id="802" class="Symbol">)</a> <a id="804" class="Symbol">(</a><a id="805" href="Implicit.Language.Extension.Base.html#224" class="InductiveConstructor">uvar</a> <a id="810" href="Implicit.Algo.Properties.WeakenTVar.html#810" class="Bound">ext1</a><a id="814" class="Symbol">)</a> <a id="816" class="Symbol">(</a><a id="817" href="Implicit.Language.Extension.Base.html#224" class="InductiveConstructor">uvar</a> <a id="822" href="Implicit.Algo.Properties.WeakenTVar.html#822" class="Bound">ext2</a><a id="826" class="Symbol">)</a> <a id="828" class="Symbol">=</a> <a id="830" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="832" href="Implicit.Algo.Properties.WeakenTVar.html#247" class="Function">▶s⨟,-Ω-exist</a> <a id="845" href="Implicit.Algo.Properties.WeakenTVar.html#797" class="Bound">new</a> <a id="849" href="Implicit.Algo.Properties.WeakenTVar.html#810" class="Bound">ext1</a> <a id="854" href="Implicit.Algo.Properties.WeakenTVar.html#822" class="Bound">ext2</a> <a id="859" class="Symbol">.</a><a id="860" href="Data.Product.Base.html#636" class="Field">proj₁</a> <a id="866" href="Implicit.Language.Base.html#1574" class="InductiveConstructor Operator">,∙</a> <a id="869" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a>
+                                                   <a id="922" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="924" href="Implicit.Language.EnvOps.InsertTVar.html#2377" class="InductiveConstructor">▶sS∙</a> <a id="929" class="Symbol">(</a><a id="930" href="Implicit.Algo.Properties.WeakenTVar.html#247" class="Function">▶s⨟,-Ω-exist</a> <a id="943" href="Implicit.Algo.Properties.WeakenTVar.html#797" class="Bound">new</a> <a id="947" href="Implicit.Algo.Properties.WeakenTVar.html#810" class="Bound">ext1</a> <a id="952" href="Implicit.Algo.Properties.WeakenTVar.html#822" class="Bound">ext2</a> <a id="957" class="Symbol">.</a><a id="958" href="Data.Product.Base.html#650" class="Field">proj₂</a> <a id="964" class="Symbol">.</a><a id="965" href="Data.Product.Base.html#636" class="Field">proj₁</a><a id="970" class="Symbol">)</a> <a id="972" href="Implicit.Algo.Properties.WeakenTVar.html#801" class="Bound">x</a> <a id="974" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a>
+                                                   <a id="1027" href="Implicit.Language.EnvOps.InsertTVar.html#2377" class="InductiveConstructor">▶sS∙</a> <a id="1032" class="Symbol">(</a><a id="1033" href="Implicit.Algo.Properties.WeakenTVar.html#247" class="Function">▶s⨟,-Ω-exist</a> <a id="1046" href="Implicit.Algo.Properties.WeakenTVar.html#797" class="Bound">new</a> <a id="1050" href="Implicit.Algo.Properties.WeakenTVar.html#810" class="Bound">ext1</a> <a id="1055" href="Implicit.Algo.Properties.WeakenTVar.html#822" class="Bound">ext2</a> <a id="1060" class="Symbol">.</a><a id="1061" href="Data.Product.Base.html#650" class="Field">proj₂</a> <a id="1067" class="Symbol">.</a><a id="1068" href="Data.Product.Base.html#650" class="Field">proj₂</a><a id="1073" class="Symbol">)</a> <a id="1075" href="Implicit.Algo.Properties.WeakenTVar.html#801" class="Bound">x</a> <a id="1077" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a> <a id="1079" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a>
+<a id="1081" href="Implicit.Algo.Properties.WeakenTVar.html#247" class="Function">▶s⨟,-Ω-exist</a> <a id="1094" class="Symbol">(</a><a id="1095" href="Implicit.Language.EnvOps.InsertTVar.html#2477" class="InductiveConstructor">▶sS=</a> <a id="1100" href="Implicit.Algo.Properties.WeakenTVar.html#1100" class="Bound">new</a> <a id="1104" href="Implicit.Algo.Properties.WeakenTVar.html#1104" class="Bound">x</a><a id="1105" class="Symbol">)</a> <a id="1107" class="Symbol">(</a><a id="1108" href="Implicit.Language.Extension.Base.html#369" class="InductiveConstructor">svar</a> <a id="1113" class="Symbol">{</a><a id="1114" class="Argument">A</a> <a id="1116" class="Symbol">=</a> <a id="1118" href="Implicit.Algo.Properties.WeakenTVar.html#1118" class="Bound">A</a><a id="1119" class="Symbol">}</a> <a id="1121" href="Implicit.Algo.Properties.WeakenTVar.html#1121" class="Bound">ext1</a> <a id="1126" href="Implicit.Algo.Properties.WeakenTVar.html#1126" class="Bound">regA</a><a id="1130" class="Symbol">)</a> <a id="1132" class="Symbol">(</a><a id="1133" href="Implicit.Language.Extension.Base.html#369" class="InductiveConstructor">svar</a> <a id="1138" href="Implicit.Algo.Properties.WeakenTVar.html#1138" class="Bound">ext2</a> <a id="1143" href="Implicit.Algo.Properties.WeakenTVar.html#1143" class="Bound">regA₁</a><a id="1148" class="Symbol">)</a> <a id="1150" class="Symbol">=</a> <a id="1152" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="1154" href="Implicit.Algo.Properties.WeakenTVar.html#247" class="Function">▶s⨟,-Ω-exist</a> <a id="1167" href="Implicit.Algo.Properties.WeakenTVar.html#1100" class="Bound">new</a> <a id="1171" href="Implicit.Algo.Properties.WeakenTVar.html#1121" class="Bound">ext1</a> <a id="1176" href="Implicit.Algo.Properties.WeakenTVar.html#1138" class="Bound">ext2</a> <a id="1181" class="Symbol">.</a><a id="1182" href="Data.Product.Base.html#636" class="Field">proj₁</a> <a id="1188" href="Implicit.Language.Base.html#1608" class="InductiveConstructor Operator">,=</a> <a id="1191" href="Implicit.Algo.Properties.WeakenTVar.html#1118" class="Bound">A</a> <a id="1193" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a>
+                                                              <a id="1257" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="1259" href="Implicit.Language.EnvOps.InsertTVar.html#2477" class="InductiveConstructor">▶sS=</a> <a id="1264" class="Symbol">(</a><a id="1265" href="Implicit.Algo.Properties.WeakenTVar.html#247" class="Function">▶s⨟,-Ω-exist</a> <a id="1278" href="Implicit.Algo.Properties.WeakenTVar.html#1100" class="Bound">new</a> <a id="1282" href="Implicit.Algo.Properties.WeakenTVar.html#1121" class="Bound">ext1</a> <a id="1287" href="Implicit.Algo.Properties.WeakenTVar.html#1138" class="Bound">ext2</a> <a id="1292" class="Symbol">.</a><a id="1293" href="Data.Product.Base.html#650" class="Field">proj₂</a> <a id="1299" class="Symbol">.</a><a id="1300" href="Data.Product.Base.html#636" class="Field">proj₁</a><a id="1305" class="Symbol">)</a> <a id="1307" href="Implicit.Algo.Properties.WeakenTVar.html#1104" class="Bound">x</a> <a id="1309" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a>
+                                                              <a id="1373" href="Implicit.Language.EnvOps.InsertTVar.html#2477" class="InductiveConstructor">▶sS=</a> <a id="1378" class="Symbol">(</a><a id="1379" href="Implicit.Algo.Properties.WeakenTVar.html#247" class="Function">▶s⨟,-Ω-exist</a> <a id="1392" href="Implicit.Algo.Properties.WeakenTVar.html#1100" class="Bound">new</a> <a id="1396" href="Implicit.Algo.Properties.WeakenTVar.html#1121" class="Bound">ext1</a> <a id="1401" href="Implicit.Algo.Properties.WeakenTVar.html#1138" class="Bound">ext2</a> <a id="1406" class="Symbol">.</a><a id="1407" href="Data.Product.Base.html#650" class="Field">proj₂</a> <a id="1413" class="Symbol">.</a><a id="1414" href="Data.Product.Base.html#650" class="Field">proj₂</a><a id="1419" class="Symbol">)</a> <a id="1421" href="Implicit.Algo.Properties.WeakenTVar.html#1104" class="Bound">x</a> <a id="1423" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a> <a id="1425" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a>
+<a id="1427" href="Implicit.Algo.Properties.WeakenTVar.html#247" class="Function">▶s⨟,-Ω-exist</a> <a id="1440" class="Symbol">(</a><a id="1441" href="Implicit.Language.EnvOps.InsertTVar.html#2586" class="InductiveConstructor">▶sS^=</a> <a id="1447" href="Implicit.Algo.Properties.WeakenTVar.html#1447" class="Bound">new</a> <a id="1451" href="Implicit.Algo.Properties.WeakenTVar.html#1451" class="Bound">x</a><a id="1452" class="Symbol">)</a> <a id="1454" class="Symbol">(</a><a id="1455" href="Implicit.Language.Extension.Base.html#263" class="InductiveConstructor">evar</a> <a id="1460" href="Implicit.Algo.Properties.WeakenTVar.html#1460" class="Bound">ext1</a><a id="1464" class="Symbol">)</a> <a id="1466" class="Symbol">(</a><a id="1467" href="Implicit.Language.Extension.Base.html#302" class="InductiveConstructor">evar-sol</a> <a id="1476" href="Implicit.Algo.Properties.WeakenTVar.html#1476" class="Bound">ext2</a> <a id="1481" href="Implicit.Algo.Properties.WeakenTVar.html#1481" class="Bound">regA</a><a id="1485" class="Symbol">)</a> <a id="1487" class="Symbol">=</a> <a id="1489" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="1491" href="Implicit.Algo.Properties.WeakenTVar.html#247" class="Function">▶s⨟,-Ω-exist</a> <a id="1504" href="Implicit.Algo.Properties.WeakenTVar.html#1447" class="Bound">new</a> <a id="1508" href="Implicit.Algo.Properties.WeakenTVar.html#1460" class="Bound">ext1</a> <a id="1513" href="Implicit.Algo.Properties.WeakenTVar.html#1476" class="Bound">ext2</a> <a id="1518" class="Symbol">.</a><a id="1519" href="Data.Product.Base.html#636" class="Field">proj₁</a> <a id="1525" href="Implicit.Language.Base.html#1540" class="InductiveConstructor Operator">,^</a> <a id="1528" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a>
+                                                             <a id="1591" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="1593" href="Implicit.Language.EnvOps.InsertTVar.html#2277" class="InductiveConstructor">▶sS^</a> <a id="1598" class="Symbol">(</a><a id="1599" href="Implicit.Algo.Properties.WeakenTVar.html#247" class="Function">▶s⨟,-Ω-exist</a> <a id="1612" href="Implicit.Algo.Properties.WeakenTVar.html#1447" class="Bound">new</a> <a id="1616" href="Implicit.Algo.Properties.WeakenTVar.html#1460" class="Bound">ext1</a> <a id="1621" href="Implicit.Algo.Properties.WeakenTVar.html#1476" class="Bound">ext2</a> <a id="1626" class="Symbol">.</a><a id="1627" href="Data.Product.Base.html#650" class="Field">proj₂</a> <a id="1633" class="Symbol">.</a><a id="1634" href="Data.Product.Base.html#636" class="Field">proj₁</a><a id="1639" class="Symbol">)</a> <a id="1641" href="Implicit.Algo.Properties.WeakenTVar.html#1451" class="Bound">x</a> <a id="1643" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a>
+                                                             <a id="1706" href="Implicit.Language.EnvOps.InsertTVar.html#2586" class="InductiveConstructor">▶sS^=</a> <a id="1712" class="Symbol">(</a><a id="1713" href="Implicit.Algo.Properties.WeakenTVar.html#247" class="Function">▶s⨟,-Ω-exist</a> <a id="1726" href="Implicit.Algo.Properties.WeakenTVar.html#1447" class="Bound">new</a> <a id="1730" href="Implicit.Algo.Properties.WeakenTVar.html#1460" class="Bound">ext1</a> <a id="1735" href="Implicit.Algo.Properties.WeakenTVar.html#1476" class="Bound">ext2</a> <a id="1740" class="Symbol">.</a><a id="1741" href="Data.Product.Base.html#650" class="Field">proj₂</a> <a id="1747" class="Symbol">.</a><a id="1748" href="Data.Product.Base.html#650" class="Field">proj₂</a><a id="1753" class="Symbol">)</a> <a id="1755" href="Implicit.Algo.Properties.WeakenTVar.html#1451" class="Bound">x</a> <a id="1757" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a>
+                                                             <a id="1820" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a>
+<a id="1822" href="Implicit.Algo.Properties.WeakenTVar.html#247" class="Function">▶s⨟,-Ω-exist</a> <a id="1835" class="Symbol">(</a><a id="1836" href="Implicit.Language.EnvOps.InsertTVar.html#2586" class="InductiveConstructor">▶sS^=</a> <a id="1842" href="Implicit.Algo.Properties.WeakenTVar.html#1842" class="Bound">new</a> <a id="1846" href="Implicit.Algo.Properties.WeakenTVar.html#1846" class="Bound">x</a><a id="1847" class="Symbol">)</a> <a id="1849" class="Symbol">(</a><a id="1850" href="Implicit.Language.Extension.Base.html#302" class="InductiveConstructor">evar-sol</a> <a id="1859" class="Symbol">{</a><a id="1860" class="Argument">A</a> <a id="1862" class="Symbol">=</a> <a id="1864" href="Implicit.Algo.Properties.WeakenTVar.html#1864" class="Bound">A</a><a id="1865" class="Symbol">}</a> <a id="1867" href="Implicit.Algo.Properties.WeakenTVar.html#1867" class="Bound">ext1</a> <a id="1872" href="Implicit.Algo.Properties.WeakenTVar.html#1872" class="Bound">regA</a><a id="1876" class="Symbol">)</a> <a id="1878" class="Symbol">(</a><a id="1879" href="Implicit.Language.Extension.Base.html#369" class="InductiveConstructor">svar</a> <a id="1884" href="Implicit.Algo.Properties.WeakenTVar.html#1884" class="Bound">ext2</a> <a id="1889" href="Implicit.Algo.Properties.WeakenTVar.html#1889" class="Bound">regA₁</a><a id="1894" class="Symbol">)</a> <a id="1896" class="Symbol">=</a> <a id="1898" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="1900" href="Implicit.Algo.Properties.WeakenTVar.html#247" class="Function">▶s⨟,-Ω-exist</a> <a id="1913" href="Implicit.Algo.Properties.WeakenTVar.html#1842" class="Bound">new</a> <a id="1917" href="Implicit.Algo.Properties.WeakenTVar.html#1867" class="Bound">ext1</a> <a id="1922" href="Implicit.Algo.Properties.WeakenTVar.html#1884" class="Bound">ext2</a> <a id="1927" class="Symbol">.</a><a id="1928" href="Data.Product.Base.html#636" class="Field">proj₁</a> <a id="1934" href="Implicit.Language.Base.html#1608" class="InductiveConstructor Operator">,=</a> <a id="1937" href="Implicit.Algo.Properties.WeakenTVar.html#1864" class="Bound">A</a> <a id="1939" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a>
+                                                                   <a id="2008" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="2010" href="Implicit.Language.EnvOps.InsertTVar.html#2586" class="InductiveConstructor">▶sS^=</a> <a id="2016" class="Symbol">(</a><a id="2017" href="Implicit.Algo.Properties.WeakenTVar.html#247" class="Function">▶s⨟,-Ω-exist</a> <a id="2030" href="Implicit.Algo.Properties.WeakenTVar.html#1842" class="Bound">new</a> <a id="2034" href="Implicit.Algo.Properties.WeakenTVar.html#1867" class="Bound">ext1</a> <a id="2039" href="Implicit.Algo.Properties.WeakenTVar.html#1884" class="Bound">ext2</a> <a id="2044" class="Symbol">.</a><a id="2045" href="Data.Product.Base.html#650" class="Field">proj₂</a> <a id="2051" class="Symbol">.</a><a id="2052" href="Data.Product.Base.html#636" class="Field">proj₁</a><a id="2057" class="Symbol">)</a> <a id="2059" href="Implicit.Algo.Properties.WeakenTVar.html#1846" class="Bound">x</a> <a id="2061" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a>
+                                                                   <a id="2130" href="Implicit.Language.EnvOps.InsertTVar.html#2477" class="InductiveConstructor">▶sS=</a> <a id="2135" class="Symbol">(</a><a id="2136" href="Implicit.Algo.Properties.WeakenTVar.html#247" class="Function">▶s⨟,-Ω-exist</a> <a id="2149" href="Implicit.Algo.Properties.WeakenTVar.html#1842" class="Bound">new</a> <a id="2153" href="Implicit.Algo.Properties.WeakenTVar.html#1867" class="Bound">ext1</a> <a id="2158" href="Implicit.Algo.Properties.WeakenTVar.html#1884" class="Bound">ext2</a> <a id="2163" class="Symbol">.</a><a id="2164" href="Data.Product.Base.html#650" class="Field">proj₂</a> <a id="2170" class="Symbol">.</a><a id="2171" href="Data.Product.Base.html#650" class="Field">proj₂</a><a id="2176" class="Symbol">)</a> <a id="2178" href="Implicit.Algo.Properties.WeakenTVar.html#1846" class="Bound">x</a> <a id="2180" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a> <a id="2182" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a>
+<a id="2184" href="Implicit.Algo.Properties.WeakenTVar.html#247" class="Function">▶s⨟,-Ω-exist</a> <a id="2197" class="Symbol">(</a><a id="2198" href="Implicit.Language.EnvOps.InsertTVar.html#2115" class="InductiveConstructor">▶sS⋈</a> <a id="2203" class="Symbol">{</a><a id="2204" class="Argument">Γ&#39;</a> <a id="2207" class="Symbol">=</a> <a id="2209" href="Implicit.Algo.Properties.WeakenTVar.html#2209" class="Bound">Γ&#39;</a><a id="2211" class="Symbol">}</a> <a id="2213" href="Implicit.Algo.Properties.WeakenTVar.html#2213" class="Bound">new</a><a id="2216" class="Symbol">)</a> <a id="2218" class="Symbol">(</a><a id="2219" href="Implicit.Language.Extension.Base.html#434" class="InductiveConstructor">mark</a> <a id="2224" href="Implicit.Algo.Properties.WeakenTVar.html#2224" class="Bound">regΓ</a><a id="2228" class="Symbol">)</a> <a id="2230" class="Symbol">(</a><a id="2231" href="Implicit.Language.Extension.Base.html#434" class="InductiveConstructor">mark</a> <a id="2236" href="Implicit.Algo.Properties.WeakenTVar.html#2236" class="Bound">regΓ₁</a><a id="2241" class="Symbol">)</a>
+  <a id="2245" class="Keyword">with</a> <a id="2250" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a> ← <a id="2257" href="Implicit.Language.EnvOps.InsertTVar.html#2691" class="Function">▶⨟,-unique</a> <a id="2268" href="Implicit.Algo.Properties.WeakenTVar.html#2213" class="Bound">new</a> <a id="2272" class="Symbol">=</a> <a id="2274" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="2276" href="Implicit.Algo.Properties.WeakenTVar.html#2209" class="Bound">Γ&#39;</a> <a id="2279" href="Implicit.Language.Base.html#1657" class="InductiveConstructor Operator">⋈</a> <a id="2281" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a> <a id="2283" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="2285" href="Implicit.Language.EnvOps.InsertTVar.html#2115" class="InductiveConstructor">▶sS⋈</a> <a id="2290" href="Implicit.Algo.Properties.WeakenTVar.html#2213" class="Bound">new</a> <a id="2294" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a> <a id="2296" href="Implicit.Language.EnvOps.InsertTVar.html#2115" class="InductiveConstructor">▶sS⋈</a> <a id="2301" href="Implicit.Algo.Properties.WeakenTVar.html#2213" class="Bound">new</a> <a id="2305" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a> <a id="2307" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a>
+
+
+<a id="ss-weaken,"></a><a id="2311" href="Implicit.Algo.Properties.WeakenTVar.html#2311" class="Function">ss-weaken,</a> <a id="2322" class="Symbol">:</a> <a id="2324" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="2326" href="Implicit.Algo.Base.html#295" class="Datatype Operator">⊢</a> <a id="2328" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="2330" href="Implicit.Algo.Base.html#295" class="Datatype Operator">⌞</a> <a id="2332" href="Implicit.Language.Base.html#2394" class="Generalizable">≤</a> <a id="2334" href="Implicit.Algo.Base.html#295" class="Datatype Operator">⌝</a> <a id="2336" href="Implicit.Language.Base.html#387" class="Generalizable">B</a> <a id="2338" href="Implicit.Algo.Base.html#295" class="Datatype Operator">⊣</a> <a id="2340" href="Implicit.Language.Base.html#1745" class="Generalizable">Δ</a>
+           <a id="2353" class="Symbol">→</a> <a id="2355" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="2357" href="Implicit.Language.EnvOps.InsertTVar.html#2013" class="Datatype Operator">⨟</a> <a id="2359" href="Implicit.Language.Base.html#1745" class="Generalizable">Δ</a> <a id="2361" href="Implicit.Language.EnvOps.InsertTVar.html#2013" class="Datatype Operator">▶s</a> <a id="2364" href="Implicit.Language.Prelude.html#2679" class="Generalizable">k</a> <a id="2366" href="Implicit.Language.EnvOps.InsertTVar.html#2013" class="Datatype Operator">,</a> <a id="2368" href="Implicit.Language.Base.html#399" class="Generalizable">T</a> <a id="2370" href="Implicit.Language.EnvOps.InsertTVar.html#2013" class="Datatype Operator">⇘</a> <a id="2372" href="Implicit.Language.Base.html#1697" class="Generalizable">Γ&#39;</a> <a id="2375" href="Implicit.Language.EnvOps.InsertTVar.html#2013" class="Datatype Operator">⨟</a> <a id="2377" href="Implicit.Language.Base.html#1747" class="Generalizable">Δ&#39;</a>
+           <a id="2391" class="Symbol">→</a> <a id="2393" href="Implicit.Language.Base.html#1697" class="Generalizable">Γ&#39;</a> <a id="2396" href="Implicit.Algo.Base.html#295" class="Datatype Operator">⊢</a> <a id="2398" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="2400" href="Implicit.Algo.Base.html#295" class="Datatype Operator">⌞</a> <a id="2402" href="Implicit.Language.Base.html#2394" class="Generalizable">≤</a> <a id="2404" href="Implicit.Algo.Base.html#295" class="Datatype Operator">⌝</a> <a id="2406" href="Implicit.Language.Base.html#387" class="Generalizable">B</a> <a id="2408" href="Implicit.Algo.Base.html#295" class="Datatype Operator">⊣</a> <a id="2410" href="Implicit.Language.Base.html#1747" class="Generalizable">Δ&#39;</a>
+
+<a id="2414" href="Implicit.Algo.Properties.WeakenTVar.html#2311" class="Function">ss-weaken,</a> <a id="2425" class="Symbol">(</a><a id="2426" href="Implicit.Algo.Base.html#365" class="InductiveConstructor">s-int</a> <a id="2432" href="Implicit.Algo.Properties.WeakenTVar.html#2432" class="Bound">regΓ</a><a id="2436" class="Symbol">)</a> <a id="2438" href="Implicit.Algo.Properties.WeakenTVar.html#2438" class="Bound">new</a> <a id="2442" class="Keyword">with</a> <a id="2447" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a> ← <a id="2454" href="Implicit.Language.EnvOps.InsertTVar.html#2989" class="Function">▶s⨟,-unique</a> <a id="2466" href="Implicit.Algo.Properties.WeakenTVar.html#2438" class="Bound">new</a> <a id="2470" class="Symbol">=</a> <a id="2472" href="Implicit.Algo.Base.html#365" class="InductiveConstructor">s-int</a> <a id="2478" class="Symbol">(</a><a id="2479" href="Implicit.Language.EnvOps.InsertTVar.html#12203" class="Function">sregular-weaken,s</a> <a id="2497" href="Implicit.Algo.Properties.WeakenTVar.html#2432" class="Bound">regΓ</a> <a id="2502" class="Symbol">(</a><a id="2503" href="Implicit.Language.EnvOps.InsertTVar.html#3634" class="Function">▶s⨟,-▶s,-l</a> <a id="2514" href="Implicit.Algo.Properties.WeakenTVar.html#2438" class="Bound">new</a><a id="2517" class="Symbol">))</a>
+<a id="2520" href="Implicit.Algo.Properties.WeakenTVar.html#2311" class="Function">ss-weaken,</a> <a id="2531" class="Symbol">(</a><a id="2532" href="Implicit.Algo.Base.html#430" class="InductiveConstructor">s-var-∙</a> <a id="2540" href="Implicit.Algo.Properties.WeakenTVar.html#2540" class="Bound">regΓ</a> <a id="2545" href="Implicit.Algo.Properties.WeakenTVar.html#2545" class="Bound">x</a><a id="2546" class="Symbol">)</a> <a id="2548" href="Implicit.Algo.Properties.WeakenTVar.html#2548" class="Bound">new</a> <a id="2552" class="Keyword">with</a> <a id="2557" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a> ← <a id="2564" href="Implicit.Language.EnvOps.InsertTVar.html#2989" class="Function">▶s⨟,-unique</a> <a id="2576" href="Implicit.Algo.Properties.WeakenTVar.html#2548" class="Bound">new</a> <a id="2580" class="Symbol">=</a> <a id="2582" href="Implicit.Algo.Base.html#430" class="InductiveConstructor">s-var-∙</a> <a id="2590" class="Symbol">(</a><a id="2591" href="Implicit.Language.EnvOps.InsertTVar.html#12203" class="Function">sregular-weaken,s</a> <a id="2609" href="Implicit.Algo.Properties.WeakenTVar.html#2540" class="Bound">regΓ</a> <a id="2614" class="Symbol">(</a><a id="2615" href="Implicit.Language.EnvOps.InsertTVar.html#3634" class="Function">▶s⨟,-▶s,-l</a> <a id="2626" href="Implicit.Algo.Properties.WeakenTVar.html#2548" class="Bound">new</a><a id="2629" class="Symbol">))</a> <a id="2632" class="Symbol">(</a><a id="2633" href="Implicit.Language.EnvOps.InsertTVar.html#5288" class="Function">∋∙-weaken,s</a> <a id="2645" href="Implicit.Algo.Properties.WeakenTVar.html#2545" class="Bound">x</a> <a id="2647" class="Symbol">(</a><a id="2648" href="Implicit.Language.EnvOps.InsertTVar.html#3634" class="Function">▶s⨟,-▶s,-l</a> <a id="2659" href="Implicit.Algo.Properties.WeakenTVar.html#2548" class="Bound">new</a><a id="2662" class="Symbol">))</a>
+<a id="2665" href="Implicit.Algo.Properties.WeakenTVar.html#2311" class="Function">ss-weaken,</a> <a id="2676" class="Symbol">(</a><a id="2677" href="Implicit.Algo.Base.html#522" class="InductiveConstructor">s-ex-l^</a> <a id="2685" href="Implicit.Algo.Properties.WeakenTVar.html#2685" class="Bound">inst</a><a id="2689" class="Symbol">)</a> <a id="2691" href="Implicit.Algo.Properties.WeakenTVar.html#2691" class="Bound">new</a> <a id="2695" class="Symbol">=</a> <a id="2697" href="Implicit.Algo.Base.html#522" class="InductiveConstructor">s-ex-l^</a> <a id="2705" class="Symbol">(</a><a id="2706" href="Implicit.Language.EnvOps.InsertTVar.html#13078" class="Function">inst-weaken,s</a> <a id="2720" href="Implicit.Algo.Properties.WeakenTVar.html#2685" class="Bound">inst</a> <a id="2725" href="Implicit.Algo.Properties.WeakenTVar.html#2691" class="Bound">new</a><a id="2728" class="Symbol">)</a>
+<a id="2730" href="Implicit.Algo.Properties.WeakenTVar.html#2311" class="Function">ss-weaken,</a> <a id="2741" class="Symbol">(</a><a id="2742" href="Implicit.Algo.Base.html#641" class="InductiveConstructor">s-ex-r^</a> <a id="2750" href="Implicit.Algo.Properties.WeakenTVar.html#2750" class="Bound">inst</a><a id="2754" class="Symbol">)</a> <a id="2756" href="Implicit.Algo.Properties.WeakenTVar.html#2756" class="Bound">new</a> <a id="2760" class="Symbol">=</a> <a id="2762" href="Implicit.Algo.Base.html#641" class="InductiveConstructor">s-ex-r^</a> <a id="2770" class="Symbol">(</a><a id="2771" href="Implicit.Language.EnvOps.InsertTVar.html#13078" class="Function">inst-weaken,s</a> <a id="2785" href="Implicit.Algo.Properties.WeakenTVar.html#2750" class="Bound">inst</a> <a id="2790" href="Implicit.Algo.Properties.WeakenTVar.html#2756" class="Bound">new</a><a id="2793" class="Symbol">)</a>
+<a id="2795" href="Implicit.Algo.Properties.WeakenTVar.html#2311" class="Function">ss-weaken,</a> <a id="2806" class="Symbol">(</a><a id="2807" href="Implicit.Algo.Base.html#804" class="InductiveConstructor">s-ex-l=</a> <a id="2815" href="Implicit.Algo.Properties.WeakenTVar.html#2815" class="Bound">regΓ</a> <a id="2820" href="Implicit.Algo.Properties.WeakenTVar.html#2820" class="Bound">x-in</a><a id="2824" class="Symbol">)</a> <a id="2826" href="Implicit.Algo.Properties.WeakenTVar.html#2826" class="Bound">new</a>
+  <a id="2832" class="Keyword">with</a> <a id="2837" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a> ← <a id="2844" href="Implicit.Language.EnvOps.InsertTVar.html#2989" class="Function">▶s⨟,-unique</a> <a id="2856" href="Implicit.Algo.Properties.WeakenTVar.html#2826" class="Bound">new</a> <a id="2860" class="Symbol">=</a> <a id="2862" href="Implicit.Algo.Base.html#804" class="InductiveConstructor">s-ex-l=</a> <a id="2870" class="Symbol">(</a><a id="2871" href="Implicit.Language.EnvOps.InsertTVar.html#12203" class="Function">sregular-weaken,s</a> <a id="2889" href="Implicit.Algo.Properties.WeakenTVar.html#2815" class="Bound">regΓ</a> <a id="2894" class="Symbol">(</a><a id="2895" href="Implicit.Language.EnvOps.InsertTVar.html#3634" class="Function">▶s⨟,-▶s,-l</a> <a id="2906" href="Implicit.Algo.Properties.WeakenTVar.html#2826" class="Bound">new</a><a id="2909" class="Symbol">))</a> <a id="2912" class="Symbol">(</a><a id="2913" href="Implicit.Language.EnvOps.InsertTVar.html#7184" class="Function">∋:=-weaken,s</a> <a id="2926" href="Implicit.Algo.Properties.WeakenTVar.html#2820" class="Bound">x-in</a> <a id="2931" class="Symbol">(</a><a id="2932" href="Implicit.Language.EnvOps.InsertTVar.html#3634" class="Function">▶s⨟,-▶s,-l</a> <a id="2943" href="Implicit.Algo.Properties.WeakenTVar.html#2826" class="Bound">new</a><a id="2946" class="Symbol">))</a>
+<a id="2949" href="Implicit.Algo.Properties.WeakenTVar.html#2311" class="Function">ss-weaken,</a> <a id="2960" class="Symbol">(</a><a id="2961" href="Implicit.Algo.Base.html#896" class="InductiveConstructor">s-ex-r=</a> <a id="2969" href="Implicit.Algo.Properties.WeakenTVar.html#2969" class="Bound">regΓ</a> <a id="2974" href="Implicit.Algo.Properties.WeakenTVar.html#2974" class="Bound">x-in</a><a id="2978" class="Symbol">)</a> <a id="2980" href="Implicit.Algo.Properties.WeakenTVar.html#2980" class="Bound">new</a>
+  <a id="2986" class="Keyword">with</a> <a id="2991" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a> ← <a id="2998" href="Implicit.Language.EnvOps.InsertTVar.html#2989" class="Function">▶s⨟,-unique</a> <a id="3010" href="Implicit.Algo.Properties.WeakenTVar.html#2980" class="Bound">new</a> <a id="3014" class="Symbol">=</a> <a id="3016" href="Implicit.Algo.Base.html#896" class="InductiveConstructor">s-ex-r=</a> <a id="3024" class="Symbol">(</a><a id="3025" href="Implicit.Language.EnvOps.InsertTVar.html#12203" class="Function">sregular-weaken,s</a> <a id="3043" href="Implicit.Algo.Properties.WeakenTVar.html#2969" class="Bound">regΓ</a> <a id="3048" class="Symbol">(</a><a id="3049" href="Implicit.Language.EnvOps.InsertTVar.html#3634" class="Function">▶s⨟,-▶s,-l</a> <a id="3060" href="Implicit.Algo.Properties.WeakenTVar.html#2980" class="Bound">new</a><a id="3063" class="Symbol">))</a> <a id="3066" class="Symbol">(</a><a id="3067" href="Implicit.Language.EnvOps.InsertTVar.html#7184" class="Function">∋:=-weaken,s</a> <a id="3080" href="Implicit.Algo.Properties.WeakenTVar.html#2974" class="Bound">x-in</a> <a id="3085" class="Symbol">(</a><a id="3086" href="Implicit.Language.EnvOps.InsertTVar.html#3634" class="Function">▶s⨟,-▶s,-l</a> <a id="3097" href="Implicit.Algo.Properties.WeakenTVar.html#2980" class="Bound">new</a><a id="3100" class="Symbol">))</a>
+<a id="3103" href="Implicit.Algo.Properties.WeakenTVar.html#2311" class="Function">ss-weaken,</a> <a id="3114" class="Symbol">(</a><a id="3115" href="Implicit.Algo.Base.html#990" class="InductiveConstructor">s-arr</a> <a id="3121" href="Implicit.Algo.Properties.WeakenTVar.html#3121" class="Bound">ss</a> <a id="3124" href="Implicit.Algo.Properties.WeakenTVar.html#3124" class="Bound">ss₁</a><a id="3127" class="Symbol">)</a> <a id="3129" href="Implicit.Algo.Properties.WeakenTVar.html#3129" class="Bound">new</a>
+  <a id="3135" class="Keyword">with</a> <a id="3140" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="3142" href="Implicit.Algo.Properties.WeakenTVar.html#3142" class="Bound">Ω&#39;</a> <a id="3145" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a> <a id="3147" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="3149" href="Implicit.Algo.Properties.WeakenTVar.html#3149" class="Bound">new1</a> <a id="3154" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a> <a id="3156" href="Implicit.Algo.Properties.WeakenTVar.html#3156" class="Bound">new2</a> <a id="3161" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a> <a id="3163" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a> ← <a id="3167" href="Implicit.Algo.Properties.WeakenTVar.html#247" class="Function">▶s⨟,-Ω-exist</a> <a id="3180" href="Implicit.Algo.Properties.WeakenTVar.html#3129" class="Bound">new</a> <a id="3184" class="Symbol">(</a><a id="3185" href="Implicit.Algo.Properties.Extension.html#350" class="Function">ss-⊆</a> <a id="3190" href="Implicit.Algo.Properties.WeakenTVar.html#3121" class="Bound">ss</a><a id="3192" class="Symbol">)</a> <a id="3194" class="Symbol">(</a><a id="3195" href="Implicit.Algo.Properties.Extension.html#350" class="Function">ss-⊆</a> <a id="3200" href="Implicit.Algo.Properties.WeakenTVar.html#3124" class="Bound">ss₁</a><a id="3203" class="Symbol">)</a>
+  <a id="3207" class="Symbol">=</a> <a id="3209" href="Implicit.Algo.Base.html#990" class="InductiveConstructor">s-arr</a> <a id="3215" class="Symbol">(</a><a id="3216" href="Implicit.Algo.Properties.WeakenTVar.html#2311" class="Function">ss-weaken,</a> <a id="3227" href="Implicit.Algo.Properties.WeakenTVar.html#3121" class="Bound">ss</a> <a id="3230" href="Implicit.Algo.Properties.WeakenTVar.html#3149" class="Bound">new1</a><a id="3234" class="Symbol">)</a> <a id="3236" class="Symbol">(</a><a id="3237" href="Implicit.Algo.Properties.WeakenTVar.html#2311" class="Function">ss-weaken,</a> <a id="3248" href="Implicit.Algo.Properties.WeakenTVar.html#3124" class="Bound">ss₁</a> <a id="3252" href="Implicit.Algo.Properties.WeakenTVar.html#3156" class="Bound">new2</a><a id="3256" class="Symbol">)</a>
+<a id="3258" href="Implicit.Algo.Properties.WeakenTVar.html#2311" class="Function">ss-weaken,</a> <a id="3269" class="Symbol">{</a><a id="3270" class="Argument">T</a> <a id="3272" class="Symbol">=</a> <a id="3274" href="Implicit.Algo.Properties.WeakenTVar.html#3274" class="Bound">T</a><a id="3275" class="Symbol">}</a> <a id="3277" class="Symbol">(</a><a id="3278" href="Implicit.Algo.Base.html#1087" class="InductiveConstructor">s-∀</a> <a id="3282" href="Implicit.Algo.Properties.WeakenTVar.html#3282" class="Bound">ss</a><a id="3284" class="Symbol">)</a> <a id="3286" href="Implicit.Algo.Properties.WeakenTVar.html#3286" class="Bound">new</a>
+  <a id="3292" class="Keyword">with</a> <a id="3297" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="3299" href="Implicit.Algo.Properties.WeakenTVar.html#3299" class="Bound">T&#39;</a> <a id="3302" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a> <a id="3304" href="Implicit.Algo.Properties.WeakenTVar.html#3304" class="Bound">upT</a> <a id="3308" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a> ← <a id="3312" href="Implicit.Language.Shift.Properties.html#3117" class="Function">↑ty0-total</a> <a id="3323" href="Implicit.Algo.Properties.WeakenTVar.html#3274" class="Bound">T</a> <a id="3325" class="Symbol">=</a> <a id="3327" href="Implicit.Algo.Base.html#1087" class="InductiveConstructor">s-∀</a> <a id="3331" class="Symbol">(</a><a id="3332" href="Implicit.Algo.Properties.WeakenTVar.html#2311" class="Function">ss-weaken,</a> <a id="3343" href="Implicit.Algo.Properties.WeakenTVar.html#3282" class="Bound">ss</a> <a id="3346" class="Symbol">(</a><a id="3347" href="Implicit.Language.EnvOps.InsertTVar.html#2377" class="InductiveConstructor">▶sS∙</a> <a id="3352" href="Implicit.Algo.Properties.WeakenTVar.html#3286" class="Bound">new</a> <a id="3356" href="Implicit.Algo.Properties.WeakenTVar.html#3304" class="Bound">upT</a><a id="3359" class="Symbol">))</a>
+
+<a id="t-weaken,"></a><a id="3363" href="Implicit.Algo.Properties.WeakenTVar.html#3363" class="Function">t-weaken,</a> <a id="3373" class="Symbol">:</a> <a id="3375" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="3377" href="Implicit.Algo.Base.html#1211" class="Datatype Operator">⊢</a> <a id="3379" href="Implicit.Algo.Constructs.Syntax.html#255" class="Generalizable">Σ</a> <a id="3381" href="Implicit.Algo.Base.html#1211" class="Datatype Operator">⇒</a> <a id="3383" href="Implicit.Language.Base.html#1016" class="Generalizable">e</a> <a id="3385" href="Implicit.Algo.Base.html#1211" class="Datatype Operator">⇒</a> <a id="3387" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+          <a id="3399" class="Symbol">→</a> <a id="3401" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="3403" href="Implicit.Language.EnvOps.InsertTVar.html#428" class="Datatype Operator">▶</a> <a id="3405" href="Implicit.Language.Prelude.html#2679" class="Generalizable">k</a> <a id="3407" href="Implicit.Language.EnvOps.InsertTVar.html#428" class="Datatype Operator">,</a> <a id="3409" href="Implicit.Language.Base.html#399" class="Generalizable">T</a> <a id="3411" href="Implicit.Language.EnvOps.InsertTVar.html#428" class="Datatype Operator">⇘</a> <a id="3413" href="Implicit.Language.Base.html#1697" class="Generalizable">Γ&#39;</a>
+          <a id="3426" class="Symbol">→</a> <a id="3428" href="Implicit.Algo.Constructs.Syntax.html#255" class="Generalizable">Σ</a> <a id="3430" href="Implicit.Algo.Constructs.Shift.html#209" class="Datatype Operator">↑tmᶜ</a> <a id="3435" href="Implicit.Language.Prelude.html#2679" class="Generalizable">k</a> <a id="3437" href="Implicit.Algo.Constructs.Shift.html#209" class="Datatype Operator">⇘</a> <a id="3439" href="Implicit.Algo.Constructs.Syntax.html#257" class="Generalizable">Σ&#39;</a>
+          <a id="3452" class="Symbol">→</a> <a id="3454" href="Implicit.Language.Base.html#1016" class="Generalizable">e</a> <a id="3456" href="Implicit.Language.Shift.Base.html#101" class="Datatype Operator">↑tm</a> <a id="3460" href="Implicit.Language.Prelude.html#2679" class="Generalizable">k</a> <a id="3462" href="Implicit.Language.Shift.Base.html#101" class="Datatype Operator">⇘</a> <a id="3464" href="Implicit.Language.Base.html#1019" class="Generalizable">e&#39;</a>
+          <a id="3477" class="Symbol">→</a> <a id="3479" href="Implicit.Language.Base.html#1697" class="Generalizable">Γ&#39;</a> <a id="3482" href="Implicit.Algo.Base.html#1211" class="Datatype Operator">⊢</a> <a id="3484" href="Implicit.Algo.Constructs.Syntax.html#257" class="Generalizable">Σ&#39;</a> <a id="3487" href="Implicit.Algo.Base.html#1211" class="Datatype Operator">⇒</a> <a id="3489" href="Implicit.Language.Base.html#1019" class="Generalizable">e&#39;</a> <a id="3492" href="Implicit.Algo.Base.html#1211" class="Datatype Operator">⇒</a> <a id="3494" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+
+<a id="infs-weaken,"></a><a id="3497" href="Implicit.Algo.Properties.WeakenTVar.html#3497" class="Function">infs-weaken,</a> <a id="3510" class="Symbol">:</a> <a id="3512" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="3514" href="Implicit.Algo.Base.html#1348" class="Datatype Operator">⊨</a> <a id="3516" href="Implicit.Algo.Constructs.Syntax.html#255" class="Generalizable">Σ</a> <a id="3518" href="Implicit.Algo.Base.html#1348" class="Datatype Operator">⟹</a> <a id="3520" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+             <a id="3535" class="Symbol">→</a> <a id="3537" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="3539" href="Implicit.Language.EnvOps.InsertTVar.html#428" class="Datatype Operator">▶</a> <a id="3541" href="Implicit.Language.Prelude.html#2679" class="Generalizable">k</a> <a id="3543" href="Implicit.Language.EnvOps.InsertTVar.html#428" class="Datatype Operator">,</a> <a id="3545" href="Implicit.Language.Base.html#399" class="Generalizable">T</a> <a id="3547" href="Implicit.Language.EnvOps.InsertTVar.html#428" class="Datatype Operator">⇘</a> <a id="3549" href="Implicit.Language.Base.html#1697" class="Generalizable">Γ&#39;</a>
+             <a id="3565" class="Symbol">→</a> <a id="3567" href="Implicit.Algo.Constructs.Syntax.html#255" class="Generalizable">Σ</a> <a id="3569" href="Implicit.Algo.Constructs.Shift.html#209" class="Datatype Operator">↑tmᶜ</a> <a id="3574" href="Implicit.Language.Prelude.html#2679" class="Generalizable">k</a> <a id="3576" href="Implicit.Algo.Constructs.Shift.html#209" class="Datatype Operator">⇘</a> <a id="3578" href="Implicit.Algo.Constructs.Syntax.html#257" class="Generalizable">Σ&#39;</a>
+             <a id="3594" class="Symbol">→</a> <a id="3596" href="Implicit.Language.Base.html#1697" class="Generalizable">Γ&#39;</a> <a id="3599" href="Implicit.Algo.Base.html#1348" class="Datatype Operator">⊨</a> <a id="3601" href="Implicit.Algo.Constructs.Syntax.html#257" class="Generalizable">Σ&#39;</a> <a id="3604" href="Implicit.Algo.Base.html#1348" class="Datatype Operator">⟹</a> <a id="3606" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+<a id="3608" href="Implicit.Algo.Properties.WeakenTVar.html#3497" class="Function">infs-weaken,</a> <a id="3621" class="Symbol">(</a><a id="3622" href="Implicit.Algo.Base.html#3534" class="InductiveConstructor">infs-z</a> <a id="3629" href="Implicit.Algo.Properties.WeakenTVar.html#3629" class="Bound">regΓ</a> <a id="3634" href="Implicit.Algo.Properties.WeakenTVar.html#3634" class="Bound">regA</a><a id="3638" class="Symbol">)</a> <a id="3640" href="Implicit.Algo.Properties.WeakenTVar.html#3640" class="Bound">new</a> <a id="3644" href="Implicit.Algo.Constructs.Shift.html#321" class="InductiveConstructor">↑tmᶜ-τ</a> <a id="3651" class="Symbol">=</a> <a id="3653" href="Implicit.Algo.Base.html#3534" class="InductiveConstructor">infs-z</a> <a id="3660" class="Symbol">(</a><a id="3661" href="Implicit.Language.EnvOps.InsertTVar.html#11382" class="Function">tregular-weaken,</a> <a id="3678" href="Implicit.Algo.Properties.WeakenTVar.html#3629" class="Bound">regΓ</a> <a id="3683" href="Implicit.Algo.Properties.WeakenTVar.html#3640" class="Bound">new</a><a id="3686" class="Symbol">)</a> <a id="3688" class="Symbol">(</a><a id="3689" href="Implicit.Language.EnvOps.InsertTVar.html#9043" class="Function">⊢r-weaken,</a> <a id="3700" href="Implicit.Algo.Properties.WeakenTVar.html#3634" class="Bound">regA</a> <a id="3705" href="Implicit.Algo.Properties.WeakenTVar.html#3640" class="Bound">new</a><a id="3708" class="Symbol">)</a>
+<a id="3710" href="Implicit.Algo.Properties.WeakenTVar.html#3497" class="Function">infs-weaken,</a> <a id="3723" class="Symbol">(</a><a id="3724" href="Implicit.Algo.Base.html#3615" class="InductiveConstructor">infs-s</a> <a id="3731" href="Implicit.Algo.Properties.WeakenTVar.html#3731" class="Bound">⊢e</a> <a id="3734" href="Implicit.Algo.Properties.WeakenTVar.html#3734" class="Bound">infs</a><a id="3738" class="Symbol">)</a> <a id="3740" href="Implicit.Algo.Properties.WeakenTVar.html#3740" class="Bound">new</a> <a id="3744" class="Symbol">(</a><a id="3745" href="Implicit.Algo.Constructs.Shift.html#368" class="InductiveConstructor">↑tmᶜ-e</a> <a id="3752" href="Implicit.Algo.Properties.WeakenTVar.html#3752" class="Bound">up-e</a> <a id="3757" href="Implicit.Algo.Properties.WeakenTVar.html#3757" class="Bound">upΣ</a><a id="3760" class="Symbol">)</a> <a id="3762" class="Symbol">=</a> <a id="3764" href="Implicit.Algo.Base.html#3615" class="InductiveConstructor">infs-s</a> <a id="3771" class="Symbol">(</a><a id="3772" href="Implicit.Algo.Properties.WeakenTVar.html#3363" class="Function">t-weaken,</a> <a id="3782" href="Implicit.Algo.Properties.WeakenTVar.html#3731" class="Bound">⊢e</a> <a id="3785" href="Implicit.Algo.Properties.WeakenTVar.html#3740" class="Bound">new</a> <a id="3789" href="Implicit.Algo.Constructs.Shift.html#280" class="InductiveConstructor">↑tmᶜ-□</a> <a id="3796" href="Implicit.Algo.Properties.WeakenTVar.html#3752" class="Bound">up-e</a><a id="3800" class="Symbol">)</a> <a id="3802" class="Symbol">(</a><a id="3803" href="Implicit.Algo.Properties.WeakenTVar.html#3497" class="Function">infs-weaken,</a> <a id="3816" href="Implicit.Algo.Properties.WeakenTVar.html#3734" class="Bound">infs</a> <a id="3821" href="Implicit.Algo.Properties.WeakenTVar.html#3740" class="Bound">new</a> <a id="3825" href="Implicit.Algo.Properties.WeakenTVar.html#3757" class="Bound">upΣ</a><a id="3828" class="Symbol">)</a>
+
+<a id="s-weaken,"></a><a id="3831" href="Implicit.Algo.Properties.WeakenTVar.html#3831" class="Function">s-weaken,</a> <a id="3841" class="Symbol">:</a> <a id="3843" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="3845" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">⊢</a> <a id="3847" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="3849" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">≤⁺</a> <a id="3852" href="Implicit.Algo.Constructs.Syntax.html#255" class="Generalizable">Σ</a> <a id="3854" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">⊣</a> <a id="3856" href="Implicit.Language.Base.html#1745" class="Generalizable">Δ</a> <a id="3858" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">↪</a> <a id="3860" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+          <a id="3872" class="Symbol">→</a> <a id="3874" href="Implicit.Algo.Constructs.Syntax.html#255" class="Generalizable">Σ</a> <a id="3876" href="Implicit.Algo.Constructs.Shift.html#209" class="Datatype Operator">↑tmᶜ</a> <a id="3881" href="Implicit.Language.Prelude.html#2679" class="Generalizable">k</a> <a id="3883" href="Implicit.Algo.Constructs.Shift.html#209" class="Datatype Operator">⇘</a> <a id="3885" href="Implicit.Algo.Constructs.Syntax.html#257" class="Generalizable">Σ&#39;</a>
+          <a id="3898" class="Symbol">→</a> <a id="3900" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="3902" href="Implicit.Language.EnvOps.InsertTVar.html#2013" class="Datatype Operator">⨟</a> <a id="3904" href="Implicit.Language.Base.html#1745" class="Generalizable">Δ</a> <a id="3906" href="Implicit.Language.EnvOps.InsertTVar.html#2013" class="Datatype Operator">▶s</a> <a id="3909" href="Implicit.Language.Prelude.html#2679" class="Generalizable">k</a> <a id="3911" href="Implicit.Language.EnvOps.InsertTVar.html#2013" class="Datatype Operator">,</a> <a id="3913" href="Implicit.Language.Base.html#399" class="Generalizable">T</a> <a id="3915" href="Implicit.Language.EnvOps.InsertTVar.html#2013" class="Datatype Operator">⇘</a> <a id="3917" href="Implicit.Language.Base.html#1697" class="Generalizable">Γ&#39;</a> <a id="3920" href="Implicit.Language.EnvOps.InsertTVar.html#2013" class="Datatype Operator">⨟</a> <a id="3922" href="Implicit.Language.Base.html#1747" class="Generalizable">Δ&#39;</a>
+          <a id="3935" class="Symbol">→</a> <a id="3937" href="Implicit.Language.Base.html#1697" class="Generalizable">Γ&#39;</a> <a id="3940" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">⊢</a> <a id="3942" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="3944" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">≤⁺</a> <a id="3947" href="Implicit.Algo.Constructs.Syntax.html#257" class="Generalizable">Σ&#39;</a> <a id="3950" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">⊣</a> <a id="3952" href="Implicit.Language.Base.html#1747" class="Generalizable">Δ&#39;</a> <a id="3955" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">↪</a> <a id="3957" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+
+<a id="3960" href="Implicit.Algo.Properties.WeakenTVar.html#3363" class="Function">t-weaken,</a> <a id="3970" class="Symbol">(</a><a id="3971" href="Implicit.Algo.Base.html#1416" class="InductiveConstructor">⊢lit</a> <a id="3976" href="Implicit.Algo.Properties.WeakenTVar.html#3976" class="Bound">regΓ</a><a id="3980" class="Symbol">)</a> <a id="3982" href="Implicit.Algo.Properties.WeakenTVar.html#3982" class="Bound">new</a> <a id="3986" href="Implicit.Algo.Constructs.Shift.html#280" class="InductiveConstructor">↑tmᶜ-□</a> <a id="3993" href="Implicit.Language.Shift.Base.html#165" class="InductiveConstructor">↑tm-lit</a> <a id="4001" class="Symbol">=</a> <a id="4003" href="Implicit.Algo.Base.html#1416" class="InductiveConstructor">⊢lit</a> <a id="4008" class="Symbol">(</a><a id="4009" href="Implicit.Language.EnvOps.InsertTVar.html#11382" class="Function">tregular-weaken,</a> <a id="4026" href="Implicit.Algo.Properties.WeakenTVar.html#3976" class="Bound">regΓ</a> <a id="4031" href="Implicit.Algo.Properties.WeakenTVar.html#3982" class="Bound">new</a><a id="4034" class="Symbol">)</a>
+<a id="4036" href="Implicit.Algo.Properties.WeakenTVar.html#3363" class="Function">t-weaken,</a> <a id="4046" class="Symbol">(</a><a id="4047" href="Implicit.Algo.Base.html#1492" class="InductiveConstructor">⊢var</a> <a id="4052" href="Implicit.Algo.Properties.WeakenTVar.html#4052" class="Bound">regΓ</a> <a id="4057" href="Implicit.Algo.Properties.WeakenTVar.html#4057" class="Bound">x∈Γ</a><a id="4060" class="Symbol">)</a> <a id="4062" href="Implicit.Algo.Properties.WeakenTVar.html#4062" class="Bound">new</a> <a id="4066" href="Implicit.Algo.Constructs.Shift.html#280" class="InductiveConstructor">↑tmᶜ-□</a> <a id="4073" href="Implicit.Language.Shift.Base.html#233" class="InductiveConstructor">↑tm-var</a> <a id="4081" class="Symbol">=</a> <a id="4083" href="Implicit.Algo.Base.html#1492" class="InductiveConstructor">⊢var</a> <a id="4088" class="Symbol">(</a><a id="4089" href="Implicit.Language.EnvOps.InsertTVar.html#11382" class="Function">tregular-weaken,</a> <a id="4106" href="Implicit.Algo.Properties.WeakenTVar.html#4052" class="Bound">regΓ</a> <a id="4111" href="Implicit.Algo.Properties.WeakenTVar.html#4062" class="Bound">new</a><a id="4114" class="Symbol">)</a> <a id="4116" class="Symbol">(</a><a id="4117" href="Implicit.Language.EnvOps.InsertTVar.html#7577" class="Function">∋⦂-weaken,</a> <a id="4128" href="Implicit.Algo.Properties.WeakenTVar.html#4057" class="Bound">x∈Γ</a> <a id="4132" href="Implicit.Algo.Properties.WeakenTVar.html#4062" class="Bound">new</a><a id="4135" class="Symbol">)</a>
+<a id="4137" href="Implicit.Algo.Properties.WeakenTVar.html#3363" class="Function">t-weaken,</a> <a id="4147" class="Symbol">(</a><a id="4148" href="Implicit.Algo.Base.html#1574" class="InductiveConstructor">⊢ann</a> <a id="4153" href="Implicit.Algo.Properties.WeakenTVar.html#4153" class="Bound">⊢e</a><a id="4155" class="Symbol">)</a> <a id="4157" href="Implicit.Algo.Properties.WeakenTVar.html#4157" class="Bound">new</a> <a id="4161" href="Implicit.Algo.Constructs.Shift.html#280" class="InductiveConstructor">↑tmᶜ-□</a> <a id="4168" class="Symbol">(</a><a id="4169" href="Implicit.Language.Shift.Base.html#440" class="InductiveConstructor">↑tm-⦂</a> <a id="4175" href="Implicit.Algo.Properties.WeakenTVar.html#4175" class="Bound">upe</a><a id="4178" class="Symbol">)</a> <a id="4180" class="Symbol">=</a> <a id="4182" href="Implicit.Algo.Base.html#1574" class="InductiveConstructor">⊢ann</a> <a id="4187" class="Symbol">(</a><a id="4188" href="Implicit.Algo.Properties.WeakenTVar.html#3363" class="Function">t-weaken,</a> <a id="4198" href="Implicit.Algo.Properties.WeakenTVar.html#4153" class="Bound">⊢e</a> <a id="4201" href="Implicit.Algo.Properties.WeakenTVar.html#4157" class="Bound">new</a> <a id="4205" href="Implicit.Algo.Constructs.Shift.html#321" class="InductiveConstructor">↑tmᶜ-τ</a> <a id="4212" href="Implicit.Algo.Properties.WeakenTVar.html#4175" class="Bound">upe</a><a id="4215" class="Symbol">)</a>
+<a id="4217" href="Implicit.Algo.Properties.WeakenTVar.html#3363" class="Function">t-weaken,</a> <a id="4227" class="Symbol">(</a><a id="4228" href="Implicit.Algo.Base.html#1630" class="InductiveConstructor">⊢app</a> <a id="4233" href="Implicit.Algo.Properties.WeakenTVar.html#4233" class="Bound">⊢e</a><a id="4235" class="Symbol">)</a> <a id="4237" href="Implicit.Algo.Properties.WeakenTVar.html#4237" class="Bound">new</a> <a id="4241" href="Implicit.Algo.Properties.WeakenTVar.html#4241" class="Bound">upΣ</a> <a id="4245" class="Symbol">(</a><a id="4246" href="Implicit.Language.Shift.Base.html#352" class="InductiveConstructor">↑tm-app</a> <a id="4254" href="Implicit.Algo.Properties.WeakenTVar.html#4254" class="Bound">upe</a> <a id="4258" href="Implicit.Algo.Properties.WeakenTVar.html#4258" class="Bound">upe₁</a><a id="4262" class="Symbol">)</a> <a id="4264" class="Symbol">=</a> <a id="4266" href="Implicit.Algo.Base.html#1630" class="InductiveConstructor">⊢app</a> <a id="4271" class="Symbol">(</a><a id="4272" href="Implicit.Algo.Properties.WeakenTVar.html#3363" class="Function">t-weaken,</a> <a id="4282" href="Implicit.Algo.Properties.WeakenTVar.html#4233" class="Bound">⊢e</a> <a id="4285" href="Implicit.Algo.Properties.WeakenTVar.html#4237" class="Bound">new</a> <a id="4289" class="Symbol">(</a><a id="4290" href="Implicit.Algo.Constructs.Shift.html#368" class="InductiveConstructor">↑tmᶜ-e</a> <a id="4297" href="Implicit.Algo.Properties.WeakenTVar.html#4258" class="Bound">upe₁</a> <a id="4302" href="Implicit.Algo.Properties.WeakenTVar.html#4241" class="Bound">upΣ</a><a id="4305" class="Symbol">)</a> <a id="4307" href="Implicit.Algo.Properties.WeakenTVar.html#4254" class="Bound">upe</a><a id="4310" class="Symbol">)</a>
+<a id="4312" href="Implicit.Algo.Properties.WeakenTVar.html#3363" class="Function">t-weaken,</a> <a id="4322" class="Symbol">(</a><a id="4323" href="Implicit.Algo.Base.html#1700" class="InductiveConstructor">⊢lam₁</a> <a id="4329" href="Implicit.Algo.Properties.WeakenTVar.html#4329" class="Bound">⊢e</a><a id="4331" class="Symbol">)</a> <a id="4333" href="Implicit.Algo.Properties.WeakenTVar.html#4333" class="Bound">new</a> <a id="4337" href="Implicit.Algo.Constructs.Shift.html#321" class="InductiveConstructor">↑tmᶜ-τ</a> <a id="4344" class="Symbol">(</a><a id="4345" href="Implicit.Language.Shift.Base.html#295" class="InductiveConstructor">↑tm-ƛ</a> <a id="4351" href="Implicit.Algo.Properties.WeakenTVar.html#4351" class="Bound">upe</a><a id="4354" class="Symbol">)</a> <a id="4356" class="Symbol">=</a> <a id="4358" href="Implicit.Algo.Base.html#1700" class="InductiveConstructor">⊢lam₁</a> <a id="4364" class="Symbol">(</a><a id="4365" href="Implicit.Algo.Properties.WeakenTVar.html#3363" class="Function">t-weaken,</a> <a id="4375" href="Implicit.Algo.Properties.WeakenTVar.html#4329" class="Bound">⊢e</a> <a id="4378" class="Symbol">(</a><a id="4379" href="Implicit.Language.EnvOps.InsertTVar.html#550" class="InductiveConstructor">▶S,</a> <a id="4383" href="Implicit.Algo.Properties.WeakenTVar.html#4333" class="Bound">new</a><a id="4386" class="Symbol">)</a> <a id="4388" href="Implicit.Algo.Constructs.Shift.html#321" class="InductiveConstructor">↑tmᶜ-τ</a> <a id="4395" href="Implicit.Algo.Properties.WeakenTVar.html#4351" class="Bound">upe</a><a id="4398" class="Symbol">)</a>
+<a id="4400" href="Implicit.Algo.Properties.WeakenTVar.html#3363" class="Function">t-weaken,</a> <a id="4410" class="Symbol">(</a><a id="4411" href="Implicit.Algo.Base.html#1773" class="InductiveConstructor">⊢lam₂</a> <a id="4417" href="Implicit.Algo.Properties.WeakenTVar.html#4417" class="Bound">⊢e</a> <a id="4420" href="Implicit.Algo.Properties.WeakenTVar.html#4420" class="Bound">up-c</a> <a id="4425" href="Implicit.Algo.Properties.WeakenTVar.html#4425" class="Bound">⊢e₁</a><a id="4428" class="Symbol">)</a> <a id="4430" href="Implicit.Algo.Properties.WeakenTVar.html#4430" class="Bound">new</a> <a id="4434" class="Symbol">(</a><a id="4435" href="Implicit.Algo.Constructs.Shift.html#368" class="InductiveConstructor">↑tmᶜ-e</a> <a id="4442" class="Symbol">{</a><a id="4443" class="Argument">Σ&#39;</a> <a id="4446" class="Symbol">=</a> <a id="4448" href="Implicit.Algo.Properties.WeakenTVar.html#4448" class="Bound">Σ&#39;</a><a id="4450" class="Symbol">}</a> <a id="4452" href="Implicit.Algo.Properties.WeakenTVar.html#4452" class="Bound">up-e</a> <a id="4457" href="Implicit.Algo.Properties.WeakenTVar.html#4457" class="Bound">upΣ</a><a id="4460" class="Symbol">)</a> <a id="4462" class="Symbol">(</a><a id="4463" href="Implicit.Language.Shift.Base.html#295" class="InductiveConstructor">↑tm-ƛ</a> <a id="4469" href="Implicit.Algo.Properties.WeakenTVar.html#4469" class="Bound">upe</a><a id="4472" class="Symbol">)</a>
+  <a id="4476" class="Keyword">with</a> <a id="4481" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="4483" href="Implicit.Algo.Properties.WeakenTVar.html#4483" class="Bound">Σ″</a> <a id="4486" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a> <a id="4488" href="Implicit.Algo.Properties.WeakenTVar.html#4488" class="Bound">upΣ&#39;</a> <a id="4493" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a> ← <a id="4497" href="Implicit.Algo.Properties.Shift.html#381" class="Function">↑tmᶜ0-total</a> <a id="4509" href="Implicit.Algo.Properties.WeakenTVar.html#4448" class="Bound">Σ&#39;</a> <a id="4512" class="Symbol">=</a> <a id="4514" href="Implicit.Algo.Base.html#1773" class="InductiveConstructor">⊢lam₂</a> <a id="4520" class="Symbol">(</a><a id="4521" href="Implicit.Algo.Properties.WeakenTVar.html#3363" class="Function">t-weaken,</a> <a id="4531" href="Implicit.Algo.Properties.WeakenTVar.html#4417" class="Bound">⊢e</a> <a id="4534" href="Implicit.Algo.Properties.WeakenTVar.html#4430" class="Bound">new</a> <a id="4538" href="Implicit.Algo.Constructs.Shift.html#280" class="InductiveConstructor">↑tmᶜ-□</a> <a id="4545" href="Implicit.Algo.Properties.WeakenTVar.html#4452" class="Bound">up-e</a><a id="4549" class="Symbol">)</a> <a id="4551" href="Implicit.Algo.Properties.WeakenTVar.html#4488" class="Bound">upΣ&#39;</a> <a id="4556" class="Symbol">(</a><a id="4557" href="Implicit.Algo.Properties.WeakenTVar.html#3363" class="Function">t-weaken,</a> <a id="4567" href="Implicit.Algo.Properties.WeakenTVar.html#4425" class="Bound">⊢e₁</a> <a id="4571" class="Symbol">(</a><a id="4572" href="Implicit.Language.EnvOps.InsertTVar.html#550" class="InductiveConstructor">▶S,</a> <a id="4576" href="Implicit.Algo.Properties.WeakenTVar.html#4430" class="Bound">new</a><a id="4579" class="Symbol">)</a> <a id="4581" class="Symbol">(</a><a id="4582" href="Implicit.Algo.Properties.Shift.html#3951" class="Function">↑tmᶜ-comm&#39;</a> <a id="4593" href="Data.Nat.Base.html#1720" class="InductiveConstructor">z≤n</a> <a id="4597" href="Implicit.Algo.Properties.WeakenTVar.html#4457" class="Bound">upΣ</a> <a id="4601" href="Implicit.Algo.Properties.WeakenTVar.html#4488" class="Bound">upΣ&#39;</a> <a id="4606" href="Implicit.Algo.Properties.WeakenTVar.html#4420" class="Bound">up-c</a><a id="4610" class="Symbol">)</a> <a id="4612" href="Implicit.Algo.Properties.WeakenTVar.html#4469" class="Bound">upe</a><a id="4615" class="Symbol">)</a>
+<a id="4617" href="Implicit.Algo.Properties.WeakenTVar.html#3363" class="Function">t-weaken,</a> <a id="4627" class="Symbol">(</a><a id="4628" href="Implicit.Algo.Base.html#1893" class="InductiveConstructor">⊢sub</a> <a id="4633" href="Implicit.Algo.Properties.WeakenTVar.html#4633" class="Bound">⊢e</a> <a id="4636" href="Implicit.Algo.Properties.WeakenTVar.html#4636" class="Bound">ne</a> <a id="4639" href="Implicit.Algo.Properties.WeakenTVar.html#4639" class="Bound">gc</a> <a id="4642" href="Implicit.Algo.Properties.WeakenTVar.html#4642" class="Bound">s</a><a id="4643" class="Symbol">)</a> <a id="4645" href="Implicit.Algo.Properties.WeakenTVar.html#4645" class="Bound">new</a> <a id="4649" href="Implicit.Algo.Properties.WeakenTVar.html#4649" class="Bound">upΣ</a> <a id="4653" href="Implicit.Algo.Properties.WeakenTVar.html#4653" class="Bound">upe</a> <a id="4657" class="Symbol">=</a> <a id="4659" href="Implicit.Algo.Base.html#1893" class="InductiveConstructor">⊢sub</a> <a id="4664" class="Symbol">(</a><a id="4665" href="Implicit.Algo.Properties.WeakenTVar.html#3363" class="Function">t-weaken,</a> <a id="4675" href="Implicit.Algo.Properties.WeakenTVar.html#4633" class="Bound">⊢e</a> <a id="4678" href="Implicit.Algo.Properties.WeakenTVar.html#4645" class="Bound">new</a> <a id="4682" href="Implicit.Algo.Constructs.Shift.html#280" class="InductiveConstructor">↑tmᶜ-□</a> <a id="4689" href="Implicit.Algo.Properties.WeakenTVar.html#4653" class="Bound">upe</a><a id="4692" class="Symbol">)</a> <a id="4694" class="Symbol">(</a><a id="4695" href="Implicit.Algo.Properties.Shift.html#4526" class="Function">nonempty-↑tmᶜ</a> <a id="4709" href="Implicit.Algo.Properties.WeakenTVar.html#4636" class="Bound">ne</a> <a id="4712" href="Implicit.Algo.Properties.WeakenTVar.html#4649" class="Bound">upΣ</a><a id="4715" class="Symbol">)</a> <a id="4717" class="Symbol">(</a><a id="4718" href="Implicit.Language.Shift.Properties.html#16109" class="Function">↑tm-gc</a> <a id="4725" href="Implicit.Algo.Properties.WeakenTVar.html#4639" class="Bound">gc</a> <a id="4728" href="Implicit.Algo.Properties.WeakenTVar.html#4653" class="Bound">upe</a><a id="4731" class="Symbol">)</a> <a id="4733" class="Symbol">(</a><a id="4734" href="Implicit.Algo.Properties.WeakenTVar.html#3831" class="Function">s-weaken,</a> <a id="4744" href="Implicit.Algo.Properties.WeakenTVar.html#4642" class="Bound">s</a> <a id="4746" href="Implicit.Algo.Properties.WeakenTVar.html#4649" class="Bound">upΣ</a> <a id="4750" class="Symbol">(</a><a id="4751" href="Implicit.Language.EnvOps.InsertTVar.html#2115" class="InductiveConstructor">▶sS⋈</a> <a id="4756" class="Symbol">(</a><a id="4757" href="Implicit.Language.EnvOps.InsertTVar.html#3989" class="Function">▶,-▶⨟,</a> <a id="4764" href="Implicit.Algo.Properties.WeakenTVar.html#4645" class="Bound">new</a><a id="4767" class="Symbol">)))</a>
+<a id="4771" href="Implicit.Algo.Properties.WeakenTVar.html#3363" class="Function">t-weaken,</a> <a id="4781" class="Symbol">{</a><a id="4782" class="Argument">T</a> <a id="4784" class="Symbol">=</a> <a id="4786" href="Implicit.Algo.Properties.WeakenTVar.html#4786" class="Bound">T</a><a id="4787" class="Symbol">}</a> <a id="4789" class="Symbol">(</a><a id="4790" href="Implicit.Algo.Base.html#2033" class="InductiveConstructor">⊢tabs</a> <a id="4796" href="Implicit.Algo.Properties.WeakenTVar.html#4796" class="Bound">⊢e</a><a id="4798" class="Symbol">)</a> <a id="4800" href="Implicit.Algo.Properties.WeakenTVar.html#4800" class="Bound">new</a> <a id="4804" href="Implicit.Algo.Constructs.Shift.html#280" class="InductiveConstructor">↑tmᶜ-□</a> <a id="4811" class="Symbol">(</a><a id="4812" href="Implicit.Language.Shift.Base.html#498" class="InductiveConstructor">↑tm-Λ</a> <a id="4818" href="Implicit.Algo.Properties.WeakenTVar.html#4818" class="Bound">upe</a><a id="4821" class="Symbol">)</a>
+  <a id="4825" class="Keyword">with</a> <a id="4830" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="4832" href="Implicit.Algo.Properties.WeakenTVar.html#4832" class="Bound">T&#39;</a> <a id="4835" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a> <a id="4837" href="Implicit.Algo.Properties.WeakenTVar.html#4837" class="Bound">upT</a> <a id="4841" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a> ← <a id="4845" href="Implicit.Language.Shift.Properties.html#3117" class="Function">↑ty0-total</a> <a id="4856" href="Implicit.Algo.Properties.WeakenTVar.html#4786" class="Bound">T</a> <a id="4858" class="Symbol">=</a> <a id="4860" href="Implicit.Algo.Base.html#2033" class="InductiveConstructor">⊢tabs</a> <a id="4866" class="Symbol">(</a><a id="4867" href="Implicit.Algo.Properties.WeakenTVar.html#3363" class="Function">t-weaken,</a> <a id="4877" href="Implicit.Algo.Properties.WeakenTVar.html#4796" class="Bound">⊢e</a> <a id="4880" class="Symbol">(</a><a id="4881" href="Implicit.Language.EnvOps.InsertTVar.html#684" class="InductiveConstructor">▶S∙</a> <a id="4885" href="Implicit.Algo.Properties.WeakenTVar.html#4800" class="Bound">new</a> <a id="4889" href="Implicit.Algo.Properties.WeakenTVar.html#4837" class="Bound">upT</a><a id="4892" class="Symbol">)</a> <a id="4894" href="Implicit.Algo.Constructs.Shift.html#280" class="InductiveConstructor">↑tmᶜ-□</a> <a id="4901" href="Implicit.Algo.Properties.WeakenTVar.html#4818" class="Bound">upe</a><a id="4904" class="Symbol">)</a>
+<a id="4906" href="Implicit.Algo.Properties.WeakenTVar.html#3363" class="Function">t-weaken,</a> <a id="4916" class="Symbol">{</a><a id="4917" class="Argument">T</a> <a id="4919" class="Symbol">=</a> <a id="4921" href="Implicit.Algo.Properties.WeakenTVar.html#4921" class="Bound">T</a><a id="4922" class="Symbol">}</a> <a id="4924" class="Symbol">(</a><a id="4925" href="Implicit.Algo.Base.html#2092" class="InductiveConstructor">⊢tabs-τ</a> <a id="4933" href="Implicit.Algo.Properties.WeakenTVar.html#4933" class="Bound">⊢e</a><a id="4935" class="Symbol">)</a> <a id="4937" href="Implicit.Algo.Properties.WeakenTVar.html#4937" class="Bound">new</a> <a id="4941" href="Implicit.Algo.Constructs.Shift.html#321" class="InductiveConstructor">↑tmᶜ-τ</a> <a id="4948" class="Symbol">(</a><a id="4949" href="Implicit.Language.Shift.Base.html#498" class="InductiveConstructor">↑tm-Λ</a> <a id="4955" href="Implicit.Algo.Properties.WeakenTVar.html#4955" class="Bound">upe</a><a id="4958" class="Symbol">)</a>
+  <a id="4962" class="Keyword">with</a> <a id="4967" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="4969" href="Implicit.Algo.Properties.WeakenTVar.html#4969" class="Bound">T&#39;</a> <a id="4972" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a> <a id="4974" href="Implicit.Algo.Properties.WeakenTVar.html#4974" class="Bound">upT</a> <a id="4978" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a> ← <a id="4982" href="Implicit.Language.Shift.Properties.html#3117" class="Function">↑ty0-total</a> <a id="4993" href="Implicit.Algo.Properties.WeakenTVar.html#4921" class="Bound">T</a> <a id="4995" class="Symbol">=</a> <a id="4997" href="Implicit.Algo.Base.html#2092" class="InductiveConstructor">⊢tabs-τ</a> <a id="5005" class="Symbol">(</a><a id="5006" href="Implicit.Algo.Properties.WeakenTVar.html#3363" class="Function">t-weaken,</a> <a id="5016" href="Implicit.Algo.Properties.WeakenTVar.html#4933" class="Bound">⊢e</a> <a id="5019" class="Symbol">(</a><a id="5020" href="Implicit.Language.EnvOps.InsertTVar.html#684" class="InductiveConstructor">▶S∙</a> <a id="5024" href="Implicit.Algo.Properties.WeakenTVar.html#4937" class="Bound">new</a> <a id="5028" href="Implicit.Algo.Properties.WeakenTVar.html#4974" class="Bound">upT</a><a id="5031" class="Symbol">)</a> <a id="5033" href="Implicit.Algo.Constructs.Shift.html#321" class="InductiveConstructor">↑tmᶜ-τ</a> <a id="5040" href="Implicit.Algo.Properties.WeakenTVar.html#4955" class="Bound">upe</a><a id="5043" class="Symbol">)</a>
+<a id="5045" href="Implicit.Algo.Properties.WeakenTVar.html#3363" class="Function">t-weaken,</a> <a id="5055" class="Symbol">(</a><a id="5056" href="Implicit.Algo.Base.html#2162" class="InductiveConstructor">⊢tapp</a> <a id="5062" href="Implicit.Algo.Properties.WeakenTVar.html#5062" class="Bound">⊢e</a> <a id="5065" href="Implicit.Algo.Properties.WeakenTVar.html#5065" class="Bound">st</a> <a id="5068" href="Implicit.Algo.Properties.WeakenTVar.html#5068" class="Bound">regA</a> <a id="5073" href="Implicit.Algo.Properties.WeakenTVar.html#5073" class="Bound">s</a><a id="5074" class="Symbol">)</a> <a id="5076" href="Implicit.Algo.Properties.WeakenTVar.html#5076" class="Bound">new</a> <a id="5080" href="Implicit.Algo.Properties.WeakenTVar.html#5080" class="Bound">upΣ</a> <a id="5084" class="Symbol">(</a><a id="5085" href="Implicit.Language.Shift.Base.html#552" class="InductiveConstructor">↑tm-⓪</a> <a id="5091" href="Implicit.Algo.Properties.WeakenTVar.html#5091" class="Bound">upe</a><a id="5094" class="Symbol">)</a>
+  <a id="5098" class="Symbol">=</a> <a id="5100" href="Implicit.Algo.Base.html#2162" class="InductiveConstructor">⊢tapp</a> <a id="5106" class="Symbol">(</a><a id="5107" href="Implicit.Algo.Properties.WeakenTVar.html#3363" class="Function">t-weaken,</a> <a id="5117" href="Implicit.Algo.Properties.WeakenTVar.html#5062" class="Bound">⊢e</a> <a id="5120" href="Implicit.Algo.Properties.WeakenTVar.html#5076" class="Bound">new</a> <a id="5124" href="Implicit.Algo.Constructs.Shift.html#280" class="InductiveConstructor">↑tmᶜ-□</a> <a id="5131" href="Implicit.Algo.Properties.WeakenTVar.html#5091" class="Bound">upe</a><a id="5134" class="Symbol">)</a> <a id="5136" href="Implicit.Algo.Properties.WeakenTVar.html#5065" class="Bound">st</a> <a id="5139" class="Symbol">(</a><a id="5140" href="Implicit.Language.EnvOps.InsertTVar.html#9043" class="Function">⊢r-weaken,</a> <a id="5151" href="Implicit.Algo.Properties.WeakenTVar.html#5068" class="Bound">regA</a> <a id="5156" href="Implicit.Algo.Properties.WeakenTVar.html#5076" class="Bound">new</a><a id="5159" class="Symbol">)</a> <a id="5161" class="Symbol">(</a><a id="5162" href="Implicit.Algo.Properties.WeakenTVar.html#3831" class="Function">s-weaken,</a> <a id="5172" href="Implicit.Algo.Properties.WeakenTVar.html#5073" class="Bound">s</a> <a id="5174" href="Implicit.Algo.Properties.WeakenTVar.html#5080" class="Bound">upΣ</a> <a id="5178" class="Symbol">(</a><a id="5179" href="Implicit.Language.EnvOps.InsertTVar.html#2115" class="InductiveConstructor">▶sS⋈</a> <a id="5184" class="Symbol">(</a><a id="5185" href="Implicit.Language.EnvOps.InsertTVar.html#3989" class="Function">▶,-▶⨟,</a> <a id="5192" href="Implicit.Algo.Properties.WeakenTVar.html#5076" class="Bound">new</a><a id="5195" class="Symbol">)))</a>
+
+<a id="5200" href="Implicit.Algo.Properties.WeakenTVar.html#3831" class="Function">s-weaken,</a> <a id="5210" class="Symbol">(</a><a id="5211" href="Implicit.Algo.Base.html#2327" class="InductiveConstructor">s-empty</a> <a id="5219" href="Implicit.Algo.Properties.WeakenTVar.html#5219" class="Bound">regΓ</a> <a id="5224" href="Implicit.Algo.Properties.WeakenTVar.html#5224" class="Bound">cloA</a> <a id="5229" href="Implicit.Algo.Properties.WeakenTVar.html#5229" class="Bound">grd</a><a id="5232" class="Symbol">)</a> <a id="5234" href="Implicit.Algo.Constructs.Shift.html#280" class="InductiveConstructor">↑tmᶜ-□</a> <a id="5241" href="Implicit.Algo.Properties.WeakenTVar.html#5241" class="Bound">new</a>
+   <a id="5248" class="Keyword">with</a> <a id="5253" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a> ← <a id="5260" href="Implicit.Language.EnvOps.InsertTVar.html#2989" class="Function">▶s⨟,-unique</a> <a id="5272" href="Implicit.Algo.Properties.WeakenTVar.html#5241" class="Bound">new</a> <a id="5276" class="Symbol">=</a> <a id="5278" href="Implicit.Algo.Base.html#2327" class="InductiveConstructor">s-empty</a> <a id="5286" class="Symbol">(</a><a id="5287" href="Implicit.Language.EnvOps.InsertTVar.html#12203" class="Function">sregular-weaken,s</a> <a id="5305" href="Implicit.Algo.Properties.WeakenTVar.html#5219" class="Bound">regΓ</a> <a id="5310" class="Symbol">(</a><a id="5311" href="Implicit.Language.EnvOps.InsertTVar.html#3634" class="Function">▶s⨟,-▶s,-l</a> <a id="5322" href="Implicit.Algo.Properties.WeakenTVar.html#5241" class="Bound">new</a><a id="5325" class="Symbol">))</a> <a id="5328" class="Symbol">(</a><a id="5329" href="Implicit.Language.EnvOps.InsertTVar.html#10568" class="Function">⊢c-weaken,s</a> <a id="5341" href="Implicit.Algo.Properties.WeakenTVar.html#5224" class="Bound">cloA</a> <a id="5346" class="Symbol">(</a><a id="5347" href="Implicit.Language.EnvOps.InsertTVar.html#3634" class="Function">▶s⨟,-▶s,-l</a> <a id="5358" href="Implicit.Algo.Properties.WeakenTVar.html#5241" class="Bound">new</a><a id="5361" class="Symbol">))</a> <a id="5364" class="Symbol">(</a><a id="5365" href="Implicit.Language.EnvOps.InsertTVar.html#12654" class="Function">≫-weaken,s</a> <a id="5376" href="Implicit.Algo.Properties.WeakenTVar.html#5229" class="Bound">grd</a> <a id="5380" class="Symbol">(</a><a id="5381" href="Implicit.Language.EnvOps.InsertTVar.html#3634" class="Function">▶s⨟,-▶s,-l</a> <a id="5392" href="Implicit.Algo.Properties.WeakenTVar.html#5241" class="Bound">new</a><a id="5395" class="Symbol">))</a>
+<a id="5398" href="Implicit.Algo.Properties.WeakenTVar.html#3831" class="Function">s-weaken,</a> <a id="5408" class="Symbol">(</a><a id="5409" href="Implicit.Algo.Base.html#2439" class="InductiveConstructor">s-type</a> <a id="5416" href="Implicit.Algo.Properties.WeakenTVar.html#5416" class="Bound">ss</a><a id="5418" class="Symbol">)</a> <a id="5420" href="Implicit.Algo.Constructs.Shift.html#321" class="InductiveConstructor">↑tmᶜ-τ</a> <a id="5427" href="Implicit.Algo.Properties.WeakenTVar.html#5427" class="Bound">new</a> <a id="5431" class="Symbol">=</a> <a id="5433" href="Implicit.Algo.Base.html#2439" class="InductiveConstructor">s-type</a> <a id="5440" class="Symbol">(</a><a id="5441" href="Implicit.Algo.Properties.WeakenTVar.html#2311" class="Function">ss-weaken,</a> <a id="5452" href="Implicit.Algo.Properties.WeakenTVar.html#5416" class="Bound">ss</a> <a id="5455" href="Implicit.Algo.Properties.WeakenTVar.html#5427" class="Bound">new</a><a id="5458" class="Symbol">)</a>
+<a id="5460" href="Implicit.Algo.Properties.WeakenTVar.html#3831" class="Function">s-weaken,</a> <a id="5470" class="Symbol">(</a><a id="5471" href="Implicit.Algo.Base.html#2512" class="InductiveConstructor">s-term-c</a> <a id="5480" href="Implicit.Algo.Properties.WeakenTVar.html#5480" class="Bound">cloA</a> <a id="5485" href="Implicit.Algo.Properties.WeakenTVar.html#5485" class="Bound">ap</a> <a id="5488" href="Implicit.Algo.Properties.WeakenTVar.html#5488" class="Bound">⊢e</a> <a id="5491" href="Implicit.Algo.Properties.WeakenTVar.html#5491" class="Bound">s</a><a id="5492" class="Symbol">)</a> <a id="5494" class="Symbol">(</a><a id="5495" href="Implicit.Algo.Constructs.Shift.html#368" class="InductiveConstructor">↑tmᶜ-e</a> <a id="5502" href="Implicit.Algo.Properties.WeakenTVar.html#5502" class="Bound">up-e</a> <a id="5507" href="Implicit.Algo.Properties.WeakenTVar.html#5507" class="Bound">upΣ</a><a id="5510" class="Symbol">)</a> <a id="5512" href="Implicit.Algo.Properties.WeakenTVar.html#5512" class="Bound">new</a> <a id="5516" class="Symbol">=</a> <a id="5518" href="Implicit.Algo.Base.html#2512" class="InductiveConstructor">s-term-c</a> <a id="5527" class="Symbol">(</a><a id="5528" href="Implicit.Language.EnvOps.InsertTVar.html#10568" class="Function">⊢c-weaken,s</a> <a id="5540" href="Implicit.Algo.Properties.WeakenTVar.html#5480" class="Bound">cloA</a> <a id="5545" class="Symbol">(</a><a id="5546" href="Implicit.Language.EnvOps.InsertTVar.html#3634" class="Function">▶s⨟,-▶s,-l</a> <a id="5557" href="Implicit.Algo.Properties.WeakenTVar.html#5512" class="Bound">new</a><a id="5560" class="Symbol">))</a>
+                                                                   <a id="5630" class="Symbol">(</a><a id="5631" href="Implicit.Language.EnvOps.InsertTVar.html#12654" class="Function">≫-weaken,s</a> <a id="5642" href="Implicit.Algo.Properties.WeakenTVar.html#5485" class="Bound">ap</a> <a id="5645" class="Symbol">(</a><a id="5646" href="Implicit.Language.EnvOps.InsertTVar.html#3634" class="Function">▶s⨟,-▶s,-l</a> <a id="5657" href="Implicit.Algo.Properties.WeakenTVar.html#5512" class="Bound">new</a><a id="5660" class="Symbol">))</a>
+                                                                   <a id="5730" class="Symbol">(</a><a id="5731" href="Implicit.Algo.Properties.WeakenTVar.html#3363" class="Function">t-weaken,</a> <a id="5741" href="Implicit.Algo.Properties.WeakenTVar.html#5488" class="Bound">⊢e</a> <a id="5744" class="Symbol">(</a><a id="5745" href="Implicit.Language.EnvOps.InsertTVar.html#4452" class="Function">▶,-▶s,-𝕣</a> <a id="5754" class="Symbol">(</a><a id="5755" href="Implicit.Language.EnvOps.InsertTVar.html#3634" class="Function">▶s⨟,-▶s,-l</a> <a id="5766" href="Implicit.Algo.Properties.WeakenTVar.html#5512" class="Bound">new</a><a id="5769" class="Symbol">))</a> <a id="5772" href="Implicit.Algo.Constructs.Shift.html#321" class="InductiveConstructor">↑tmᶜ-τ</a> <a id="5779" href="Implicit.Algo.Properties.WeakenTVar.html#5502" class="Bound">up-e</a><a id="5783" class="Symbol">)</a>
+                                                                   <a id="5852" class="Symbol">(</a><a id="5853" href="Implicit.Algo.Properties.WeakenTVar.html#3831" class="Function">s-weaken,</a> <a id="5863" href="Implicit.Algo.Properties.WeakenTVar.html#5491" class="Bound">s</a> <a id="5865" href="Implicit.Algo.Properties.WeakenTVar.html#5507" class="Bound">upΣ</a> <a id="5869" href="Implicit.Algo.Properties.WeakenTVar.html#5512" class="Bound">new</a><a id="5872" class="Symbol">)</a>
+<a id="5874" href="Implicit.Algo.Properties.WeakenTVar.html#3831" class="Function">s-weaken,</a> <a id="5884" class="Symbol">(</a><a id="5885" href="Implicit.Algo.Base.html#2677" class="InductiveConstructor">s-term-o</a> <a id="5894" href="Implicit.Algo.Properties.WeakenTVar.html#5894" class="Bound">opnA</a> <a id="5899" href="Implicit.Algo.Properties.WeakenTVar.html#5899" class="Bound">⊢e</a> <a id="5902" href="Implicit.Algo.Properties.WeakenTVar.html#5902" class="Bound">ss</a> <a id="5905" href="Implicit.Algo.Properties.WeakenTVar.html#5905" class="Bound">s</a><a id="5906" class="Symbol">)</a> <a id="5908" class="Symbol">(</a><a id="5909" href="Implicit.Algo.Constructs.Shift.html#368" class="InductiveConstructor">↑tmᶜ-e</a> <a id="5916" href="Implicit.Algo.Properties.WeakenTVar.html#5916" class="Bound">up-e</a> <a id="5921" href="Implicit.Algo.Properties.WeakenTVar.html#5921" class="Bound">upΣ</a><a id="5924" class="Symbol">)</a> <a id="5926" href="Implicit.Algo.Properties.WeakenTVar.html#5926" class="Bound">new</a>
+  <a id="5932" class="Keyword">with</a> <a id="5937" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="5939" href="Implicit.Algo.Properties.WeakenTVar.html#5939" class="Bound">Ω&#39;</a> <a id="5942" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a> <a id="5944" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="5946" href="Implicit.Algo.Properties.WeakenTVar.html#5946" class="Bound">new1</a> <a id="5951" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a> <a id="5953" href="Implicit.Algo.Properties.WeakenTVar.html#5953" class="Bound">new2</a> <a id="5958" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a> <a id="5960" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a> ← <a id="5964" href="Implicit.Algo.Properties.WeakenTVar.html#247" class="Function">▶s⨟,-Ω-exist</a> <a id="5977" href="Implicit.Algo.Properties.WeakenTVar.html#5926" class="Bound">new</a> <a id="5981" class="Symbol">(</a><a id="5982" href="Implicit.Algo.Properties.Extension.html#350" class="Function">ss-⊆</a> <a id="5987" href="Implicit.Algo.Properties.WeakenTVar.html#5902" class="Bound">ss</a><a id="5989" class="Symbol">)</a> <a id="5991" class="Symbol">(</a><a id="5992" href="Implicit.Algo.Properties.Extension.html#692" class="Function">s-⊆</a> <a id="5996" href="Implicit.Algo.Properties.WeakenTVar.html#5905" class="Bound">s</a><a id="5997" class="Symbol">)</a>
+  <a id="6001" class="Symbol">=</a> <a id="6003" href="Implicit.Algo.Base.html#2677" class="InductiveConstructor">s-term-o</a> <a id="6012" class="Symbol">(</a><a id="6013" href="Implicit.Language.EnvOps.InsertTVar.html#11005" class="Function">⊢o-weaken,s</a> <a id="6025" href="Implicit.Algo.Properties.WeakenTVar.html#5894" class="Bound">opnA</a> <a id="6030" class="Symbol">(</a><a id="6031" href="Implicit.Language.EnvOps.InsertTVar.html#3634" class="Function">▶s⨟,-▶s,-l</a> <a id="6042" href="Implicit.Algo.Properties.WeakenTVar.html#5926" class="Bound">new</a><a id="6045" class="Symbol">))</a>
+             <a id="6061" class="Symbol">(</a><a id="6062" href="Implicit.Algo.Properties.WeakenTVar.html#3363" class="Function">t-weaken,</a> <a id="6072" href="Implicit.Algo.Properties.WeakenTVar.html#5899" class="Bound">⊢e</a> <a id="6075" class="Symbol">(</a><a id="6076" href="Implicit.Language.EnvOps.InsertTVar.html#4452" class="Function">▶,-▶s,-𝕣</a> <a id="6085" class="Symbol">(</a><a id="6086" href="Implicit.Language.EnvOps.InsertTVar.html#3634" class="Function">▶s⨟,-▶s,-l</a> <a id="6097" href="Implicit.Algo.Properties.WeakenTVar.html#5926" class="Bound">new</a><a id="6100" class="Symbol">))</a> <a id="6103" href="Implicit.Algo.Constructs.Shift.html#280" class="InductiveConstructor">↑tmᶜ-□</a> <a id="6110" href="Implicit.Algo.Properties.WeakenTVar.html#5916" class="Bound">up-e</a><a id="6114" class="Symbol">)</a>
+             <a id="6129" class="Symbol">(</a><a id="6130" href="Implicit.Algo.Properties.WeakenTVar.html#2311" class="Function">ss-weaken,</a> <a id="6141" href="Implicit.Algo.Properties.WeakenTVar.html#5902" class="Bound">ss</a> <a id="6144" href="Implicit.Algo.Properties.WeakenTVar.html#5946" class="Bound">new1</a><a id="6148" class="Symbol">)</a>
+             <a id="6163" class="Symbol">(</a><a id="6164" href="Implicit.Algo.Properties.WeakenTVar.html#3831" class="Function">s-weaken,</a> <a id="6174" href="Implicit.Algo.Properties.WeakenTVar.html#5905" class="Bound">s</a> <a id="6176" href="Implicit.Algo.Properties.WeakenTVar.html#5921" class="Bound">upΣ</a> <a id="6180" href="Implicit.Algo.Properties.WeakenTVar.html#5953" class="Bound">new2</a><a id="6184" class="Symbol">)</a>
+<a id="6186" href="Implicit.Algo.Properties.WeakenTVar.html#3831" class="Function">s-weaken,</a> <a id="6196" class="Symbol">{</a><a id="6197" class="Argument">T</a> <a id="6199" class="Symbol">=</a> <a id="6201" href="Implicit.Algo.Properties.WeakenTVar.html#6201" class="Bound">T</a><a id="6202" class="Symbol">}</a> <a id="6204" class="Symbol">(</a><a id="6205" href="Implicit.Algo.Base.html#2843" class="InductiveConstructor">s-∀l</a> <a id="6210" href="Implicit.Algo.Properties.WeakenTVar.html#6210" class="Bound">s</a> <a id="6212" href="Implicit.Algo.Properties.WeakenTVar.html#6212" class="Bound">upᶜ</a> <a id="6216" href="Implicit.Algo.Properties.WeakenTVar.html#6216" class="Bound">upᵉ</a> <a id="6220" href="Implicit.Algo.Properties.WeakenTVar.html#6220" class="Bound">upC</a> <a id="6224" href="Implicit.Algo.Properties.WeakenTVar.html#6224" class="Bound">upD</a><a id="6227" class="Symbol">)</a> <a id="6229" class="Symbol">(</a><a id="6230" href="Implicit.Algo.Constructs.Shift.html#368" class="InductiveConstructor">↑tmᶜ-e</a> <a id="6237" class="Symbol">{</a><a id="6238" class="Argument">e&#39;</a> <a id="6241" class="Symbol">=</a> <a id="6243" href="Implicit.Algo.Properties.WeakenTVar.html#6243" class="Bound">e&#39;</a><a id="6245" class="Symbol">}</a> <a id="6247" class="Symbol">{</a><a id="6248" class="Argument">Σ&#39;</a> <a id="6251" class="Symbol">=</a> <a id="6253" href="Implicit.Algo.Properties.WeakenTVar.html#6253" class="Bound">Σ&#39;</a><a id="6255" class="Symbol">}</a> <a id="6257" href="Implicit.Algo.Properties.WeakenTVar.html#6257" class="Bound">up-e</a> <a id="6262" href="Implicit.Algo.Properties.WeakenTVar.html#6262" class="Bound">upΣ</a><a id="6265" class="Symbol">)</a> <a id="6267" href="Implicit.Algo.Properties.WeakenTVar.html#6267" class="Bound">new</a>
+  <a id="6273" class="Keyword">with</a> <a id="6278" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="6280" href="Implicit.Algo.Properties.WeakenTVar.html#6280" class="Bound">T&#39;</a> <a id="6283" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a> <a id="6285" href="Implicit.Algo.Properties.WeakenTVar.html#6285" class="Bound">upT</a> <a id="6289" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a> ← <a id="6293" href="Implicit.Language.Shift.Properties.html#3117" class="Function">↑ty0-total</a> <a id="6304" href="Implicit.Algo.Properties.WeakenTVar.html#6201" class="Bound">T</a>
+  <a id="6308" class="Keyword">with</a> <a id="6313" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="6315" href="Implicit.Algo.Properties.WeakenTVar.html#6315" class="Bound">Σ″</a> <a id="6318" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a> <a id="6320" href="Implicit.Algo.Properties.WeakenTVar.html#6320" class="Bound">upΣ&#39;</a> <a id="6325" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a> ← <a id="6329" href="Implicit.Algo.Properties.Shift.html#1038" class="Function">↑tyᶜ0-total</a> <a id="6341" href="Implicit.Algo.Properties.WeakenTVar.html#6253" class="Bound">Σ&#39;</a>
+  <a id="6346" class="Keyword">with</a> <a id="6351" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="6353" href="Implicit.Algo.Properties.WeakenTVar.html#6353" class="Bound">e″</a> <a id="6356" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a> <a id="6358" href="Implicit.Algo.Properties.WeakenTVar.html#6358" class="Bound">upe&#39;</a> <a id="6363" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a> ← <a id="6367" href="Implicit.Language.Shift.Properties.html#15318" class="Function">↑tyᵉ0-total</a> <a id="6379" href="Implicit.Algo.Properties.WeakenTVar.html#6243" class="Bound">e&#39;</a>
+  <a id="6384" class="Symbol">=</a> <a id="6386" href="Implicit.Algo.Base.html#2843" class="InductiveConstructor">s-∀l</a> <a id="6391" class="Symbol">(</a><a id="6392" href="Implicit.Algo.Properties.WeakenTVar.html#3831" class="Function">s-weaken,</a> <a id="6402" href="Implicit.Algo.Properties.WeakenTVar.html#6210" class="Bound">s</a> <a id="6404" class="Symbol">(</a><a id="6405" href="Implicit.Algo.Constructs.Shift.html#368" class="InductiveConstructor">↑tmᶜ-e</a> <a id="6412" class="Symbol">(</a><a id="6413" href="Implicit.Algo.Properties.Shift.html#2751" class="Function">↑tm-↑tyᵉ-comm</a> <a id="6427" href="Implicit.Algo.Properties.WeakenTVar.html#6257" class="Bound">up-e</a> <a id="6432" href="Implicit.Algo.Properties.WeakenTVar.html#6358" class="Bound">upe&#39;</a> <a id="6437" href="Implicit.Algo.Properties.WeakenTVar.html#6216" class="Bound">upᵉ</a><a id="6440" class="Symbol">)</a> <a id="6442" class="Symbol">(</a><a id="6443" href="Implicit.Algo.Properties.Shift.html#3539" class="Function">↑tmᶜ-↑tyᶜ-comm</a> <a id="6458" href="Implicit.Algo.Properties.WeakenTVar.html#6262" class="Bound">upΣ</a> <a id="6462" href="Implicit.Algo.Properties.WeakenTVar.html#6320" class="Bound">upΣ&#39;</a> <a id="6467" href="Implicit.Algo.Properties.WeakenTVar.html#6212" class="Bound">upᶜ</a><a id="6470" class="Symbol">))</a> <a id="6473" class="Symbol">(</a><a id="6474" href="Implicit.Language.EnvOps.InsertTVar.html#2586" class="InductiveConstructor">▶sS^=</a> <a id="6480" href="Implicit.Algo.Properties.WeakenTVar.html#6267" class="Bound">new</a> <a id="6484" href="Implicit.Algo.Properties.WeakenTVar.html#6285" class="Bound">upT</a><a id="6487" class="Symbol">))</a> <a id="6490" href="Implicit.Algo.Properties.WeakenTVar.html#6320" class="Bound">upΣ&#39;</a> <a id="6495" href="Implicit.Algo.Properties.WeakenTVar.html#6358" class="Bound">upe&#39;</a> <a id="6500" href="Implicit.Algo.Properties.WeakenTVar.html#6220" class="Bound">upC</a> <a id="6504" href="Implicit.Algo.Properties.WeakenTVar.html#6224" class="Bound">upD</a>
+<a id="6508" href="Implicit.Algo.Properties.WeakenTVar.html#3831" class="Function">s-weaken,</a> <a id="6518" class="Symbol">{</a><a id="6519" class="Argument">T</a> <a id="6521" class="Symbol">=</a> <a id="6523" href="Implicit.Algo.Properties.WeakenTVar.html#6523" class="Bound">T</a><a id="6524" class="Symbol">}</a> <a id="6526" class="Symbol">(</a><a id="6527" href="Implicit.Algo.Base.html#3054" class="InductiveConstructor">s-∀l-no</a> <a id="6535" href="Implicit.Algo.Properties.WeakenTVar.html#6535" class="Bound">s</a> <a id="6537" href="Implicit.Algo.Properties.WeakenTVar.html#6537" class="Bound">upᶜ</a> <a id="6541" href="Implicit.Algo.Properties.WeakenTVar.html#6541" class="Bound">upᵉ</a> <a id="6545" href="Implicit.Algo.Properties.WeakenTVar.html#6545" class="Bound">upC</a> <a id="6549" href="Implicit.Algo.Properties.WeakenTVar.html#6549" class="Bound">upD</a><a id="6552" class="Symbol">)</a> <a id="6554" class="Symbol">(</a><a id="6555" href="Implicit.Algo.Constructs.Shift.html#368" class="InductiveConstructor">↑tmᶜ-e</a> <a id="6562" class="Symbol">{</a><a id="6563" class="Argument">e&#39;</a> <a id="6566" class="Symbol">=</a> <a id="6568" href="Implicit.Algo.Properties.WeakenTVar.html#6568" class="Bound">e&#39;</a><a id="6570" class="Symbol">}</a> <a id="6572" class="Symbol">{</a><a id="6573" class="Argument">Σ&#39;</a> <a id="6576" class="Symbol">=</a> <a id="6578" href="Implicit.Algo.Properties.WeakenTVar.html#6578" class="Bound">Σ&#39;</a><a id="6580" class="Symbol">}</a> <a id="6582" href="Implicit.Algo.Properties.WeakenTVar.html#6582" class="Bound">up-e</a> <a id="6587" href="Implicit.Algo.Properties.WeakenTVar.html#6587" class="Bound">upΣ</a><a id="6590" class="Symbol">)</a> <a id="6592" href="Implicit.Algo.Properties.WeakenTVar.html#6592" class="Bound">new</a>
+  <a id="6598" class="Keyword">with</a> <a id="6603" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="6605" href="Implicit.Algo.Properties.WeakenTVar.html#6605" class="Bound">T&#39;</a> <a id="6608" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a> <a id="6610" href="Implicit.Algo.Properties.WeakenTVar.html#6610" class="Bound">upT</a> <a id="6614" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a> ← <a id="6618" href="Implicit.Language.Shift.Properties.html#3117" class="Function">↑ty0-total</a> <a id="6629" href="Implicit.Algo.Properties.WeakenTVar.html#6523" class="Bound">T</a>
+  <a id="6633" class="Keyword">with</a> <a id="6638" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="6640" href="Implicit.Algo.Properties.WeakenTVar.html#6640" class="Bound">Σ″</a> <a id="6643" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a> <a id="6645" href="Implicit.Algo.Properties.WeakenTVar.html#6645" class="Bound">upΣ&#39;</a> <a id="6650" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a> ← <a id="6654" href="Implicit.Algo.Properties.Shift.html#1038" class="Function">↑tyᶜ0-total</a> <a id="6666" href="Implicit.Algo.Properties.WeakenTVar.html#6578" class="Bound">Σ&#39;</a>
+  <a id="6671" class="Keyword">with</a> <a id="6676" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="6678" href="Implicit.Algo.Properties.WeakenTVar.html#6678" class="Bound">e″</a> <a id="6681" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a> <a id="6683" href="Implicit.Algo.Properties.WeakenTVar.html#6683" class="Bound">upe&#39;</a> <a id="6688" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a> ← <a id="6692" href="Implicit.Language.Shift.Properties.html#15318" class="Function">↑tyᵉ0-total</a> <a id="6704" href="Implicit.Algo.Properties.WeakenTVar.html#6568" class="Bound">e&#39;</a>
+  <a id="6709" class="Symbol">=</a> <a id="6711" href="Implicit.Algo.Base.html#3054" class="InductiveConstructor">s-∀l-no</a> <a id="6719" class="Symbol">(</a><a id="6720" href="Implicit.Algo.Properties.WeakenTVar.html#3831" class="Function">s-weaken,</a> <a id="6730" href="Implicit.Algo.Properties.WeakenTVar.html#6535" class="Bound">s</a> <a id="6732" class="Symbol">(</a><a id="6733" href="Implicit.Algo.Constructs.Shift.html#368" class="InductiveConstructor">↑tmᶜ-e</a> <a id="6740" class="Symbol">(</a><a id="6741" href="Implicit.Algo.Properties.Shift.html#2751" class="Function">↑tm-↑tyᵉ-comm</a> <a id="6755" href="Implicit.Algo.Properties.WeakenTVar.html#6582" class="Bound">up-e</a> <a id="6760" href="Implicit.Algo.Properties.WeakenTVar.html#6683" class="Bound">upe&#39;</a> <a id="6765" href="Implicit.Algo.Properties.WeakenTVar.html#6541" class="Bound">upᵉ</a><a id="6768" class="Symbol">)</a> <a id="6770" class="Symbol">(</a><a id="6771" href="Implicit.Algo.Properties.Shift.html#3539" class="Function">↑tmᶜ-↑tyᶜ-comm</a> <a id="6786" href="Implicit.Algo.Properties.WeakenTVar.html#6587" class="Bound">upΣ</a> <a id="6790" href="Implicit.Algo.Properties.WeakenTVar.html#6645" class="Bound">upΣ&#39;</a> <a id="6795" href="Implicit.Algo.Properties.WeakenTVar.html#6537" class="Bound">upᶜ</a><a id="6798" class="Symbol">))</a> <a id="6801" class="Symbol">(</a><a id="6802" href="Implicit.Language.EnvOps.InsertTVar.html#2277" class="InductiveConstructor">▶sS^</a> <a id="6807" href="Implicit.Algo.Properties.WeakenTVar.html#6592" class="Bound">new</a> <a id="6811" href="Implicit.Algo.Properties.WeakenTVar.html#6610" class="Bound">upT</a><a id="6814" class="Symbol">))</a> <a id="6817" href="Implicit.Algo.Properties.WeakenTVar.html#6645" class="Bound">upΣ&#39;</a> <a id="6822" href="Implicit.Algo.Properties.WeakenTVar.html#6683" class="Bound">upe&#39;</a> <a id="6827" href="Implicit.Algo.Properties.WeakenTVar.html#6545" class="Bound">upC</a> <a id="6831" href="Implicit.Algo.Properties.WeakenTVar.html#6549" class="Bound">upD</a>
+<a id="6835" href="Implicit.Algo.Properties.WeakenTVar.html#3831" class="Function">s-weaken,</a> <a id="6845" class="Symbol">(</a><a id="6846" href="Implicit.Algo.Base.html#3266" class="InductiveConstructor">s-svar-term</a> <a id="6858" href="Implicit.Algo.Properties.WeakenTVar.html#6858" class="Bound">inΓ</a> <a id="6862" href="Implicit.Algo.Properties.WeakenTVar.html#6862" class="Bound">s</a><a id="6863" class="Symbol">)</a> <a id="6865" class="Symbol">(</a><a id="6866" href="Implicit.Algo.Constructs.Shift.html#368" class="InductiveConstructor">↑tmᶜ-e</a> <a id="6873" href="Implicit.Algo.Properties.WeakenTVar.html#6873" class="Bound">up-e</a> <a id="6878" href="Implicit.Algo.Properties.WeakenTVar.html#6878" class="Bound">upΣ</a><a id="6881" class="Symbol">)</a> <a id="6883" href="Implicit.Algo.Properties.WeakenTVar.html#6883" class="Bound">new</a>
+  <a id="6889" class="Keyword">with</a> <a id="6894" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a> ← <a id="6901" href="Implicit.Language.EnvOps.InsertTVar.html#2989" class="Function">▶s⨟,-unique</a> <a id="6913" href="Implicit.Algo.Properties.WeakenTVar.html#6883" class="Bound">new</a> <a id="6917" class="Symbol">=</a> <a id="6919" href="Implicit.Algo.Base.html#3266" class="InductiveConstructor">s-svar-term</a> <a id="6931" class="Symbol">(</a><a id="6932" href="Implicit.Language.EnvOps.InsertTVar.html#7184" class="Function">∋:=-weaken,s</a> <a id="6945" href="Implicit.Algo.Properties.WeakenTVar.html#6858" class="Bound">inΓ</a> <a id="6949" class="Symbol">(</a><a id="6950" href="Implicit.Language.EnvOps.InsertTVar.html#3634" class="Function">▶s⨟,-▶s,-l</a> <a id="6961" href="Implicit.Algo.Properties.WeakenTVar.html#6883" class="Bound">new</a><a id="6964" class="Symbol">))</a> <a id="6967" class="Symbol">(</a><a id="6968" href="Implicit.Algo.Properties.WeakenTVar.html#3831" class="Function">s-weaken,</a> <a id="6978" href="Implicit.Algo.Properties.WeakenTVar.html#6862" class="Bound">s</a> <a id="6980" class="Symbol">(</a><a id="6981" href="Implicit.Algo.Constructs.Shift.html#368" class="InductiveConstructor">↑tmᶜ-e</a> <a id="6988" href="Implicit.Algo.Properties.WeakenTVar.html#6873" class="Bound">up-e</a> <a id="6993" href="Implicit.Algo.Properties.WeakenTVar.html#6878" class="Bound">upΣ</a><a id="6996" class="Symbol">)</a> <a id="6998" href="Implicit.Algo.Properties.WeakenTVar.html#6883" class="Bound">new</a><a id="7001" class="Symbol">)</a>
+<a id="7003" href="Implicit.Algo.Properties.WeakenTVar.html#3831" class="Function">s-weaken,</a> <a id="7013" class="Symbol">(</a><a id="7014" href="Implicit.Algo.Base.html#3380" class="InductiveConstructor">s-evar-infers</a> <a id="7028" href="Implicit.Algo.Properties.WeakenTVar.html#7028" class="Bound">infs</a> <a id="7033" href="Implicit.Algo.Properties.WeakenTVar.html#7033" class="Bound">inst</a><a id="7037" class="Symbol">)</a> <a id="7039" class="Symbol">(</a><a id="7040" href="Implicit.Algo.Constructs.Shift.html#368" class="InductiveConstructor">↑tmᶜ-e</a> <a id="7047" href="Implicit.Algo.Properties.WeakenTVar.html#7047" class="Bound">up-e</a> <a id="7052" href="Implicit.Algo.Properties.WeakenTVar.html#7052" class="Bound">upΣ</a><a id="7055" class="Symbol">)</a> <a id="7057" href="Implicit.Algo.Properties.WeakenTVar.html#7057" class="Bound">new</a> <a id="7061" class="Symbol">=</a> <a id="7063" href="Implicit.Algo.Base.html#3380" class="InductiveConstructor">s-evar-infers</a> <a id="7077" class="Symbol">(</a><a id="7078" href="Implicit.Algo.Properties.WeakenTVar.html#3497" class="Function">infs-weaken,</a> <a id="7091" href="Implicit.Algo.Properties.WeakenTVar.html#7028" class="Bound">infs</a> <a id="7096" class="Symbol">(</a><a id="7097" href="Implicit.Language.EnvOps.InsertTVar.html#4452" class="Function">▶,-▶s,-𝕣</a> <a id="7106" class="Symbol">(</a><a id="7107" href="Implicit.Language.EnvOps.InsertTVar.html#3634" class="Function">▶s⨟,-▶s,-l</a> <a id="7118" href="Implicit.Algo.Properties.WeakenTVar.html#7057" class="Bound">new</a><a id="7121" class="Symbol">))</a> <a id="7124" class="Symbol">(</a><a id="7125" href="Implicit.Algo.Constructs.Shift.html#368" class="InductiveConstructor">↑tmᶜ-e</a> <a id="7132" href="Implicit.Algo.Properties.WeakenTVar.html#7047" class="Bound">up-e</a> <a id="7137" href="Implicit.Algo.Properties.WeakenTVar.html#7052" class="Bound">upΣ</a><a id="7140" class="Symbol">))</a> <a id="7143" class="Symbol">(</a><a id="7144" href="Implicit.Language.EnvOps.InsertTVar.html#13078" class="Function">inst-weaken,s</a> <a id="7158" href="Implicit.Algo.Properties.WeakenTVar.html#7033" class="Bound">inst</a> <a id="7163" href="Implicit.Algo.Properties.WeakenTVar.html#7057" class="Bound">new</a><a id="7166" class="Symbol">)</a>
+
+<a id="s-weaken,0"></a><a id="7169" href="Implicit.Algo.Properties.WeakenTVar.html#7169" class="Function">s-weaken,0</a> <a id="7180" class="Symbol">:</a> <a id="7182" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="7184" href="Implicit.Language.Base.html#1657" class="InductiveConstructor Operator">⋈</a> <a id="7186" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">⊢</a> <a id="7188" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="7190" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">≤⁺</a> <a id="7193" href="Implicit.Algo.Constructs.Syntax.html#255" class="Generalizable">Σ</a> <a id="7195" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">⊣</a> <a id="7197" href="Implicit.Language.Base.html#1745" class="Generalizable">Δ</a> <a id="7199" href="Implicit.Language.Base.html#1657" class="InductiveConstructor Operator">⋈</a> <a id="7201" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">↪</a> <a id="7203" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+           <a id="7216" class="Symbol">→</a> <a id="7218" href="Implicit.Algo.Constructs.Shift.html#482" class="Function Operator">↑tmᶜ0</a> <a id="7224" href="Implicit.Algo.Constructs.Syntax.html#255" class="Generalizable">Σ</a> <a id="7226" href="Implicit.Algo.Constructs.Shift.html#482" class="Function Operator">⇘</a> <a id="7228" href="Implicit.Algo.Constructs.Syntax.html#257" class="Generalizable">Σ&#39;</a>
+           <a id="7242" class="Symbol">→</a> <a id="7244" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="7246" href="Implicit.Language.Regular.Base.html#186" class="Datatype Operator">⊢r</a> <a id="7249" href="Implicit.Language.Base.html#399" class="Generalizable">T</a>
+           <a id="7262" class="Symbol">→</a> <a id="7264" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="7266" href="Implicit.Language.Base.html#1491" class="InductiveConstructor Operator">,</a> <a id="7268" href="Implicit.Language.Base.html#399" class="Generalizable">T</a> <a id="7270" href="Implicit.Language.Base.html#1657" class="InductiveConstructor Operator">⋈</a> <a id="7272" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">⊢</a> <a id="7274" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="7276" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">≤⁺</a> <a id="7279" href="Implicit.Algo.Constructs.Syntax.html#257" class="Generalizable">Σ&#39;</a> <a id="7282" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">⊣</a> <a id="7284" href="Implicit.Language.Base.html#1745" class="Generalizable">Δ</a> <a id="7286" href="Implicit.Language.Base.html#1491" class="InductiveConstructor Operator">,</a> <a id="7288" href="Implicit.Language.Base.html#399" class="Generalizable">T</a> <a id="7290" href="Implicit.Language.Base.html#1657" class="InductiveConstructor Operator">⋈</a>  <a id="7293" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">↪</a> <a id="7295" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+<a id="7297" href="Implicit.Algo.Properties.WeakenTVar.html#7169" class="Function">s-weaken,0</a> <a id="7308" href="Implicit.Algo.Properties.WeakenTVar.html#7308" class="Bound">s</a> <a id="7310" href="Implicit.Algo.Properties.WeakenTVar.html#7310" class="Bound">upΣ</a> <a id="7314" href="Implicit.Algo.Properties.WeakenTVar.html#7314" class="Bound">regT</a> <a id="7319" class="Symbol">=</a> <a id="7321" href="Implicit.Algo.Properties.WeakenTVar.html#3831" class="Function">s-weaken,</a> <a id="7331" href="Implicit.Algo.Properties.WeakenTVar.html#7308" class="Bound">s</a> <a id="7333" href="Implicit.Algo.Properties.WeakenTVar.html#7310" class="Bound">upΣ</a> <a id="7337" class="Symbol">(</a><a id="7338" href="Implicit.Language.EnvOps.InsertTVar.html#2115" class="InductiveConstructor">▶sS⋈</a> <a id="7343" class="Symbol">(</a><a id="7344" href="Implicit.Language.EnvOps.InsertTVar.html#1439" class="InductiveConstructor">▶Z</a> <a id="7347" href="Implicit.Algo.Properties.WeakenTVar.html#7314" class="Bound">regT</a><a id="7351" class="Symbol">))</a>
+
+<a id="t-weaken,0"></a><a id="7355" href="Implicit.Algo.Properties.WeakenTVar.html#7355" class="Function">t-weaken,0</a> <a id="7366" class="Symbol">:</a> <a id="7368" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="7370" href="Implicit.Algo.Base.html#1211" class="Datatype Operator">⊢</a> <a id="7372" href="Implicit.Algo.Constructs.Syntax.html#255" class="Generalizable">Σ</a> <a id="7374" href="Implicit.Algo.Base.html#1211" class="Datatype Operator">⇒</a> <a id="7376" href="Implicit.Language.Base.html#1016" class="Generalizable">e</a> <a id="7378" href="Implicit.Algo.Base.html#1211" class="Datatype Operator">⇒</a> <a id="7380" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+           <a id="7393" class="Symbol">→</a> <a id="7395" href="Implicit.Algo.Constructs.Shift.html#482" class="Function Operator">↑tmᶜ0</a> <a id="7401" href="Implicit.Algo.Constructs.Syntax.html#255" class="Generalizable">Σ</a> <a id="7403" href="Implicit.Algo.Constructs.Shift.html#482" class="Function Operator">⇘</a> <a id="7405" href="Implicit.Algo.Constructs.Syntax.html#257" class="Generalizable">Σ&#39;</a>
+           <a id="7419" class="Symbol">→</a> <a id="7421" href="Implicit.Language.Shift.Base.html#627" class="Function Operator">↑tm0</a> <a id="7426" href="Implicit.Language.Base.html#1016" class="Generalizable">e</a> <a id="7428" href="Implicit.Language.Shift.Base.html#627" class="Function Operator">⇘</a> <a id="7430" href="Implicit.Language.Base.html#1019" class="Generalizable">e&#39;</a>
+           <a id="7444" class="Symbol">→</a> <a id="7446" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="7448" href="Implicit.Language.Regular.Base.html#186" class="Datatype Operator">⊢r</a> <a id="7451" href="Implicit.Language.Base.html#399" class="Generalizable">T</a>
+           <a id="7464" class="Symbol">→</a> <a id="7466" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="7468" href="Implicit.Language.Base.html#1491" class="InductiveConstructor Operator">,</a> <a id="7470" href="Implicit.Language.Base.html#399" class="Generalizable">T</a> <a id="7472" href="Implicit.Algo.Base.html#1211" class="Datatype Operator">⊢</a> <a id="7474" href="Implicit.Algo.Constructs.Syntax.html#257" class="Generalizable">Σ&#39;</a> <a id="7477" href="Implicit.Algo.Base.html#1211" class="Datatype Operator">⇒</a> <a id="7479" href="Implicit.Language.Base.html#1019" class="Generalizable">e&#39;</a> <a id="7482" href="Implicit.Algo.Base.html#1211" class="Datatype Operator">⇒</a> <a id="7484" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+<a id="7486" href="Implicit.Algo.Properties.WeakenTVar.html#7355" class="Function">t-weaken,0</a> <a id="7497" href="Implicit.Algo.Properties.WeakenTVar.html#7497" class="Bound">⊢e</a> <a id="7500" href="Implicit.Algo.Properties.WeakenTVar.html#7500" class="Bound">upΣ</a> <a id="7504" href="Implicit.Algo.Properties.WeakenTVar.html#7504" class="Bound">upe</a> <a id="7508" href="Implicit.Algo.Properties.WeakenTVar.html#7508" class="Bound">regT</a> <a id="7513" class="Symbol">=</a> <a id="7515" href="Implicit.Algo.Properties.WeakenTVar.html#3363" class="Function">t-weaken,</a> <a id="7525" href="Implicit.Algo.Properties.WeakenTVar.html#7497" class="Bound">⊢e</a> <a id="7528" class="Symbol">(</a><a id="7529" href="Implicit.Language.EnvOps.InsertTVar.html#499" class="InductiveConstructor">▶Z</a> <a id="7532" href="Implicit.Algo.Properties.WeakenTVar.html#7508" class="Bound">regT</a><a id="7536" class="Symbol">)</a> <a id="7538" href="Implicit.Algo.Properties.WeakenTVar.html#7500" class="Bound">upΣ</a> <a id="7542" href="Implicit.Algo.Properties.WeakenTVar.html#7504" class="Bound">upe</a>
+</pre>
+    
+    <script>
+      function toggleModule(element) {
+        element.classList.toggle('collapsed');
+        element.classList.toggle('expanded');
+      }
+      
+      // Auto-expand path to current module
+      document.addEventListener('DOMContentLoaded', function() {
+        const currentModule = document.querySelector('.current-module');
+        if (currentModule) {
+          let parent = currentModule.closest('li');
+          while (parent) {
+            parent.classList.remove('collapsed');
+            parent.classList.add('expanded');
+            parent = parent.parentElement.closest('li');
+          }
+        }
+      });
+    </script>
+    <script>
+  const nav = document.querySelector('nav');
+  const scrollKey = 'sidebarScroll';
+
+  // Restore scroll position
+  document.addEventListener('DOMContentLoaded', () => {
+    const saved = localStorage.getItem(scrollKey);
+    if (saved !== null) {
+      nav.scrollTop = parseInt(saved, 10);
+    }
+  });
+
+  // Save scroll position
+  nav.addEventListener('scroll', () => {
+    localStorage.setItem(scrollKey, nav.scrollTop);
+  });
+</script>
+  </body>
+</html>

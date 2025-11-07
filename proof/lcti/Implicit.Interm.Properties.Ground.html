@@ -1,0 +1,1871 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../css/Agda.css" />
+    <title>Implicit.Interm.Properties.Ground</title>
+    <style>
+      body {
+        font-family: monospace;
+        font-size: 13px;
+        display: flex;
+        flex-flow: row nowrap;
+        min-height: 100vh;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-weight: unset;
+        text-wrap: balance;
+      }
+      p {
+        text-wrap: pretty;
+      }
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        font-size: 12px;
+        font-family: 'mononoki';
+        line-height: 1.5;
+        padding: 2px;
+        padding-left: 0.5em;
+        padding-right: 1em;
+        margin-right: 2em;
+        overflow-y: auto;
+        flex-shrink: 0;
+        background: white;
+        z-index: 100;
+      }
+      /* Hide scrollbar for webkit browsers */
+      nav::-webkit-scrollbar {
+        width: 2px;
+      }
+      nav::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      nav::-webkit-scrollbar-thumb {
+        background: #ddd;
+        border-radius: 2px;
+      }
+      nav::-webkit-scrollbar-thumb:hover {
+        background: #bbb;
+      }
+      nav a {
+        display: block;
+        color: unset;
+      }
+      .module-tree {
+        list-style-type: none;
+        padding-left: 2ch;
+        margin: 0;
+      }
+      nav > .module-tree {
+        padding-left: 0;
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 1lh;
+      }
+      .module-tree a:any-link:hover {
+        color: #A020F0 !important;
+      }
+      .current-module {
+        color: #A020F0;
+        font-weight: bold;
+      }
+      .Agda {
+        margin: 0;
+        margin-left: 180px;
+        flex: 1;
+        overflow-y: auto;
+      }
+      
+      /* Toggle functionality styles */
+      .toggle-btn {
+        background: none;
+        border: none;
+        color: #666;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 10px;
+        padding: 0 4px;
+        margin-right: 2px;
+        border-radius: 2px;
+        display: inline-block;
+        vertical-align: middle;
+        flex-shrink: 0;
+      }
+      .toggle-btn:hover {
+        background-color: #f0f0f0;
+        color: #333;
+      }
+      .collapsed > ul {
+        display: none;
+      }
+      
+      .toggle-btn::after {
+        content: "[−]";
+      }
+      .collapsed .toggle-btn::after {
+        content: "[+]";
+      }
+      .module-item {
+        position: relative;
+      }
+      .module-item a {
+        display: inline-block;
+      }
+      .module-content {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <nav>
+      
+      <ul class="module-tree">
+        
+          <li class="module-item expanded" data-depth="0">
+            <div class="module-content">
+              
+                <a>Implicit</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a href="Implicit.README.html" class="">
+                  README
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.All.html" class="">
+                  Language
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Counter2Mask.html" class="">
+                  Counter2Mask
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Prelude.html" class="">
+                  Prelude
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Bitmap.html" class="">
+                  Bitmap
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Shift.All.html" class="">
+                  Shift
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Shift.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Shift.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Subst.All.html" class="">
+                  Subst
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Subst.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Subst.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Lookup.All.html" class="">
+                  Lookup
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Lookup.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Lookup.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Occur.All.html" class="">
+                  Occur
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Occur.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Occur.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Find.All.html" class="">
+                  Find
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Find.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Find.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Regular.All.html" class="">
+                  Regular
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Regular.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Regular.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.OpenClose.All.html" class="">
+                  OpenClose
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.OpenClose.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.All.html" class="">
+                  Extension
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.InputOutput.html" class="">
+                  InputOutput
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.ExSol.html" class="">
+                  ExSol
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.Occur.html" class="">
+                  Occur
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.EnvReplace.html" class="">
+                  EnvReplace
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Ground.All.html" class="">
+                  Ground
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Ground.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Ground.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.All.html" class="">
+                  EnvOps
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.Inst.html" class="">
+                  Inst
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.RemoveTVar.html" class="">
+                  RemoveTVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.RemoveSVar.html" class="">
+                  RemoveSVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.RemoveEVar.html" class="">
+                  RemoveEVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.InsertEVar.html" class="">
+                  InsertEVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.InsertTVar.html" class="">
+                  InsertTVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.InsertUVar.html" class="">
+                  InsertUVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.InsertSVar.html" class="">
+                  InsertSVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.Regular.html" class="">
+                  Regular
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.Replace.html" class="">
+                  Replace
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.RemoveUVar.html" class="">
+                  RemoveUVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.All.html" class="">
+                  Decl
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.Typing.html" class="">
+                  Typing
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.Trans.html" class="">
+                  Trans
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.Subtyping.html" class="">
+                  Subtyping
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.SubtypingV2.html" class="">
+                  SubtypingV2
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.Equiv.html" class="">
+                  Equiv
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.AuxLemmas.html" class="">
+                  AuxLemmas
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a>Annotatability</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Annotatability.Soundness.html" class="">
+                  Soundness
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Annotatability.Corollaries.html" class="">
+                  Corollaries
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Annotatability.DeclPartial.html" class="">
+                  DeclPartial
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Annotatability.IF.html" class="">
+                  IF
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Annotatability.Elaboration.html" class="">
+                  Elaboration
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a>Interm2Decl</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Decl.Corollaries.html" class="">
+                  Corollaries
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Decl.Main.html" class="">
+                  Main
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Decl.AuxLemmas.html" class="">
+                  AuxLemmas
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a>Decl2Interm</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl2Interm.Corollaries.html" class="">
+                  Corollaries
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl2Interm.Main.html" class="">
+                  Main
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.All.html" class="">
+                  Algo
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a>Properties</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Regularity.html" class="">
+                  Regularity
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Extension.html" class="">
+                  Extension
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Subsumption.html" class="">
+                  Subsumption
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Id.html" class="">
+                  Id
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Polarity.html" class="">
+                  Polarity
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Shift.html" class="">
+                  Shift
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Reflexivity.html" class="">
+                  Reflexivity
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.StrengthenTVar.html" class="">
+                  StrengthenTVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.StrengthenSVar.html" class="">
+                  StrengthenSVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.StrengthenEVar.html" class="">
+                  StrengthenEVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Weaken.html" class="">
+                  Weaken
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Irrelevance.html" class="">
+                  Irrelevance
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Trans.html" class="">
+                  Trans
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.SubIrrelevance.html" class="">
+                  SubIrrelevance
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Swap.html" class="">
+                  Swap
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Subst.html" class="">
+                  Subst
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.OpenK.html" class="">
+                  OpenK
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.WeakenEVar.html" class="">
+                  WeakenEVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.WeakenTVar.html" class="">
+                  WeakenTVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.WeakenSVar.html" class="">
+                  WeakenSVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a>Constructs</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Constructs.Syntax.html" class="">
+                  Syntax
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Constructs.Shift.html" class="">
+                  Shift
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Constructs.Subst.html" class="">
+                  Subst
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Constructs.Lookup.html" class="">
+                  Lookup
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a>Algo2Interm</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.Find.html" class="">
+                  Find
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.Main.html" class="">
+                  Main
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.Corollaries.html" class="">
+                  Corollaries
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.AlgoCounter.All.html" class="">
+                  AlgoCounter
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.AlgoCounter.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.AlgoCounter.Sound.html" class="">
+                  Sound
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.Context2Counter.html" class="">
+                  Context2Counter
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a>Interm2Algo</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.Main.html" class="">
+                  Main
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.Corollaries.html" class="">
+                  Corollaries
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.Counter2Context.html" class="">
+                  Counter2Context
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.ExtIrrev.html" class="">
+                  ExtIrrev
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.EnvDiff.html" class="">
+                  EnvDiff
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.OpenClose.html" class="">
+                  OpenClose
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.Find.html" class="">
+                  Find
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.AuxLemmas.html" class="">
+                  AuxLemmas
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.FVClose.html" class="">
+                  FVClose
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.All.html" class="">
+                  Interm
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a>Properties</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.Properties.Regularity.html" class="">
+                  Regularity
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.Properties.Polarity.html" class="">
+                  Polarity
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.Properties.Extension.html" class="">
+                  Extension
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.Properties.Strengthen.html" class="">
+                  Strengthen
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.Properties.Ground.html" class="current-module">
+                  Ground
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+      </ul>
+    
+    </nav>
+    <pre class="Agda"><a id="1" class="Keyword">module</a> <a id="8" href="Implicit.Interm.Properties.Ground.html" class="Module">Implicit.Interm.Properties.Ground</a> <a id="42" class="Keyword">where</a>
+
+<a id="49" class="Keyword">open</a> <a id="54" class="Keyword">import</a> <a id="61" href="Implicit.Language.All.html" class="Module">Implicit.Language.All</a>
+<a id="83" class="Keyword">open</a> <a id="88" class="Keyword">import</a> <a id="95" href="Implicit.Interm.Base.html" class="Module">Implicit.Interm.Base</a>
+<a id="116" class="Keyword">open</a> <a id="121" class="Keyword">import</a> <a id="128" href="Implicit.Interm.Properties.Regularity.html" class="Module">Implicit.Interm.Properties.Regularity</a>
+
+<a id="s+-≫"></a><a id="167" href="Implicit.Interm.Properties.Ground.html#167" class="Function">s+-≫</a> <a id="172" class="Symbol">:</a> <a id="174" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="176" href="Implicit.Interm.Base.html#308" class="Datatype Operator">⊢</a> <a id="178" href="Implicit.Language.Base.html#2098" class="Function">`□</a> <a id="181" href="Implicit.Interm.Base.html#308" class="Datatype Operator">#</a> <a id="183" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="185" href="Implicit.Interm.Base.html#308" class="Datatype Operator">⌞</a> <a id="187" href="Implicit.Language.Base.html#2329" class="InductiveConstructor">≤⁺</a> <a id="190" href="Implicit.Interm.Base.html#308" class="Datatype Operator">⌝</a> <a id="192" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+     <a id="199" class="Symbol">→</a> <a id="201" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="203" href="Implicit.Language.Ground.Base.html#273" class="Datatype Operator">≫</a> <a id="205" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="207" href="Implicit.Language.Ground.Base.html#273" class="Datatype Operator">⇘</a> <a id="209" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+
+<a id="s--≫"></a><a id="212" href="Implicit.Interm.Properties.Ground.html#212" class="Function">s--≫</a> <a id="217" class="Symbol">:</a> <a id="219" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="221" href="Implicit.Interm.Base.html#308" class="Datatype Operator">⊢</a> <a id="223" href="Implicit.Language.Base.html#2098" class="Function">`□</a> <a id="226" href="Implicit.Interm.Base.html#308" class="Datatype Operator">#</a> <a id="228" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="230" href="Implicit.Interm.Base.html#308" class="Datatype Operator">⌞</a> <a id="232" href="Implicit.Language.Base.html#2332" class="InductiveConstructor">≤⁻</a> <a id="235" href="Implicit.Interm.Base.html#308" class="Datatype Operator">⌝</a> <a id="237" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+     <a id="244" class="Symbol">→</a> <a id="246" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="248" href="Implicit.Language.Ground.Base.html#273" class="Datatype Operator">≫</a> <a id="250" href="Implicit.Language.Base.html#387" class="Generalizable">B</a> <a id="252" href="Implicit.Language.Ground.Base.html#273" class="Datatype Operator">⇘</a> <a id="254" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+
+<a id="257" href="Implicit.Interm.Properties.Ground.html#167" class="Function">s+-≫</a> <a id="262" class="Symbol">(</a><a id="263" href="Implicit.Interm.Base.html#486" class="InductiveConstructor">s-int</a> <a id="269" href="Implicit.Interm.Properties.Ground.html#269" class="Bound">cloΓ</a><a id="273" class="Symbol">)</a> <a id="275" class="Symbol">=</a> <a id="277" href="Implicit.Language.Ground.Base.html#332" class="InductiveConstructor">grd-int</a>
+<a id="285" href="Implicit.Interm.Properties.Ground.html#167" class="Function">s+-≫</a> <a id="290" class="Symbol">(</a><a id="291" href="Implicit.Interm.Base.html#551" class="InductiveConstructor">s-var-∙</a> <a id="299" href="Implicit.Interm.Properties.Ground.html#299" class="Bound">cloΓ</a> <a id="304" href="Implicit.Interm.Properties.Ground.html#304" class="Bound">inΓ</a><a id="307" class="Symbol">)</a> <a id="309" class="Symbol">=</a> <a id="311" href="Implicit.Language.Ground.Base.html#409" class="InductiveConstructor">grd-var∙</a> <a id="320" href="Implicit.Interm.Properties.Ground.html#304" class="Bound">inΓ</a>
+<a id="324" href="Implicit.Interm.Properties.Ground.html#167" class="Function">s+-≫</a> <a id="329" class="Symbol">(</a><a id="330" href="Implicit.Interm.Base.html#639" class="InductiveConstructor">s-arr₁</a> <a id="337" href="Implicit.Interm.Properties.Ground.html#337" class="Bound">s</a> <a id="339" href="Implicit.Interm.Properties.Ground.html#339" class="Bound">s₁</a><a id="341" class="Symbol">)</a> <a id="343" class="Symbol">=</a> <a id="345" href="Implicit.Language.Ground.Base.html#459" class="InductiveConstructor">grd-arr</a> <a id="353" class="Symbol">(</a><a id="354" href="Implicit.Interm.Properties.Ground.html#212" class="Function">s--≫</a> <a id="359" href="Implicit.Interm.Properties.Ground.html#337" class="Bound">s</a><a id="360" class="Symbol">)</a> <a id="362" class="Symbol">(</a><a id="363" href="Implicit.Interm.Properties.Ground.html#167" class="Function">s+-≫</a> <a id="368" href="Implicit.Interm.Properties.Ground.html#339" class="Bound">s₁</a><a id="370" class="Symbol">)</a>
+<a id="372" href="Implicit.Interm.Properties.Ground.html#167" class="Function">s+-≫</a> <a id="377" class="Symbol">(</a><a id="378" href="Implicit.Interm.Base.html#961" class="InductiveConstructor">s-∀</a> <a id="382" href="Implicit.Interm.Properties.Ground.html#382" class="Bound">s</a><a id="383" class="Symbol">)</a> <a id="385" class="Symbol">=</a> <a id="387" href="Implicit.Language.Ground.Base.html#541" class="InductiveConstructor">grd-∀</a> <a id="393" class="Symbol">(</a><a id="394" href="Implicit.Interm.Properties.Ground.html#167" class="Function">s+-≫</a> <a id="399" href="Implicit.Interm.Properties.Ground.html#382" class="Bound">s</a><a id="400" class="Symbol">)</a>
+<a id="402" href="Implicit.Interm.Properties.Ground.html#167" class="Function">s+-≫</a> <a id="407" class="Symbol">(</a><a id="408" href="Implicit.Interm.Base.html#1397" class="InductiveConstructor">s-svar-l</a> <a id="417" href="Implicit.Interm.Properties.Ground.html#417" class="Bound">inΓ</a> <a id="421" href="Implicit.Interm.Properties.Ground.html#421" class="Bound">s</a><a id="422" class="Symbol">)</a>
+  <a id="426" class="Keyword">with</a> <a id="431" href="Implicit.Interm.Properties.Ground.html#431" class="Bound">ih</a> ← <a id="436" href="Implicit.Interm.Properties.Ground.html#167" class="Function">s+-≫</a> <a id="441" href="Implicit.Interm.Properties.Ground.html#421" class="Bound">s</a>
+  <a id="445" class="Keyword">with</a> <a id="450" href="Implicit.Interm.Properties.Ground.html#450" class="Bound">regC</a> ← <a id="457" href="Implicit.Language.EnvOps.Regular.html#1436" class="Function">∋:=-⊢r</a> <a id="464" class="Symbol">(</a><a id="465" href="Implicit.Interm.Properties.Regularity.html#121" class="Function">s-sregular</a> <a id="476" href="Implicit.Interm.Properties.Ground.html#421" class="Bound">s</a><a id="477" class="Symbol">)</a> <a id="479" href="Implicit.Interm.Properties.Ground.html#417" class="Bound">inΓ</a>
+  <a id="485" class="Keyword">with</a> <a id="490" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a> ← <a id="497" href="Implicit.Language.Ground.Properties.html#1567" class="Function">⊢r-≫-eq&#39;</a> <a id="506" href="Implicit.Interm.Properties.Ground.html#450" class="Bound">regC</a> <a id="511" href="Implicit.Interm.Properties.Ground.html#431" class="Bound">ih</a>
+  <a id="516" class="Symbol">=</a> <a id="518" href="Implicit.Language.Ground.Base.html#358" class="InductiveConstructor">grd-var=</a> <a id="527" href="Implicit.Interm.Properties.Ground.html#417" class="Bound">inΓ</a>
+
+<a id="532" href="Implicit.Interm.Properties.Ground.html#212" class="Function">s--≫</a> <a id="537" class="Symbol">(</a><a id="538" href="Implicit.Interm.Base.html#486" class="InductiveConstructor">s-int</a> <a id="544" href="Implicit.Interm.Properties.Ground.html#544" class="Bound">cloΓ</a><a id="548" class="Symbol">)</a> <a id="550" class="Symbol">=</a> <a id="552" href="Implicit.Language.Ground.Base.html#332" class="InductiveConstructor">grd-int</a>
+<a id="560" href="Implicit.Interm.Properties.Ground.html#212" class="Function">s--≫</a> <a id="565" class="Symbol">(</a><a id="566" href="Implicit.Interm.Base.html#551" class="InductiveConstructor">s-var-∙</a> <a id="574" href="Implicit.Interm.Properties.Ground.html#574" class="Bound">cloΓ</a> <a id="579" href="Implicit.Interm.Properties.Ground.html#579" class="Bound">inΓ</a><a id="582" class="Symbol">)</a> <a id="584" class="Symbol">=</a> <a id="586" href="Implicit.Language.Ground.Base.html#409" class="InductiveConstructor">grd-var∙</a> <a id="595" href="Implicit.Interm.Properties.Ground.html#579" class="Bound">inΓ</a>
+<a id="599" href="Implicit.Interm.Properties.Ground.html#212" class="Function">s--≫</a> <a id="604" class="Symbol">(</a><a id="605" href="Implicit.Interm.Base.html#639" class="InductiveConstructor">s-arr₁</a> <a id="612" href="Implicit.Interm.Properties.Ground.html#612" class="Bound">s</a> <a id="614" href="Implicit.Interm.Properties.Ground.html#614" class="Bound">s₁</a><a id="616" class="Symbol">)</a> <a id="618" class="Symbol">=</a> <a id="620" href="Implicit.Language.Ground.Base.html#459" class="InductiveConstructor">grd-arr</a> <a id="628" class="Symbol">(</a><a id="629" href="Implicit.Interm.Properties.Ground.html#167" class="Function">s+-≫</a> <a id="634" href="Implicit.Interm.Properties.Ground.html#612" class="Bound">s</a><a id="635" class="Symbol">)</a> <a id="637" class="Symbol">(</a><a id="638" href="Implicit.Interm.Properties.Ground.html#212" class="Function">s--≫</a> <a id="643" href="Implicit.Interm.Properties.Ground.html#614" class="Bound">s₁</a><a id="645" class="Symbol">)</a>
+<a id="647" href="Implicit.Interm.Properties.Ground.html#212" class="Function">s--≫</a> <a id="652" class="Symbol">(</a><a id="653" href="Implicit.Interm.Base.html#961" class="InductiveConstructor">s-∀</a> <a id="657" href="Implicit.Interm.Properties.Ground.html#657" class="Bound">s</a><a id="658" class="Symbol">)</a> <a id="660" class="Symbol">=</a> <a id="662" href="Implicit.Language.Ground.Base.html#541" class="InductiveConstructor">grd-∀</a> <a id="668" class="Symbol">(</a><a id="669" href="Implicit.Interm.Properties.Ground.html#212" class="Function">s--≫</a> <a id="674" href="Implicit.Interm.Properties.Ground.html#657" class="Bound">s</a><a id="675" class="Symbol">)</a>
+<a id="677" href="Implicit.Interm.Properties.Ground.html#212" class="Function">s--≫</a> <a id="682" class="Symbol">(</a><a id="683" href="Implicit.Interm.Base.html#1479" class="InductiveConstructor">s-svar-r</a> <a id="692" href="Implicit.Interm.Properties.Ground.html#692" class="Bound">cloA</a> <a id="697" href="Implicit.Interm.Properties.Ground.html#697" class="Bound">inΓ</a><a id="700" class="Symbol">)</a> <a id="702" class="Symbol">=</a> <a id="704" href="Implicit.Language.Ground.Base.html#358" class="InductiveConstructor">grd-var=</a> <a id="713" href="Implicit.Interm.Properties.Ground.html#697" class="Bound">inΓ</a>
+
+<a id="grd-reg-input"></a><a id="718" href="Implicit.Interm.Properties.Ground.html#718" class="Function">grd-reg-input</a> <a id="732" class="Symbol">:</a> <a id="734" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="736" href="Implicit.Language.Ground.Base.html#273" class="Datatype Operator">≫</a> <a id="738" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="740" href="Implicit.Language.Ground.Base.html#273" class="Datatype Operator">⇘</a> <a id="742" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+              <a id="758" class="Symbol">→</a> <a id="760" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="762" href="Implicit.Language.Regular.Base.html#186" class="Datatype Operator">⊢r</a> <a id="765" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+              <a id="781" class="Symbol">→</a> <a id="783" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="785" href="Agda.Builtin.Equality.html#150" class="Datatype Operator">≡</a> <a id="787" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+<a id="789" href="Implicit.Interm.Properties.Ground.html#718" class="Function">grd-reg-input</a> <a id="803" href="Implicit.Language.Ground.Base.html#332" class="InductiveConstructor">grd-int</a> <a id="811" href="Implicit.Language.Regular.Base.html#224" class="InductiveConstructor">⊢r-int</a> <a id="818" class="Symbol">=</a> <a id="820" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a>
+<a id="825" href="Implicit.Interm.Properties.Ground.html#718" class="Function">grd-reg-input</a> <a id="839" class="Symbol">(</a><a id="840" href="Implicit.Language.Ground.Base.html#358" class="InductiveConstructor">grd-var=</a> <a id="849" href="Implicit.Interm.Properties.Ground.html#849" class="Bound">x</a><a id="850" class="Symbol">)</a> <a id="852" class="Symbol">(</a><a id="853" href="Implicit.Language.Regular.Base.html#250" class="InductiveConstructor">⊢r-var-∙</a> <a id="862" href="Implicit.Interm.Properties.Ground.html#862" class="Bound">inΓ</a><a id="865" class="Symbol">)</a> <a id="867" class="Symbol">=</a> <a id="869" href="Data.Empty.html#1069" class="Function">⊥-elim</a> <a id="876" class="Symbol">(</a><a id="877" href="Implicit.Language.Lookup.Properties.html#2779" class="Function">∋∙-∋:=-false</a> <a id="890" href="Implicit.Interm.Properties.Ground.html#862" class="Bound">inΓ</a> <a id="894" href="Implicit.Interm.Properties.Ground.html#849" class="Bound">x</a><a id="895" class="Symbol">)</a>
+<a id="897" href="Implicit.Interm.Properties.Ground.html#718" class="Function">grd-reg-input</a> <a id="911" class="Symbol">(</a><a id="912" href="Implicit.Language.Ground.Base.html#409" class="InductiveConstructor">grd-var∙</a> <a id="921" href="Implicit.Interm.Properties.Ground.html#921" class="Bound">x</a><a id="922" class="Symbol">)</a> <a id="924" href="Implicit.Interm.Properties.Ground.html#924" class="Bound">regA</a> <a id="929" class="Symbol">=</a> <a id="931" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a>
+<a id="936" href="Implicit.Interm.Properties.Ground.html#718" class="Function">grd-reg-input</a> <a id="950" class="Symbol">(</a><a id="951" href="Implicit.Language.Ground.Base.html#459" class="InductiveConstructor">grd-arr</a> <a id="959" href="Implicit.Interm.Properties.Ground.html#959" class="Bound">grd</a> <a id="963" href="Implicit.Interm.Properties.Ground.html#963" class="Bound">grd₁</a><a id="967" class="Symbol">)</a> <a id="969" class="Symbol">(</a><a id="970" href="Implicit.Language.Regular.Base.html#299" class="InductiveConstructor">⊢r-arr</a> <a id="977" href="Implicit.Interm.Properties.Ground.html#977" class="Bound">regA</a> <a id="982" href="Implicit.Interm.Properties.Ground.html#982" class="Bound">regA₁</a><a id="987" class="Symbol">)</a> <a id="989" class="Keyword">rewrite</a> <a id="997" href="Implicit.Interm.Properties.Ground.html#718" class="Function">grd-reg-input</a> <a id="1011" href="Implicit.Interm.Properties.Ground.html#959" class="Bound">grd</a> <a id="1015" href="Implicit.Interm.Properties.Ground.html#977" class="Bound">regA</a> <a id="1020" class="Symbol">|</a> <a id="1022" href="Implicit.Interm.Properties.Ground.html#718" class="Function">grd-reg-input</a> <a id="1036" href="Implicit.Interm.Properties.Ground.html#963" class="Bound">grd₁</a> <a id="1041" href="Implicit.Interm.Properties.Ground.html#982" class="Bound">regA₁</a> <a id="1047" class="Symbol">=</a> <a id="1049" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a>
+<a id="1054" href="Implicit.Interm.Properties.Ground.html#718" class="Function">grd-reg-input</a> <a id="1068" class="Symbol">(</a><a id="1069" href="Implicit.Language.Ground.Base.html#541" class="InductiveConstructor">grd-∀</a> <a id="1075" href="Implicit.Interm.Properties.Ground.html#1075" class="Bound">grd</a><a id="1078" class="Symbol">)</a> <a id="1080" class="Symbol">(</a><a id="1081" href="Implicit.Language.Regular.Base.html#356" class="InductiveConstructor">⊢r-∀</a> <a id="1086" href="Implicit.Interm.Properties.Ground.html#1086" class="Bound">regA</a><a id="1090" class="Symbol">)</a> <a id="1092" class="Keyword">rewrite</a> <a id="1100" href="Implicit.Interm.Properties.Ground.html#718" class="Function">grd-reg-input</a> <a id="1114" href="Implicit.Interm.Properties.Ground.html#1075" class="Bound">grd</a> <a id="1118" href="Implicit.Interm.Properties.Ground.html#1086" class="Bound">regA</a> <a id="1123" class="Symbol">=</a> <a id="1125" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a>
+</pre>
+    
+    <script>
+      function toggleModule(element) {
+        element.classList.toggle('collapsed');
+        element.classList.toggle('expanded');
+      }
+      
+      // Auto-expand path to current module
+      document.addEventListener('DOMContentLoaded', function() {
+        const currentModule = document.querySelector('.current-module');
+        if (currentModule) {
+          let parent = currentModule.closest('li');
+          while (parent) {
+            parent.classList.remove('collapsed');
+            parent.classList.add('expanded');
+            parent = parent.parentElement.closest('li');
+          }
+        }
+      });
+    </script>
+    <script>
+  const nav = document.querySelector('nav');
+  const scrollKey = 'sidebarScroll';
+
+  // Restore scroll position
+  document.addEventListener('DOMContentLoaded', () => {
+    const saved = localStorage.getItem(scrollKey);
+    if (saved !== null) {
+      nav.scrollTop = parseInt(saved, 10);
+    }
+  });
+
+  // Save scroll position
+  nav.addEventListener('scroll', () => {
+    localStorage.setItem(scrollKey, nav.scrollTop);
+  });
+</script>
+  </body>
+</html>

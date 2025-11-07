@@ -1,0 +1,1931 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../css/Agda.css" />
+    <title>Implicit.Algo2Interm.Corollaries</title>
+    <style>
+      body {
+        font-family: monospace;
+        font-size: 13px;
+        display: flex;
+        flex-flow: row nowrap;
+        min-height: 100vh;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-weight: unset;
+        text-wrap: balance;
+      }
+      p {
+        text-wrap: pretty;
+      }
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        font-size: 12px;
+        font-family: 'mononoki';
+        line-height: 1.5;
+        padding: 2px;
+        padding-left: 0.5em;
+        padding-right: 1em;
+        margin-right: 2em;
+        overflow-y: auto;
+        flex-shrink: 0;
+        background: white;
+        z-index: 100;
+      }
+      /* Hide scrollbar for webkit browsers */
+      nav::-webkit-scrollbar {
+        width: 2px;
+      }
+      nav::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      nav::-webkit-scrollbar-thumb {
+        background: #ddd;
+        border-radius: 2px;
+      }
+      nav::-webkit-scrollbar-thumb:hover {
+        background: #bbb;
+      }
+      nav a {
+        display: block;
+        color: unset;
+      }
+      .module-tree {
+        list-style-type: none;
+        padding-left: 2ch;
+        margin: 0;
+      }
+      nav > .module-tree {
+        padding-left: 0;
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 1lh;
+      }
+      .module-tree a:any-link:hover {
+        color: #A020F0 !important;
+      }
+      .current-module {
+        color: #A020F0;
+        font-weight: bold;
+      }
+      .Agda {
+        margin: 0;
+        margin-left: 180px;
+        flex: 1;
+        overflow-y: auto;
+      }
+      
+      /* Toggle functionality styles */
+      .toggle-btn {
+        background: none;
+        border: none;
+        color: #666;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 10px;
+        padding: 0 4px;
+        margin-right: 2px;
+        border-radius: 2px;
+        display: inline-block;
+        vertical-align: middle;
+        flex-shrink: 0;
+      }
+      .toggle-btn:hover {
+        background-color: #f0f0f0;
+        color: #333;
+      }
+      .collapsed > ul {
+        display: none;
+      }
+      
+      .toggle-btn::after {
+        content: "[−]";
+      }
+      .collapsed .toggle-btn::after {
+        content: "[+]";
+      }
+      .module-item {
+        position: relative;
+      }
+      .module-item a {
+        display: inline-block;
+      }
+      .module-content {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <nav>
+      
+      <ul class="module-tree">
+        
+          <li class="module-item expanded" data-depth="0">
+            <div class="module-content">
+              
+                <a>Implicit</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a href="Implicit.README.html" class="">
+                  README
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.All.html" class="">
+                  Language
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Counter2Mask.html" class="">
+                  Counter2Mask
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Prelude.html" class="">
+                  Prelude
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Bitmap.html" class="">
+                  Bitmap
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Shift.All.html" class="">
+                  Shift
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Shift.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Shift.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Subst.All.html" class="">
+                  Subst
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Subst.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Subst.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Lookup.All.html" class="">
+                  Lookup
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Lookup.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Lookup.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Occur.All.html" class="">
+                  Occur
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Occur.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Occur.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Find.All.html" class="">
+                  Find
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Find.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Find.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Regular.All.html" class="">
+                  Regular
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Regular.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Regular.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.OpenClose.All.html" class="">
+                  OpenClose
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.OpenClose.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.All.html" class="">
+                  Extension
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.InputOutput.html" class="">
+                  InputOutput
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.ExSol.html" class="">
+                  ExSol
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.Occur.html" class="">
+                  Occur
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.EnvReplace.html" class="">
+                  EnvReplace
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Ground.All.html" class="">
+                  Ground
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Ground.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Ground.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.All.html" class="">
+                  EnvOps
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.Inst.html" class="">
+                  Inst
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.RemoveTVar.html" class="">
+                  RemoveTVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.RemoveSVar.html" class="">
+                  RemoveSVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.RemoveEVar.html" class="">
+                  RemoveEVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.InsertEVar.html" class="">
+                  InsertEVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.InsertTVar.html" class="">
+                  InsertTVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.InsertUVar.html" class="">
+                  InsertUVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.InsertSVar.html" class="">
+                  InsertSVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.Regular.html" class="">
+                  Regular
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.Replace.html" class="">
+                  Replace
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.RemoveUVar.html" class="">
+                  RemoveUVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.All.html" class="">
+                  Decl
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.Typing.html" class="">
+                  Typing
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.Trans.html" class="">
+                  Trans
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.Subtyping.html" class="">
+                  Subtyping
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.SubtypingV2.html" class="">
+                  SubtypingV2
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.Equiv.html" class="">
+                  Equiv
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.AuxLemmas.html" class="">
+                  AuxLemmas
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a>Annotatability</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Annotatability.Soundness.html" class="">
+                  Soundness
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Annotatability.Corollaries.html" class="">
+                  Corollaries
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Annotatability.DeclPartial.html" class="">
+                  DeclPartial
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Annotatability.IF.html" class="">
+                  IF
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Annotatability.Elaboration.html" class="">
+                  Elaboration
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a>Interm2Decl</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Decl.Corollaries.html" class="">
+                  Corollaries
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Decl.Main.html" class="">
+                  Main
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Decl.AuxLemmas.html" class="">
+                  AuxLemmas
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a>Decl2Interm</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl2Interm.Corollaries.html" class="">
+                  Corollaries
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl2Interm.Main.html" class="">
+                  Main
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.All.html" class="">
+                  Algo
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a>Properties</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Regularity.html" class="">
+                  Regularity
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Extension.html" class="">
+                  Extension
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Subsumption.html" class="">
+                  Subsumption
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Id.html" class="">
+                  Id
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Polarity.html" class="">
+                  Polarity
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Shift.html" class="">
+                  Shift
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Reflexivity.html" class="">
+                  Reflexivity
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.StrengthenTVar.html" class="">
+                  StrengthenTVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.StrengthenSVar.html" class="">
+                  StrengthenSVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.StrengthenEVar.html" class="">
+                  StrengthenEVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Weaken.html" class="">
+                  Weaken
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Irrelevance.html" class="">
+                  Irrelevance
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Trans.html" class="">
+                  Trans
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.SubIrrelevance.html" class="">
+                  SubIrrelevance
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Swap.html" class="">
+                  Swap
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Subst.html" class="">
+                  Subst
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.OpenK.html" class="">
+                  OpenK
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.WeakenEVar.html" class="">
+                  WeakenEVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.WeakenTVar.html" class="">
+                  WeakenTVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.WeakenSVar.html" class="">
+                  WeakenSVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a>Constructs</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Constructs.Syntax.html" class="">
+                  Syntax
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Constructs.Shift.html" class="">
+                  Shift
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Constructs.Subst.html" class="">
+                  Subst
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Constructs.Lookup.html" class="">
+                  Lookup
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a>Algo2Interm</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.Find.html" class="">
+                  Find
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.Main.html" class="">
+                  Main
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.Corollaries.html" class="current-module">
+                  Corollaries
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.AlgoCounter.All.html" class="">
+                  AlgoCounter
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.AlgoCounter.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.AlgoCounter.Sound.html" class="">
+                  Sound
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.Context2Counter.html" class="">
+                  Context2Counter
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a>Interm2Algo</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.Main.html" class="">
+                  Main
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.Corollaries.html" class="">
+                  Corollaries
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.Counter2Context.html" class="">
+                  Counter2Context
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.ExtIrrev.html" class="">
+                  ExtIrrev
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.EnvDiff.html" class="">
+                  EnvDiff
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.OpenClose.html" class="">
+                  OpenClose
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.Find.html" class="">
+                  Find
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.AuxLemmas.html" class="">
+                  AuxLemmas
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.FVClose.html" class="">
+                  FVClose
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.All.html" class="">
+                  Interm
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a>Properties</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.Properties.Regularity.html" class="">
+                  Regularity
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.Properties.Polarity.html" class="">
+                  Polarity
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.Properties.Extension.html" class="">
+                  Extension
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.Properties.Strengthen.html" class="">
+                  Strengthen
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.Properties.Ground.html" class="">
+                  Ground
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+      </ul>
+    
+    </nav>
+    <pre class="Agda"><a id="1" class="Keyword">module</a> <a id="8" href="Implicit.Algo2Interm.Corollaries.html" class="Module">Implicit.Algo2Interm.Corollaries</a> <a id="41" class="Keyword">where</a>
+
+<a id="48" class="Keyword">open</a> <a id="53" class="Keyword">import</a> <a id="60" href="Implicit.Language.All.html" class="Module">Implicit.Language.All</a>
+<a id="82" class="Keyword">open</a> <a id="87" class="Keyword">import</a> <a id="94" href="Implicit.Interm.All.html" class="Module">Implicit.Interm.All</a>
+<a id="114" class="Keyword">open</a> <a id="119" class="Keyword">import</a> <a id="126" href="Implicit.Algo.All.html" class="Module">Implicit.Algo.All</a>
+
+<a id="145" class="Keyword">open</a> <a id="150" class="Keyword">import</a> <a id="157" href="Implicit.Algo2Interm.Context2Counter.html" class="Module">Implicit.Algo2Interm.Context2Counter</a>
+<a id="194" class="Keyword">open</a> <a id="199" class="Keyword">import</a> <a id="206" href="Implicit.Algo2Interm.AlgoCounter.All.html" class="Module">Implicit.Algo2Interm.AlgoCounter.All</a>
+<a id="243" class="Keyword">open</a> <a id="248" class="Keyword">import</a> <a id="255" href="Implicit.Algo2Interm.Main.html" class="Module">Implicit.Algo2Interm.Main</a>
+
+<a id="282" class="Comment">-- corollaries are bridged via completeness of AlgoCounter</a>
+
+<a id="342" class="Keyword">data</a> <a id="JustType"></a><a id="347" href="Implicit.Algo2Interm.Corollaries.html#347" class="Datatype">JustType</a> <a id="356" class="Symbol">(</a><a id="357" href="Implicit.Algo2Interm.Corollaries.html#357" class="Bound">Γ</a> <a id="359" class="Symbol">:</a> <a id="361" href="Implicit.Language.Base.html#1447" class="Datatype">Env</a> <a id="365" href="Implicit.Language.Prelude.html#1401" class="Generalizable">n</a> <a id="367" href="Implicit.Language.Prelude.html#1396" class="Generalizable">m</a><a id="368" class="Symbol">)</a> <a id="370" class="Symbol">(</a><a id="371" href="Implicit.Algo2Interm.Corollaries.html#371" class="Bound">Σ</a> <a id="373" class="Symbol">:</a> <a id="375" href="Implicit.Algo.Constructs.Syntax.html#103" class="Datatype">Context</a> <a id="383" href="Implicit.Language.Prelude.html#1401" class="Generalizable">n</a> <a id="385" href="Implicit.Language.Prelude.html#1396" class="Generalizable">m</a><a id="386" class="Symbol">)</a> <a id="388" class="Symbol">(</a><a id="389" href="Implicit.Algo2Interm.Corollaries.html#389" class="Bound">e</a> <a id="391" class="Symbol">:</a> <a id="393" href="Implicit.Language.Base.html#655" class="Datatype">Term</a> <a id="398" href="Implicit.Language.Prelude.html#1401" class="Generalizable">n</a> <a id="400" href="Implicit.Language.Prelude.html#1396" class="Generalizable">m</a><a id="401" class="Symbol">)</a> <a id="403" class="Symbol">(</a><a id="404" href="Implicit.Algo2Interm.Corollaries.html#404" class="Bound">A</a> <a id="406" class="Symbol">:</a> <a id="408" href="Implicit.Language.Base.html#214" class="Datatype">Type</a> <a id="413" href="Implicit.Language.Prelude.html#1396" class="Generalizable">m</a><a id="414" class="Symbol">)</a> <a id="416" class="Symbol">:</a> <a id="418" href="Agda.Primitive.html#388" class="Primitive">Set</a> <a id="422" class="Keyword">where</a>
+  <a id="JustType.typs"></a><a id="430" href="Implicit.Algo2Interm.Corollaries.html#430" class="InductiveConstructor">typs</a> <a id="435" class="Symbol">:</a> <a id="437" class="Symbol">∀</a> <a id="439" class="Symbol">{</a><a id="440" href="Implicit.Algo2Interm.Corollaries.html#440" class="Bound">j</a><a id="441" class="Symbol">}</a>
+    <a id="447" class="Symbol">→</a> <a id="449" class="Symbol">(</a><a id="450" href="Implicit.Algo2Interm.Corollaries.html#450" class="Bound">j~Σ</a> <a id="454" class="Symbol">:</a> <a id="456" href="Implicit.Algo2Interm.Corollaries.html#357" class="Bound">Γ</a> <a id="458" href="Implicit.Algo2Interm.Context2Counter.html#218" class="Datatype Operator">⊢</a> <a id="460" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="462" href="Implicit.Algo2Interm.Corollaries.html#440" class="Bound">j</a> <a id="464" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a> <a id="466" href="Implicit.Algo2Interm.Corollaries.html#404" class="Bound">A</a> <a id="468" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a> <a id="470" href="Implicit.Algo2Interm.Context2Counter.html#218" class="Datatype Operator">~t</a> <a id="473" href="Implicit.Algo2Interm.Corollaries.html#371" class="Bound">Σ</a><a id="474" class="Symbol">)</a>
+    <a id="480" class="Symbol">→</a> <a id="482" class="Symbol">(</a><a id="483" href="Implicit.Algo2Interm.Corollaries.html#483" class="Bound">⊢e</a> <a id="486" class="Symbol">:</a> <a id="488" href="Implicit.Algo2Interm.Corollaries.html#357" class="Bound">Γ</a> <a id="490" href="Implicit.Algo2Interm.AlgoCounter.Base.html#180" class="Datatype Operator">⊢</a> <a id="492" href="Implicit.Algo2Interm.Corollaries.html#371" class="Bound">Σ</a> <a id="494" href="Implicit.Algo2Interm.AlgoCounter.Base.html#180" class="Datatype Operator">⇒</a> <a id="496" href="Implicit.Algo2Interm.Corollaries.html#389" class="Bound">e</a> <a id="498" href="Implicit.Algo2Interm.AlgoCounter.Base.html#180" class="Datatype Operator">⇒</a> <a id="500" href="Implicit.Algo2Interm.Corollaries.html#404" class="Bound">A</a> <a id="502" href="Implicit.Algo2Interm.AlgoCounter.Base.html#180" class="Datatype Operator">↡</a> <a id="504" href="Implicit.Algo2Interm.Corollaries.html#440" class="Bound">j</a><a id="505" class="Symbol">)</a>
+    <a id="511" class="Symbol">→</a> <a id="513" href="Implicit.Algo2Interm.Corollaries.html#347" class="Datatype">JustType</a> <a id="522" href="Implicit.Algo2Interm.Corollaries.html#357" class="Bound">Γ</a> <a id="524" href="Implicit.Algo2Interm.Corollaries.html#371" class="Bound">Σ</a> <a id="526" href="Implicit.Algo2Interm.Corollaries.html#389" class="Bound">e</a> <a id="528" href="Implicit.Algo2Interm.Corollaries.html#404" class="Bound">A</a>
+
+<a id="531" class="Keyword">data</a> <a id="JustSub"></a><a id="536" href="Implicit.Algo2Interm.Corollaries.html#536" class="Datatype">JustSub</a> <a id="544" class="Symbol">(</a><a id="545" href="Implicit.Algo2Interm.Corollaries.html#545" class="Bound">Γ</a> <a id="547" class="Symbol">:</a> <a id="549" href="Implicit.Language.Base.html#1447" class="Datatype">Env</a> <a id="553" href="Implicit.Language.Prelude.html#1401" class="Generalizable">n</a> <a id="555" href="Implicit.Language.Prelude.html#1396" class="Generalizable">m</a><a id="556" class="Symbol">)</a> <a id="558" class="Symbol">(</a><a id="559" href="Implicit.Algo2Interm.Corollaries.html#559" class="Bound">A</a> <a id="561" class="Symbol">:</a> <a id="563" href="Implicit.Language.Base.html#214" class="Datatype">Type</a> <a id="568" href="Implicit.Language.Prelude.html#1396" class="Generalizable">m</a><a id="569" class="Symbol">)</a> <a id="571" class="Symbol">(</a><a id="572" href="Implicit.Algo2Interm.Corollaries.html#572" class="Bound">Σ</a> <a id="574" class="Symbol">:</a> <a id="576" href="Implicit.Algo.Constructs.Syntax.html#103" class="Datatype">Context</a> <a id="584" href="Implicit.Language.Prelude.html#1401" class="Generalizable">n</a> <a id="586" href="Implicit.Language.Prelude.html#1396" class="Generalizable">m</a><a id="587" class="Symbol">)</a> <a id="589" class="Symbol">(</a><a id="590" href="Implicit.Algo2Interm.Corollaries.html#590" class="Bound">Δ</a> <a id="592" class="Symbol">:</a> <a id="594" href="Implicit.Language.Base.html#1447" class="Datatype">Env</a> <a id="598" href="Implicit.Language.Prelude.html#1401" class="Generalizable">n</a> <a id="600" href="Implicit.Language.Prelude.html#1396" class="Generalizable">m</a><a id="601" class="Symbol">)</a> <a id="603" class="Symbol">(</a><a id="604" href="Implicit.Algo2Interm.Corollaries.html#604" class="Bound">B</a> <a id="606" class="Symbol">:</a> <a id="608" href="Implicit.Language.Base.html#214" class="Datatype">Type</a> <a id="613" href="Implicit.Language.Prelude.html#1396" class="Generalizable">m</a><a id="614" class="Symbol">)</a> <a id="616" class="Symbol">:</a> <a id="618" href="Agda.Primitive.html#388" class="Primitive">Set</a> <a id="622" class="Keyword">where</a>
+  <a id="JustSub.subs"></a><a id="630" href="Implicit.Algo2Interm.Corollaries.html#630" class="InductiveConstructor">subs</a> <a id="635" class="Symbol">:</a> <a id="637" class="Symbol">∀</a> <a id="639" class="Symbol">{</a><a id="640" href="Implicit.Algo2Interm.Corollaries.html#640" class="Bound">j</a><a id="641" class="Symbol">}</a>
+    <a id="647" class="Symbol">→</a> <a id="649" class="Symbol">(</a><a id="650" href="Implicit.Algo2Interm.Corollaries.html#650" class="Bound">j~Σ</a> <a id="654" class="Symbol">:</a> <a id="656" href="Implicit.Algo2Interm.Corollaries.html#590" class="Bound">Δ</a> <a id="658" href="Implicit.Algo2Interm.Context2Counter.html#957" class="Datatype Operator">⊢</a> <a id="660" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="662" href="Implicit.Algo2Interm.Corollaries.html#640" class="Bound">j</a> <a id="664" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a> <a id="666" href="Implicit.Algo2Interm.Corollaries.html#604" class="Bound">B</a> <a id="668" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a> <a id="670" href="Implicit.Algo2Interm.Context2Counter.html#957" class="Datatype Operator">~s</a> <a id="673" href="Implicit.Algo2Interm.Corollaries.html#572" class="Bound">Σ</a><a id="674" class="Symbol">)</a>
+    <a id="680" class="Symbol">→</a> <a id="682" class="Symbol">(</a><a id="683" href="Implicit.Algo2Interm.Corollaries.html#683" class="Bound">s</a> <a id="685" class="Symbol">:</a> <a id="687" href="Implicit.Algo2Interm.Corollaries.html#545" class="Bound">Γ</a> <a id="689" href="Implicit.Algo2Interm.AlgoCounter.Base.html#252" class="Datatype Operator">⊢</a> <a id="691" href="Implicit.Algo2Interm.Corollaries.html#559" class="Bound">A</a> <a id="693" href="Implicit.Algo2Interm.AlgoCounter.Base.html#252" class="Datatype Operator">≤⁺</a> <a id="696" href="Implicit.Algo2Interm.Corollaries.html#572" class="Bound">Σ</a> <a id="698" href="Implicit.Algo2Interm.AlgoCounter.Base.html#252" class="Datatype Operator">⊣</a> <a id="700" href="Implicit.Algo2Interm.Corollaries.html#590" class="Bound">Δ</a> <a id="702" href="Implicit.Algo2Interm.AlgoCounter.Base.html#252" class="Datatype Operator">↪</a> <a id="704" href="Implicit.Algo2Interm.Corollaries.html#604" class="Bound">B</a> <a id="706" href="Implicit.Algo2Interm.AlgoCounter.Base.html#252" class="Datatype Operator">↡</a> <a id="708" href="Implicit.Algo2Interm.Corollaries.html#640" class="Bound">j</a><a id="709" class="Symbol">)</a>
+    <a id="715" class="Symbol">→</a> <a id="717" href="Implicit.Algo2Interm.Corollaries.html#536" class="Datatype">JustSub</a> <a id="725" href="Implicit.Algo2Interm.Corollaries.html#545" class="Bound">Γ</a> <a id="727" href="Implicit.Algo2Interm.Corollaries.html#559" class="Bound">A</a> <a id="729" href="Implicit.Algo2Interm.Corollaries.html#572" class="Bound">Σ</a> <a id="731" href="Implicit.Algo2Interm.Corollaries.html#590" class="Bound">Δ</a> <a id="733" href="Implicit.Algo2Interm.Corollaries.html#604" class="Bound">B</a>
+
+<a id="736" class="Keyword">data</a> <a id="JustInfs"></a><a id="741" href="Implicit.Algo2Interm.Corollaries.html#741" class="Datatype">JustInfs</a> <a id="750" class="Symbol">(</a><a id="751" href="Implicit.Algo2Interm.Corollaries.html#751" class="Bound">Γ</a> <a id="753" class="Symbol">:</a> <a id="755" href="Implicit.Language.Base.html#1447" class="Datatype">Env</a> <a id="759" href="Implicit.Language.Prelude.html#1401" class="Generalizable">n</a> <a id="761" href="Implicit.Language.Prelude.html#1396" class="Generalizable">m</a><a id="762" class="Symbol">)</a> <a id="764" class="Symbol">(</a><a id="765" href="Implicit.Algo2Interm.Corollaries.html#765" class="Bound">Σ</a> <a id="767" class="Symbol">:</a> <a id="769" href="Implicit.Algo.Constructs.Syntax.html#103" class="Datatype">Context</a> <a id="777" href="Implicit.Language.Prelude.html#1401" class="Generalizable">n</a> <a id="779" href="Implicit.Language.Prelude.html#1396" class="Generalizable">m</a><a id="780" class="Symbol">)</a> <a id="782" class="Symbol">(</a><a id="783" href="Implicit.Algo2Interm.Corollaries.html#783" class="Bound">A</a> <a id="785" class="Symbol">:</a> <a id="787" href="Implicit.Language.Base.html#214" class="Datatype">Type</a> <a id="792" href="Implicit.Language.Prelude.html#1396" class="Generalizable">m</a><a id="793" class="Symbol">)</a> <a id="795" class="Symbol">:</a> <a id="797" href="Agda.Primitive.html#388" class="Primitive">Set</a> <a id="801" class="Keyword">where</a>
+  <a id="JustInfs.infss"></a><a id="809" href="Implicit.Algo2Interm.Corollaries.html#809" class="InductiveConstructor">infss</a> <a id="815" class="Symbol">:</a> <a id="817" class="Symbol">∀</a> <a id="819" class="Symbol">{</a><a id="820" href="Implicit.Algo2Interm.Corollaries.html#820" class="Bound">j</a><a id="821" class="Symbol">}</a>
+    <a id="827" class="Symbol">→</a> <a id="829" class="Symbol">(</a><a id="830" href="Implicit.Algo2Interm.Corollaries.html#830" class="Bound">j~Σ</a> <a id="834" class="Symbol">:</a> <a id="836" href="Implicit.Algo2Interm.Corollaries.html#751" class="Bound">Γ</a> <a id="838" href="Implicit.Algo2Interm.Context2Counter.html#677" class="Datatype Operator">⊢</a> <a id="840" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="842" href="Implicit.Algo2Interm.Corollaries.html#820" class="Bound">j</a> <a id="844" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a> <a id="846" href="Implicit.Algo2Interm.Corollaries.html#783" class="Bound">A</a> <a id="848" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a> <a id="850" href="Implicit.Algo2Interm.Context2Counter.html#677" class="Datatype Operator">~inf</a> <a id="855" href="Implicit.Algo2Interm.Corollaries.html#765" class="Bound">Σ</a><a id="856" class="Symbol">)</a>
+    <a id="862" class="Symbol">→</a> <a id="864" class="Symbol">(</a><a id="865" href="Implicit.Algo2Interm.Corollaries.html#865" class="Bound">infs</a> <a id="870" class="Symbol">:</a> <a id="872" href="Implicit.Algo2Interm.Corollaries.html#751" class="Bound">Γ</a> <a id="874" href="Implicit.Algo2Interm.AlgoCounter.Base.html#335" class="Datatype Operator">⊨</a> <a id="876" href="Implicit.Algo2Interm.Corollaries.html#765" class="Bound">Σ</a> <a id="878" href="Implicit.Algo2Interm.AlgoCounter.Base.html#335" class="Datatype Operator">⟹</a> <a id="880" href="Implicit.Algo2Interm.Corollaries.html#783" class="Bound">A</a> <a id="882" href="Implicit.Algo2Interm.AlgoCounter.Base.html#335" class="Datatype Operator">↡</a> <a id="884" href="Implicit.Algo2Interm.Corollaries.html#820" class="Bound">j</a><a id="885" class="Symbol">)</a>
+    <a id="891" class="Symbol">→</a> <a id="893" href="Implicit.Algo2Interm.Corollaries.html#741" class="Datatype">JustInfs</a> <a id="902" href="Implicit.Algo2Interm.Corollaries.html#751" class="Bound">Γ</a> <a id="904" href="Implicit.Algo2Interm.Corollaries.html#765" class="Bound">Σ</a> <a id="906" href="Implicit.Algo2Interm.Corollaries.html#783" class="Bound">A</a>
+
+<a id="tc-complete"></a><a id="909" href="Implicit.Algo2Interm.Corollaries.html#909" class="Function">tc-complete</a> <a id="921" class="Symbol">:</a> <a id="923" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="925" href="Implicit.Algo.Base.html#1211" class="Datatype Operator">⊢</a> <a id="927" href="Implicit.Algo.Constructs.Syntax.html#255" class="Generalizable">Σ</a> <a id="929" href="Implicit.Algo.Base.html#1211" class="Datatype Operator">⇒</a> <a id="931" href="Implicit.Language.Base.html#1016" class="Generalizable">e</a> <a id="933" href="Implicit.Algo.Base.html#1211" class="Datatype Operator">⇒</a> <a id="935" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+            <a id="949" class="Symbol">→</a> <a id="951" href="Implicit.Algo2Interm.Corollaries.html#347" class="Datatype">JustType</a> <a id="960" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="962" href="Implicit.Algo.Constructs.Syntax.html#255" class="Generalizable">Σ</a> <a id="964" href="Implicit.Language.Base.html#1016" class="Generalizable">e</a> <a id="966" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+
+<a id="sc-complete"></a><a id="969" href="Implicit.Algo2Interm.Corollaries.html#969" class="Function">sc-complete</a> <a id="981" class="Symbol">:</a> <a id="983" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="985" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">⊢</a> <a id="987" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="989" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">≤⁺</a> <a id="992" href="Implicit.Algo.Constructs.Syntax.html#255" class="Generalizable">Σ</a> <a id="994" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">⊣</a> <a id="996" href="Implicit.Language.Base.html#1745" class="Generalizable">Δ</a> <a id="998" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">↪</a> <a id="1000" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+            <a id="1014" class="Symbol">→</a> <a id="1016" href="Implicit.Algo2Interm.Corollaries.html#536" class="Datatype">JustSub</a> <a id="1024" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="1026" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="1028" href="Implicit.Algo.Constructs.Syntax.html#255" class="Generalizable">Σ</a> <a id="1030" href="Implicit.Language.Base.html#1745" class="Generalizable">Δ</a> <a id="1032" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+
+<a id="infs-complete"></a><a id="1035" href="Implicit.Algo2Interm.Corollaries.html#1035" class="Function">infs-complete</a> <a id="1049" class="Symbol">:</a> <a id="1051" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="1053" href="Implicit.Algo.Base.html#1348" class="Datatype Operator">⊨</a> <a id="1055" href="Implicit.Algo.Constructs.Syntax.html#255" class="Generalizable">Σ</a> <a id="1057" href="Implicit.Algo.Base.html#1348" class="Datatype Operator">⟹</a> <a id="1059" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+            <a id="1073" class="Symbol">→</a> <a id="1075" href="Implicit.Algo2Interm.Corollaries.html#741" class="Datatype">JustInfs</a> <a id="1084" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="1086" href="Implicit.Algo.Constructs.Syntax.html#255" class="Generalizable">Σ</a> <a id="1088" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+
+<a id="1091" href="Implicit.Algo2Interm.Corollaries.html#909" class="Function">tc-complete</a> <a id="1103" class="Symbol">(</a><a id="1104" href="Implicit.Algo.Base.html#1416" class="InductiveConstructor">⊢lit</a> <a id="1109" href="Implicit.Algo2Interm.Corollaries.html#1109" class="Bound">regΓ</a><a id="1113" class="Symbol">)</a> <a id="1115" class="Symbol">=</a> <a id="1117" href="Implicit.Algo2Interm.Corollaries.html#430" class="InductiveConstructor">typs</a> <a id="1122" href="Implicit.Algo2Interm.Context2Counter.html#280" class="InductiveConstructor">~tZ</a> <a id="1126" class="Symbol">(</a><a id="1127" href="Implicit.Algo2Interm.AlgoCounter.Base.html#414" class="InductiveConstructor">⊢lit</a> <a id="1132" href="Implicit.Algo2Interm.Corollaries.html#1109" class="Bound">regΓ</a><a id="1136" class="Symbol">)</a>
+<a id="1138" href="Implicit.Algo2Interm.Corollaries.html#909" class="Function">tc-complete</a> <a id="1150" class="Symbol">(</a><a id="1151" href="Implicit.Algo.Base.html#1492" class="InductiveConstructor">⊢var</a> <a id="1156" href="Implicit.Algo2Interm.Corollaries.html#1156" class="Bound">regΓ</a> <a id="1161" href="Implicit.Algo2Interm.Corollaries.html#1161" class="Bound">x∈Γ</a><a id="1164" class="Symbol">)</a> <a id="1166" class="Symbol">=</a> <a id="1168" href="Implicit.Algo2Interm.Corollaries.html#430" class="InductiveConstructor">typs</a> <a id="1173" href="Implicit.Algo2Interm.Context2Counter.html#280" class="InductiveConstructor">~tZ</a> <a id="1177" class="Symbol">(</a><a id="1178" href="Implicit.Algo2Interm.AlgoCounter.Base.html#495" class="InductiveConstructor">⊢var</a> <a id="1183" href="Implicit.Algo2Interm.Corollaries.html#1156" class="Bound">regΓ</a> <a id="1188" href="Implicit.Algo2Interm.Corollaries.html#1161" class="Bound">x∈Γ</a><a id="1191" class="Symbol">)</a>
+<a id="1193" href="Implicit.Algo2Interm.Corollaries.html#909" class="Function">tc-complete</a> <a id="1205" class="Symbol">(</a><a id="1206" href="Implicit.Algo.Base.html#1574" class="InductiveConstructor">⊢ann</a> <a id="1211" href="Implicit.Algo2Interm.Corollaries.html#1211" class="Bound">⊢e</a><a id="1213" class="Symbol">)</a> <a id="1215" class="Keyword">with</a> <a id="1220" href="Implicit.Algo2Interm.Corollaries.html#909" class="Function">tc-complete</a> <a id="1232" href="Implicit.Algo2Interm.Corollaries.html#1211" class="Bound">⊢e</a>
+<a id="1235" class="Symbol">...</a> <a id="1239" class="Symbol">|</a> <a id="1241" href="Implicit.Algo2Interm.Corollaries.html#430" class="InductiveConstructor">typs</a> <a id="1246" href="Implicit.Algo2Interm.Context2Counter.html#335" class="InductiveConstructor">~t∞</a> <a id="1250" href="Implicit.Algo2Interm.Corollaries.html#1250" class="Bound">⊢e₁</a> <a id="1254" class="Symbol">=</a> <a id="1256" href="Implicit.Algo2Interm.Corollaries.html#430" class="InductiveConstructor">typs</a> <a id="1261" href="Implicit.Algo2Interm.Context2Counter.html#280" class="InductiveConstructor">~tZ</a> <a id="1265" class="Symbol">(</a><a id="1266" href="Implicit.Algo2Interm.AlgoCounter.Base.html#582" class="InductiveConstructor">⊢ann</a> <a id="1271" href="Implicit.Algo2Interm.Corollaries.html#1250" class="Bound">⊢e₁</a><a id="1274" class="Symbol">)</a>
+<a id="1276" href="Implicit.Algo2Interm.Corollaries.html#909" class="Function">tc-complete</a> <a id="1288" class="Symbol">(</a><a id="1289" href="Implicit.Algo.Base.html#1630" class="InductiveConstructor">⊢app</a> <a id="1294" href="Implicit.Algo2Interm.Corollaries.html#1294" class="Bound">⊢e</a><a id="1296" class="Symbol">)</a> <a id="1298" class="Keyword">with</a> <a id="1303" href="Implicit.Algo2Interm.Corollaries.html#909" class="Function">tc-complete</a> <a id="1315" href="Implicit.Algo2Interm.Corollaries.html#1294" class="Bound">⊢e</a>
+<a id="1318" class="Symbol">...</a> <a id="1322" class="Symbol">|</a> <a id="1324" href="Implicit.Algo2Interm.Corollaries.html#430" class="InductiveConstructor">typs</a> <a id="1329" class="Symbol">(</a><a id="1330" href="Implicit.Algo2Interm.Context2Counter.html#393" class="InductiveConstructor">~tI</a> <a id="1334" href="Implicit.Algo2Interm.Corollaries.html#1334" class="Bound">⊢e₂</a> <a id="1338" href="Implicit.Algo2Interm.Corollaries.html#1338" class="Bound">j~Σ</a><a id="1341" class="Symbol">)</a> <a id="1343" href="Implicit.Algo2Interm.Corollaries.html#1343" class="Bound">⊢e₁</a> <a id="1347" class="Symbol">=</a> <a id="1349" href="Implicit.Algo2Interm.Corollaries.html#430" class="InductiveConstructor">typs</a> <a id="1354" href="Implicit.Algo2Interm.Corollaries.html#1338" class="Bound">j~Σ</a> <a id="1358" class="Symbol">(</a><a id="1359" href="Implicit.Algo2Interm.AlgoCounter.Base.html#648" class="InductiveConstructor">⊢app</a> <a id="1364" href="Implicit.Algo2Interm.Corollaries.html#1343" class="Bound">⊢e₁</a><a id="1367" class="Symbol">)</a>
+<a id="1369" class="Symbol">...</a> <a id="1373" class="Symbol">|</a> <a id="1375" href="Implicit.Algo2Interm.Corollaries.html#430" class="InductiveConstructor">typs</a> <a id="1380" class="Symbol">(</a><a id="1381" href="Implicit.Algo2Interm.Context2Counter.html#526" class="InductiveConstructor">~tC</a> <a id="1385" href="Implicit.Algo2Interm.Corollaries.html#1385" class="Bound">⊢e₂</a> <a id="1389" href="Implicit.Algo2Interm.Corollaries.html#1389" class="Bound">j~Σ</a><a id="1392" class="Symbol">)</a> <a id="1394" href="Implicit.Algo2Interm.Corollaries.html#1394" class="Bound">⊢e₁</a> <a id="1398" class="Symbol">=</a> <a id="1400" href="Implicit.Algo2Interm.Corollaries.html#430" class="InductiveConstructor">typs</a> <a id="1405" href="Implicit.Algo2Interm.Corollaries.html#1389" class="Bound">j~Σ</a> <a id="1409" class="Symbol">(</a><a id="1410" href="Implicit.Algo2Interm.AlgoCounter.Base.html#648" class="InductiveConstructor">⊢app</a> <a id="1415" href="Implicit.Algo2Interm.Corollaries.html#1394" class="Bound">⊢e₁</a><a id="1418" class="Symbol">)</a>
+<a id="1420" href="Implicit.Algo2Interm.Corollaries.html#909" class="Function">tc-complete</a> <a id="1432" class="Symbol">(</a><a id="1433" href="Implicit.Algo.Base.html#1700" class="InductiveConstructor">⊢lam₁</a> <a id="1439" href="Implicit.Algo2Interm.Corollaries.html#1439" class="Bound">⊢e</a><a id="1441" class="Symbol">)</a> <a id="1443" class="Keyword">with</a> <a id="1448" href="Implicit.Algo2Interm.Corollaries.html#909" class="Function">tc-complete</a> <a id="1460" href="Implicit.Algo2Interm.Corollaries.html#1439" class="Bound">⊢e</a>
+<a id="1463" class="Symbol">...</a> <a id="1467" class="Symbol">|</a> <a id="1469" href="Implicit.Algo2Interm.Corollaries.html#430" class="InductiveConstructor">typs</a> <a id="1474" href="Implicit.Algo2Interm.Context2Counter.html#335" class="InductiveConstructor">~t∞</a> <a id="1478" href="Implicit.Algo2Interm.Corollaries.html#1478" class="Bound">⊢e₁</a> <a id="1482" class="Symbol">=</a> <a id="1484" href="Implicit.Algo2Interm.Corollaries.html#430" class="InductiveConstructor">typs</a> <a id="1489" href="Implicit.Algo2Interm.Context2Counter.html#335" class="InductiveConstructor">~t∞</a> <a id="1493" class="Symbol">(</a><a id="1494" href="Implicit.Algo2Interm.AlgoCounter.Base.html#732" class="InductiveConstructor">⊢lam₁</a> <a id="1500" href="Implicit.Algo2Interm.Corollaries.html#1478" class="Bound">⊢e₁</a><a id="1503" class="Symbol">)</a>
+<a id="1505" href="Implicit.Algo2Interm.Corollaries.html#909" class="Function">tc-complete</a> <a id="1517" class="Symbol">(</a><a id="1518" href="Implicit.Algo.Base.html#1773" class="InductiveConstructor">⊢lam₂</a> <a id="1524" href="Implicit.Algo2Interm.Corollaries.html#1524" class="Bound">⊢e</a> <a id="1527" href="Implicit.Algo2Interm.Corollaries.html#1527" class="Bound">up-c</a> <a id="1532" href="Implicit.Algo2Interm.Corollaries.html#1532" class="Bound">⊢e₁</a><a id="1535" class="Symbol">)</a> <a id="1537" class="Keyword">with</a> <a id="1542" href="Implicit.Algo2Interm.Corollaries.html#909" class="Function">tc-complete</a> <a id="1554" href="Implicit.Algo2Interm.Corollaries.html#1524" class="Bound">⊢e</a> <a id="1557" class="Symbol">|</a> <a id="1559" href="Implicit.Algo2Interm.Corollaries.html#909" class="Function">tc-complete</a> <a id="1571" href="Implicit.Algo2Interm.Corollaries.html#1532" class="Bound">⊢e₁</a>
+<a id="1575" class="Symbol">...</a> <a id="1579" class="Symbol">|</a> <a id="1581" href="Implicit.Algo2Interm.Corollaries.html#430" class="InductiveConstructor">typs</a> <a id="1586" href="Implicit.Algo2Interm.Context2Counter.html#280" class="InductiveConstructor">~tZ</a> <a id="1590" href="Implicit.Algo2Interm.Corollaries.html#1590" class="Bound">⊢e₂</a> <a id="1594" class="Symbol">|</a> <a id="1596" href="Implicit.Algo2Interm.Corollaries.html#430" class="InductiveConstructor">typs</a> <a id="1601" href="Implicit.Algo2Interm.Corollaries.html#1601" class="Bound">j~Σ₁</a> <a id="1606" href="Implicit.Algo2Interm.Corollaries.html#1606" class="Bound">⊢e₃</a> <a id="1610" class="Symbol">=</a> <a id="1612" href="Implicit.Algo2Interm.Corollaries.html#430" class="InductiveConstructor">typs</a> <a id="1617" class="Symbol">(</a><a id="1618" href="Implicit.Algo2Interm.Context2Counter.html#393" class="InductiveConstructor">~tI</a> <a id="1622" class="Symbol">(</a><a id="1623" href="Implicit.Algo2Interm.Main.html#1524" class="Function">sound</a> <a id="1629" href="Implicit.Algo2Interm.Corollaries.html#1590" class="Bound">⊢e₂</a><a id="1632" class="Symbol">)</a> <a id="1634" class="Symbol">(</a><a id="1635" href="Implicit.Algo2Interm.Context2Counter.html#3395" class="Function">~t-strengthen,0</a> <a id="1651" href="Implicit.Algo2Interm.Corollaries.html#1601" class="Bound">j~Σ₁</a> <a id="1656" class="Bound">up-c</a><a id="1660" class="Symbol">))</a> <a id="1663" class="Symbol">(</a><a id="1664" href="Implicit.Algo2Interm.AlgoCounter.Base.html#815" class="InductiveConstructor">⊢lam₂</a> <a id="1670" href="Implicit.Algo2Interm.Corollaries.html#1590" class="Bound">⊢e₂</a> <a id="1674" class="Bound">up-c</a> <a id="1679" href="Implicit.Algo2Interm.Corollaries.html#1606" class="Bound">⊢e₃</a><a id="1682" class="Symbol">)</a>
+<a id="1684" href="Implicit.Algo2Interm.Corollaries.html#909" class="Function">tc-complete</a> <a id="1696" class="Symbol">(</a><a id="1697" href="Implicit.Algo.Base.html#1893" class="InductiveConstructor">⊢sub</a> <a id="1702" href="Implicit.Algo2Interm.Corollaries.html#1702" class="Bound">⊢e</a> <a id="1705" href="Implicit.Algo2Interm.Corollaries.html#1705" class="Bound">ne</a> <a id="1708" href="Implicit.Algo2Interm.Corollaries.html#1708" class="Bound">gc</a> <a id="1711" href="Implicit.Algo2Interm.Corollaries.html#1711" class="Bound">s</a><a id="1712" class="Symbol">)</a> <a id="1714" class="Keyword">with</a> <a id="1719" href="Implicit.Algo2Interm.Corollaries.html#969" class="Function">sc-complete</a> <a id="1731" href="Implicit.Algo2Interm.Corollaries.html#1711" class="Bound">s</a> <a id="1733" class="Symbol">|</a> <a id="1735" href="Implicit.Algo2Interm.Corollaries.html#909" class="Function">tc-complete</a> <a id="1747" href="Implicit.Algo2Interm.Corollaries.html#1702" class="Bound">⊢e</a>
+<a id="1750" class="Symbol">...</a> <a id="1754" class="Symbol">|</a> <a id="1756" href="Implicit.Algo2Interm.Corollaries.html#630" class="InductiveConstructor">subs</a> <a id="1761" href="Implicit.Algo2Interm.Corollaries.html#1761" class="Bound">j~Σ</a> <a id="1765" href="Implicit.Algo2Interm.Corollaries.html#1765" class="Bound">s₁</a> <a id="1768" class="Symbol">|</a> <a id="1770" href="Implicit.Algo2Interm.Corollaries.html#430" class="InductiveConstructor">typs</a> <a id="1775" href="Implicit.Algo2Interm.Context2Counter.html#280" class="InductiveConstructor">~tZ</a> <a id="1779" href="Implicit.Algo2Interm.Corollaries.html#1779" class="Bound">⊢e&#39;</a> <a id="1783" class="Symbol">=</a> <a id="1785" href="Implicit.Algo2Interm.Corollaries.html#430" class="InductiveConstructor">typs</a> <a id="1790" class="Symbol">(</a><a id="1791" href="Implicit.Algo2Interm.Context2Counter.html#1398" class="Function">~s-~t</a> <a id="1797" href="Implicit.Algo2Interm.Corollaries.html#1761" class="Bound">j~Σ</a><a id="1800" class="Symbol">)</a> <a id="1802" class="Symbol">(</a><a id="1803" href="Implicit.Algo2Interm.AlgoCounter.Base.html#954" class="InductiveConstructor">⊢sub</a> <a id="1808" href="Implicit.Algo2Interm.Corollaries.html#1779" class="Bound">⊢e&#39;</a> <a id="1812" class="Bound">ne</a> <a id="1815" class="Bound">gc</a> <a id="1818" href="Implicit.Algo2Interm.Corollaries.html#1765" class="Bound">s₁</a><a id="1820" class="Symbol">)</a>
+<a id="1822" href="Implicit.Algo2Interm.Corollaries.html#909" class="Function">tc-complete</a> <a id="1834" class="Symbol">(</a><a id="1835" href="Implicit.Algo.Base.html#2033" class="InductiveConstructor">⊢tabs</a> <a id="1841" href="Implicit.Algo2Interm.Corollaries.html#1841" class="Bound">⊢e</a><a id="1843" class="Symbol">)</a> <a id="1845" class="Keyword">with</a> <a id="1850" href="Implicit.Algo2Interm.Corollaries.html#909" class="Function">tc-complete</a> <a id="1862" href="Implicit.Algo2Interm.Corollaries.html#1841" class="Bound">⊢e</a>
+<a id="1865" class="Symbol">...</a> <a id="1869" class="Symbol">|</a> <a id="1871" href="Implicit.Algo2Interm.Corollaries.html#430" class="InductiveConstructor">typs</a> <a id="1876" href="Implicit.Algo2Interm.Context2Counter.html#280" class="InductiveConstructor">~tZ</a> <a id="1880" href="Implicit.Algo2Interm.Corollaries.html#1880" class="Bound">⊢e₁</a> <a id="1884" class="Symbol">=</a> <a id="1886" href="Implicit.Algo2Interm.Corollaries.html#430" class="InductiveConstructor">typs</a> <a id="1891" href="Implicit.Algo2Interm.Context2Counter.html#280" class="InductiveConstructor">~tZ</a> <a id="1895" class="Symbol">(</a><a id="1896" href="Implicit.Algo2Interm.AlgoCounter.Base.html#1107" class="InductiveConstructor">⊢tabs</a> <a id="1902" href="Implicit.Algo2Interm.Corollaries.html#1880" class="Bound">⊢e₁</a><a id="1905" class="Symbol">)</a>
+<a id="1907" href="Implicit.Algo2Interm.Corollaries.html#909" class="Function">tc-complete</a> <a id="1919" class="Symbol">(</a><a id="1920" href="Implicit.Algo.Base.html#2092" class="InductiveConstructor">⊢tabs-τ</a> <a id="1928" href="Implicit.Algo2Interm.Corollaries.html#1928" class="Bound">⊢e</a><a id="1930" class="Symbol">)</a> <a id="1932" class="Keyword">with</a> <a id="1937" href="Implicit.Algo2Interm.Corollaries.html#909" class="Function">tc-complete</a> <a id="1949" href="Implicit.Algo2Interm.Corollaries.html#1928" class="Bound">⊢e</a>
+<a id="1952" class="Symbol">...</a> <a id="1956" class="Symbol">|</a> <a id="1958" href="Implicit.Algo2Interm.Corollaries.html#430" class="InductiveConstructor">typs</a> <a id="1963" href="Implicit.Algo2Interm.Context2Counter.html#335" class="InductiveConstructor">~t∞</a> <a id="1967" href="Implicit.Algo2Interm.Corollaries.html#1967" class="Bound">⊢e₁</a> <a id="1971" class="Symbol">=</a> <a id="1973" href="Implicit.Algo2Interm.Corollaries.html#430" class="InductiveConstructor">typs</a> <a id="1978" href="Implicit.Algo2Interm.Context2Counter.html#335" class="InductiveConstructor">~t∞</a> <a id="1982" class="Symbol">(</a><a id="1983" href="Implicit.Algo2Interm.AlgoCounter.Base.html#1176" class="InductiveConstructor">⊢tabs-τ</a> <a id="1991" href="Implicit.Algo2Interm.Corollaries.html#1967" class="Bound">⊢e₁</a><a id="1994" class="Symbol">)</a>
+<a id="1996" href="Implicit.Algo2Interm.Corollaries.html#909" class="Function">tc-complete</a> <a id="2008" class="Symbol">(</a><a id="2009" href="Implicit.Algo.Base.html#2162" class="InductiveConstructor">⊢tapp</a> <a id="2015" href="Implicit.Algo2Interm.Corollaries.html#2015" class="Bound">⊢e</a> <a id="2018" href="Implicit.Algo2Interm.Corollaries.html#2018" class="Bound">st</a> <a id="2021" href="Implicit.Algo2Interm.Corollaries.html#2021" class="Bound">regA</a> <a id="2026" href="Implicit.Algo2Interm.Corollaries.html#2026" class="Bound">s</a><a id="2027" class="Symbol">)</a> <a id="2029" class="Keyword">with</a> <a id="2034" href="Implicit.Algo2Interm.Corollaries.html#969" class="Function">sc-complete</a> <a id="2046" href="Implicit.Algo2Interm.Corollaries.html#2026" class="Bound">s</a> <a id="2048" class="Symbol">|</a> <a id="2050" href="Implicit.Algo2Interm.Corollaries.html#909" class="Function">tc-complete</a> <a id="2062" href="Implicit.Algo2Interm.Corollaries.html#2015" class="Bound">⊢e</a>
+<a id="2065" class="Symbol">...</a> <a id="2069" class="Symbol">|</a> <a id="2071" href="Implicit.Algo2Interm.Corollaries.html#630" class="InductiveConstructor">subs</a> <a id="2076" href="Implicit.Algo2Interm.Corollaries.html#2076" class="Bound">j~Σ</a> <a id="2080" href="Implicit.Algo2Interm.Corollaries.html#2080" class="Bound">s₁</a> <a id="2083" class="Symbol">|</a> <a id="2085" href="Implicit.Algo2Interm.Corollaries.html#430" class="InductiveConstructor">typs</a> <a id="2090" href="Implicit.Algo2Interm.Context2Counter.html#280" class="InductiveConstructor">~tZ</a> <a id="2094" href="Implicit.Algo2Interm.Corollaries.html#2094" class="Bound">⊢e₁</a> <a id="2098" class="Symbol">=</a> <a id="2100" href="Implicit.Algo2Interm.Corollaries.html#430" class="InductiveConstructor">typs</a> <a id="2105" class="Symbol">(</a><a id="2106" href="Implicit.Algo2Interm.Context2Counter.html#1398" class="Function">~s-~t</a> <a id="2112" href="Implicit.Algo2Interm.Corollaries.html#2076" class="Bound">j~Σ</a><a id="2115" class="Symbol">)</a> <a id="2117" class="Symbol">(</a><a id="2118" href="Implicit.Algo2Interm.AlgoCounter.Base.html#1256" class="InductiveConstructor">⊢tapp</a> <a id="2124" href="Implicit.Algo2Interm.Corollaries.html#2094" class="Bound">⊢e₁</a> <a id="2128" class="Bound">st</a> <a id="2131" class="Bound">regA</a> <a id="2136" href="Implicit.Algo2Interm.Corollaries.html#2080" class="Bound">s₁</a><a id="2138" class="Symbol">)</a>
+
+<a id="2141" href="Implicit.Algo2Interm.Corollaries.html#969" class="Function">sc-complete</a> <a id="2153" class="Symbol">(</a><a id="2154" href="Implicit.Algo.Base.html#2327" class="InductiveConstructor">s-empty</a> <a id="2162" href="Implicit.Algo2Interm.Corollaries.html#2162" class="Bound">regΓ</a> <a id="2167" href="Implicit.Algo2Interm.Corollaries.html#2167" class="Bound">cloA</a> <a id="2172" href="Implicit.Algo2Interm.Corollaries.html#2172" class="Bound">x</a><a id="2173" class="Symbol">)</a> <a id="2175" class="Symbol">=</a> <a id="2177" href="Implicit.Algo2Interm.Corollaries.html#630" class="InductiveConstructor">subs</a> <a id="2182" href="Implicit.Algo2Interm.Context2Counter.html#1019" class="InductiveConstructor">~sZ</a> <a id="2186" class="Symbol">(</a><a id="2187" href="Implicit.Algo2Interm.AlgoCounter.Base.html#1437" class="InductiveConstructor">s-empty</a> <a id="2195" href="Implicit.Algo2Interm.Corollaries.html#2162" class="Bound">regΓ</a> <a id="2200" href="Implicit.Algo2Interm.Corollaries.html#2167" class="Bound">cloA</a> <a id="2205" href="Implicit.Algo2Interm.Corollaries.html#2172" class="Bound">x</a><a id="2206" class="Symbol">)</a>
+<a id="2208" href="Implicit.Algo2Interm.Corollaries.html#969" class="Function">sc-complete</a> <a id="2220" class="Symbol">(</a><a id="2221" href="Implicit.Algo.Base.html#2439" class="InductiveConstructor">s-type</a> <a id="2228" href="Implicit.Algo2Interm.Corollaries.html#2228" class="Bound">ss</a><a id="2230" class="Symbol">)</a> <a id="2232" class="Symbol">=</a> <a id="2234" href="Implicit.Algo2Interm.Corollaries.html#630" class="InductiveConstructor">subs</a> <a id="2239" href="Implicit.Algo2Interm.Context2Counter.html#1074" class="InductiveConstructor">~s∞</a> <a id="2243" class="Symbol">(</a><a id="2244" href="Implicit.Algo2Interm.AlgoCounter.Base.html#1546" class="InductiveConstructor">s-type</a> <a id="2251" href="Implicit.Algo2Interm.Corollaries.html#2228" class="Bound">ss</a><a id="2253" class="Symbol">)</a>
+<a id="2255" href="Implicit.Algo2Interm.Corollaries.html#969" class="Function">sc-complete</a> <a id="2267" class="Symbol">(</a><a id="2268" href="Implicit.Algo.Base.html#2512" class="InductiveConstructor">s-term-c</a> <a id="2277" href="Implicit.Algo2Interm.Corollaries.html#2277" class="Bound">cloA</a> <a id="2282" href="Implicit.Algo2Interm.Corollaries.html#2282" class="Bound">ap</a> <a id="2285" href="Implicit.Algo2Interm.Corollaries.html#2285" class="Bound">⊢e</a> <a id="2288" href="Implicit.Algo2Interm.Corollaries.html#2288" class="Bound">s</a><a id="2289" class="Symbol">)</a> <a id="2291" class="Keyword">with</a> <a id="2296" href="Implicit.Algo2Interm.Corollaries.html#969" class="Function">sc-complete</a> <a id="2308" href="Implicit.Algo2Interm.Corollaries.html#2288" class="Bound">s</a> <a id="2310" class="Symbol">|</a> <a id="2312" href="Implicit.Algo2Interm.Corollaries.html#909" class="Function">tc-complete</a> <a id="2324" href="Implicit.Algo2Interm.Corollaries.html#2285" class="Bound">⊢e</a>
+<a id="2327" class="Symbol">...</a> <a id="2331" class="Symbol">|</a> <a id="2333" href="Implicit.Algo2Interm.Corollaries.html#630" class="InductiveConstructor">subs</a> <a id="2338" href="Implicit.Algo2Interm.Corollaries.html#2338" class="Bound">j~Σ</a> <a id="2342" href="Implicit.Algo2Interm.Corollaries.html#2342" class="Bound">s₁</a> <a id="2345" class="Symbol">|</a> <a id="2347" href="Implicit.Algo2Interm.Corollaries.html#430" class="InductiveConstructor">typs</a> <a id="2352" href="Implicit.Algo2Interm.Context2Counter.html#335" class="InductiveConstructor">~t∞</a> <a id="2356" href="Implicit.Algo2Interm.Corollaries.html#2356" class="Bound">⊢e₁</a> <a id="2360" class="Symbol">=</a> <a id="2362" href="Implicit.Algo2Interm.Corollaries.html#630" class="InductiveConstructor">subs</a> <a id="2367" class="Symbol">(</a><a id="2368" href="Implicit.Algo2Interm.Context2Counter.html#1267" class="InductiveConstructor">~sC</a> <a id="2372" class="Symbol">(</a><a id="2373" href="Implicit.Interm.Properties.Extension.html#8348" class="Function">t-⊆-prv</a> <a id="2381" class="Symbol">(</a><a id="2382" href="Implicit.Algo2Interm.Main.html#1524" class="Function">sound</a> <a id="2388" href="Implicit.Algo2Interm.Corollaries.html#2356" class="Bound">⊢e₁</a><a id="2391" class="Symbol">)</a> <a id="2393" class="Symbol">(</a><a id="2394" href="Implicit.Algo2Interm.AlgoCounter.Sound.html#1823" class="Function">sc-⊆</a> <a id="2399" href="Implicit.Algo2Interm.Corollaries.html#2342" class="Bound">s₁</a><a id="2401" class="Symbol">))</a> <a id="2404" href="Implicit.Algo2Interm.Corollaries.html#2338" class="Bound">j~Σ</a><a id="2407" class="Symbol">)</a>
+                                        <a id="2449" class="Symbol">(</a><a id="2450" href="Implicit.Algo2Interm.AlgoCounter.Base.html#1624" class="InductiveConstructor">s-term-c</a> <a id="2459" class="Bound">cloA</a> <a id="2464" class="Bound">ap</a> <a id="2467" href="Implicit.Algo2Interm.Corollaries.html#2356" class="Bound">⊢e₁</a> <a id="2471" href="Implicit.Algo2Interm.Corollaries.html#2342" class="Bound">s₁</a><a id="2473" class="Symbol">)</a>
+<a id="2475" href="Implicit.Algo2Interm.Corollaries.html#969" class="Function">sc-complete</a> <a id="2487" href="Implicit.Algo2Interm.Corollaries.html#2487" class="Bound">s&#39;</a><a id="2489" class="Symbol">@(</a><a id="2491" href="Implicit.Algo.Base.html#2677" class="InductiveConstructor">s-term-o</a> <a id="2500" href="Implicit.Algo2Interm.Corollaries.html#2500" class="Bound">opnA</a> <a id="2505" href="Implicit.Algo2Interm.Corollaries.html#2505" class="Bound">⊢e</a> <a id="2508" href="Implicit.Algo2Interm.Corollaries.html#2508" class="Bound">ss</a> <a id="2511" href="Implicit.Algo2Interm.Corollaries.html#2511" class="Bound">s</a><a id="2512" class="Symbol">)</a> <a id="2514" class="Keyword">with</a> <a id="2519" href="Implicit.Algo2Interm.Corollaries.html#969" class="Function">sc-complete</a> <a id="2531" href="Implicit.Algo2Interm.Corollaries.html#2511" class="Bound">s</a> <a id="2533" class="Symbol">|</a> <a id="2535" href="Implicit.Algo2Interm.Corollaries.html#909" class="Function">tc-complete</a> <a id="2547" href="Implicit.Algo2Interm.Corollaries.html#2505" class="Bound">⊢e</a>
+<a id="2550" class="Symbol">...</a> <a id="2554" class="Symbol">|</a> <a id="2556" href="Implicit.Algo2Interm.Corollaries.html#630" class="InductiveConstructor">subs</a> <a id="2561" href="Implicit.Algo2Interm.Corollaries.html#2561" class="Bound">j~Σ</a> <a id="2565" href="Implicit.Algo2Interm.Corollaries.html#2565" class="Bound">s₁</a> <a id="2568" class="Symbol">|</a> <a id="2570" href="Implicit.Algo2Interm.Corollaries.html#430" class="InductiveConstructor">typs</a> <a id="2575" href="Implicit.Algo2Interm.Context2Counter.html#280" class="InductiveConstructor">~tZ</a> <a id="2579" href="Implicit.Algo2Interm.Corollaries.html#2579" class="Bound">⊢e₁</a> <a id="2583" class="Symbol">=</a> <a id="2585" href="Implicit.Algo2Interm.Corollaries.html#630" class="InductiveConstructor">subs</a> <a id="2590" class="Symbol">(</a><a id="2591" href="Implicit.Algo2Interm.Context2Counter.html#1132" class="InductiveConstructor">~sI</a> <a id="2595" class="Symbol">(</a><a id="2596" href="Implicit.Interm.Properties.Extension.html#8348" class="Function">t-⊆-prv</a> <a id="2604" class="Symbol">(</a><a id="2605" href="Implicit.Algo2Interm.Main.html#1524" class="Function">sound</a> <a id="2611" href="Implicit.Algo2Interm.Corollaries.html#2579" class="Bound">⊢e₁</a><a id="2614" class="Symbol">)</a> <a id="2616" class="Symbol">(</a><a id="2617" href="Implicit.Algo.Properties.Extension.html#692" class="Function">s-⊆</a> <a id="2621" class="Bound">s&#39;</a><a id="2623" class="Symbol">))</a> <a id="2626" href="Implicit.Algo2Interm.Corollaries.html#2561" class="Bound">j~Σ</a><a id="2629" class="Symbol">)</a>
+                                        <a id="2671" class="Symbol">(</a><a id="2672" href="Implicit.Algo2Interm.AlgoCounter.Base.html#1808" class="InductiveConstructor">s-term-o</a> <a id="2681" class="Bound">opnA</a> <a id="2686" href="Implicit.Algo2Interm.Corollaries.html#2579" class="Bound">⊢e₁</a> <a id="2690" class="Bound">ss</a> <a id="2693" href="Implicit.Algo2Interm.Corollaries.html#2565" class="Bound">s₁</a><a id="2695" class="Symbol">)</a>
+<a id="2697" href="Implicit.Algo2Interm.Corollaries.html#969" class="Function">sc-complete</a> <a id="2709" class="Symbol">(</a><a id="2710" href="Implicit.Algo.Base.html#2843" class="InductiveConstructor">s-∀l</a> <a id="2715" href="Implicit.Algo2Interm.Corollaries.html#2715" class="Bound">s</a> <a id="2717" href="Implicit.Algo2Interm.Corollaries.html#2717" class="Bound">upᶜ</a> <a id="2721" href="Implicit.Algo2Interm.Corollaries.html#2721" class="Bound">upᵉ</a> <a id="2725" href="Implicit.Algo2Interm.Corollaries.html#2725" class="Bound">upC</a> <a id="2729" href="Implicit.Algo2Interm.Corollaries.html#2729" class="Bound">upD</a><a id="2732" class="Symbol">)</a> <a id="2734" class="Keyword">with</a> <a id="2739" href="Implicit.Algo2Interm.Corollaries.html#969" class="Function">sc-complete</a> <a id="2751" href="Implicit.Algo2Interm.Corollaries.html#2715" class="Bound">s</a>
+<a id="2753" class="Symbol">...</a> <a id="2757" class="Symbol">|</a> <a id="2759" href="Implicit.Algo2Interm.Corollaries.html#630" class="InductiveConstructor">subs</a> <a id="2764" class="Symbol">{</a><a id="2765" class="Argument">j</a> <a id="2767" class="Symbol">=</a> <a id="2769" href="Implicit.Algo2Interm.Corollaries.html#2769" class="Bound">i</a> <a id="2771" href="Implicit.Language.Base.html#2072" class="InductiveConstructor Operator">·</a> <a id="2773" href="Implicit.Algo2Interm.Corollaries.html#2773" class="Bound">j</a><a id="2774" class="Symbol">}</a> <a id="2776" href="Implicit.Algo2Interm.Corollaries.html#2776" class="Bound">j~Σ</a> <a id="2780" href="Implicit.Algo2Interm.Corollaries.html#2780" class="Bound">s₁</a>
+  <a id="2785" class="Symbol">=</a> <a id="2787" href="Implicit.Algo2Interm.Corollaries.html#630" class="InductiveConstructor">subs</a> <a id="2792" class="Symbol">(</a><a id="2793" href="Implicit.Algo2Interm.Context2Counter.html#2866" class="Function">~s-strengthen=0</a> <a id="2809" href="Implicit.Algo2Interm.Corollaries.html#2776" class="Bound">j~Σ</a> <a id="2813" class="Symbol">(</a><a id="2814" href="Implicit.Language.Shift.Base.html#856" class="InductiveConstructor">↑ty-arr</a> <a id="2822" class="Bound">upC</a> <a id="2826" class="Bound">upD</a><a id="2829" class="Symbol">)</a> <a id="2831" class="Symbol">(</a><a id="2832" href="Implicit.Algo.Constructs.Shift.html#774" class="InductiveConstructor">↑tyᶜ-e</a> <a id="2839" class="Bound">upᵉ</a> <a id="2843" class="Bound">upᶜ</a><a id="2846" class="Symbol">))</a> <a id="2849" class="Symbol">(</a><a id="2850" href="Implicit.Algo2Interm.AlgoCounter.Base.html#1993" class="InductiveConstructor">s-∀l</a> <a id="2855" href="Implicit.Algo2Interm.Corollaries.html#2780" class="Bound">s₁</a> <a id="2858" class="Bound">upᶜ</a> <a id="2862" class="Bound">upᵉ</a> <a id="2866" class="Bound">upC</a> <a id="2870" class="Bound">upD</a><a id="2873" class="Symbol">)</a>
+<a id="2875" href="Implicit.Algo2Interm.Corollaries.html#969" class="Function">sc-complete</a> <a id="2887" class="Symbol">(</a><a id="2888" href="Implicit.Algo.Base.html#3266" class="InductiveConstructor">s-svar-term</a> <a id="2900" href="Implicit.Algo2Interm.Corollaries.html#2900" class="Bound">inΓ</a> <a id="2904" href="Implicit.Algo2Interm.Corollaries.html#2904" class="Bound">s</a><a id="2905" class="Symbol">)</a> <a id="2907" class="Keyword">with</a> <a id="2912" href="Implicit.Algo2Interm.Corollaries.html#969" class="Function">sc-complete</a> <a id="2924" href="Implicit.Algo2Interm.Corollaries.html#2904" class="Bound">s</a>
+<a id="2926" class="Symbol">...</a> <a id="2930" class="Symbol">|</a> <a id="2932" href="Implicit.Algo2Interm.Corollaries.html#630" class="InductiveConstructor">subs</a> <a id="2937" href="Implicit.Algo2Interm.Corollaries.html#2937" class="Bound">j~Σ</a> <a id="2941" href="Implicit.Algo2Interm.Corollaries.html#2941" class="Bound">s₁</a> <a id="2944" class="Symbol">=</a> <a id="2946" href="Implicit.Algo2Interm.Corollaries.html#630" class="InductiveConstructor">subs</a> <a id="2951" href="Implicit.Algo2Interm.Corollaries.html#2937" class="Bound">j~Σ</a> <a id="2955" class="Symbol">(</a><a id="2956" href="Implicit.Algo2Interm.AlgoCounter.Base.html#2457" class="InductiveConstructor">s-svar-term</a> <a id="2968" class="Bound">inΓ</a> <a id="2972" href="Implicit.Algo2Interm.Corollaries.html#2941" class="Bound">s₁</a><a id="2974" class="Symbol">)</a>
+<a id="2976" href="Implicit.Algo2Interm.Corollaries.html#969" class="Function">sc-complete</a> <a id="2988" class="Symbol">(</a><a id="2989" href="Implicit.Algo.Base.html#3054" class="InductiveConstructor">s-∀l-no</a> <a id="2997" href="Implicit.Algo2Interm.Corollaries.html#2997" class="Bound">s</a> <a id="2999" href="Implicit.Algo2Interm.Corollaries.html#2999" class="Bound">upᶜ</a> <a id="3003" href="Implicit.Algo2Interm.Corollaries.html#3003" class="Bound">upᵉ</a> <a id="3007" href="Implicit.Algo2Interm.Corollaries.html#3007" class="Bound">upC</a> <a id="3011" href="Implicit.Algo2Interm.Corollaries.html#3011" class="Bound">upD</a><a id="3014" class="Symbol">)</a> <a id="3016" class="Keyword">with</a> <a id="3021" href="Implicit.Algo2Interm.Corollaries.html#969" class="Function">sc-complete</a> <a id="3033" href="Implicit.Algo2Interm.Corollaries.html#2997" class="Bound">s</a>
+<a id="3035" class="Symbol">...</a> <a id="3039" class="Symbol">|</a> <a id="3041" href="Implicit.Algo2Interm.Corollaries.html#630" class="InductiveConstructor">subs</a> <a id="3046" class="Symbol">{</a><a id="3047" class="Argument">j</a> <a id="3049" class="Symbol">=</a> <a id="3051" href="Implicit.Algo2Interm.Corollaries.html#3051" class="Bound">i</a> <a id="3053" href="Implicit.Language.Base.html#2072" class="InductiveConstructor Operator">·</a> <a id="3055" href="Implicit.Algo2Interm.Corollaries.html#3055" class="Bound">j</a><a id="3056" class="Symbol">}</a> <a id="3058" href="Implicit.Algo2Interm.Corollaries.html#3058" class="Bound">j~Σ</a> <a id="3062" href="Implicit.Algo2Interm.Corollaries.html#3062" class="Bound">s₁</a>
+  <a id="3067" class="Symbol">=</a> <a id="3069" href="Implicit.Algo2Interm.Corollaries.html#630" class="InductiveConstructor">subs</a> <a id="3074" class="Symbol">(</a><a id="3075" href="Implicit.Algo2Interm.Context2Counter.html#2339" class="Function">~s-strengthen^0</a> <a id="3091" href="Implicit.Algo2Interm.Corollaries.html#3058" class="Bound">j~Σ</a> <a id="3095" class="Symbol">(</a><a id="3096" href="Implicit.Language.Shift.Base.html#856" class="InductiveConstructor">↑ty-arr</a> <a id="3104" class="Bound">upC</a> <a id="3108" class="Bound">upD</a><a id="3111" class="Symbol">)</a> <a id="3113" class="Symbol">(</a><a id="3114" href="Implicit.Algo.Constructs.Shift.html#774" class="InductiveConstructor">↑tyᶜ-e</a> <a id="3121" class="Bound">upᵉ</a> <a id="3125" class="Bound">upᶜ</a><a id="3128" class="Symbol">))</a> <a id="3131" class="Symbol">(</a><a id="3132" href="Implicit.Algo2Interm.AlgoCounter.Base.html#2224" class="InductiveConstructor">s-∀l-no</a> <a id="3140" href="Implicit.Algo2Interm.Corollaries.html#3062" class="Bound">s₁</a> <a id="3143" class="Bound">upᶜ</a> <a id="3147" class="Bound">upᵉ</a> <a id="3151" class="Bound">upC</a> <a id="3155" class="Bound">upD</a><a id="3158" class="Symbol">)</a>
+<a id="3160" href="Implicit.Algo2Interm.Corollaries.html#969" class="Function">sc-complete</a> <a id="3172" class="Symbol">(</a><a id="3173" href="Implicit.Algo.Base.html#3380" class="InductiveConstructor">s-evar-infers</a> <a id="3187" href="Implicit.Algo2Interm.Corollaries.html#3187" class="Bound">infs</a> <a id="3192" href="Implicit.Algo2Interm.Corollaries.html#3192" class="Bound">inst</a><a id="3196" class="Symbol">)</a> <a id="3198" class="Keyword">with</a> <a id="3203" href="Implicit.Algo2Interm.Corollaries.html#1035" class="Function">infs-complete</a> <a id="3217" href="Implicit.Algo2Interm.Corollaries.html#3187" class="Bound">infs</a>
+<a id="3222" class="Symbol">...</a> <a id="3226" class="Symbol">|</a> <a id="3228" href="Implicit.Algo2Interm.Corollaries.html#809" class="InductiveConstructor">infss</a> <a id="3234" href="Implicit.Algo2Interm.Corollaries.html#3234" class="Bound">~j&#39;</a><a id="3237" class="Symbol">@(</a><a id="3239" href="Implicit.Algo2Interm.Context2Counter.html#801" class="InductiveConstructor">~iI</a> <a id="3243" href="Implicit.Algo2Interm.Corollaries.html#3243" class="Bound">⊢e</a> <a id="3246" href="Implicit.Algo2Interm.Corollaries.html#3246" class="Bound">j~Σ</a><a id="3249" class="Symbol">)</a> <a id="3251" href="Implicit.Algo2Interm.Corollaries.html#3251" class="Bound">infs₁</a> <a id="3257" class="Symbol">=</a> <a id="3259" href="Implicit.Algo2Interm.Corollaries.html#630" class="InductiveConstructor">subs</a> <a id="3264" class="Symbol">(</a><a id="3265" href="Implicit.Algo2Interm.Context2Counter.html#1860" class="Function">~s-irrev-⊆</a> <a id="3276" class="Symbol">(</a><a id="3277" href="Implicit.Algo2Interm.Context2Counter.html#1563" class="Function">~t-~s</a> <a id="3283" class="Symbol">(</a><a id="3284" href="Implicit.Algo2Interm.Context2Counter.html#1730" class="Function">~infs-~t</a> <a id="3293" href="Implicit.Algo2Interm.Corollaries.html#3234" class="Bound">~j&#39;</a><a id="3296" class="Symbol">))</a> <a id="3299" class="Symbol">(</a><a id="3300" href="Implicit.Algo.Properties.Extension.html#116" class="Function">inst-⊆</a> <a id="3307" class="Bound">inst</a><a id="3311" class="Symbol">))</a> <a id="3314" class="Symbol">(</a><a id="3315" href="Implicit.Algo2Interm.AlgoCounter.Base.html#2579" class="InductiveConstructor">s-evar-infers</a> <a id="3329" href="Implicit.Algo2Interm.Corollaries.html#3251" class="Bound">infs₁</a> <a id="3335" class="Bound">inst</a><a id="3339" class="Symbol">)</a>
+
+<a id="3342" href="Implicit.Algo2Interm.Corollaries.html#1035" class="Function">infs-complete</a> <a id="3356" class="Symbol">(</a><a id="3357" href="Implicit.Algo.Base.html#3534" class="InductiveConstructor">infs-z</a> <a id="3364" href="Implicit.Algo2Interm.Corollaries.html#3364" class="Bound">regΓ</a> <a id="3369" href="Implicit.Algo2Interm.Corollaries.html#3369" class="Bound">regA</a><a id="3373" class="Symbol">)</a> <a id="3375" class="Symbol">=</a> <a id="3377" href="Implicit.Algo2Interm.Corollaries.html#809" class="InductiveConstructor">infss</a> <a id="3383" href="Implicit.Algo2Interm.Context2Counter.html#741" class="InductiveConstructor">~i∞</a> <a id="3387" class="Symbol">(</a><a id="3388" href="Implicit.Algo2Interm.AlgoCounter.Base.html#2755" class="InductiveConstructor">infs-z</a> <a id="3395" href="Implicit.Algo2Interm.Corollaries.html#3364" class="Bound">regΓ</a> <a id="3400" href="Implicit.Algo2Interm.Corollaries.html#3369" class="Bound">regA</a><a id="3404" class="Symbol">)</a>
+<a id="3406" href="Implicit.Algo2Interm.Corollaries.html#1035" class="Function">infs-complete</a> <a id="3420" class="Symbol">(</a><a id="3421" href="Implicit.Algo.Base.html#3615" class="InductiveConstructor">infs-s</a> <a id="3428" href="Implicit.Algo2Interm.Corollaries.html#3428" class="Bound">⊢e</a> <a id="3431" href="Implicit.Algo2Interm.Corollaries.html#3431" class="Bound">infs</a><a id="3435" class="Symbol">)</a>
+  <a id="3439" class="Keyword">with</a> <a id="3444" href="Implicit.Algo2Interm.Corollaries.html#430" class="InductiveConstructor">typs</a> <a id="3449" href="Implicit.Algo2Interm.Context2Counter.html#280" class="InductiveConstructor">~tZ</a> <a id="3453" href="Implicit.Algo2Interm.Corollaries.html#3453" class="Bound">⊢e₁</a> ← <a id="3459" href="Implicit.Algo2Interm.Corollaries.html#909" class="Function">tc-complete</a> <a id="3471" href="Implicit.Algo2Interm.Corollaries.html#3428" class="Bound">⊢e</a>
+  <a id="3476" class="Keyword">with</a> <a id="3481" href="Implicit.Algo2Interm.Corollaries.html#809" class="InductiveConstructor">infss</a> <a id="3487" href="Implicit.Algo2Interm.Corollaries.html#3487" class="Bound">~j</a> <a id="3490" href="Implicit.Algo2Interm.Corollaries.html#3490" class="Bound">infs&#39;</a> ← <a id="3498" href="Implicit.Algo2Interm.Corollaries.html#1035" class="Function">infs-complete</a> <a id="3512" href="Implicit.Algo2Interm.Corollaries.html#3431" class="Bound">infs</a> <a id="3517" class="Symbol">=</a> <a id="3519" href="Implicit.Algo2Interm.Corollaries.html#809" class="InductiveConstructor">infss</a> <a id="3525" class="Symbol">(</a><a id="3526" href="Implicit.Algo2Interm.Context2Counter.html#801" class="InductiveConstructor">~iI</a> <a id="3530" class="Symbol">(</a><a id="3531" href="Implicit.Algo2Interm.Main.html#1524" class="Function">sound</a> <a id="3537" href="Implicit.Algo2Interm.Corollaries.html#3453" class="Bound">⊢e₁</a><a id="3540" class="Symbol">)</a> <a id="3542" href="Implicit.Algo2Interm.Corollaries.html#3487" class="Bound">~j</a><a id="3544" class="Symbol">)</a> <a id="3546" class="Symbol">(</a><a id="3547" href="Implicit.Algo2Interm.AlgoCounter.Base.html#2841" class="InductiveConstructor">infs-s</a> <a id="3554" href="Implicit.Algo2Interm.Corollaries.html#3453" class="Bound">⊢e₁</a> <a id="3558" href="Implicit.Algo2Interm.Corollaries.html#3490" class="Bound">infs&#39;</a><a id="3563" class="Symbol">)</a>
+
+<a id="3566" class="Comment">----------------------------------------------------------------------</a>
+<a id="3637" class="Comment">--+                          corollaries                           +--</a>
+<a id="3708" class="Comment">----------------------------------------------------------------------</a>
+
+<a id="sound0"></a><a id="3780" href="Implicit.Algo2Interm.Corollaries.html#3780" class="Function">sound0</a> <a id="3787" class="Symbol">:</a> <a id="3789" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="3791" href="Implicit.Algo.Base.html#1211" class="Datatype Operator">⊢</a> <a id="3793" class="InductiveConstructor">□</a> <a id="3795" href="Implicit.Algo.Base.html#1211" class="Datatype Operator">⇒</a> <a id="3797" href="Implicit.Language.Base.html#1016" class="Generalizable">e</a> <a id="3799" href="Implicit.Algo.Base.html#1211" class="Datatype Operator">⇒</a> <a id="3801" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+       <a id="3810" class="Symbol">→</a> <a id="3812" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="3814" href="Implicit.Interm.Base.html#2108" class="Datatype Operator">⊢</a> <a id="3816" href="Implicit.Language.Base.html#2118" class="Function">`■</a> <a id="3819" href="Implicit.Interm.Base.html#2108" class="Datatype Operator">#</a> <a id="3821" href="Implicit.Language.Base.html#1016" class="Generalizable">e</a> <a id="3823" href="Implicit.Interm.Base.html#2108" class="Datatype Operator">⦂</a> <a id="3825" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+<a id="3827" href="Implicit.Algo2Interm.Corollaries.html#3780" class="Function">sound0</a> <a id="3834" href="Implicit.Algo2Interm.Corollaries.html#3834" class="Bound">⊢e</a> <a id="3837" class="Keyword">with</a> <a id="3842" href="Implicit.Algo2Interm.Corollaries.html#909" class="Function">tc-complete</a> <a id="3854" href="Implicit.Algo2Interm.Corollaries.html#3834" class="Bound">⊢e</a>
+<a id="3857" class="Symbol">...</a> <a id="3861" class="Symbol">|</a> <a id="3863" href="Implicit.Algo2Interm.Corollaries.html#430" class="InductiveConstructor">typs</a> <a id="3868" href="Implicit.Algo2Interm.Context2Counter.html#280" class="InductiveConstructor">~tZ</a> <a id="3872" href="Implicit.Algo2Interm.Corollaries.html#3872" class="Bound">⊢e₁</a> <a id="3876" class="Symbol">=</a> <a id="3878" href="Implicit.Algo2Interm.Main.html#1524" class="Function">sound</a> <a id="3884" href="Implicit.Algo2Interm.Corollaries.html#3872" class="Bound">⊢e₁</a>
+
+<a id="sound∞"></a><a id="3889" href="Implicit.Algo2Interm.Corollaries.html#3889" class="Function">sound∞</a> <a id="3896" class="Symbol">:</a> <a id="3898" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="3900" href="Implicit.Algo.Base.html#1211" class="Datatype Operator">⊢</a> <a id="3902" href="Implicit.Algo.Constructs.Syntax.html#155" class="InductiveConstructor Operator">τ</a> <a id="3904" href="Implicit.Language.Base.html#387" class="Generalizable">B</a> <a id="3906" href="Implicit.Algo.Base.html#1211" class="Datatype Operator">⇒</a> <a id="3908" href="Implicit.Language.Base.html#1016" class="Generalizable">e</a> <a id="3910" href="Implicit.Algo.Base.html#1211" class="Datatype Operator">⇒</a> <a id="3912" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+       <a id="3921" class="Symbol">→</a> <a id="3923" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="3925" href="Implicit.Interm.Base.html#2108" class="Datatype Operator">⊢</a> <a id="3927" href="Implicit.Language.Base.html#2098" class="Function">`□</a> <a id="3930" href="Implicit.Interm.Base.html#2108" class="Datatype Operator">#</a> <a id="3932" href="Implicit.Language.Base.html#1016" class="Generalizable">e</a> <a id="3934" href="Implicit.Interm.Base.html#2108" class="Datatype Operator">⦂</a> <a id="3936" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+<a id="3938" href="Implicit.Algo2Interm.Corollaries.html#3889" class="Function">sound∞</a> <a id="3945" href="Implicit.Algo2Interm.Corollaries.html#3945" class="Bound">⊢e</a> <a id="3948" class="Keyword">with</a> <a id="3953" href="Implicit.Algo2Interm.Corollaries.html#909" class="Function">tc-complete</a> <a id="3965" href="Implicit.Algo2Interm.Corollaries.html#3945" class="Bound">⊢e</a>
+<a id="3968" class="Symbol">...</a> <a id="3972" class="Symbol">|</a> <a id="3974" href="Implicit.Algo2Interm.Corollaries.html#430" class="InductiveConstructor">typs</a> <a id="3979" href="Implicit.Algo2Interm.Context2Counter.html#335" class="InductiveConstructor">~t∞</a> <a id="3983" href="Implicit.Algo2Interm.Corollaries.html#3983" class="Bound">⊢e₁</a> <a id="3987" class="Symbol">=</a> <a id="3989" href="Implicit.Algo2Interm.Main.html#1524" class="Function">sound</a> <a id="3995" href="Implicit.Algo2Interm.Corollaries.html#3983" class="Bound">⊢e₁</a>
+</pre>
+    
+    <script>
+      function toggleModule(element) {
+        element.classList.toggle('collapsed');
+        element.classList.toggle('expanded');
+      }
+      
+      // Auto-expand path to current module
+      document.addEventListener('DOMContentLoaded', function() {
+        const currentModule = document.querySelector('.current-module');
+        if (currentModule) {
+          let parent = currentModule.closest('li');
+          while (parent) {
+            parent.classList.remove('collapsed');
+            parent.classList.add('expanded');
+            parent = parent.parentElement.closest('li');
+          }
+        }
+      });
+    </script>
+    <script>
+  const nav = document.querySelector('nav');
+  const scrollKey = 'sidebarScroll';
+
+  // Restore scroll position
+  document.addEventListener('DOMContentLoaded', () => {
+    const saved = localStorage.getItem(scrollKey);
+    if (saved !== null) {
+      nav.scrollTop = parseInt(saved, 10);
+    }
+  });
+
+  // Save scroll position
+  nav.addEventListener('scroll', () => {
+    localStorage.setItem(scrollKey, nav.scrollTop);
+  });
+</script>
+  </body>
+</html>

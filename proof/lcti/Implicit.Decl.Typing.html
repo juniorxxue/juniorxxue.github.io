@@ -1,0 +1,2022 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../css/Agda.css" />
+    <title>Implicit.Decl.Typing</title>
+    <style>
+      body {
+        font-family: monospace;
+        font-size: 13px;
+        display: flex;
+        flex-flow: row nowrap;
+        min-height: 100vh;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-weight: unset;
+        text-wrap: balance;
+      }
+      p {
+        text-wrap: pretty;
+      }
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        font-size: 12px;
+        font-family: 'mononoki';
+        line-height: 1.5;
+        padding: 2px;
+        padding-left: 0.5em;
+        padding-right: 1em;
+        margin-right: 2em;
+        overflow-y: auto;
+        flex-shrink: 0;
+        background: white;
+        z-index: 100;
+      }
+      /* Hide scrollbar for webkit browsers */
+      nav::-webkit-scrollbar {
+        width: 2px;
+      }
+      nav::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      nav::-webkit-scrollbar-thumb {
+        background: #ddd;
+        border-radius: 2px;
+      }
+      nav::-webkit-scrollbar-thumb:hover {
+        background: #bbb;
+      }
+      nav a {
+        display: block;
+        color: unset;
+      }
+      .module-tree {
+        list-style-type: none;
+        padding-left: 2ch;
+        margin: 0;
+      }
+      nav > .module-tree {
+        padding-left: 0;
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 1lh;
+      }
+      .module-tree a:any-link:hover {
+        color: #A020F0 !important;
+      }
+      .current-module {
+        color: #A020F0;
+        font-weight: bold;
+      }
+      .Agda {
+        margin: 0;
+        margin-left: 180px;
+        flex: 1;
+        overflow-y: auto;
+      }
+      
+      /* Toggle functionality styles */
+      .toggle-btn {
+        background: none;
+        border: none;
+        color: #666;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 10px;
+        padding: 0 4px;
+        margin-right: 2px;
+        border-radius: 2px;
+        display: inline-block;
+        vertical-align: middle;
+        flex-shrink: 0;
+      }
+      .toggle-btn:hover {
+        background-color: #f0f0f0;
+        color: #333;
+      }
+      .collapsed > ul {
+        display: none;
+      }
+      
+      .toggle-btn::after {
+        content: "[−]";
+      }
+      .collapsed .toggle-btn::after {
+        content: "[+]";
+      }
+      .module-item {
+        position: relative;
+      }
+      .module-item a {
+        display: inline-block;
+      }
+      .module-content {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <nav>
+      
+      <ul class="module-tree">
+        
+          <li class="module-item expanded" data-depth="0">
+            <div class="module-content">
+              
+                <a>Implicit</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a href="Implicit.README.html" class="">
+                  README
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.All.html" class="">
+                  Language
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Counter2Mask.html" class="">
+                  Counter2Mask
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Prelude.html" class="">
+                  Prelude
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Bitmap.html" class="">
+                  Bitmap
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Shift.All.html" class="">
+                  Shift
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Shift.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Shift.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Subst.All.html" class="">
+                  Subst
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Subst.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Subst.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Lookup.All.html" class="">
+                  Lookup
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Lookup.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Lookup.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Occur.All.html" class="">
+                  Occur
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Occur.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Occur.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Find.All.html" class="">
+                  Find
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Find.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Find.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Regular.All.html" class="">
+                  Regular
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Regular.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Regular.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.OpenClose.All.html" class="">
+                  OpenClose
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.OpenClose.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.All.html" class="">
+                  Extension
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.InputOutput.html" class="">
+                  InputOutput
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.ExSol.html" class="">
+                  ExSol
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.Occur.html" class="">
+                  Occur
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.EnvReplace.html" class="">
+                  EnvReplace
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Ground.All.html" class="">
+                  Ground
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Ground.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Ground.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.All.html" class="">
+                  EnvOps
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.Inst.html" class="">
+                  Inst
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.RemoveTVar.html" class="">
+                  RemoveTVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.RemoveSVar.html" class="">
+                  RemoveSVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.RemoveEVar.html" class="">
+                  RemoveEVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.InsertEVar.html" class="">
+                  InsertEVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.InsertTVar.html" class="">
+                  InsertTVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.InsertUVar.html" class="">
+                  InsertUVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.InsertSVar.html" class="">
+                  InsertSVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.Regular.html" class="">
+                  Regular
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.Replace.html" class="">
+                  Replace
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.RemoveUVar.html" class="">
+                  RemoveUVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.All.html" class="">
+                  Decl
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.Typing.html" class="current-module">
+                  Typing
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.Trans.html" class="">
+                  Trans
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.Subtyping.html" class="">
+                  Subtyping
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.SubtypingV2.html" class="">
+                  SubtypingV2
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.Equiv.html" class="">
+                  Equiv
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.AuxLemmas.html" class="">
+                  AuxLemmas
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a>Annotatability</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Annotatability.Soundness.html" class="">
+                  Soundness
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Annotatability.Corollaries.html" class="">
+                  Corollaries
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Annotatability.DeclPartial.html" class="">
+                  DeclPartial
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Annotatability.IF.html" class="">
+                  IF
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Annotatability.Elaboration.html" class="">
+                  Elaboration
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a>Interm2Decl</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Decl.Corollaries.html" class="">
+                  Corollaries
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Decl.Main.html" class="">
+                  Main
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Decl.AuxLemmas.html" class="">
+                  AuxLemmas
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a>Decl2Interm</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl2Interm.Corollaries.html" class="">
+                  Corollaries
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl2Interm.Main.html" class="">
+                  Main
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.All.html" class="">
+                  Algo
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a>Properties</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Regularity.html" class="">
+                  Regularity
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Extension.html" class="">
+                  Extension
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Subsumption.html" class="">
+                  Subsumption
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Id.html" class="">
+                  Id
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Polarity.html" class="">
+                  Polarity
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Shift.html" class="">
+                  Shift
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Reflexivity.html" class="">
+                  Reflexivity
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.StrengthenTVar.html" class="">
+                  StrengthenTVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.StrengthenSVar.html" class="">
+                  StrengthenSVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.StrengthenEVar.html" class="">
+                  StrengthenEVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Weaken.html" class="">
+                  Weaken
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Irrelevance.html" class="">
+                  Irrelevance
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Trans.html" class="">
+                  Trans
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.SubIrrelevance.html" class="">
+                  SubIrrelevance
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Swap.html" class="">
+                  Swap
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Subst.html" class="">
+                  Subst
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.OpenK.html" class="">
+                  OpenK
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.WeakenEVar.html" class="">
+                  WeakenEVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.WeakenTVar.html" class="">
+                  WeakenTVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.WeakenSVar.html" class="">
+                  WeakenSVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a>Constructs</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Constructs.Syntax.html" class="">
+                  Syntax
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Constructs.Shift.html" class="">
+                  Shift
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Constructs.Subst.html" class="">
+                  Subst
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Constructs.Lookup.html" class="">
+                  Lookup
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a>Algo2Interm</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.Find.html" class="">
+                  Find
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.Main.html" class="">
+                  Main
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.Corollaries.html" class="">
+                  Corollaries
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.AlgoCounter.All.html" class="">
+                  AlgoCounter
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.AlgoCounter.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.AlgoCounter.Sound.html" class="">
+                  Sound
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.Context2Counter.html" class="">
+                  Context2Counter
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a>Interm2Algo</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.Main.html" class="">
+                  Main
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.Corollaries.html" class="">
+                  Corollaries
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.Counter2Context.html" class="">
+                  Counter2Context
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.ExtIrrev.html" class="">
+                  ExtIrrev
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.EnvDiff.html" class="">
+                  EnvDiff
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.OpenClose.html" class="">
+                  OpenClose
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.Find.html" class="">
+                  Find
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.AuxLemmas.html" class="">
+                  AuxLemmas
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.FVClose.html" class="">
+                  FVClose
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.All.html" class="">
+                  Interm
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a>Properties</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.Properties.Regularity.html" class="">
+                  Regularity
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.Properties.Polarity.html" class="">
+                  Polarity
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.Properties.Extension.html" class="">
+                  Extension
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.Properties.Strengthen.html" class="">
+                  Strengthen
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.Properties.Ground.html" class="">
+                  Ground
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+      </ul>
+    
+    </nav>
+    <pre class="Agda"><a id="1" class="Keyword">module</a> <a id="8" href="Implicit.Decl.Typing.html" class="Module">Implicit.Decl.Typing</a> <a id="29" class="Keyword">where</a>
+
+<a id="36" class="Keyword">open</a> <a id="41" class="Keyword">import</a> <a id="48" href="Implicit.Language.All.html" class="Module">Implicit.Language.All</a>
+<a id="70" class="Keyword">open</a> <a id="75" class="Keyword">import</a> <a id="82" href="Implicit.Decl.Subtyping.html" class="Module">Implicit.Decl.Subtyping</a>
+
+<a id="107" class="Comment">----------------------------------------------------------------------</a>
+<a id="178" class="Comment">--+                             Typing                             +--</a>
+<a id="249" class="Comment">----------------------------------------------------------------------</a>
+
+<a id="321" class="Keyword">infix</a> <a id="327" class="Number">3</a> <a id="329" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">_⊢d_#_⦂_</a>
+<a id="338" class="Keyword">data</a> <a id="_⊢d_#_⦂_"></a><a id="343" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">_⊢d_#_⦂_</a> <a id="352" class="Symbol">:</a> <a id="354" href="Implicit.Language.Base.html#1447" class="Datatype">Env</a> <a id="358" href="Implicit.Language.Prelude.html#1401" class="Generalizable">n</a> <a id="360" href="Implicit.Language.Prelude.html#1396" class="Generalizable">m</a> <a id="362" class="Symbol">→</a> <a id="364" href="Implicit.Language.Base.html#2034" class="Datatype">Mask</a> <a id="369" class="Symbol">→</a> <a id="371" href="Implicit.Language.Base.html#655" class="Datatype">Term</a> <a id="376" href="Implicit.Language.Prelude.html#1401" class="Generalizable">n</a> <a id="378" href="Implicit.Language.Prelude.html#1396" class="Generalizable">m</a> <a id="380" class="Symbol">→</a> <a id="382" href="Implicit.Language.Base.html#214" class="Datatype">Type</a> <a id="387" href="Implicit.Language.Prelude.html#1396" class="Generalizable">m</a> <a id="389" class="Symbol">→</a> <a id="391" href="Agda.Primitive.html#388" class="Primitive">Set</a> <a id="395" class="Keyword">where</a>
+  <a id="_⊢d_#_⦂_.⊢lit"></a><a id="403" href="Implicit.Decl.Typing.html#403" class="InductiveConstructor">⊢lit</a> <a id="408" class="Symbol">:</a> <a id="410" class="Symbol">∀</a> <a id="412" class="Symbol">{</a><a id="413" href="Implicit.Decl.Typing.html#413" class="Bound">num</a> <a id="417" class="Symbol">:</a> <a id="419" href="Agda.Builtin.Nat.html#203" class="Datatype">ℕ</a><a id="420" class="Symbol">}</a>
+    <a id="426" class="Symbol">→</a> <a id="428" class="Symbol">(</a><a id="429" href="Implicit.Decl.Typing.html#429" class="Bound">regΓ</a> <a id="434" class="Symbol">:</a> <a id="436" href="Implicit.Language.Regular.Base.html#705" class="Datatype">TRegular</a> <a id="445" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a><a id="446" class="Symbol">)</a>
+    <a id="452" class="Symbol">→</a> <a id="454" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="456" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⊢d</a> <a id="459" href="Implicit.Language.Base.html#2118" class="Function">`■</a> <a id="462" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">#</a> <a id="464" class="Symbol">(</a><a id="465" href="Implicit.Language.Base.html#682" class="InductiveConstructor">lit</a> <a id="469" href="Implicit.Decl.Typing.html#413" class="Bound">num</a><a id="472" class="Symbol">)</a> <a id="474" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⦂</a> <a id="476" href="Implicit.Language.Base.html#237" class="InductiveConstructor">Int</a>
+  <a id="_⊢d_#_⦂_.⊢var"></a><a id="482" href="Implicit.Decl.Typing.html#482" class="InductiveConstructor">⊢var</a> <a id="487" class="Symbol">:</a>
+      <a id="495" class="Symbol">(</a><a id="496" href="Implicit.Decl.Typing.html#496" class="Bound">regΓ</a> <a id="501" class="Symbol">:</a> <a id="503" href="Implicit.Language.Regular.Base.html#705" class="Datatype">TRegular</a> <a id="512" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a><a id="513" class="Symbol">)</a>
+    <a id="519" class="Symbol">→</a> <a id="521" class="Symbol">(</a><a id="522" href="Implicit.Decl.Typing.html#522" class="Bound">x∈Γ</a> <a id="526" class="Symbol">:</a> <a id="528" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="530" href="Implicit.Language.Lookup.Base.html#258" class="Datatype Operator">∋</a> <a id="532" href="Implicit.Language.Prelude.html#2665" class="Generalizable">x</a> <a id="534" href="Implicit.Language.Lookup.Base.html#258" class="Datatype Operator">⦂</a> <a id="536" href="Implicit.Language.Base.html#384" class="Generalizable">A</a><a id="537" class="Symbol">)</a>
+    <a id="543" class="Symbol">→</a> <a id="545" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="547" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⊢d</a> <a id="550" href="Implicit.Language.Base.html#2118" class="Function">`■</a> <a id="553" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">#</a> <a id="555" href="Implicit.Language.Base.html#714" class="InductiveConstructor Operator">`</a> <a id="557" href="Implicit.Language.Prelude.html#2665" class="Generalizable">x</a> <a id="559" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⦂</a> <a id="561" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+  <a id="_⊢d_#_⦂_.⊢ann"></a><a id="565" href="Implicit.Decl.Typing.html#565" class="InductiveConstructor">⊢ann</a> <a id="570" class="Symbol">:</a>
+      <a id="578" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="580" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⊢d</a> <a id="583" href="Implicit.Language.Base.html#2098" class="Function">`□</a> <a id="586" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">#</a> <a id="588" href="Implicit.Language.Base.html#1016" class="Generalizable">e</a> <a id="590" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⦂</a> <a id="592" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+    <a id="598" class="Symbol">→</a> <a id="600" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="602" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⊢d</a> <a id="605" href="Implicit.Language.Base.html#2118" class="Function">`■</a> <a id="608" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">#</a> <a id="610" class="Symbol">(</a><a id="611" href="Implicit.Language.Base.html#1016" class="Generalizable">e</a> <a id="613" href="Implicit.Language.Base.html#853" class="InductiveConstructor Operator">⦂</a> <a id="615" href="Implicit.Language.Base.html#384" class="Generalizable">A</a><a id="616" class="Symbol">)</a> <a id="618" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⦂</a> <a id="620" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+  <a id="_⊢d_#_⦂_.⊢lam₁"></a><a id="624" href="Implicit.Decl.Typing.html#624" class="InductiveConstructor">⊢lam₁</a> <a id="630" class="Symbol">:</a>
+      <a id="638" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="640" href="Implicit.Language.Base.html#1491" class="InductiveConstructor Operator">,</a> <a id="642" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="644" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⊢d</a> <a id="647" href="Implicit.Language.Base.html#2098" class="Function">`□</a> <a id="650" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">#</a> <a id="652" href="Implicit.Language.Base.html#1016" class="Generalizable">e</a> <a id="654" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⦂</a> <a id="656" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+    <a id="662" class="Symbol">→</a> <a id="664" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="666" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⊢d</a> <a id="669" href="Implicit.Language.Base.html#2098" class="Function">`□</a> <a id="672" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">#</a> <a id="674" href="Implicit.Language.Base.html#750" class="InductiveConstructor Operator">ƛ</a> <a id="676" href="Implicit.Language.Base.html#1016" class="Generalizable">e</a> <a id="678" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⦂</a> <a id="680" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="682" href="Implicit.Language.Base.html#287" class="InductiveConstructor Operator">`→</a> <a id="685" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+  <a id="_⊢d_#_⦂_.⊢lam₂"></a><a id="689" href="Implicit.Decl.Typing.html#689" class="InductiveConstructor">⊢lam₂</a> <a id="695" class="Symbol">:</a>
+      <a id="703" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="705" href="Implicit.Language.Base.html#1491" class="InductiveConstructor Operator">,</a> <a id="707" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="709" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⊢d</a> <a id="712" href="Implicit.Language.Base.html#2160" class="Generalizable">j</a> <a id="714" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">#</a> <a id="716" href="Implicit.Language.Base.html#1016" class="Generalizable">e</a> <a id="718" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⦂</a> <a id="720" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+    <a id="726" class="Symbol">→</a> <a id="728" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="730" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⊢d</a> <a id="733" href="Implicit.Language.Base.html#2008" class="InductiveConstructor">□</a> <a id="735" href="Implicit.Language.Base.html#2072" class="InductiveConstructor Operator">·</a> <a id="737" href="Implicit.Language.Base.html#2160" class="Generalizable">j</a> <a id="739" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">#</a> <a id="741" href="Implicit.Language.Base.html#750" class="InductiveConstructor Operator">ƛ</a> <a id="743" href="Implicit.Language.Base.html#1016" class="Generalizable">e</a> <a id="745" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⦂</a> <a id="747" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="749" href="Implicit.Language.Base.html#287" class="InductiveConstructor Operator">`→</a> <a id="752" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+  <a id="_⊢d_#_⦂_.⊢app"></a><a id="756" href="Implicit.Decl.Typing.html#756" class="InductiveConstructor">⊢app</a> <a id="761" class="Symbol">:</a>
+      <a id="769" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="771" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⊢d</a> <a id="774" class="Symbol">(</a><a id="775" href="Implicit.Language.Base.html#2267" class="Function">fp</a> <a id="778" href="Implicit.Language.Base.html#2149" class="Generalizable">i</a><a id="779" class="Symbol">)</a> <a id="781" href="Implicit.Language.Base.html#2072" class="InductiveConstructor Operator">·</a> <a id="783" href="Implicit.Language.Base.html#2160" class="Generalizable">j</a> <a id="785" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">#</a> <a id="787" href="Implicit.Language.Base.html#1066" class="Generalizable">e₁</a> <a id="790" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⦂</a> <a id="792" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="794" href="Implicit.Language.Base.html#287" class="InductiveConstructor Operator">`→</a> <a id="797" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+    <a id="803" class="Symbol">→</a> <a id="805" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="807" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⊢d</a> <a id="810" href="Implicit.Language.Base.html#2053" class="InductiveConstructor Operator">`</a> <a id="812" href="Implicit.Language.Base.html#2149" class="Generalizable">i</a> <a id="814" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">#</a> <a id="816" href="Implicit.Language.Base.html#1070" class="Generalizable">e₂</a> <a id="819" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⦂</a> <a id="821" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+    <a id="827" class="Symbol">→</a> <a id="829" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="831" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⊢d</a> <a id="834" href="Implicit.Language.Base.html#2160" class="Generalizable">j</a> <a id="836" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">#</a> <a id="838" href="Implicit.Language.Base.html#1066" class="Generalizable">e₁</a> <a id="841" href="Implicit.Language.Base.html#795" class="InductiveConstructor Operator">·</a> <a id="843" href="Implicit.Language.Base.html#1070" class="Generalizable">e₂</a> <a id="846" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⦂</a> <a id="848" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+  <a id="_⊢d_#_⦂_.⊢sub"></a><a id="852" href="Implicit.Decl.Typing.html#852" class="InductiveConstructor">⊢sub</a> <a id="857" class="Symbol">:</a>
+      <a id="865" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="867" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⊢d</a> <a id="870" href="Implicit.Language.Base.html#2118" class="Function">`■</a> <a id="873" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">#</a> <a id="875" href="Implicit.Language.Base.html#1114" class="Generalizable">g</a> <a id="877" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⦂</a> <a id="879" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+    <a id="885" class="Symbol">→</a> <a id="887" class="Symbol">(</a><a id="888" href="Implicit.Decl.Typing.html#888" class="Bound">B≤A</a> <a id="892" class="Symbol">:</a> <a id="894" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="896" href="Implicit.Language.Base.html#1657" class="InductiveConstructor Operator">⋈</a> <a id="898" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">⊢d</a> <a id="901" href="Implicit.Language.Base.html#2160" class="Generalizable">j</a> <a id="903" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">#</a> <a id="905" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="907" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">≤</a> <a id="909" href="Implicit.Language.Base.html#387" class="Generalizable">B</a><a id="910" class="Symbol">)</a>
+    <a id="916" class="Symbol">→</a> <a id="918" class="Symbol">(</a><a id="919" href="Implicit.Decl.Typing.html#919" class="Bound">gc</a> <a id="922" class="Symbol">:</a> <a id="924" href="Implicit.Language.Base.html#2410" class="Datatype">GenericConsumer</a> <a id="940" href="Implicit.Language.Base.html#1114" class="Generalizable">g</a><a id="941" class="Symbol">)</a>
+    <a id="947" class="Symbol">→</a> <a id="949" class="Symbol">(</a><a id="950" href="Implicit.Decl.Typing.html#950" class="Bound">j≢Z</a> <a id="954" class="Symbol">:</a> <a id="956" href="Implicit.Language.Base.html#2198" class="Datatype">NonZ</a> <a id="961" href="Implicit.Language.Base.html#2160" class="Generalizable">j</a><a id="962" class="Symbol">)</a>
+    <a id="968" class="Symbol">→</a> <a id="970" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="972" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⊢d</a> <a id="975" href="Implicit.Language.Base.html#2160" class="Generalizable">j</a> <a id="977" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">#</a> <a id="979" href="Implicit.Language.Base.html#1114" class="Generalizable">g</a> <a id="981" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⦂</a> <a id="983" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+  <a id="_⊢d_#_⦂_.⊢tabs"></a><a id="987" href="Implicit.Decl.Typing.html#987" class="InductiveConstructor">⊢tabs</a> <a id="993" class="Symbol">:</a>
+      <a id="1001" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="1003" href="Implicit.Language.Base.html#1574" class="InductiveConstructor Operator">,∙</a> <a id="1006" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⊢d</a> <a id="1009" href="Implicit.Language.Base.html#2053" class="InductiveConstructor Operator">`</a> <a id="1011" href="Implicit.Language.Base.html#2149" class="Generalizable">i</a> <a id="1013" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">#</a> <a id="1015" href="Implicit.Language.Base.html#1016" class="Generalizable">e</a> <a id="1017" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⦂</a> <a id="1019" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+    <a id="1025" class="Symbol">→</a> <a id="1027" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="1029" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⊢d</a> <a id="1032" href="Implicit.Language.Base.html#2053" class="InductiveConstructor Operator">`</a> <a id="1034" href="Implicit.Language.Base.html#2149" class="Generalizable">i</a> <a id="1036" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">#</a> <a id="1038" href="Implicit.Language.Base.html#907" class="InductiveConstructor Operator">Λ</a> <a id="1040" href="Implicit.Language.Base.html#1016" class="Generalizable">e</a> <a id="1042" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⦂</a> <a id="1044" href="Implicit.Language.Base.html#335" class="InductiveConstructor Operator">`∀</a> <a id="1047" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+  <a id="_⊢d_#_⦂_.⊢tapp"></a><a id="1051" href="Implicit.Decl.Typing.html#1051" class="InductiveConstructor">⊢tapp</a> <a id="1057" class="Symbol">:</a>
+      <a id="1065" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="1067" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⊢d</a> <a id="1070" href="Implicit.Language.Base.html#2118" class="Function">`■</a> <a id="1073" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">#</a> <a id="1075" href="Implicit.Language.Base.html#1016" class="Generalizable">e</a> <a id="1077" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⦂</a> <a id="1079" href="Implicit.Language.Base.html#335" class="InductiveConstructor Operator">`∀</a> <a id="1082" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+    <a id="1088" class="Symbol">→</a> <a id="1090" class="Symbol">(</a><a id="1091" href="Implicit.Decl.Typing.html#1091" class="Bound">regA</a> <a id="1096" class="Symbol">:</a> <a id="1098" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="1100" href="Implicit.Language.Regular.Base.html#186" class="Datatype Operator">⊢r</a> <a id="1103" href="Implicit.Language.Base.html#384" class="Generalizable">A</a><a id="1104" class="Symbol">)</a>
+    <a id="1110" class="Symbol">→</a> <a id="1112" class="Symbol">(</a><a id="1113" href="Implicit.Decl.Typing.html#1113" class="Bound">st</a> <a id="1116" class="Symbol">:</a> <a id="1118" href="Implicit.Language.Subst.Base.html#1100" class="Function Operator">⟦</a> <a id="1120" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="1122" href="Implicit.Language.Subst.Base.html#1100" class="Function Operator">⟧</a> <a id="1124" href="Implicit.Language.Base.html#387" class="Generalizable">B</a> <a id="1126" href="Implicit.Language.Subst.Base.html#1100" class="Function Operator">⇘</a> <a id="1128" href="Implicit.Language.Base.html#474" class="Generalizable">B*</a><a id="1130" class="Symbol">)</a>
+    <a id="1136" class="Symbol">→</a> <a id="1138" class="Symbol">(</a><a id="1139" href="Implicit.Decl.Typing.html#1139" class="Bound">s</a> <a id="1141" class="Symbol">:</a> <a id="1143" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="1145" href="Implicit.Language.Base.html#1657" class="InductiveConstructor Operator">⋈</a> <a id="1147" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">⊢d</a> <a id="1150" href="Implicit.Language.Base.html#2160" class="Generalizable">j</a> <a id="1152" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">#</a> <a id="1154" href="Implicit.Language.Base.html#474" class="Generalizable">B*</a> <a id="1157" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">≤</a> <a id="1159" href="Implicit.Language.Base.html#390" class="Generalizable">C</a><a id="1160" class="Symbol">)</a>
+    <a id="1166" class="Symbol">→</a> <a id="1168" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="1170" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⊢d</a> <a id="1173" href="Implicit.Language.Base.html#2160" class="Generalizable">j</a> <a id="1175" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">#</a> <a id="1177" href="Implicit.Language.Base.html#1016" class="Generalizable">e</a> <a id="1179" href="Implicit.Language.Base.html#952" class="InductiveConstructor Operator">⓪</a> <a id="1181" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="1183" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⦂</a> <a id="1185" href="Implicit.Language.Base.html#390" class="Generalizable">C</a>
+
+<a id="s-sregular"></a><a id="1188" href="Implicit.Decl.Typing.html#1188" class="Function">s-sregular</a> <a id="1199" class="Symbol">:</a> <a id="1201" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="1203" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">⊢d</a> <a id="1206" href="Implicit.Language.Base.html#2160" class="Generalizable">j</a> <a id="1208" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">#</a> <a id="1210" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="1212" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">≤</a> <a id="1214" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+           <a id="1227" class="Symbol">→</a> <a id="1229" href="Implicit.Language.Regular.Base.html#1077" class="Datatype">SRegular</a> <a id="1238" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a>
+<a id="1240" href="Implicit.Decl.Typing.html#1188" class="Function">s-sregular</a> <a id="1251" class="Symbol">(</a><a id="1252" href="Implicit.Decl.Subtyping.html#368" class="InductiveConstructor">s-refl</a> <a id="1259" href="Implicit.Decl.Typing.html#1259" class="Bound">regΔ</a> <a id="1264" href="Implicit.Decl.Typing.html#1264" class="Bound">cloA</a><a id="1268" class="Symbol">)</a> <a id="1270" class="Symbol">=</a> <a id="1272" href="Implicit.Decl.Typing.html#1259" class="Bound">regΔ</a>
+<a id="1277" href="Implicit.Decl.Typing.html#1188" class="Function">s-sregular</a> <a id="1288" class="Symbol">(</a><a id="1289" href="Implicit.Decl.Subtyping.html#449" class="InductiveConstructor">s-int</a> <a id="1295" href="Implicit.Decl.Typing.html#1295" class="Bound">regΔ</a><a id="1299" class="Symbol">)</a> <a id="1301" class="Symbol">=</a> <a id="1303" href="Implicit.Decl.Typing.html#1295" class="Bound">regΔ</a>
+<a id="1308" href="Implicit.Decl.Typing.html#1188" class="Function">s-sregular</a> <a id="1319" class="Symbol">(</a><a id="1320" href="Implicit.Decl.Subtyping.html#511" class="InductiveConstructor">s-var-∙</a> <a id="1328" href="Implicit.Decl.Typing.html#1328" class="Bound">regΔ</a> <a id="1333" href="Implicit.Decl.Typing.html#1333" class="Bound">inΔ</a><a id="1336" class="Symbol">)</a> <a id="1338" class="Symbol">=</a> <a id="1340" href="Implicit.Decl.Typing.html#1328" class="Bound">regΔ</a>
+<a id="1345" href="Implicit.Decl.Typing.html#1188" class="Function">s-sregular</a> <a id="1356" class="Symbol">(</a><a id="1357" href="Implicit.Decl.Subtyping.html#596" class="InductiveConstructor">s-arr₁</a> <a id="1364" href="Implicit.Decl.Typing.html#1364" class="Bound">s</a> <a id="1366" href="Implicit.Decl.Typing.html#1366" class="Bound">s₁</a><a id="1368" class="Symbol">)</a> <a id="1370" class="Symbol">=</a> <a id="1372" href="Implicit.Decl.Typing.html#1188" class="Function">s-sregular</a> <a id="1383" href="Implicit.Decl.Typing.html#1364" class="Bound">s</a>
+<a id="1385" href="Implicit.Decl.Typing.html#1188" class="Function">s-sregular</a> <a id="1396" class="Symbol">(</a><a id="1397" href="Implicit.Decl.Subtyping.html#683" class="InductiveConstructor">s-arr₂</a> <a id="1404" href="Implicit.Decl.Typing.html#1404" class="Bound">s</a> <a id="1406" href="Implicit.Decl.Typing.html#1406" class="Bound">s₁</a><a id="1408" class="Symbol">)</a> <a id="1410" class="Symbol">=</a> <a id="1412" href="Implicit.Decl.Typing.html#1188" class="Function">s-sregular</a> <a id="1423" href="Implicit.Decl.Typing.html#1404" class="Bound">s</a>
+<a id="1425" href="Implicit.Decl.Typing.html#1188" class="Function">s-sregular</a> <a id="1436" class="Symbol">(</a><a id="1437" href="Implicit.Decl.Subtyping.html#772" class="InductiveConstructor">s-arr₃</a> <a id="1444" href="Implicit.Decl.Typing.html#1444" class="Bound">regA</a> <a id="1449" href="Implicit.Decl.Typing.html#1449" class="Bound">s</a><a id="1450" class="Symbol">)</a> <a id="1452" class="Symbol">=</a> <a id="1454" href="Implicit.Decl.Typing.html#1188" class="Function">s-sregular</a> <a id="1465" href="Implicit.Decl.Typing.html#1449" class="Bound">s</a>
+<a id="1467" href="Implicit.Decl.Typing.html#1188" class="Function">s-sregular</a> <a id="1478" class="Symbol">(</a><a id="1479" href="Implicit.Decl.Subtyping.html#861" class="InductiveConstructor">s-∀</a> <a id="1483" href="Implicit.Decl.Typing.html#1483" class="Bound">s</a><a id="1484" class="Symbol">)</a> <a id="1486" class="Keyword">with</a> <a id="1491" href="Implicit.Decl.Typing.html#1188" class="Function">s-sregular</a> <a id="1502" href="Implicit.Decl.Typing.html#1483" class="Bound">s</a>
+<a id="1504" class="Symbol">...</a> <a id="1508" class="Symbol">|</a> <a id="1510" href="Implicit.Language.Regular.Base.html#1165" class="InductiveConstructor">reg-S∙</a> <a id="1517" href="Implicit.Decl.Typing.html#1517" class="Bound">r</a> <a id="1519" class="Symbol">=</a> <a id="1521" href="Implicit.Decl.Typing.html#1517" class="Bound">r</a>
+<a id="1523" href="Implicit.Decl.Typing.html#1188" class="Function">s-sregular</a> <a id="1534" class="Symbol">(</a><a id="1535" href="Implicit.Decl.Subtyping.html#922" class="InductiveConstructor">s-∀l</a> <a id="1540" href="Implicit.Decl.Typing.html#1540" class="Bound">regB</a> <a id="1545" href="Implicit.Decl.Typing.html#1545" class="Bound">st</a> <a id="1548" href="Implicit.Decl.Typing.html#1548" class="Bound">s</a> <a id="1550" href="Implicit.Decl.Typing.html#1550" class="Bound">fd</a><a id="1552" class="Symbol">)</a> <a id="1554" class="Symbol">=</a> <a id="1556" href="Implicit.Decl.Typing.html#1188" class="Function">s-sregular</a> <a id="1567" href="Implicit.Decl.Typing.html#1548" class="Bound">s</a>
+<a id="1569" href="Implicit.Decl.Typing.html#1188" class="Function">s-sregular</a> <a id="1580" class="Symbol">(</a><a id="1581" href="Implicit.Decl.Subtyping.html#1078" class="InductiveConstructor">s-∀l-no-appear</a> <a id="1596" href="Implicit.Decl.Typing.html#1596" class="Bound">regB</a> <a id="1601" href="Implicit.Decl.Typing.html#1601" class="Bound">st</a> <a id="1604" href="Implicit.Decl.Typing.html#1604" class="Bound">x</a> <a id="1606" href="Implicit.Decl.Typing.html#1606" class="Bound">fd</a><a id="1608" class="Symbol">)</a> <a id="1610" class="Symbol">=</a> <a id="1612" href="Implicit.Decl.Typing.html#1188" class="Function">s-sregular</a> <a id="1623" href="Implicit.Decl.Typing.html#1604" class="Bound">x</a>
+
+<a id="t-tregular"></a><a id="1626" href="Implicit.Decl.Typing.html#1626" class="Function">t-tregular</a> <a id="1637" class="Symbol">:</a> <a id="1639" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="1641" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⊢d</a> <a id="1644" href="Implicit.Language.Base.html#2160" class="Generalizable">j</a> <a id="1646" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">#</a> <a id="1648" href="Implicit.Language.Base.html#1016" class="Generalizable">e</a> <a id="1650" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⦂</a> <a id="1652" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+           <a id="1665" class="Symbol">→</a> <a id="1667" href="Implicit.Language.Regular.Base.html#705" class="Datatype">TRegular</a> <a id="1676" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a>
+<a id="1678" href="Implicit.Decl.Typing.html#1626" class="Function">t-tregular</a> <a id="1689" class="Symbol">(</a><a id="1690" href="Implicit.Decl.Typing.html#403" class="InductiveConstructor">⊢lit</a> <a id="1695" href="Implicit.Decl.Typing.html#1695" class="Bound">regΓ</a><a id="1699" class="Symbol">)</a> <a id="1701" class="Symbol">=</a> <a id="1703" href="Implicit.Decl.Typing.html#1695" class="Bound">regΓ</a>
+<a id="1708" href="Implicit.Decl.Typing.html#1626" class="Function">t-tregular</a> <a id="1719" class="Symbol">(</a><a id="1720" href="Implicit.Decl.Typing.html#482" class="InductiveConstructor">⊢var</a> <a id="1725" href="Implicit.Decl.Typing.html#1725" class="Bound">regΓ</a> <a id="1730" href="Implicit.Decl.Typing.html#1730" class="Bound">x∈Γ</a><a id="1733" class="Symbol">)</a> <a id="1735" class="Symbol">=</a> <a id="1737" href="Implicit.Decl.Typing.html#1725" class="Bound">regΓ</a>
+<a id="1742" href="Implicit.Decl.Typing.html#1626" class="Function">t-tregular</a> <a id="1753" class="Symbol">(</a><a id="1754" href="Implicit.Decl.Typing.html#565" class="InductiveConstructor">⊢ann</a> <a id="1759" href="Implicit.Decl.Typing.html#1759" class="Bound">⊢e</a><a id="1761" class="Symbol">)</a> <a id="1763" class="Symbol">=</a> <a id="1765" href="Implicit.Decl.Typing.html#1626" class="Function">t-tregular</a> <a id="1776" href="Implicit.Decl.Typing.html#1759" class="Bound">⊢e</a>
+<a id="1779" href="Implicit.Decl.Typing.html#1626" class="Function">t-tregular</a> <a id="1790" class="Symbol">(</a><a id="1791" href="Implicit.Decl.Typing.html#624" class="InductiveConstructor">⊢lam₁</a> <a id="1797" href="Implicit.Decl.Typing.html#1797" class="Bound">⊢e</a><a id="1799" class="Symbol">)</a> <a id="1801" class="Keyword">with</a> <a id="1806" href="Implicit.Decl.Typing.html#1626" class="Function">t-tregular</a> <a id="1817" href="Implicit.Decl.Typing.html#1797" class="Bound">⊢e</a>
+<a id="1820" class="Symbol">...</a> <a id="1824" class="Symbol">|</a> <a id="1826" href="Implicit.Language.Regular.Base.html#759" class="InductiveConstructor">reg-S,</a> <a id="1833" href="Implicit.Decl.Typing.html#1833" class="Bound">r</a> <a id="1835" href="Implicit.Decl.Typing.html#1835" class="Bound">regA</a> <a id="1840" class="Symbol">=</a> <a id="1842" href="Implicit.Decl.Typing.html#1833" class="Bound">r</a>
+<a id="1844" href="Implicit.Decl.Typing.html#1626" class="Function">t-tregular</a> <a id="1855" class="Symbol">(</a><a id="1856" href="Implicit.Decl.Typing.html#689" class="InductiveConstructor">⊢lam₂</a> <a id="1862" href="Implicit.Decl.Typing.html#1862" class="Bound">⊢e</a><a id="1864" class="Symbol">)</a> <a id="1866" class="Keyword">with</a> <a id="1871" href="Implicit.Decl.Typing.html#1626" class="Function">t-tregular</a> <a id="1882" href="Implicit.Decl.Typing.html#1862" class="Bound">⊢e</a>
+<a id="1885" class="Symbol">...</a> <a id="1889" class="Symbol">|</a> <a id="1891" href="Implicit.Language.Regular.Base.html#759" class="InductiveConstructor">reg-S,</a> <a id="1898" href="Implicit.Decl.Typing.html#1898" class="Bound">r</a> <a id="1900" href="Implicit.Decl.Typing.html#1900" class="Bound">regA</a> <a id="1905" class="Symbol">=</a> <a id="1907" href="Implicit.Decl.Typing.html#1898" class="Bound">r</a>
+<a id="1909" href="Implicit.Decl.Typing.html#1626" class="Function">t-tregular</a> <a id="1920" class="Symbol">(</a><a id="1921" href="Implicit.Decl.Typing.html#756" class="InductiveConstructor">⊢app</a> <a id="1926" href="Implicit.Decl.Typing.html#1926" class="Bound">⊢e</a> <a id="1929" href="Implicit.Decl.Typing.html#1929" class="Bound">⊢e₁</a><a id="1932" class="Symbol">)</a> <a id="1934" class="Symbol">=</a> <a id="1936" href="Implicit.Decl.Typing.html#1626" class="Function">t-tregular</a> <a id="1947" href="Implicit.Decl.Typing.html#1926" class="Bound">⊢e</a>
+<a id="1950" href="Implicit.Decl.Typing.html#1626" class="Function">t-tregular</a> <a id="1961" class="Symbol">(</a><a id="1962" href="Implicit.Decl.Typing.html#852" class="InductiveConstructor">⊢sub</a> <a id="1967" href="Implicit.Decl.Typing.html#1967" class="Bound">⊢e</a> <a id="1970" href="Implicit.Decl.Typing.html#1970" class="Bound">B≤A</a> <a id="1974" href="Implicit.Decl.Typing.html#1974" class="Bound">gc</a> <a id="1977" href="Implicit.Decl.Typing.html#1977" class="Bound">j≢Z</a><a id="1980" class="Symbol">)</a> <a id="1982" class="Symbol">=</a> <a id="1984" href="Implicit.Decl.Typing.html#1626" class="Function">t-tregular</a> <a id="1995" href="Implicit.Decl.Typing.html#1967" class="Bound">⊢e</a>
+<a id="1998" href="Implicit.Decl.Typing.html#1626" class="Function">t-tregular</a> <a id="2009" class="Symbol">(</a><a id="2010" href="Implicit.Decl.Typing.html#987" class="InductiveConstructor">⊢tabs</a> <a id="2016" href="Implicit.Decl.Typing.html#2016" class="Bound">⊢e</a><a id="2018" class="Symbol">)</a> <a id="2020" class="Keyword">with</a> <a id="2025" href="Implicit.Decl.Typing.html#1626" class="Function">t-tregular</a> <a id="2036" href="Implicit.Decl.Typing.html#2016" class="Bound">⊢e</a>
+<a id="2039" class="Symbol">...</a> <a id="2043" class="Symbol">|</a> <a id="2045" href="Implicit.Language.Regular.Base.html#836" class="InductiveConstructor">reg-S∙</a> <a id="2052" href="Implicit.Decl.Typing.html#2052" class="Bound">r</a> <a id="2054" class="Symbol">=</a> <a id="2056" href="Implicit.Decl.Typing.html#2052" class="Bound">r</a>
+<a id="2058" href="Implicit.Decl.Typing.html#1626" class="Function">t-tregular</a> <a id="2069" class="Symbol">(</a><a id="2070" href="Implicit.Decl.Typing.html#1051" class="InductiveConstructor">⊢tapp</a> <a id="2076" href="Implicit.Decl.Typing.html#2076" class="Bound">⊢e</a> <a id="2079" href="Implicit.Decl.Typing.html#2079" class="Bound">regA</a> <a id="2084" href="Implicit.Decl.Typing.html#2084" class="Bound">st</a> <a id="2087" href="Implicit.Decl.Typing.html#2087" class="Bound">s</a><a id="2088" class="Symbol">)</a> <a id="2090" class="Symbol">=</a> <a id="2092" href="Implicit.Decl.Typing.html#1626" class="Function">t-tregular</a> <a id="2103" href="Implicit.Decl.Typing.html#2076" class="Bound">⊢e</a>
+
+<a id="t-⊢r"></a><a id="2107" href="Implicit.Decl.Typing.html#2107" class="Function">t-⊢r</a> <a id="2112" class="Symbol">:</a> <a id="2114" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="2116" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⊢d</a> <a id="2119" href="Implicit.Language.Base.html#2160" class="Generalizable">j</a> <a id="2121" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">#</a> <a id="2123" href="Implicit.Language.Base.html#1016" class="Generalizable">e</a> <a id="2125" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⦂</a> <a id="2127" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+     <a id="2134" class="Symbol">→</a> <a id="2136" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="2138" href="Implicit.Language.Regular.Base.html#186" class="Datatype Operator">⊢r</a> <a id="2141" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+<a id="2143" href="Implicit.Decl.Typing.html#2107" class="Function">t-⊢r</a> <a id="2148" class="Symbol">(</a><a id="2149" href="Implicit.Decl.Typing.html#403" class="InductiveConstructor">⊢lit</a> <a id="2154" href="Implicit.Decl.Typing.html#2154" class="Bound">regΓ</a><a id="2158" class="Symbol">)</a> <a id="2160" class="Symbol">=</a> <a id="2162" href="Implicit.Language.Regular.Base.html#224" class="InductiveConstructor">⊢r-int</a>
+<a id="2169" href="Implicit.Decl.Typing.html#2107" class="Function">t-⊢r</a> <a id="2174" class="Symbol">(</a><a id="2175" href="Implicit.Decl.Typing.html#482" class="InductiveConstructor">⊢var</a> <a id="2180" href="Implicit.Decl.Typing.html#2180" class="Bound">regΓ</a> <a id="2185" href="Implicit.Decl.Typing.html#2185" class="Bound">x∈Γ</a><a id="2188" class="Symbol">)</a> <a id="2190" class="Symbol">=</a> <a id="2192" href="Implicit.Language.EnvOps.Regular.html#1769" class="Function">∋⦂-⊢r</a> <a id="2198" href="Implicit.Decl.Typing.html#2180" class="Bound">regΓ</a> <a id="2203" href="Implicit.Decl.Typing.html#2185" class="Bound">x∈Γ</a>
+<a id="2207" href="Implicit.Decl.Typing.html#2107" class="Function">t-⊢r</a> <a id="2212" class="Symbol">(</a><a id="2213" href="Implicit.Decl.Typing.html#565" class="InductiveConstructor">⊢ann</a> <a id="2218" href="Implicit.Decl.Typing.html#2218" class="Bound">⊢e</a><a id="2220" class="Symbol">)</a> <a id="2222" class="Symbol">=</a> <a id="2224" href="Implicit.Decl.Typing.html#2107" class="Function">t-⊢r</a> <a id="2229" href="Implicit.Decl.Typing.html#2218" class="Bound">⊢e</a>
+<a id="2232" href="Implicit.Decl.Typing.html#2107" class="Function">t-⊢r</a> <a id="2237" class="Symbol">(</a><a id="2238" href="Implicit.Decl.Typing.html#624" class="InductiveConstructor">⊢lam₁</a> <a id="2244" href="Implicit.Decl.Typing.html#2244" class="Bound">⊢e</a><a id="2246" class="Symbol">)</a> <a id="2248" class="Keyword">with</a> <a id="2253" href="Implicit.Decl.Typing.html#1626" class="Function">t-tregular</a> <a id="2264" href="Implicit.Decl.Typing.html#2244" class="Bound">⊢e</a>
+<a id="2267" class="Symbol">...</a> <a id="2271" class="Symbol">|</a> <a id="2273" href="Implicit.Language.Regular.Base.html#759" class="InductiveConstructor">reg-S,</a> <a id="2280" href="Implicit.Decl.Typing.html#2280" class="Bound">r</a> <a id="2282" href="Implicit.Decl.Typing.html#2282" class="Bound">regA</a> <a id="2287" class="Symbol">=</a> <a id="2289" href="Implicit.Language.Regular.Base.html#299" class="InductiveConstructor">⊢r-arr</a> <a id="2296" href="Implicit.Decl.Typing.html#2282" class="Bound">regA</a> <a id="2301" class="Symbol">(</a><a id="2302" href="Implicit.Language.EnvOps.RemoveTVar.html#4754" class="Function">⊢r-strengthen,0</a> <a id="2318" class="Symbol">(</a><a id="2319" href="Implicit.Decl.Typing.html#2107" class="Function">t-⊢r</a> <a id="2324" class="Bound">⊢e</a><a id="2326" class="Symbol">))</a>
+<a id="2329" href="Implicit.Decl.Typing.html#2107" class="Function">t-⊢r</a> <a id="2334" class="Symbol">(</a><a id="2335" href="Implicit.Decl.Typing.html#689" class="InductiveConstructor">⊢lam₂</a> <a id="2341" href="Implicit.Decl.Typing.html#2341" class="Bound">⊢e</a><a id="2343" class="Symbol">)</a> <a id="2345" class="Keyword">with</a> <a id="2350" href="Implicit.Decl.Typing.html#1626" class="Function">t-tregular</a> <a id="2361" href="Implicit.Decl.Typing.html#2341" class="Bound">⊢e</a>
+<a id="2364" class="Symbol">...</a> <a id="2368" class="Symbol">|</a> <a id="2370" href="Implicit.Language.Regular.Base.html#759" class="InductiveConstructor">reg-S,</a> <a id="2377" href="Implicit.Decl.Typing.html#2377" class="Bound">r</a> <a id="2379" href="Implicit.Decl.Typing.html#2379" class="Bound">regA</a> <a id="2384" class="Symbol">=</a> <a id="2386" href="Implicit.Language.Regular.Base.html#299" class="InductiveConstructor">⊢r-arr</a> <a id="2393" href="Implicit.Decl.Typing.html#2379" class="Bound">regA</a> <a id="2398" class="Symbol">(</a><a id="2399" href="Implicit.Language.EnvOps.RemoveTVar.html#4754" class="Function">⊢r-strengthen,0</a> <a id="2415" class="Symbol">(</a><a id="2416" href="Implicit.Decl.Typing.html#2107" class="Function">t-⊢r</a> <a id="2421" class="Bound">⊢e</a><a id="2423" class="Symbol">))</a>
+<a id="2426" href="Implicit.Decl.Typing.html#2107" class="Function">t-⊢r</a> <a id="2431" class="Symbol">(</a><a id="2432" href="Implicit.Decl.Typing.html#756" class="InductiveConstructor">⊢app</a> <a id="2437" href="Implicit.Decl.Typing.html#2437" class="Bound">⊢e</a> <a id="2440" href="Implicit.Decl.Typing.html#2440" class="Bound">⊢e₁</a><a id="2443" class="Symbol">)</a> <a id="2445" class="Keyword">with</a> <a id="2450" href="Implicit.Decl.Typing.html#2107" class="Function">t-⊢r</a> <a id="2455" href="Implicit.Decl.Typing.html#2437" class="Bound">⊢e</a>
+<a id="2458" class="Symbol">...</a> <a id="2462" class="Symbol">|</a> <a id="2464" href="Implicit.Language.Regular.Base.html#299" class="InductiveConstructor">⊢r-arr</a> <a id="2471" href="Implicit.Decl.Typing.html#2471" class="Bound">r</a> <a id="2473" href="Implicit.Decl.Typing.html#2473" class="Bound">r₁</a> <a id="2476" class="Symbol">=</a> <a id="2478" href="Implicit.Decl.Typing.html#2473" class="Bound">r₁</a>
+<a id="2481" href="Implicit.Decl.Typing.html#2107" class="Function">t-⊢r</a> <a id="2486" class="Symbol">(</a><a id="2487" href="Implicit.Decl.Typing.html#852" class="InductiveConstructor">⊢sub</a> <a id="2492" href="Implicit.Decl.Typing.html#2492" class="Bound">⊢e</a> <a id="2495" href="Implicit.Decl.Typing.html#2495" class="Bound">B≤A</a> <a id="2499" href="Implicit.Decl.Typing.html#2499" class="Bound">gc</a> <a id="2502" href="Implicit.Decl.Typing.html#2502" class="Bound">j≢Z</a><a id="2505" class="Symbol">)</a> <a id="2507" class="Symbol">=</a> <a id="2509" href="Implicit.Language.Regular.Properties.html#888" class="Function">⊢r-𝕣&#39;</a> <a id="2515" class="Symbol">(</a><a id="2516" href="Implicit.Decl.Subtyping.html#1278" class="Function">s1-⊢r-r</a> <a id="2524" href="Implicit.Decl.Typing.html#2495" class="Bound">B≤A</a><a id="2527" class="Symbol">)</a>
+<a id="2529" href="Implicit.Decl.Typing.html#2107" class="Function">t-⊢r</a> <a id="2534" class="Symbol">(</a><a id="2535" href="Implicit.Decl.Typing.html#987" class="InductiveConstructor">⊢tabs</a> <a id="2541" href="Implicit.Decl.Typing.html#2541" class="Bound">⊢e</a><a id="2543" class="Symbol">)</a> <a id="2545" class="Symbol">=</a> <a id="2547" href="Implicit.Language.Regular.Base.html#356" class="InductiveConstructor">⊢r-∀</a> <a id="2552" class="Symbol">(</a><a id="2553" href="Implicit.Decl.Typing.html#2107" class="Function">t-⊢r</a> <a id="2558" href="Implicit.Decl.Typing.html#2541" class="Bound">⊢e</a><a id="2560" class="Symbol">)</a>
+<a id="2562" href="Implicit.Decl.Typing.html#2107" class="Function">t-⊢r</a> <a id="2567" class="Symbol">(</a><a id="2568" href="Implicit.Decl.Typing.html#1051" class="InductiveConstructor">⊢tapp</a> <a id="2574" href="Implicit.Decl.Typing.html#2574" class="Bound">⊢e</a> <a id="2577" href="Implicit.Decl.Typing.html#2577" class="Bound">regA</a> <a id="2582" href="Implicit.Decl.Typing.html#2582" class="Bound">st</a> <a id="2585" href="Implicit.Decl.Typing.html#2585" class="Bound">s</a><a id="2586" class="Symbol">)</a> <a id="2588" class="Symbol">=</a> <a id="2590" href="Implicit.Language.Regular.Properties.html#888" class="Function">⊢r-𝕣&#39;</a> <a id="2596" class="Symbol">(</a><a id="2597" href="Implicit.Decl.Subtyping.html#1278" class="Function">s1-⊢r-r</a> <a id="2605" href="Implicit.Decl.Typing.html#2585" class="Bound">s</a><a id="2606" class="Symbol">)</a>
+
+
+<a id="2610" class="Keyword">infix</a> <a id="2616" class="Number">3</a> <a id="2618" href="Implicit.Decl.Typing.html#2627" class="Datatype Operator">_≋_</a>
+<a id="2622" class="Keyword">data</a> <a id="_≋_"></a><a id="2627" href="Implicit.Decl.Typing.html#2627" class="Datatype Operator">_≋_</a> <a id="2631" class="Symbol">:</a> <a id="2633" href="Implicit.Language.Base.html#2034" class="Datatype">Mask</a> <a id="2638" class="Symbol">→</a> <a id="2640" href="Implicit.Language.Base.html#2034" class="Datatype">Mask</a> <a id="2645" class="Symbol">→</a> <a id="2647" href="Agda.Primitive.html#388" class="Primitive">Set</a> <a id="2651" class="Keyword">where</a>
+  <a id="_≋_.Z≋"></a><a id="2659" href="Implicit.Decl.Typing.html#2659" class="InductiveConstructor">Z≋</a> <a id="2662" class="Symbol">:</a> <a id="2664" class="Symbol">∀</a> <a id="2666" class="Symbol">{</a><a id="2667" href="Implicit.Decl.Typing.html#2667" class="Bound">nj</a> <a id="2670" class="Symbol">:</a> <a id="2672" href="Implicit.Language.Base.html#2034" class="Datatype">Mask</a><a id="2676" class="Symbol">}</a>
+       <a id="2685" class="Symbol">→</a> <a id="2687" href="Implicit.Language.Base.html#2053" class="InductiveConstructor Operator">`</a> <a id="2689" href="Implicit.Language.Base.html#2019" class="InductiveConstructor">■</a> <a id="2691" href="Implicit.Decl.Typing.html#2627" class="Datatype Operator">≋</a> <a id="2693" href="Implicit.Decl.Typing.html#2667" class="Bound">nj</a>
+  <a id="_≋_.S≋"></a><a id="2698" href="Implicit.Decl.Typing.html#2698" class="InductiveConstructor">S≋</a> <a id="2701" class="Symbol">:</a> <a id="2703" class="Symbol">∀</a> <a id="2705" class="Symbol">{</a><a id="2706" href="Implicit.Decl.Typing.html#2706" class="Bound">nj</a><a id="2708" class="Symbol">}</a>
+       <a id="2717" class="Symbol">→</a> <a id="2719" href="Implicit.Language.Base.html#2160" class="Generalizable">j</a> <a id="2721" href="Implicit.Decl.Typing.html#2627" class="Datatype Operator">≋</a> <a id="2723" href="Implicit.Decl.Typing.html#2706" class="Bound">nj</a>
+     <a id="2731" class="Symbol">→</a> <a id="2733" href="Implicit.Language.Base.html#2149" class="Generalizable">i</a> <a id="2735" href="Implicit.Language.Base.html#2072" class="InductiveConstructor Operator">·</a> <a id="2737" href="Implicit.Language.Base.html#2160" class="Generalizable">j</a> <a id="2739" href="Implicit.Decl.Typing.html#2627" class="Datatype Operator">≋</a> <a id="2741" href="Implicit.Language.Base.html#2149" class="Generalizable">i</a> <a id="2743" href="Implicit.Language.Base.html#2072" class="InductiveConstructor Operator">·</a> <a id="2745" href="Implicit.Decl.Typing.html#2706" class="Bound">nj</a>
+
+<a id="iso-≋-false"></a><a id="2749" href="Implicit.Decl.Typing.html#2749" class="Function">iso-≋-false</a> <a id="2761" class="Symbol">:</a> <a id="2763" class="Symbol">∀</a> <a id="2765" class="Symbol">{</a><a id="2766" href="Implicit.Decl.Typing.html#2766" class="Bound">nj</a><a id="2768" class="Symbol">}</a>
+            <a id="2782" class="Symbol">→</a> <a id="2784" href="Implicit.Language.Base.html#2160" class="Generalizable">j</a> <a id="2786" href="Implicit.Decl.Typing.html#2627" class="Datatype Operator">≋</a> <a id="2788" href="Implicit.Decl.Typing.html#2766" class="Bound">nj</a>
+            <a id="2803" class="Symbol">→</a> <a id="2805" href="Implicit.Language.Find.Base.html#250" class="Datatype">□like</a> <a id="2811" href="Implicit.Language.Base.html#2160" class="Generalizable">j</a>
+            <a id="2825" class="Symbol">→</a> <a id="2827" href="Data.Empty.html#914" class="Function">⊥</a>
+<a id="2829" href="Implicit.Decl.Typing.html#2749" class="Function">iso-≋-false</a> <a id="2841" class="Symbol">(</a><a id="2842" href="Implicit.Decl.Typing.html#2698" class="InductiveConstructor">S≋</a> <a id="2845" href="Implicit.Decl.Typing.html#2845" class="Bound">newj</a><a id="2849" class="Symbol">)</a> <a id="2851" class="Symbol">(</a><a id="2852" href="Implicit.Language.Find.Base.html#304" class="InductiveConstructor">□like-S</a> <a id="2860" href="Implicit.Decl.Typing.html#2860" class="Bound">wlike</a><a id="2865" class="Symbol">)</a> <a id="2867" class="Symbol">=</a> <a id="2869" href="Implicit.Decl.Typing.html#2749" class="Function">iso-≋-false</a> <a id="2881" href="Implicit.Decl.Typing.html#2845" class="Bound">newj</a> <a id="2886" href="Implicit.Decl.Typing.html#2860" class="Bound">wlike</a>
+
+<a id="find-≋"></a><a id="2893" href="Implicit.Decl.Typing.html#2893" class="Function">find-≋</a> <a id="2900" class="Symbol">:</a> <a id="2902" class="Symbol">∀</a> <a id="2904" class="Symbol">{</a><a id="2905" href="Implicit.Decl.Typing.html#2905" class="Bound">nj</a><a id="2907" class="Symbol">}</a>
+       <a id="2916" class="Symbol">→</a> <a id="2918" href="Implicit.Language.Find.Base.html#466" class="Datatype">find</a> <a id="2923" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="2925" href="Implicit.Language.Prelude.html#2679" class="Generalizable">k</a> <a id="2927" href="Implicit.Language.Base.html#2160" class="Generalizable">j</a>
+       <a id="2936" class="Symbol">→</a> <a id="2938" href="Implicit.Language.Base.html#2160" class="Generalizable">j</a> <a id="2940" href="Implicit.Decl.Typing.html#2627" class="Datatype Operator">≋</a> <a id="2942" href="Implicit.Decl.Typing.html#2905" class="Bound">nj</a>
+       <a id="2952" class="Symbol">→</a> <a id="2954" href="Implicit.Language.Find.Base.html#466" class="Datatype">find</a> <a id="2959" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="2961" href="Implicit.Language.Prelude.html#2679" class="Generalizable">k</a> <a id="2963" href="Implicit.Decl.Typing.html#2905" class="Bound">nj</a>
+<a id="2966" href="Implicit.Decl.Typing.html#2893" class="Function">find-≋</a> <a id="2973" class="Symbol">(</a><a id="2974" href="Implicit.Language.Find.Base.html#622" class="InductiveConstructor">f-arr-l</a> <a id="2982" href="Implicit.Decl.Typing.html#2982" class="Bound">x</a><a id="2983" class="Symbol">)</a> <a id="2985" class="Symbol">(</a><a id="2986" href="Implicit.Decl.Typing.html#2698" class="InductiveConstructor">S≋</a> <a id="2989" href="Implicit.Decl.Typing.html#2989" class="Bound">~j</a><a id="2991" class="Symbol">)</a> <a id="2993" class="Symbol">=</a> <a id="2995" href="Implicit.Language.Find.Base.html#622" class="InductiveConstructor">f-arr-l</a> <a id="3003" href="Implicit.Decl.Typing.html#2982" class="Bound">x</a>
+<a id="3005" href="Implicit.Decl.Typing.html#2893" class="Function">find-≋</a> <a id="3012" class="Symbol">(</a><a id="3013" href="Implicit.Language.Find.Base.html#686" class="InductiveConstructor">f-arr-r</a> <a id="3021" href="Implicit.Decl.Typing.html#3021" class="Bound">¬inA</a> <a id="3026" href="Implicit.Decl.Typing.html#3026" class="Bound">fd</a><a id="3028" class="Symbol">)</a> <a id="3030" class="Symbol">(</a><a id="3031" href="Implicit.Decl.Typing.html#2698" class="InductiveConstructor">S≋</a> <a id="3034" href="Implicit.Decl.Typing.html#3034" class="Bound">~j</a><a id="3036" class="Symbol">)</a> <a id="3038" class="Symbol">=</a> <a id="3040" href="Implicit.Language.Find.Base.html#686" class="InductiveConstructor">f-arr-r</a> <a id="3048" href="Implicit.Decl.Typing.html#3021" class="Bound">¬inA</a> <a id="3053" class="Symbol">(</a><a id="3054" href="Implicit.Decl.Typing.html#2893" class="Function">find-≋</a> <a id="3061" href="Implicit.Decl.Typing.html#3026" class="Bound">fd</a> <a id="3064" href="Implicit.Decl.Typing.html#3034" class="Bound">~j</a><a id="3066" class="Symbol">)</a>
+<a id="3068" href="Implicit.Decl.Typing.html#2893" class="Function">find-≋</a> <a id="3075" class="Symbol">(</a><a id="3076" href="Implicit.Language.Find.Base.html#777" class="InductiveConstructor">f-∀</a> <a id="3080" href="Implicit.Decl.Typing.html#3080" class="Bound">fd</a><a id="3082" class="Symbol">)</a> <a id="3084" class="Symbol">(</a><a id="3085" href="Implicit.Decl.Typing.html#2698" class="InductiveConstructor">S≋</a> <a id="3088" class="Symbol">{</a><a id="3089" class="Argument">nj</a> <a id="3092" class="Symbol">=</a> <a id="3094" href="Implicit.Decl.Typing.html#3094" class="Bound">nj</a><a id="3096" class="Symbol">}</a> <a id="3098" href="Implicit.Decl.Typing.html#3098" class="Bound">~j</a><a id="3100" class="Symbol">)</a>
+  <a id="3104" class="Symbol">=</a> <a id="3106" href="Implicit.Language.Find.Base.html#777" class="InductiveConstructor">f-∀</a> <a id="3110" class="Symbol">(</a><a id="3111" href="Implicit.Decl.Typing.html#2893" class="Function">find-≋</a> <a id="3118" href="Implicit.Decl.Typing.html#3080" class="Bound">fd</a> <a id="3121" class="Symbol">(</a><a id="3122" href="Implicit.Decl.Typing.html#2698" class="InductiveConstructor">S≋</a> <a id="3125" href="Implicit.Decl.Typing.html#3098" class="Bound">~j</a><a id="3127" class="Symbol">))</a>
+<a id="3130" href="Implicit.Decl.Typing.html#2893" class="Function">find-≋</a> <a id="3137" class="Symbol">(</a><a id="3138" href="Implicit.Language.Find.Base.html#563" class="InductiveConstructor">f-iso</a> <a id="3144" href="Implicit.Decl.Typing.html#3144" class="Bound">iso</a><a id="3147" class="Symbol">)</a> <a id="3149" href="Implicit.Decl.Typing.html#3149" class="Bound">~j</a> <a id="3152" class="Symbol">=</a> <a id="3154" href="Data.Empty.html#1069" class="Function">⊥-elim</a> <a id="3161" class="Symbol">(</a><a id="3162" href="Implicit.Decl.Typing.html#2749" class="Function">iso-≋-false</a> <a id="3174" href="Implicit.Decl.Typing.html#3149" class="Bound">~j</a> <a id="3177" href="Implicit.Decl.Typing.html#3144" class="Bound">iso</a><a id="3180" class="Symbol">)</a>
+
+
+<a id="s-trans-∞"></a><a id="3184" href="Implicit.Decl.Typing.html#3184" class="Function">s-trans-∞</a> <a id="3194" class="Symbol">:</a> <a id="3196" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="3198" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">⊢d</a> <a id="3201" href="Implicit.Language.Base.html#2098" class="Function">`□</a> <a id="3204" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">#</a> <a id="3206" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="3208" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">≤</a> <a id="3210" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+          <a id="3222" class="Symbol">→</a> <a id="3224" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="3226" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">⊢d</a> <a id="3229" href="Implicit.Language.Base.html#2098" class="Function">`□</a> <a id="3232" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">#</a> <a id="3234" href="Implicit.Language.Base.html#387" class="Generalizable">B</a> <a id="3236" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">≤</a> <a id="3238" href="Implicit.Language.Base.html#390" class="Generalizable">C</a>
+          <a id="3250" class="Symbol">→</a> <a id="3252" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="3254" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">⊢d</a> <a id="3257" href="Implicit.Language.Base.html#2098" class="Function">`□</a> <a id="3260" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">#</a> <a id="3262" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="3264" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">≤</a> <a id="3266" href="Implicit.Language.Base.html#390" class="Generalizable">C</a>
+<a id="3268" href="Implicit.Decl.Typing.html#3184" class="Function">s-trans-∞</a> <a id="3278" class="Symbol">(</a><a id="3279" href="Implicit.Decl.Subtyping.html#449" class="InductiveConstructor">s-int</a> <a id="3285" href="Implicit.Decl.Typing.html#3285" class="Bound">regΔ</a><a id="3289" class="Symbol">)</a> <a id="3291" class="Symbol">(</a><a id="3292" href="Implicit.Decl.Subtyping.html#449" class="InductiveConstructor">s-int</a> <a id="3298" href="Implicit.Decl.Typing.html#3298" class="Bound">regΔ₁</a><a id="3303" class="Symbol">)</a> <a id="3305" class="Symbol">=</a> <a id="3307" href="Implicit.Decl.Subtyping.html#449" class="InductiveConstructor">s-int</a> <a id="3313" href="Implicit.Decl.Typing.html#3285" class="Bound">regΔ</a>
+<a id="3318" href="Implicit.Decl.Typing.html#3184" class="Function">s-trans-∞</a> <a id="3328" class="Symbol">(</a><a id="3329" href="Implicit.Decl.Subtyping.html#511" class="InductiveConstructor">s-var-∙</a> <a id="3337" href="Implicit.Decl.Typing.html#3337" class="Bound">regΔ</a> <a id="3342" href="Implicit.Decl.Typing.html#3342" class="Bound">inΔ</a><a id="3345" class="Symbol">)</a> <a id="3347" href="Implicit.Decl.Typing.html#3347" class="Bound">s2</a> <a id="3350" class="Symbol">=</a> <a id="3352" href="Implicit.Decl.Typing.html#3347" class="Bound">s2</a>
+<a id="3355" href="Implicit.Decl.Typing.html#3184" class="Function">s-trans-∞</a> <a id="3365" class="Symbol">(</a><a id="3366" href="Implicit.Decl.Subtyping.html#596" class="InductiveConstructor">s-arr₁</a> <a id="3373" href="Implicit.Decl.Typing.html#3373" class="Bound">s1</a> <a id="3376" href="Implicit.Decl.Typing.html#3376" class="Bound">s3</a><a id="3378" class="Symbol">)</a> <a id="3380" class="Symbol">(</a><a id="3381" href="Implicit.Decl.Subtyping.html#596" class="InductiveConstructor">s-arr₁</a> <a id="3388" href="Implicit.Decl.Typing.html#3388" class="Bound">s2</a> <a id="3391" href="Implicit.Decl.Typing.html#3391" class="Bound">s4</a><a id="3393" class="Symbol">)</a> <a id="3395" class="Symbol">=</a> <a id="3397" href="Implicit.Decl.Subtyping.html#596" class="InductiveConstructor">s-arr₁</a> <a id="3404" class="Symbol">(</a><a id="3405" href="Implicit.Decl.Typing.html#3184" class="Function">s-trans-∞</a> <a id="3415" href="Implicit.Decl.Typing.html#3388" class="Bound">s2</a> <a id="3418" href="Implicit.Decl.Typing.html#3373" class="Bound">s1</a><a id="3420" class="Symbol">)</a> <a id="3422" class="Symbol">(</a><a id="3423" href="Implicit.Decl.Typing.html#3184" class="Function">s-trans-∞</a> <a id="3433" href="Implicit.Decl.Typing.html#3376" class="Bound">s3</a> <a id="3436" href="Implicit.Decl.Typing.html#3391" class="Bound">s4</a><a id="3438" class="Symbol">)</a>
+<a id="3440" href="Implicit.Decl.Typing.html#3184" class="Function">s-trans-∞</a> <a id="3450" class="Symbol">(</a><a id="3451" href="Implicit.Decl.Subtyping.html#861" class="InductiveConstructor">s-∀</a> <a id="3455" href="Implicit.Decl.Typing.html#3455" class="Bound">s1</a><a id="3457" class="Symbol">)</a> <a id="3459" class="Symbol">(</a><a id="3460" href="Implicit.Decl.Subtyping.html#861" class="InductiveConstructor">s-∀</a> <a id="3464" href="Implicit.Decl.Typing.html#3464" class="Bound">s2</a><a id="3466" class="Symbol">)</a> <a id="3468" class="Symbol">=</a> <a id="3470" href="Implicit.Decl.Subtyping.html#861" class="InductiveConstructor">s-∀</a> <a id="3474" class="Symbol">(</a><a id="3475" href="Implicit.Decl.Typing.html#3184" class="Function">s-trans-∞</a> <a id="3485" href="Implicit.Decl.Typing.html#3455" class="Bound">s1</a> <a id="3488" href="Implicit.Decl.Typing.html#3464" class="Bound">s2</a><a id="3490" class="Symbol">)</a>
+
+<a id="s-trans-∞-eq"></a><a id="3493" href="Implicit.Decl.Typing.html#3493" class="Function">s-trans-∞-eq</a> <a id="3506" class="Symbol">:</a> <a id="3508" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="3510" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">⊢d</a> <a id="3513" href="Implicit.Language.Base.html#2098" class="Function">`□</a> <a id="3516" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">#</a> <a id="3518" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="3520" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">≤</a> <a id="3522" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+             <a id="3537" class="Symbol">→</a> <a id="3539" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="3541" href="Agda.Builtin.Equality.html#150" class="Datatype Operator">≡</a> <a id="3543" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+<a id="3545" href="Implicit.Decl.Typing.html#3493" class="Function">s-trans-∞-eq</a> <a id="3558" class="Symbol">(</a><a id="3559" href="Implicit.Decl.Subtyping.html#449" class="InductiveConstructor">s-int</a> <a id="3565" href="Implicit.Decl.Typing.html#3565" class="Bound">regΔ</a><a id="3569" class="Symbol">)</a> <a id="3571" class="Symbol">=</a> <a id="3573" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a>
+<a id="3578" href="Implicit.Decl.Typing.html#3493" class="Function">s-trans-∞-eq</a> <a id="3591" class="Symbol">(</a><a id="3592" href="Implicit.Decl.Subtyping.html#511" class="InductiveConstructor">s-var-∙</a> <a id="3600" href="Implicit.Decl.Typing.html#3600" class="Bound">regΔ</a> <a id="3605" href="Implicit.Decl.Typing.html#3605" class="Bound">inΔ</a><a id="3608" class="Symbol">)</a> <a id="3610" class="Symbol">=</a> <a id="3612" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a>
+<a id="3617" href="Implicit.Decl.Typing.html#3493" class="Function">s-trans-∞-eq</a> <a id="3630" class="Symbol">(</a><a id="3631" href="Implicit.Decl.Subtyping.html#596" class="InductiveConstructor">s-arr₁</a> <a id="3638" href="Implicit.Decl.Typing.html#3638" class="Bound">s</a> <a id="3640" href="Implicit.Decl.Typing.html#3640" class="Bound">s₁</a><a id="3642" class="Symbol">)</a> <a id="3644" class="Symbol">=</a> <a id="3646" href="Relation.Binary.PropositionalEquality.Core.html#1576" class="Function">cong₂</a> <a id="3652" href="Implicit.Language.Base.html#287" class="InductiveConstructor Operator">_`→_</a> <a id="3657" class="Symbol">(</a><a id="3658" href="Relation.Binary.PropositionalEquality.Core.html#1893" class="Function">sym</a> <a id="3662" class="Symbol">(</a><a id="3663" href="Implicit.Decl.Typing.html#3493" class="Function">s-trans-∞-eq</a> <a id="3676" href="Implicit.Decl.Typing.html#3638" class="Bound">s</a><a id="3677" class="Symbol">))</a> <a id="3680" class="Symbol">(</a><a id="3681" href="Implicit.Decl.Typing.html#3493" class="Function">s-trans-∞-eq</a> <a id="3694" href="Implicit.Decl.Typing.html#3640" class="Bound">s₁</a><a id="3696" class="Symbol">)</a>
+<a id="3698" href="Implicit.Decl.Typing.html#3493" class="Function">s-trans-∞-eq</a> <a id="3711" class="Symbol">(</a><a id="3712" href="Implicit.Decl.Subtyping.html#861" class="InductiveConstructor">s-∀</a> <a id="3716" href="Implicit.Decl.Typing.html#3716" class="Bound">s</a><a id="3717" class="Symbol">)</a> <a id="3719" class="Symbol">=</a> <a id="3721" href="Relation.Binary.PropositionalEquality.Core.html#1339" class="Function">cong</a> <a id="3726" href="Implicit.Language.Base.html#335" class="InductiveConstructor Operator">`∀_</a> <a id="3730" class="Symbol">(</a><a id="3731" href="Implicit.Decl.Typing.html#3493" class="Function">s-trans-∞-eq</a> <a id="3744" href="Implicit.Decl.Typing.html#3716" class="Bound">s</a><a id="3745" class="Symbol">)</a>
+
+
+<a id="s-refl-∞"></a><a id="3749" href="Implicit.Decl.Typing.html#3749" class="Function">s-refl-∞</a> <a id="3758" class="Symbol">:</a> <a id="3760" href="Implicit.Language.Regular.Base.html#1077" class="Datatype">SRegular</a> <a id="3769" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a>
+         <a id="3780" class="Symbol">→</a> <a id="3782" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="3784" href="Implicit.Language.Regular.Base.html#186" class="Datatype Operator">⊢r</a> <a id="3787" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+         <a id="3798" class="Symbol">→</a> <a id="3800" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="3802" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">⊢d</a> <a id="3805" href="Implicit.Language.Base.html#2098" class="Function">`□</a> <a id="3808" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">#</a> <a id="3810" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="3812" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">≤</a> <a id="3814" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+<a id="3816" href="Implicit.Decl.Typing.html#3749" class="Function">s-refl-∞</a> <a id="3825" href="Implicit.Decl.Typing.html#3825" class="Bound">regΓ</a> <a id="3830" href="Implicit.Language.Regular.Base.html#224" class="InductiveConstructor">⊢r-int</a> <a id="3837" class="Symbol">=</a> <a id="3839" href="Implicit.Decl.Subtyping.html#449" class="InductiveConstructor">s-int</a> <a id="3845" href="Implicit.Decl.Typing.html#3825" class="Bound">regΓ</a>
+<a id="3850" href="Implicit.Decl.Typing.html#3749" class="Function">s-refl-∞</a> <a id="3859" href="Implicit.Decl.Typing.html#3859" class="Bound">regΓ</a> <a id="3864" class="Symbol">(</a><a id="3865" href="Implicit.Language.Regular.Base.html#250" class="InductiveConstructor">⊢r-var-∙</a> <a id="3874" href="Implicit.Decl.Typing.html#3874" class="Bound">inΓ</a><a id="3877" class="Symbol">)</a> <a id="3879" class="Symbol">=</a> <a id="3881" href="Implicit.Decl.Subtyping.html#511" class="InductiveConstructor">s-var-∙</a> <a id="3889" href="Implicit.Decl.Typing.html#3859" class="Bound">regΓ</a> <a id="3894" href="Implicit.Decl.Typing.html#3874" class="Bound">inΓ</a>
+<a id="3898" href="Implicit.Decl.Typing.html#3749" class="Function">s-refl-∞</a> <a id="3907" href="Implicit.Decl.Typing.html#3907" class="Bound">regΓ</a> <a id="3912" class="Symbol">(</a><a id="3913" href="Implicit.Language.Regular.Base.html#299" class="InductiveConstructor">⊢r-arr</a> <a id="3920" href="Implicit.Decl.Typing.html#3920" class="Bound">regA</a> <a id="3925" href="Implicit.Decl.Typing.html#3925" class="Bound">regA₁</a><a id="3930" class="Symbol">)</a> <a id="3932" class="Symbol">=</a> <a id="3934" href="Implicit.Decl.Subtyping.html#596" class="InductiveConstructor">s-arr₁</a> <a id="3941" class="Symbol">(</a><a id="3942" href="Implicit.Decl.Typing.html#3749" class="Function">s-refl-∞</a> <a id="3951" href="Implicit.Decl.Typing.html#3907" class="Bound">regΓ</a> <a id="3956" href="Implicit.Decl.Typing.html#3920" class="Bound">regA</a><a id="3960" class="Symbol">)</a> <a id="3962" class="Symbol">(</a><a id="3963" href="Implicit.Decl.Typing.html#3749" class="Function">s-refl-∞</a> <a id="3972" href="Implicit.Decl.Typing.html#3907" class="Bound">regΓ</a> <a id="3977" href="Implicit.Decl.Typing.html#3925" class="Bound">regA₁</a><a id="3982" class="Symbol">)</a>
+<a id="3984" href="Implicit.Decl.Typing.html#3749" class="Function">s-refl-∞</a> <a id="3993" href="Implicit.Decl.Typing.html#3993" class="Bound">regΓ</a> <a id="3998" class="Symbol">(</a><a id="3999" href="Implicit.Language.Regular.Base.html#356" class="InductiveConstructor">⊢r-∀</a> <a id="4004" href="Implicit.Decl.Typing.html#4004" class="Bound">regA</a><a id="4008" class="Symbol">)</a> <a id="4010" class="Symbol">=</a> <a id="4012" href="Implicit.Decl.Subtyping.html#861" class="InductiveConstructor">s-∀</a> <a id="4016" class="Symbol">(</a><a id="4017" href="Implicit.Decl.Typing.html#3749" class="Function">s-refl-∞</a> <a id="4026" class="Symbol">(</a><a id="4027" href="Implicit.Language.Regular.Base.html#1165" class="InductiveConstructor">reg-S∙</a> <a id="4034" href="Implicit.Decl.Typing.html#3993" class="Bound">regΓ</a><a id="4038" class="Symbol">)</a> <a id="4040" href="Implicit.Decl.Typing.html#4004" class="Bound">regA</a><a id="4044" class="Symbol">)</a>
+
+<a id="s-trans"></a><a id="4047" href="Implicit.Decl.Typing.html#4047" class="Function">s-trans</a> <a id="4055" class="Symbol">:</a> <a id="4057" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="4059" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">⊢d</a> <a id="4062" href="Implicit.Language.Base.html#2160" class="Generalizable">j</a> <a id="4064" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">#</a> <a id="4066" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="4068" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">≤</a> <a id="4070" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+        <a id="4080" class="Symbol">→</a> <a id="4082" href="Implicit.Language.Base.html#2160" class="Generalizable">j</a> <a id="4084" href="Implicit.Decl.Typing.html#2627" class="Datatype Operator">≋</a> <a id="4086" href="Implicit.Language.Base.html#2178" class="Generalizable">j&#39;</a>
+        <a id="4097" class="Symbol">→</a> <a id="4099" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="4101" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">⊢d</a> <a id="4104" href="Implicit.Language.Base.html#2178" class="Generalizable">j&#39;</a> <a id="4107" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">#</a> <a id="4109" href="Implicit.Language.Base.html#387" class="Generalizable">B</a> <a id="4111" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">≤</a> <a id="4113" href="Implicit.Language.Base.html#390" class="Generalizable">C</a>
+        <a id="4123" class="Symbol">→</a> <a id="4125" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="4127" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">⊢d</a> <a id="4130" href="Implicit.Language.Base.html#2178" class="Generalizable">j&#39;</a> <a id="4133" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">#</a> <a id="4135" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="4137" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">≤</a> <a id="4139" href="Implicit.Language.Base.html#390" class="Generalizable">C</a>
+<a id="4141" href="Implicit.Decl.Typing.html#4047" class="Function">s-trans</a> <a id="4149" class="Symbol">(</a><a id="4150" href="Implicit.Decl.Subtyping.html#368" class="InductiveConstructor">s-refl</a> <a id="4157" href="Implicit.Decl.Typing.html#4157" class="Bound">regΔ</a> <a id="4162" href="Implicit.Decl.Typing.html#4162" class="Bound">cloA</a><a id="4166" class="Symbol">)</a> <a id="4168" href="Implicit.Decl.Typing.html#4168" class="Bound">~j</a> <a id="4171" href="Implicit.Decl.Typing.html#4171" class="Bound">s2</a> <a id="4174" class="Symbol">=</a> <a id="4176" href="Implicit.Decl.Typing.html#4171" class="Bound">s2</a>
+<a id="4179" href="Implicit.Decl.Typing.html#4047" class="Function">s-trans</a> <a id="4187" class="Symbol">(</a><a id="4188" href="Implicit.Decl.Subtyping.html#683" class="InductiveConstructor">s-arr₂</a> <a id="4195" href="Implicit.Decl.Typing.html#4195" class="Bound">s1</a> <a id="4198" href="Implicit.Decl.Typing.html#4198" class="Bound">s3</a><a id="4200" class="Symbol">)</a> <a id="4202" class="Symbol">(</a><a id="4203" href="Implicit.Decl.Typing.html#2698" class="InductiveConstructor">S≋</a> <a id="4206" href="Implicit.Decl.Typing.html#4206" class="Bound">~j</a><a id="4208" class="Symbol">)</a> <a id="4210" class="Symbol">(</a><a id="4211" href="Implicit.Decl.Subtyping.html#683" class="InductiveConstructor">s-arr₂</a> <a id="4218" href="Implicit.Decl.Typing.html#4218" class="Bound">s2</a> <a id="4221" href="Implicit.Decl.Typing.html#4221" class="Bound">s4</a><a id="4223" class="Symbol">)</a> <a id="4225" class="Symbol">=</a> <a id="4227" href="Implicit.Decl.Subtyping.html#683" class="InductiveConstructor">s-arr₂</a> <a id="4234" class="Symbol">(</a><a id="4235" href="Implicit.Decl.Typing.html#3184" class="Function">s-trans-∞</a> <a id="4245" href="Implicit.Decl.Typing.html#4218" class="Bound">s2</a> <a id="4248" href="Implicit.Decl.Typing.html#4195" class="Bound">s1</a><a id="4250" class="Symbol">)</a> <a id="4252" class="Symbol">(</a><a id="4253" href="Implicit.Decl.Typing.html#4047" class="Function">s-trans</a> <a id="4261" href="Implicit.Decl.Typing.html#4198" class="Bound">s3</a> <a id="4264" href="Implicit.Decl.Typing.html#4206" class="Bound">~j</a> <a id="4267" href="Implicit.Decl.Typing.html#4221" class="Bound">s4</a><a id="4269" class="Symbol">)</a>
+<a id="4271" href="Implicit.Decl.Typing.html#4047" class="Function">s-trans</a> <a id="4279" class="Symbol">(</a><a id="4280" href="Implicit.Decl.Subtyping.html#772" class="InductiveConstructor">s-arr₃</a> <a id="4287" href="Implicit.Decl.Typing.html#4287" class="Bound">regA</a> <a id="4292" href="Implicit.Decl.Typing.html#4292" class="Bound">s1</a><a id="4294" class="Symbol">)</a> <a id="4296" class="Symbol">(</a><a id="4297" href="Implicit.Decl.Typing.html#2698" class="InductiveConstructor">S≋</a> <a id="4300" href="Implicit.Decl.Typing.html#4300" class="Bound">~j</a><a id="4302" class="Symbol">)</a> <a id="4304" class="Symbol">(</a><a id="4305" href="Implicit.Decl.Subtyping.html#772" class="InductiveConstructor">s-arr₃</a> <a id="4312" href="Implicit.Decl.Typing.html#4312" class="Bound">regA₁</a> <a id="4318" href="Implicit.Decl.Typing.html#4318" class="Bound">s2</a><a id="4320" class="Symbol">)</a> <a id="4322" class="Symbol">=</a> <a id="4324" href="Implicit.Decl.Subtyping.html#772" class="InductiveConstructor">s-arr₃</a> <a id="4331" href="Implicit.Decl.Typing.html#4287" class="Bound">regA</a> <a id="4336" class="Symbol">(</a><a id="4337" href="Implicit.Decl.Typing.html#4047" class="Function">s-trans</a> <a id="4345" href="Implicit.Decl.Typing.html#4292" class="Bound">s1</a> <a id="4348" href="Implicit.Decl.Typing.html#4300" class="Bound">~j</a> <a id="4351" href="Implicit.Decl.Typing.html#4318" class="Bound">s2</a><a id="4353" class="Symbol">)</a>
+<a id="4355" href="Implicit.Decl.Typing.html#4047" class="Function">s-trans</a> <a id="4363" class="Symbol">(</a><a id="4364" href="Implicit.Decl.Subtyping.html#922" class="InductiveConstructor">s-∀l</a> <a id="4369" href="Implicit.Decl.Typing.html#4369" class="Bound">regB</a> <a id="4374" href="Implicit.Decl.Typing.html#4374" class="Bound">st</a> <a id="4377" href="Implicit.Decl.Typing.html#4377" class="Bound">s1</a> <a id="4380" href="Implicit.Decl.Typing.html#4380" class="Bound">fd</a><a id="4382" class="Symbol">)</a> <a id="4384" class="Symbol">(</a><a id="4385" href="Implicit.Decl.Typing.html#2698" class="InductiveConstructor">S≋</a> <a id="4388" class="Symbol">{</a><a id="4389" class="Argument">nj</a> <a id="4392" class="Symbol">=</a> <a id="4394" href="Implicit.Decl.Typing.html#4394" class="Bound">nj</a><a id="4396" class="Symbol">}</a> <a id="4398" href="Implicit.Decl.Typing.html#4398" class="Bound">~j</a><a id="4400" class="Symbol">)</a> <a id="4402" class="Symbol">(</a><a id="4403" href="Implicit.Decl.Subtyping.html#683" class="InductiveConstructor">s-arr₂</a> <a id="4410" href="Implicit.Decl.Typing.html#4410" class="Bound">s2</a> <a id="4413" href="Implicit.Decl.Typing.html#4413" class="Bound">s3</a><a id="4415" class="Symbol">)</a>
+  <a id="4419" class="Symbol">=</a> <a id="4421" href="Implicit.Decl.Subtyping.html#922" class="InductiveConstructor">s-∀l</a> <a id="4426" href="Implicit.Decl.Typing.html#4369" class="Bound">regB</a> <a id="4431" href="Implicit.Decl.Typing.html#4374" class="Bound">st</a> <a id="4434" class="Symbol">(</a><a id="4435" href="Implicit.Decl.Typing.html#4047" class="Function">s-trans</a> <a id="4443" href="Implicit.Decl.Typing.html#4377" class="Bound">s1</a> <a id="4446" class="Symbol">(</a><a id="4447" href="Implicit.Decl.Typing.html#2698" class="InductiveConstructor">S≋</a> <a id="4450" href="Implicit.Decl.Typing.html#4398" class="Bound">~j</a><a id="4452" class="Symbol">)</a> <a id="4454" class="Symbol">(</a><a id="4455" href="Implicit.Decl.Subtyping.html#683" class="InductiveConstructor">s-arr₂</a> <a id="4462" href="Implicit.Decl.Typing.html#4410" class="Bound">s2</a> <a id="4465" href="Implicit.Decl.Typing.html#4413" class="Bound">s3</a><a id="4467" class="Symbol">))</a> <a id="4470" class="Symbol">(</a><a id="4471" href="Implicit.Decl.Typing.html#2893" class="Function">find-≋</a> <a id="4478" href="Implicit.Decl.Typing.html#4380" class="Bound">fd</a> <a id="4481" class="Symbol">(</a><a id="4482" href="Implicit.Decl.Typing.html#2698" class="InductiveConstructor">S≋</a> <a id="4485" href="Implicit.Decl.Typing.html#4398" class="Bound">~j</a><a id="4487" class="Symbol">))</a>
+<a id="4490" href="Implicit.Decl.Typing.html#4047" class="Function">s-trans</a> <a id="4498" class="Symbol">(</a><a id="4499" href="Implicit.Decl.Subtyping.html#922" class="InductiveConstructor">s-∀l</a> <a id="4504" href="Implicit.Decl.Typing.html#4504" class="Bound">regB</a> <a id="4509" href="Implicit.Decl.Typing.html#4509" class="Bound">st</a> <a id="4512" href="Implicit.Decl.Typing.html#4512" class="Bound">s1</a> <a id="4515" href="Implicit.Decl.Typing.html#4515" class="Bound">fd</a><a id="4517" class="Symbol">)</a> <a id="4519" class="Symbol">(</a><a id="4520" href="Implicit.Decl.Typing.html#2698" class="InductiveConstructor">S≋</a> <a id="4523" class="Symbol">{</a><a id="4524" class="Argument">nj</a> <a id="4527" class="Symbol">=</a> <a id="4529" href="Implicit.Decl.Typing.html#4529" class="Bound">nj</a><a id="4531" class="Symbol">}</a> <a id="4533" href="Implicit.Decl.Typing.html#4533" class="Bound">~j</a><a id="4535" class="Symbol">)</a> <a id="4537" class="Symbol">(</a><a id="4538" href="Implicit.Decl.Subtyping.html#772" class="InductiveConstructor">s-arr₃</a> <a id="4545" href="Implicit.Decl.Typing.html#4545" class="Bound">regA</a> <a id="4550" href="Implicit.Decl.Typing.html#4550" class="Bound">s2</a><a id="4552" class="Symbol">)</a>
+  <a id="4556" class="Symbol">=</a> <a id="4558" href="Implicit.Decl.Subtyping.html#922" class="InductiveConstructor">s-∀l</a> <a id="4563" href="Implicit.Decl.Typing.html#4504" class="Bound">regB</a> <a id="4568" href="Implicit.Decl.Typing.html#4509" class="Bound">st</a> <a id="4571" class="Symbol">(</a><a id="4572" href="Implicit.Decl.Typing.html#4047" class="Function">s-trans</a> <a id="4580" href="Implicit.Decl.Typing.html#4512" class="Bound">s1</a> <a id="4583" class="Symbol">(</a><a id="4584" href="Implicit.Decl.Typing.html#2698" class="InductiveConstructor">S≋</a> <a id="4587" href="Implicit.Decl.Typing.html#4533" class="Bound">~j</a><a id="4589" class="Symbol">)</a> <a id="4591" class="Symbol">(</a><a id="4592" href="Implicit.Decl.Subtyping.html#772" class="InductiveConstructor">s-arr₃</a> <a id="4599" href="Implicit.Decl.Typing.html#4545" class="Bound">regA</a> <a id="4604" href="Implicit.Decl.Typing.html#4550" class="Bound">s2</a><a id="4606" class="Symbol">))</a> <a id="4609" class="Symbol">(</a><a id="4610" href="Implicit.Decl.Typing.html#2893" class="Function">find-≋</a> <a id="4617" href="Implicit.Decl.Typing.html#4515" class="Bound">fd</a> <a id="4620" class="Symbol">(</a><a id="4621" href="Implicit.Decl.Typing.html#2698" class="InductiveConstructor">S≋</a> <a id="4624" href="Implicit.Decl.Typing.html#4533" class="Bound">~j</a><a id="4626" class="Symbol">))</a>
+<a id="4629" href="Implicit.Decl.Typing.html#4047" class="Function">s-trans</a> <a id="4637" class="Symbol">(</a><a id="4638" href="Implicit.Decl.Subtyping.html#1078" class="InductiveConstructor">s-∀l-no-appear</a> <a id="4653" href="Implicit.Decl.Typing.html#4653" class="Bound">regB</a> <a id="4658" href="Implicit.Decl.Typing.html#4658" class="Bound">st</a> <a id="4661" href="Implicit.Decl.Typing.html#4661" class="Bound">s1</a> <a id="4664" href="Implicit.Decl.Typing.html#4664" class="Bound">fd</a><a id="4666" class="Symbol">)</a> <a id="4668" class="Symbol">(</a><a id="4669" href="Implicit.Decl.Typing.html#2698" class="InductiveConstructor">S≋</a> <a id="4672" href="Implicit.Decl.Typing.html#4672" class="Bound">~j</a><a id="4674" class="Symbol">)</a> <a id="4676" class="Symbol">(</a><a id="4677" href="Implicit.Decl.Subtyping.html#683" class="InductiveConstructor">s-arr₂</a> <a id="4684" href="Implicit.Decl.Typing.html#4684" class="Bound">s2</a> <a id="4687" href="Implicit.Decl.Typing.html#4687" class="Bound">s3</a><a id="4689" class="Symbol">)</a>
+  <a id="4693" class="Symbol">=</a> <a id="4695" href="Implicit.Decl.Subtyping.html#1078" class="InductiveConstructor">s-∀l-no-appear</a> <a id="4710" href="Implicit.Decl.Typing.html#4653" class="Bound">regB</a> <a id="4715" href="Implicit.Decl.Typing.html#4658" class="Bound">st</a> <a id="4718" class="Symbol">(</a><a id="4719" href="Implicit.Decl.Typing.html#4047" class="Function">s-trans</a> <a id="4727" href="Implicit.Decl.Typing.html#4661" class="Bound">s1</a> <a id="4730" class="Symbol">(</a><a id="4731" href="Implicit.Decl.Typing.html#2698" class="InductiveConstructor">S≋</a> <a id="4734" href="Implicit.Decl.Typing.html#4672" class="Bound">~j</a><a id="4736" class="Symbol">)</a> <a id="4738" class="Symbol">(</a><a id="4739" href="Implicit.Decl.Subtyping.html#683" class="InductiveConstructor">s-arr₂</a> <a id="4746" href="Implicit.Decl.Typing.html#4684" class="Bound">s2</a> <a id="4749" href="Implicit.Decl.Typing.html#4687" class="Bound">s3</a><a id="4751" class="Symbol">))</a> <a id="4754" href="Implicit.Decl.Typing.html#4664" class="Bound">fd</a>
+<a id="4757" href="Implicit.Decl.Typing.html#4047" class="Function">s-trans</a> <a id="4765" class="Symbol">(</a><a id="4766" href="Implicit.Decl.Subtyping.html#1078" class="InductiveConstructor">s-∀l-no-appear</a> <a id="4781" href="Implicit.Decl.Typing.html#4781" class="Bound">regB</a> <a id="4786" href="Implicit.Decl.Typing.html#4786" class="Bound">st</a> <a id="4789" href="Implicit.Decl.Typing.html#4789" class="Bound">s1</a> <a id="4792" href="Implicit.Decl.Typing.html#4792" class="Bound">fd</a><a id="4794" class="Symbol">)</a> <a id="4796" class="Symbol">(</a><a id="4797" href="Implicit.Decl.Typing.html#2698" class="InductiveConstructor">S≋</a> <a id="4800" href="Implicit.Decl.Typing.html#4800" class="Bound">~j</a><a id="4802" class="Symbol">)</a> <a id="4804" class="Symbol">(</a><a id="4805" href="Implicit.Decl.Subtyping.html#772" class="InductiveConstructor">s-arr₃</a> <a id="4812" href="Implicit.Decl.Typing.html#4812" class="Bound">regA</a> <a id="4817" href="Implicit.Decl.Typing.html#4817" class="Bound">s3</a><a id="4819" class="Symbol">)</a>
+  <a id="4823" class="Symbol">=</a> <a id="4825" href="Implicit.Decl.Subtyping.html#1078" class="InductiveConstructor">s-∀l-no-appear</a> <a id="4840" href="Implicit.Decl.Typing.html#4781" class="Bound">regB</a> <a id="4845" href="Implicit.Decl.Typing.html#4786" class="Bound">st</a> <a id="4848" class="Symbol">(</a><a id="4849" href="Implicit.Decl.Typing.html#4047" class="Function">s-trans</a> <a id="4857" href="Implicit.Decl.Typing.html#4789" class="Bound">s1</a> <a id="4860" class="Symbol">(</a><a id="4861" href="Implicit.Decl.Typing.html#2698" class="InductiveConstructor">S≋</a> <a id="4864" href="Implicit.Decl.Typing.html#4800" class="Bound">~j</a><a id="4866" class="Symbol">)</a> <a id="4868" class="Symbol">(</a><a id="4869" href="Implicit.Decl.Subtyping.html#772" class="InductiveConstructor">s-arr₃</a> <a id="4876" href="Implicit.Decl.Typing.html#4812" class="Bound">regA</a> <a id="4881" href="Implicit.Decl.Typing.html#4817" class="Bound">s3</a><a id="4883" class="Symbol">))</a> <a id="4886" href="Implicit.Decl.Typing.html#4792" class="Bound">fd</a>
+
+
+
+<a id="gen-sub"></a><a id="4892" href="Implicit.Decl.Typing.html#4892" class="Function">gen-sub</a> <a id="4900" class="Symbol">:</a> <a id="4902" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="4904" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⊢d</a> <a id="4907" href="Implicit.Language.Base.html#2160" class="Generalizable">j</a> <a id="4909" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">#</a> <a id="4911" href="Implicit.Language.Base.html#1016" class="Generalizable">e</a> <a id="4913" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⦂</a> <a id="4915" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+        <a id="4925" class="Symbol">→</a> <a id="4927" href="Implicit.Language.Base.html#2160" class="Generalizable">j</a> <a id="4929" href="Implicit.Decl.Typing.html#2627" class="Datatype Operator">≋</a> <a id="4931" href="Implicit.Language.Base.html#2178" class="Generalizable">j&#39;</a>
+        <a id="4942" class="Symbol">→</a> <a id="4944" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="4946" href="Implicit.Language.Base.html#1657" class="InductiveConstructor Operator">⋈</a> <a id="4948" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">⊢d</a> <a id="4951" href="Implicit.Language.Base.html#2178" class="Generalizable">j&#39;</a> <a id="4954" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">#</a> <a id="4956" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="4958" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">≤</a> <a id="4960" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+        <a id="4970" class="Symbol">→</a> <a id="4972" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="4974" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⊢d</a> <a id="4977" href="Implicit.Language.Base.html#2178" class="Generalizable">j&#39;</a> <a id="4980" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">#</a> <a id="4982" href="Implicit.Language.Base.html#1016" class="Generalizable">e</a> <a id="4984" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⦂</a> <a id="4986" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+<a id="4988" href="Implicit.Decl.Typing.html#4892" class="Function">gen-sub</a> <a id="4996" class="Symbol">{</a><a id="4997" class="Argument">j&#39;</a> <a id="5000" class="Symbol">=</a> <a id="5002" href="Implicit.Language.Base.html#2053" class="InductiveConstructor Operator">`</a> <a id="5004" href="Implicit.Language.Base.html#2019" class="InductiveConstructor">■</a><a id="5005" class="Symbol">}</a> <a id="5007" href="Implicit.Decl.Typing.html#5007" class="Bound">⊢e</a> <a id="5010" href="Implicit.Decl.Typing.html#2659" class="InductiveConstructor">Z≋</a> <a id="5013" class="Symbol">(</a><a id="5014" href="Implicit.Decl.Subtyping.html#368" class="InductiveConstructor">s-refl</a> <a id="5021" href="Implicit.Decl.Typing.html#5021" class="Bound">regΔ</a> <a id="5026" href="Implicit.Decl.Typing.html#5026" class="Bound">cloA</a><a id="5030" class="Symbol">)</a> <a id="5032" class="Symbol">=</a> <a id="5034" href="Implicit.Decl.Typing.html#5007" class="Bound">⊢e</a>
+
+<a id="5038" href="Implicit.Decl.Typing.html#4892" class="Function">gen-sub</a> <a id="5046" class="Symbol">{</a><a id="5047" class="Argument">j&#39;</a> <a id="5050" class="Symbol">=</a> <a id="5052" href="Implicit.Language.Base.html#2053" class="InductiveConstructor Operator">`</a> <a id="5054" href="Implicit.Language.Base.html#2008" class="InductiveConstructor">□</a><a id="5055" class="Symbol">}</a> <a id="5057" class="Symbol">(</a><a id="5058" href="Implicit.Decl.Typing.html#403" class="InductiveConstructor">⊢lit</a> <a id="5063" href="Implicit.Decl.Typing.html#5063" class="Bound">regΓ</a><a id="5067" class="Symbol">)</a> <a id="5069" href="Implicit.Decl.Typing.html#2659" class="InductiveConstructor">Z≋</a> <a id="5072" href="Implicit.Decl.Typing.html#5072" class="Bound">s</a> <a id="5074" class="Symbol">=</a> <a id="5076" href="Implicit.Decl.Typing.html#852" class="InductiveConstructor">⊢sub</a> <a id="5081" class="Symbol">(</a><a id="5082" href="Implicit.Decl.Typing.html#403" class="InductiveConstructor">⊢lit</a> <a id="5087" href="Implicit.Decl.Typing.html#5063" class="Bound">regΓ</a><a id="5091" class="Symbol">)</a> <a id="5093" href="Implicit.Decl.Typing.html#5072" class="Bound">s</a> <a id="5095" href="Implicit.Language.Base.html#2451" class="InductiveConstructor">gc-i</a> <a id="5100" href="Implicit.Language.Base.html#2224" class="InductiveConstructor">nz-□</a>
+<a id="5105" href="Implicit.Decl.Typing.html#4892" class="Function">gen-sub</a> <a id="5113" class="Symbol">{</a><a id="5114" class="Argument">j&#39;</a> <a id="5117" class="Symbol">=</a> <a id="5119" href="Implicit.Language.Base.html#2053" class="InductiveConstructor Operator">`</a> <a id="5121" href="Implicit.Language.Base.html#2008" class="InductiveConstructor">□</a><a id="5122" class="Symbol">}</a> <a id="5124" class="Symbol">(</a><a id="5125" href="Implicit.Decl.Typing.html#482" class="InductiveConstructor">⊢var</a> <a id="5130" href="Implicit.Decl.Typing.html#5130" class="Bound">regΓ</a> <a id="5135" href="Implicit.Decl.Typing.html#5135" class="Bound">x∈Γ</a><a id="5138" class="Symbol">)</a> <a id="5140" href="Implicit.Decl.Typing.html#2659" class="InductiveConstructor">Z≋</a> <a id="5143" href="Implicit.Decl.Typing.html#5143" class="Bound">s</a> <a id="5145" class="Symbol">=</a> <a id="5147" href="Implicit.Decl.Typing.html#852" class="InductiveConstructor">⊢sub</a> <a id="5152" class="Symbol">(</a><a id="5153" href="Implicit.Decl.Typing.html#482" class="InductiveConstructor">⊢var</a> <a id="5158" href="Implicit.Decl.Typing.html#5130" class="Bound">regΓ</a> <a id="5163" href="Implicit.Decl.Typing.html#5135" class="Bound">x∈Γ</a><a id="5166" class="Symbol">)</a> <a id="5168" href="Implicit.Decl.Typing.html#5143" class="Bound">s</a> <a id="5170" href="Implicit.Language.Base.html#2504" class="InductiveConstructor">gc-var</a> <a id="5177" href="Implicit.Language.Base.html#2224" class="InductiveConstructor">nz-□</a>
+<a id="5182" href="Implicit.Decl.Typing.html#4892" class="Function">gen-sub</a> <a id="5190" class="Symbol">{</a><a id="5191" class="Argument">j&#39;</a> <a id="5194" class="Symbol">=</a> <a id="5196" href="Implicit.Language.Base.html#2053" class="InductiveConstructor Operator">`</a> <a id="5198" href="Implicit.Language.Base.html#2008" class="InductiveConstructor">□</a><a id="5199" class="Symbol">}</a> <a id="5201" class="Symbol">(</a><a id="5202" href="Implicit.Decl.Typing.html#565" class="InductiveConstructor">⊢ann</a> <a id="5207" href="Implicit.Decl.Typing.html#5207" class="Bound">⊢e</a><a id="5209" class="Symbol">)</a> <a id="5211" href="Implicit.Decl.Typing.html#2659" class="InductiveConstructor">Z≋</a> <a id="5214" href="Implicit.Decl.Typing.html#5214" class="Bound">s</a> <a id="5216" class="Symbol">=</a> <a id="5218" href="Implicit.Decl.Typing.html#852" class="InductiveConstructor">⊢sub</a> <a id="5223" class="Symbol">(</a><a id="5224" href="Implicit.Decl.Typing.html#565" class="InductiveConstructor">⊢ann</a> <a id="5229" href="Implicit.Decl.Typing.html#5207" class="Bound">⊢e</a><a id="5231" class="Symbol">)</a> <a id="5233" href="Implicit.Decl.Typing.html#5214" class="Bound">s</a> <a id="5235" href="Implicit.Language.Base.html#2557" class="InductiveConstructor">gc-ann</a> <a id="5242" href="Implicit.Language.Base.html#2224" class="InductiveConstructor">nz-□</a>
+<a id="5247" href="Implicit.Decl.Typing.html#4892" class="Function">gen-sub</a> <a id="5255" class="Symbol">{</a><a id="5256" class="Argument">j&#39;</a> <a id="5259" class="Symbol">=</a> <a id="5261" href="Implicit.Language.Base.html#2053" class="InductiveConstructor Operator">`</a> <a id="5263" href="Implicit.Language.Base.html#2008" class="InductiveConstructor">□</a><a id="5264" class="Symbol">}</a> <a id="5266" class="Symbol">(</a><a id="5267" href="Implicit.Decl.Typing.html#756" class="InductiveConstructor">⊢app</a> <a id="5272" class="Symbol">{</a><a id="5273" class="Argument">i</a> <a id="5275" class="Symbol">=</a> <a id="5277" href="Implicit.Language.Base.html#2008" class="InductiveConstructor">□</a><a id="5278" class="Symbol">}</a> <a id="5280" href="Implicit.Decl.Typing.html#5280" class="Bound">⊢e</a> <a id="5283" href="Implicit.Decl.Typing.html#5283" class="Bound">⊢e₁</a><a id="5286" class="Symbol">)</a> <a id="5288" href="Implicit.Decl.Typing.html#2659" class="InductiveConstructor">Z≋</a> <a id="5291" href="Implicit.Decl.Typing.html#5291" class="Bound">s</a> <a id="5293" class="Symbol">=</a> <a id="5295" href="Implicit.Decl.Typing.html#756" class="InductiveConstructor">⊢app</a> <a id="5300" class="Symbol">((</a><a id="5302" href="Implicit.Decl.Typing.html#4892" class="Function">gen-sub</a> <a id="5310" href="Implicit.Decl.Typing.html#5280" class="Bound">⊢e</a> <a id="5313" class="Symbol">(</a><a id="5314" href="Implicit.Decl.Typing.html#2698" class="InductiveConstructor">S≋</a> <a id="5317" href="Implicit.Decl.Typing.html#2659" class="InductiveConstructor">Z≋</a><a id="5319" class="Symbol">)</a> <a id="5321" class="Symbol">(</a><a id="5322" href="Implicit.Decl.Subtyping.html#772" class="InductiveConstructor">s-arr₃</a> <a id="5329" class="Symbol">(</a><a id="5330" href="Implicit.Language.Regular.Properties.html#699" class="Function">⊢r-𝕣</a> <a id="5335" class="Symbol">(</a><a id="5336" href="Implicit.Decl.Typing.html#2107" class="Function">t-⊢r</a> <a id="5341" href="Implicit.Decl.Typing.html#5283" class="Bound">⊢e₁</a><a id="5344" class="Symbol">))</a> <a id="5347" href="Implicit.Decl.Typing.html#5291" class="Bound">s</a><a id="5348" class="Symbol">)))</a> <a id="5352" href="Implicit.Decl.Typing.html#5283" class="Bound">⊢e₁</a>
+<a id="5356" href="Implicit.Decl.Typing.html#4892" class="Function">gen-sub</a> <a id="5364" class="Symbol">{</a><a id="5365" class="Argument">j&#39;</a> <a id="5368" class="Symbol">=</a> <a id="5370" href="Implicit.Language.Base.html#2053" class="InductiveConstructor Operator">`</a> <a id="5372" href="Implicit.Language.Base.html#2008" class="InductiveConstructor">□</a><a id="5373" class="Symbol">}</a> <a id="5375" class="Symbol">(</a><a id="5376" href="Implicit.Decl.Typing.html#756" class="InductiveConstructor">⊢app</a> <a id="5381" class="Symbol">{</a><a id="5382" class="Argument">i</a> <a id="5384" class="Symbol">=</a> <a id="5386" href="Implicit.Language.Base.html#2019" class="InductiveConstructor">■</a><a id="5387" class="Symbol">}</a> <a id="5389" href="Implicit.Decl.Typing.html#5389" class="Bound">⊢e</a> <a id="5392" href="Implicit.Decl.Typing.html#5392" class="Bound">⊢e₁</a><a id="5395" class="Symbol">)</a> <a id="5397" href="Implicit.Decl.Typing.html#2659" class="InductiveConstructor">Z≋</a> <a id="5400" href="Implicit.Decl.Typing.html#5400" class="Bound">s</a> <a id="5402" class="Symbol">=</a> <a id="5404" href="Implicit.Decl.Typing.html#756" class="InductiveConstructor">⊢app</a> <a id="5409" class="Symbol">((</a><a id="5411" href="Implicit.Decl.Typing.html#4892" class="Function">gen-sub</a> <a id="5419" href="Implicit.Decl.Typing.html#5389" class="Bound">⊢e</a> <a id="5422" class="Symbol">(</a><a id="5423" href="Implicit.Decl.Typing.html#2698" class="InductiveConstructor">S≋</a> <a id="5426" href="Implicit.Decl.Typing.html#2659" class="InductiveConstructor">Z≋</a><a id="5428" class="Symbol">)</a> <a id="5430" class="Symbol">(</a><a id="5431" href="Implicit.Decl.Subtyping.html#683" class="InductiveConstructor">s-arr₂</a> <a id="5438" class="Symbol">(</a><a id="5439" href="Implicit.Decl.Typing.html#3749" class="Function">s-refl-∞</a> <a id="5448" class="Symbol">(</a><a id="5449" href="Implicit.Decl.Typing.html#1188" class="Function">s-sregular</a> <a id="5460" href="Implicit.Decl.Typing.html#5400" class="Bound">s</a><a id="5461" class="Symbol">)</a> <a id="5463" class="Symbol">(</a><a id="5464" href="Implicit.Language.Regular.Properties.html#699" class="Function">⊢r-𝕣</a> <a id="5469" class="Symbol">(</a><a id="5470" href="Implicit.Decl.Typing.html#2107" class="Function">t-⊢r</a> <a id="5475" href="Implicit.Decl.Typing.html#5392" class="Bound">⊢e₁</a><a id="5478" class="Symbol">)))</a> <a id="5482" href="Implicit.Decl.Typing.html#5400" class="Bound">s</a><a id="5483" class="Symbol">)))</a> <a id="5487" href="Implicit.Decl.Typing.html#5392" class="Bound">⊢e₁</a>
+<a id="5491" href="Implicit.Decl.Typing.html#4892" class="Function">gen-sub</a> <a id="5499" class="Symbol">{</a><a id="5500" class="Argument">j&#39;</a> <a id="5503" class="Symbol">=</a> <a id="5505" href="Implicit.Language.Base.html#2053" class="InductiveConstructor Operator">`</a> <a id="5507" href="Implicit.Language.Base.html#2008" class="InductiveConstructor">□</a><a id="5508" class="Symbol">}</a> <a id="5510" class="Symbol">(</a><a id="5511" href="Implicit.Decl.Typing.html#987" class="InductiveConstructor">⊢tabs</a> <a id="5517" href="Implicit.Decl.Typing.html#5517" class="Bound">⊢e</a><a id="5519" class="Symbol">)</a> <a id="5521" href="Implicit.Decl.Typing.html#2659" class="InductiveConstructor">Z≋</a> <a id="5524" href="Implicit.Decl.Typing.html#5524" class="Bound">s</a> <a id="5526" class="Symbol">=</a> <a id="5528" href="Implicit.Decl.Typing.html#852" class="InductiveConstructor">⊢sub</a> <a id="5533" class="Symbol">(</a><a id="5534" href="Implicit.Decl.Typing.html#987" class="InductiveConstructor">⊢tabs</a> <a id="5540" href="Implicit.Decl.Typing.html#5517" class="Bound">⊢e</a><a id="5542" class="Symbol">)</a> <a id="5544" href="Implicit.Decl.Typing.html#5524" class="Bound">s</a> <a id="5546" href="Implicit.Language.Base.html#2615" class="InductiveConstructor">gc-tlam</a> <a id="5554" href="Implicit.Language.Base.html#2224" class="InductiveConstructor">nz-□</a>
+<a id="5559" href="Implicit.Decl.Typing.html#4892" class="Function">gen-sub</a> <a id="5567" class="Symbol">{</a><a id="5568" class="Argument">j&#39;</a> <a id="5571" class="Symbol">=</a> <a id="5573" href="Implicit.Language.Base.html#2053" class="InductiveConstructor Operator">`</a> <a id="5575" href="Implicit.Language.Base.html#2008" class="InductiveConstructor">□</a><a id="5576" class="Symbol">}</a> <a id="5578" class="Symbol">(</a><a id="5579" href="Implicit.Decl.Typing.html#1051" class="InductiveConstructor">⊢tapp</a> <a id="5585" href="Implicit.Decl.Typing.html#5585" class="Bound">⊢e</a> <a id="5588" href="Implicit.Decl.Typing.html#5588" class="Bound">regA</a> <a id="5593" href="Implicit.Decl.Typing.html#5593" class="Bound">st</a> <a id="5596" href="Implicit.Decl.Typing.html#5596" class="Bound">s₁</a><a id="5598" class="Symbol">)</a> <a id="5600" href="Implicit.Decl.Typing.html#2659" class="InductiveConstructor">Z≋</a> <a id="5603" href="Implicit.Decl.Typing.html#5603" class="Bound">s</a> <a id="5605" class="Symbol">=</a> <a id="5607" href="Implicit.Decl.Typing.html#1051" class="InductiveConstructor">⊢tapp</a> <a id="5613" href="Implicit.Decl.Typing.html#5585" class="Bound">⊢e</a> <a id="5616" href="Implicit.Decl.Typing.html#5588" class="Bound">regA</a> <a id="5621" href="Implicit.Decl.Typing.html#5593" class="Bound">st</a> <a id="5624" class="Symbol">(</a><a id="5625" href="Implicit.Decl.Typing.html#4047" class="Function">s-trans</a> <a id="5633" href="Implicit.Decl.Typing.html#5596" class="Bound">s₁</a> <a id="5636" href="Implicit.Decl.Typing.html#2659" class="InductiveConstructor">Z≋</a> <a id="5639" href="Implicit.Decl.Typing.html#5603" class="Bound">s</a><a id="5640" class="Symbol">)</a>
+
+<a id="5643" href="Implicit.Decl.Typing.html#4892" class="Function">gen-sub</a> <a id="5651" class="Symbol">{</a><a id="5652" class="Argument">j&#39;</a> <a id="5655" class="Symbol">=</a> <a id="5657" href="Implicit.Decl.Typing.html#5657" class="Bound">i</a> <a id="5659" href="Implicit.Language.Base.html#2072" class="InductiveConstructor Operator">·</a> <a id="5661" href="Implicit.Decl.Typing.html#5661" class="Bound">j&#39;</a><a id="5663" class="Symbol">}</a> <a id="5665" class="Symbol">(</a><a id="5666" href="Implicit.Decl.Typing.html#482" class="InductiveConstructor">⊢var</a> <a id="5671" href="Implicit.Decl.Typing.html#5671" class="Bound">regΓ</a> <a id="5676" href="Implicit.Decl.Typing.html#5676" class="Bound">x∈Γ</a><a id="5679" class="Symbol">)</a> <a id="5681" href="Implicit.Decl.Typing.html#5681" class="Bound">newj</a> <a id="5686" href="Implicit.Decl.Typing.html#5686" class="Bound">s</a> <a id="5688" class="Symbol">=</a> <a id="5690" href="Implicit.Decl.Typing.html#852" class="InductiveConstructor">⊢sub</a> <a id="5695" class="Symbol">(</a><a id="5696" href="Implicit.Decl.Typing.html#482" class="InductiveConstructor">⊢var</a> <a id="5701" href="Implicit.Decl.Typing.html#5671" class="Bound">regΓ</a> <a id="5706" href="Implicit.Decl.Typing.html#5676" class="Bound">x∈Γ</a><a id="5709" class="Symbol">)</a> <a id="5711" href="Implicit.Decl.Typing.html#5686" class="Bound">s</a> <a id="5713" href="Implicit.Language.Base.html#2504" class="InductiveConstructor">gc-var</a> <a id="5720" href="Implicit.Language.Base.html#2244" class="InductiveConstructor">nz-app</a>
+<a id="5727" href="Implicit.Decl.Typing.html#4892" class="Function">gen-sub</a> <a id="5735" class="Symbol">{</a><a id="5736" class="Argument">j&#39;</a> <a id="5739" class="Symbol">=</a> <a id="5741" href="Implicit.Decl.Typing.html#5741" class="Bound">i</a> <a id="5743" href="Implicit.Language.Base.html#2072" class="InductiveConstructor Operator">·</a> <a id="5745" href="Implicit.Decl.Typing.html#5745" class="Bound">j&#39;</a><a id="5747" class="Symbol">}</a> <a id="5749" class="Symbol">(</a><a id="5750" href="Implicit.Decl.Typing.html#565" class="InductiveConstructor">⊢ann</a> <a id="5755" href="Implicit.Decl.Typing.html#5755" class="Bound">⊢e</a><a id="5757" class="Symbol">)</a> <a id="5759" href="Implicit.Decl.Typing.html#5759" class="Bound">newj</a> <a id="5764" href="Implicit.Decl.Typing.html#5764" class="Bound">s</a> <a id="5766" class="Symbol">=</a> <a id="5768" href="Implicit.Decl.Typing.html#852" class="InductiveConstructor">⊢sub</a> <a id="5773" class="Symbol">(</a><a id="5774" href="Implicit.Decl.Typing.html#565" class="InductiveConstructor">⊢ann</a> <a id="5779" href="Implicit.Decl.Typing.html#5755" class="Bound">⊢e</a><a id="5781" class="Symbol">)</a> <a id="5783" href="Implicit.Decl.Typing.html#5764" class="Bound">s</a> <a id="5785" href="Implicit.Language.Base.html#2557" class="InductiveConstructor">gc-ann</a> <a id="5792" href="Implicit.Language.Base.html#2244" class="InductiveConstructor">nz-app</a>
+<a id="5799" href="Implicit.Decl.Typing.html#4892" class="Function">gen-sub</a> <a id="5807" class="Symbol">{</a><a id="5808" class="Argument">j&#39;</a> <a id="5811" class="Symbol">=</a> <a id="5813" href="Implicit.Decl.Typing.html#5813" class="Bound">i</a> <a id="5815" href="Implicit.Language.Base.html#2072" class="InductiveConstructor Operator">·</a> <a id="5817" href="Implicit.Decl.Typing.html#5817" class="Bound">j&#39;</a><a id="5819" class="Symbol">}</a> <a id="5821" class="Symbol">(</a><a id="5822" href="Implicit.Decl.Typing.html#689" class="InductiveConstructor">⊢lam₂</a> <a id="5828" href="Implicit.Decl.Typing.html#5828" class="Bound">⊢e</a><a id="5830" class="Symbol">)</a> <a id="5832" class="Symbol">(</a><a id="5833" href="Implicit.Decl.Typing.html#2698" class="InductiveConstructor">S≋</a> <a id="5836" href="Implicit.Decl.Typing.html#5836" class="Bound">newj</a><a id="5840" class="Symbol">)</a> <a id="5842" class="Symbol">(</a><a id="5843" href="Implicit.Decl.Subtyping.html#683" class="InductiveConstructor">s-arr₂</a> <a id="5850" href="Implicit.Decl.Typing.html#5850" class="Bound">s</a> <a id="5852" href="Implicit.Decl.Typing.html#5852" class="Bound">s₁</a><a id="5854" class="Symbol">)</a>
+  <a id="5858" class="Keyword">with</a> <a id="5863" href="Implicit.Language.Regular.Base.html#759" class="InductiveConstructor">reg-S,</a> <a id="5870" href="Implicit.Decl.Typing.html#5870" class="Bound">regΓ</a> <a id="5875" href="Implicit.Decl.Typing.html#5875" class="Bound">regA</a> ← <a id="5882" href="Implicit.Decl.Typing.html#1626" class="Function">t-tregular</a> <a id="5893" href="Implicit.Decl.Typing.html#5828" class="Bound">⊢e</a>
+  <a id="5898" class="Keyword">with</a> <a id="5903" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a> ← <a id="5910" href="Implicit.Decl.Typing.html#3493" class="Function">s-trans-∞-eq</a> <a id="5923" href="Implicit.Decl.Typing.html#5850" class="Bound">s</a> <a id="5925" class="Symbol">=</a> <a id="5927" href="Implicit.Decl.Typing.html#689" class="InductiveConstructor">⊢lam₂</a> <a id="5933" class="Symbol">(</a><a id="5934" href="Implicit.Decl.Typing.html#4892" class="Function">gen-sub</a> <a id="5942" href="Implicit.Decl.Typing.html#5828" class="Bound">⊢e</a> <a id="5945" href="Implicit.Decl.Typing.html#5836" class="Bound">newj</a> <a id="5950" class="Symbol">(</a><a id="5951" href="Implicit.Decl.Subtyping.html#5249" class="Function">s1-weaken,0</a> <a id="5963" href="Implicit.Decl.Typing.html#5852" class="Bound">s₁</a> <a id="5966" href="Implicit.Decl.Typing.html#5875" class="Bound">regA</a><a id="5970" class="Symbol">))</a>
+<a id="5973" href="Implicit.Decl.Typing.html#4892" class="Function">gen-sub</a> <a id="5981" class="Symbol">{</a><a id="5982" class="Argument">j&#39;</a> <a id="5985" class="Symbol">=</a> <a id="5987" href="Implicit.Decl.Typing.html#5987" class="Bound">i</a> <a id="5989" href="Implicit.Language.Base.html#2072" class="InductiveConstructor Operator">·</a> <a id="5991" href="Implicit.Decl.Typing.html#5991" class="Bound">j&#39;</a><a id="5993" class="Symbol">}</a> <a id="5995" class="Symbol">(</a><a id="5996" href="Implicit.Decl.Typing.html#756" class="InductiveConstructor">⊢app</a> <a id="6001" class="Symbol">{</a><a id="6002" class="Argument">i</a> <a id="6004" class="Symbol">=</a> <a id="6006" href="Implicit.Language.Base.html#2008" class="InductiveConstructor">□</a><a id="6007" class="Symbol">}</a> <a id="6009" href="Implicit.Decl.Typing.html#6009" class="Bound">⊢e</a> <a id="6012" href="Implicit.Decl.Typing.html#6012" class="Bound">⊢e₁</a><a id="6015" class="Symbol">)</a> <a id="6017" href="Implicit.Decl.Typing.html#6017" class="Bound">~j</a> <a id="6020" href="Implicit.Decl.Typing.html#6020" class="Bound">s</a> <a id="6022" class="Symbol">=</a> <a id="6024" href="Implicit.Decl.Typing.html#756" class="InductiveConstructor">⊢app</a> <a id="6029" class="Symbol">(</a><a id="6030" href="Implicit.Decl.Typing.html#4892" class="Function">gen-sub</a> <a id="6038" href="Implicit.Decl.Typing.html#6009" class="Bound">⊢e</a> <a id="6041" class="Symbol">(</a><a id="6042" href="Implicit.Decl.Typing.html#2698" class="InductiveConstructor">S≋</a> <a id="6045" href="Implicit.Decl.Typing.html#6017" class="Bound">~j</a><a id="6047" class="Symbol">)</a> <a id="6049" class="Symbol">((</a><a id="6051" href="Implicit.Decl.Subtyping.html#772" class="InductiveConstructor">s-arr₃</a> <a id="6058" class="Symbol">(</a><a id="6059" href="Implicit.Language.Regular.Properties.html#699" class="Function">⊢r-𝕣</a> <a id="6064" class="Symbol">(</a><a id="6065" href="Implicit.Decl.Typing.html#2107" class="Function">t-⊢r</a> <a id="6070" href="Implicit.Decl.Typing.html#6012" class="Bound">⊢e₁</a><a id="6073" class="Symbol">))</a> <a id="6076" href="Implicit.Decl.Typing.html#6020" class="Bound">s</a><a id="6077" class="Symbol">)))</a> <a id="6081" href="Implicit.Decl.Typing.html#6012" class="Bound">⊢e₁</a>
+<a id="6085" href="Implicit.Decl.Typing.html#4892" class="Function">gen-sub</a> <a id="6093" class="Symbol">{</a><a id="6094" class="Argument">j&#39;</a> <a id="6097" class="Symbol">=</a> <a id="6099" href="Implicit.Decl.Typing.html#6099" class="Bound">i</a> <a id="6101" href="Implicit.Language.Base.html#2072" class="InductiveConstructor Operator">·</a> <a id="6103" href="Implicit.Decl.Typing.html#6103" class="Bound">j&#39;</a><a id="6105" class="Symbol">}</a> <a id="6107" class="Symbol">(</a><a id="6108" href="Implicit.Decl.Typing.html#756" class="InductiveConstructor">⊢app</a> <a id="6113" class="Symbol">{</a><a id="6114" class="Argument">i</a> <a id="6116" class="Symbol">=</a> <a id="6118" href="Implicit.Language.Base.html#2019" class="InductiveConstructor">■</a><a id="6119" class="Symbol">}</a> <a id="6121" href="Implicit.Decl.Typing.html#6121" class="Bound">⊢e</a> <a id="6124" href="Implicit.Decl.Typing.html#6124" class="Bound">⊢e₁</a><a id="6127" class="Symbol">)</a> <a id="6129" href="Implicit.Decl.Typing.html#6129" class="Bound">~j</a> <a id="6132" href="Implicit.Decl.Typing.html#6132" class="Bound">s</a> <a id="6134" class="Symbol">=</a> <a id="6136" href="Implicit.Decl.Typing.html#756" class="InductiveConstructor">⊢app</a> <a id="6141" class="Symbol">(</a><a id="6142" href="Implicit.Decl.Typing.html#4892" class="Function">gen-sub</a> <a id="6150" href="Implicit.Decl.Typing.html#6121" class="Bound">⊢e</a> <a id="6153" class="Symbol">(</a><a id="6154" href="Implicit.Decl.Typing.html#2698" class="InductiveConstructor">S≋</a> <a id="6157" href="Implicit.Decl.Typing.html#6129" class="Bound">~j</a><a id="6159" class="Symbol">)</a> <a id="6161" class="Symbol">((</a><a id="6163" href="Implicit.Decl.Subtyping.html#683" class="InductiveConstructor">s-arr₂</a> <a id="6170" class="Symbol">(</a><a id="6171" href="Implicit.Decl.Typing.html#3749" class="Function">s-refl-∞</a> <a id="6180" class="Symbol">(</a><a id="6181" href="Implicit.Decl.Typing.html#1188" class="Function">s-sregular</a> <a id="6192" href="Implicit.Decl.Typing.html#6132" class="Bound">s</a><a id="6193" class="Symbol">)</a> <a id="6195" class="Symbol">(</a><a id="6196" href="Implicit.Language.Regular.Properties.html#699" class="Function">⊢r-𝕣</a> <a id="6201" class="Symbol">(</a><a id="6202" href="Implicit.Decl.Typing.html#2107" class="Function">t-⊢r</a> <a id="6207" href="Implicit.Decl.Typing.html#6124" class="Bound">⊢e₁</a><a id="6210" class="Symbol">)))</a> <a id="6214" href="Implicit.Decl.Typing.html#6132" class="Bound">s</a><a id="6215" class="Symbol">)))</a> <a id="6219" href="Implicit.Decl.Typing.html#6124" class="Bound">⊢e₁</a>
+<a id="6223" href="Implicit.Decl.Typing.html#4892" class="Function">gen-sub</a> <a id="6231" class="Symbol">{</a><a id="6232" class="Argument">j&#39;</a> <a id="6235" class="Symbol">=</a> <a id="6237" href="Implicit.Decl.Typing.html#6237" class="Bound">i</a> <a id="6239" href="Implicit.Language.Base.html#2072" class="InductiveConstructor Operator">·</a> <a id="6241" href="Implicit.Decl.Typing.html#6241" class="Bound">j&#39;</a><a id="6243" class="Symbol">}</a> <a id="6245" class="Symbol">(</a><a id="6246" href="Implicit.Decl.Typing.html#852" class="InductiveConstructor">⊢sub</a> <a id="6251" href="Implicit.Decl.Typing.html#6251" class="Bound">⊢e</a> <a id="6254" href="Implicit.Decl.Typing.html#6254" class="Bound">B≤A</a> <a id="6258" href="Implicit.Decl.Typing.html#6258" class="Bound">gc</a> <a id="6261" href="Implicit.Decl.Typing.html#6261" class="Bound">j≢Z</a><a id="6264" class="Symbol">)</a> <a id="6266" class="Symbol">(</a><a id="6267" href="Implicit.Decl.Typing.html#2698" class="InductiveConstructor">S≋</a> <a id="6270" href="Implicit.Decl.Typing.html#6270" class="Bound">~j</a><a id="6272" class="Symbol">)</a> <a id="6274" href="Implicit.Decl.Typing.html#6274" class="Bound">s</a> <a id="6276" class="Symbol">=</a> <a id="6278" href="Implicit.Decl.Typing.html#852" class="InductiveConstructor">⊢sub</a> <a id="6283" href="Implicit.Decl.Typing.html#6251" class="Bound">⊢e</a> <a id="6286" class="Symbol">(</a><a id="6287" href="Implicit.Decl.Typing.html#4047" class="Function">s-trans</a> <a id="6295" href="Implicit.Decl.Typing.html#6254" class="Bound">B≤A</a> <a id="6299" class="Symbol">(</a><a id="6300" href="Implicit.Decl.Typing.html#2698" class="InductiveConstructor">S≋</a> <a id="6303" href="Implicit.Decl.Typing.html#6270" class="Bound">~j</a><a id="6305" class="Symbol">)</a> <a id="6307" href="Implicit.Decl.Typing.html#6274" class="Bound">s</a><a id="6308" class="Symbol">)</a> <a id="6310" href="Implicit.Decl.Typing.html#6258" class="Bound">gc</a> <a id="6313" href="Implicit.Language.Base.html#2244" class="InductiveConstructor">nz-app</a>
+<a id="6320" href="Implicit.Decl.Typing.html#4892" class="Function">gen-sub</a> <a id="6328" class="Symbol">{</a><a id="6329" class="Argument">j&#39;</a> <a id="6332" class="Symbol">=</a> <a id="6334" href="Implicit.Decl.Typing.html#6334" class="Bound">i</a> <a id="6336" href="Implicit.Language.Base.html#2072" class="InductiveConstructor Operator">·</a> <a id="6338" href="Implicit.Decl.Typing.html#6338" class="Bound">j&#39;</a><a id="6340" class="Symbol">}</a> <a id="6342" class="Symbol">(</a><a id="6343" href="Implicit.Decl.Typing.html#987" class="InductiveConstructor">⊢tabs</a> <a id="6349" class="Symbol">{</a><a id="6350" class="Argument">i</a> <a id="6352" class="Symbol">=</a> <a id="6354" href="Implicit.Language.Base.html#2019" class="InductiveConstructor">■</a><a id="6355" class="Symbol">}</a> <a id="6357" href="Implicit.Decl.Typing.html#6357" class="Bound">⊢e</a><a id="6359" class="Symbol">)</a> <a id="6361" href="Implicit.Decl.Typing.html#6361" class="Bound">newj</a> <a id="6366" href="Implicit.Decl.Typing.html#6366" class="Bound">s</a> <a id="6368" class="Symbol">=</a> <a id="6370" href="Implicit.Decl.Typing.html#852" class="InductiveConstructor">⊢sub</a> <a id="6375" class="Symbol">(</a><a id="6376" href="Implicit.Decl.Typing.html#987" class="InductiveConstructor">⊢tabs</a> <a id="6382" href="Implicit.Decl.Typing.html#6357" class="Bound">⊢e</a><a id="6384" class="Symbol">)</a> <a id="6386" href="Implicit.Decl.Typing.html#6366" class="Bound">s</a> <a id="6388" href="Implicit.Language.Base.html#2615" class="InductiveConstructor">gc-tlam</a> <a id="6396" href="Implicit.Language.Base.html#2244" class="InductiveConstructor">nz-app</a>
+<a id="6403" href="Implicit.Decl.Typing.html#4892" class="Function">gen-sub</a> <a id="6411" class="Symbol">{</a><a id="6412" class="Argument">j&#39;</a> <a id="6415" class="Symbol">=</a> <a id="6417" href="Implicit.Decl.Typing.html#6417" class="Bound">i</a> <a id="6419" href="Implicit.Language.Base.html#2072" class="InductiveConstructor Operator">·</a> <a id="6421" href="Implicit.Decl.Typing.html#6421" class="Bound">j&#39;</a><a id="6423" class="Symbol">}</a> <a id="6425" class="Symbol">(</a><a id="6426" href="Implicit.Decl.Typing.html#1051" class="InductiveConstructor">⊢tapp</a> <a id="6432" href="Implicit.Decl.Typing.html#6432" class="Bound">⊢e</a> <a id="6435" href="Implicit.Decl.Typing.html#6435" class="Bound">regA</a> <a id="6440" href="Implicit.Decl.Typing.html#6440" class="Bound">st</a> <a id="6443" href="Implicit.Decl.Typing.html#6443" class="Bound">s₁</a><a id="6445" class="Symbol">)</a> <a id="6447" href="Implicit.Decl.Typing.html#6447" class="Bound">newj</a> <a id="6452" href="Implicit.Decl.Typing.html#6452" class="Bound">s</a> <a id="6454" class="Symbol">=</a> <a id="6456" href="Implicit.Decl.Typing.html#1051" class="InductiveConstructor">⊢tapp</a> <a id="6462" href="Implicit.Decl.Typing.html#6432" class="Bound">⊢e</a> <a id="6465" href="Implicit.Decl.Typing.html#6435" class="Bound">regA</a> <a id="6470" href="Implicit.Decl.Typing.html#6440" class="Bound">st</a> <a id="6473" class="Symbol">(</a><a id="6474" href="Implicit.Decl.Typing.html#4047" class="Function">s-trans</a> <a id="6482" href="Implicit.Decl.Typing.html#6443" class="Bound">s₁</a> <a id="6485" href="Implicit.Decl.Typing.html#6447" class="Bound">newj</a> <a id="6490" href="Implicit.Decl.Typing.html#6452" class="Bound">s</a><a id="6491" class="Symbol">)</a>
+
+<a id="gen-sub0"></a><a id="6494" href="Implicit.Decl.Typing.html#6494" class="Function">gen-sub0</a> <a id="6503" class="Symbol">:</a> <a id="6505" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="6507" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⊢d</a> <a id="6510" href="Implicit.Language.Base.html#2118" class="Function">`■</a> <a id="6513" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">#</a> <a id="6515" href="Implicit.Language.Base.html#1114" class="Generalizable">g</a> <a id="6517" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⦂</a> <a id="6519" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+         <a id="6530" class="Symbol">→</a> <a id="6532" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="6534" href="Implicit.Language.Base.html#1657" class="InductiveConstructor Operator">⋈</a> <a id="6536" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">⊢d</a> <a id="6539" href="Implicit.Language.Base.html#2160" class="Generalizable">j</a> <a id="6541" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">#</a> <a id="6543" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="6545" href="Implicit.Decl.Subtyping.html#310" class="Datatype Operator">≤</a> <a id="6547" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+         <a id="6558" class="Symbol">→</a> <a id="6560" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="6562" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⊢d</a> <a id="6565" href="Implicit.Language.Base.html#2160" class="Generalizable">j</a> <a id="6567" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">#</a> <a id="6569" href="Implicit.Language.Base.html#1114" class="Generalizable">g</a> <a id="6571" href="Implicit.Decl.Typing.html#343" class="Datatype Operator">⦂</a> <a id="6573" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+<a id="6575" href="Implicit.Decl.Typing.html#6494" class="Function">gen-sub0</a> <a id="6584" href="Implicit.Decl.Typing.html#6584" class="Bound">⊢e</a> <a id="6587" href="Implicit.Decl.Typing.html#6587" class="Bound">s</a> <a id="6589" class="Symbol">=</a> <a id="6591" href="Implicit.Decl.Typing.html#4892" class="Function">gen-sub</a> <a id="6599" href="Implicit.Decl.Typing.html#6584" class="Bound">⊢e</a> <a id="6602" href="Implicit.Decl.Typing.html#2659" class="InductiveConstructor">Z≋</a> <a id="6605" href="Implicit.Decl.Typing.html#6587" class="Bound">s</a>
+</pre>
+    
+    <script>
+      function toggleModule(element) {
+        element.classList.toggle('collapsed');
+        element.classList.toggle('expanded');
+      }
+      
+      // Auto-expand path to current module
+      document.addEventListener('DOMContentLoaded', function() {
+        const currentModule = document.querySelector('.current-module');
+        if (currentModule) {
+          let parent = currentModule.closest('li');
+          while (parent) {
+            parent.classList.remove('collapsed');
+            parent.classList.add('expanded');
+            parent = parent.parentElement.closest('li');
+          }
+        }
+      });
+    </script>
+    <script>
+  const nav = document.querySelector('nav');
+  const scrollKey = 'sidebarScroll';
+
+  // Restore scroll position
+  document.addEventListener('DOMContentLoaded', () => {
+    const saved = localStorage.getItem(scrollKey);
+    if (saved !== null) {
+      nav.scrollTop = parseInt(saved, 10);
+    }
+  });
+
+  // Save scroll position
+  nav.addEventListener('scroll', () => {
+    localStorage.setItem(scrollKey, nav.scrollTop);
+  });
+</script>
+  </body>
+</html>

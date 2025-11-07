@@ -1,0 +1,1945 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="../css/Agda.css" />
+    <title>Implicit.Algo.Properties.Trans</title>
+    <style>
+      body {
+        font-family: monospace;
+        font-size: 13px;
+        display: flex;
+        flex-flow: row nowrap;
+        min-height: 100vh;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-weight: unset;
+        text-wrap: balance;
+      }
+      p {
+        text-wrap: pretty;
+      }
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        font-size: 12px;
+        font-family: 'mononoki';
+        line-height: 1.5;
+        padding: 2px;
+        padding-left: 0.5em;
+        padding-right: 1em;
+        margin-right: 2em;
+        overflow-y: auto;
+        flex-shrink: 0;
+        background: white;
+        z-index: 100;
+      }
+      /* Hide scrollbar for webkit browsers */
+      nav::-webkit-scrollbar {
+        width: 2px;
+      }
+      nav::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      nav::-webkit-scrollbar-thumb {
+        background: #ddd;
+        border-radius: 2px;
+      }
+      nav::-webkit-scrollbar-thumb:hover {
+        background: #bbb;
+      }
+      nav a {
+        display: block;
+        color: unset;
+      }
+      .module-tree {
+        list-style-type: none;
+        padding-left: 2ch;
+        margin: 0;
+      }
+      nav > .module-tree {
+        padding-left: 0;
+        display: flex;
+        flex-flow: column nowrap;
+        gap: 1lh;
+      }
+      .module-tree a:any-link:hover {
+        color: #A020F0 !important;
+      }
+      .current-module {
+        color: #A020F0;
+        font-weight: bold;
+      }
+      .Agda {
+        margin: 0;
+        margin-left: 180px;
+        flex: 1;
+        overflow-y: auto;
+      }
+      
+      /* Toggle functionality styles */
+      .toggle-btn {
+        background: none;
+        border: none;
+        color: #666;
+        cursor: pointer;
+        font-family: inherit;
+        font-size: 10px;
+        padding: 0 4px;
+        margin-right: 2px;
+        border-radius: 2px;
+        display: inline-block;
+        vertical-align: middle;
+        flex-shrink: 0;
+      }
+      .toggle-btn:hover {
+        background-color: #f0f0f0;
+        color: #333;
+      }
+      .collapsed > ul {
+        display: none;
+      }
+      
+      .toggle-btn::after {
+        content: "[−]";
+      }
+      .collapsed .toggle-btn::after {
+        content: "[+]";
+      }
+      .module-item {
+        position: relative;
+      }
+      .module-item a {
+        display: inline-block;
+      }
+      .module-content {
+        display: flex;
+        align-items: center;
+        gap: 2px;
+      }
+    </style>
+  </head>
+  <body>
+    
+    <nav>
+      
+      <ul class="module-tree">
+        
+          <li class="module-item expanded" data-depth="0">
+            <div class="module-content">
+              
+                <a>Implicit</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a href="Implicit.README.html" class="">
+                  README
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.All.html" class="">
+                  Language
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Counter2Mask.html" class="">
+                  Counter2Mask
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Prelude.html" class="">
+                  Prelude
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Bitmap.html" class="">
+                  Bitmap
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Shift.All.html" class="">
+                  Shift
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Shift.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Shift.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Subst.All.html" class="">
+                  Subst
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Subst.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Subst.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Lookup.All.html" class="">
+                  Lookup
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Lookup.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Lookup.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Occur.All.html" class="">
+                  Occur
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Occur.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Occur.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Find.All.html" class="">
+                  Find
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Find.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Find.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Regular.All.html" class="">
+                  Regular
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Regular.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Regular.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.OpenClose.All.html" class="">
+                  OpenClose
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.OpenClose.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.All.html" class="">
+                  Extension
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.InputOutput.html" class="">
+                  InputOutput
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.ExSol.html" class="">
+                  ExSol
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.Occur.html" class="">
+                  Occur
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.EnvReplace.html" class="">
+                  EnvReplace
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Extension.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Ground.All.html" class="">
+                  Ground
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Ground.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.Ground.Properties.html" class="">
+                  Properties
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.All.html" class="">
+                  EnvOps
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.Inst.html" class="">
+                  Inst
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.RemoveTVar.html" class="">
+                  RemoveTVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.RemoveSVar.html" class="">
+                  RemoveSVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.RemoveEVar.html" class="">
+                  RemoveEVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.InsertEVar.html" class="">
+                  InsertEVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.InsertTVar.html" class="">
+                  InsertTVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.InsertUVar.html" class="">
+                  InsertUVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.InsertSVar.html" class="">
+                  InsertSVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.Regular.html" class="">
+                  Regular
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.Replace.html" class="">
+                  Replace
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Language.EnvOps.RemoveUVar.html" class="">
+                  RemoveUVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.All.html" class="">
+                  Decl
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.Typing.html" class="">
+                  Typing
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.Trans.html" class="">
+                  Trans
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.Subtyping.html" class="">
+                  Subtyping
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.SubtypingV2.html" class="">
+                  SubtypingV2
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.Equiv.html" class="">
+                  Equiv
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl.AuxLemmas.html" class="">
+                  AuxLemmas
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a>Annotatability</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Annotatability.Soundness.html" class="">
+                  Soundness
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Annotatability.Corollaries.html" class="">
+                  Corollaries
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Annotatability.DeclPartial.html" class="">
+                  DeclPartial
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Annotatability.IF.html" class="">
+                  IF
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Annotatability.Elaboration.html" class="">
+                  Elaboration
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a>Interm2Decl</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Decl.Corollaries.html" class="">
+                  Corollaries
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Decl.Main.html" class="">
+                  Main
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Decl.AuxLemmas.html" class="">
+                  AuxLemmas
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a>Decl2Interm</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl2Interm.Corollaries.html" class="">
+                  Corollaries
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Decl2Interm.Main.html" class="">
+                  Main
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.All.html" class="">
+                  Algo
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a>Properties</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Regularity.html" class="">
+                  Regularity
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Extension.html" class="">
+                  Extension
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Subsumption.html" class="">
+                  Subsumption
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Id.html" class="">
+                  Id
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Polarity.html" class="">
+                  Polarity
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Shift.html" class="">
+                  Shift
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Reflexivity.html" class="">
+                  Reflexivity
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.StrengthenTVar.html" class="">
+                  StrengthenTVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.StrengthenSVar.html" class="">
+                  StrengthenSVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.StrengthenEVar.html" class="">
+                  StrengthenEVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Weaken.html" class="">
+                  Weaken
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Irrelevance.html" class="">
+                  Irrelevance
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Trans.html" class="current-module">
+                  Trans
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.SubIrrelevance.html" class="">
+                  SubIrrelevance
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Swap.html" class="">
+                  Swap
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.Subst.html" class="">
+                  Subst
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.OpenK.html" class="">
+                  OpenK
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.WeakenEVar.html" class="">
+                  WeakenEVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.WeakenTVar.html" class="">
+                  WeakenTVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Properties.WeakenSVar.html" class="">
+                  WeakenSVar
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a>Constructs</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Constructs.Syntax.html" class="">
+                  Syntax
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Constructs.Shift.html" class="">
+                  Shift
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Constructs.Subst.html" class="">
+                  Subst
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo.Constructs.Lookup.html" class="">
+                  Lookup
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a>Algo2Interm</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.Find.html" class="">
+                  Find
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.Main.html" class="">
+                  Main
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.Corollaries.html" class="">
+                  Corollaries
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.AlgoCounter.All.html" class="">
+                  AlgoCounter
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.AlgoCounter.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.AlgoCounter.Sound.html" class="">
+                  Sound
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Algo2Interm.Context2Counter.html" class="">
+                  Context2Counter
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a>Interm2Algo</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.Main.html" class="">
+                  Main
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.Corollaries.html" class="">
+                  Corollaries
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.Counter2Context.html" class="">
+                  Counter2Context
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.ExtIrrev.html" class="">
+                  ExtIrrev
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.EnvDiff.html" class="">
+                  EnvDiff
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.OpenClose.html" class="">
+                  OpenClose
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.Find.html" class="">
+                  Find
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.AuxLemmas.html" class="">
+                  AuxLemmas
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm2Algo.FVClose.html" class="">
+                  FVClose
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+          <li class="module-item expanded" data-depth="1">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.All.html" class="">
+                  Interm
+                </a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.Base.html" class="">
+                  Base
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="2">
+            <div class="module-content">
+              
+                <a>Properties</a>
+              
+              
+                <button class="toggle-btn" onclick="toggleModule(this.parentElement.parentElement)" title="Toggle expand/collapse"></button>
+              
+            </div>
+            
+              
+      <ul class="module-tree">
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.Properties.Regularity.html" class="">
+                  Regularity
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.Properties.Polarity.html" class="">
+                  Polarity
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.Properties.Extension.html" class="">
+                  Extension
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.Properties.Strengthen.html" class="">
+                  Strengthen
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+          <li class="module-item collapsed" data-depth="3">
+            <div class="module-content">
+              
+                <a href="Implicit.Interm.Properties.Ground.html" class="">
+                  Ground
+                </a>
+              
+              
+            </div>
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+      </ul>
+    
+            
+          </li>
+        
+      </ul>
+    
+    </nav>
+    <pre class="Agda"><a id="1" class="Keyword">module</a> <a id="8" href="Implicit.Algo.Properties.Trans.html" class="Module">Implicit.Algo.Properties.Trans</a> <a id="39" class="Keyword">where</a>
+
+<a id="46" class="Keyword">open</a> <a id="51" class="Keyword">import</a> <a id="58" href="Implicit.Language.All.html" class="Module">Implicit.Language.All</a>
+<a id="80" class="Keyword">open</a> <a id="85" class="Keyword">import</a> <a id="92" href="Implicit.Algo.Base.html" class="Module">Implicit.Algo.Base</a>
+<a id="111" class="Keyword">open</a> <a id="116" class="Keyword">import</a> <a id="123" href="Implicit.Algo.Properties.Id.html" class="Module">Implicit.Algo.Properties.Id</a>
+<a id="151" class="Keyword">open</a> <a id="156" class="Keyword">import</a> <a id="163" href="Implicit.Algo.Properties.Shift.html" class="Module">Implicit.Algo.Properties.Shift</a>
+<a id="194" class="Keyword">open</a> <a id="199" class="Keyword">import</a> <a id="206" href="Implicit.Algo.Properties.Extension.html" class="Module">Implicit.Algo.Properties.Extension</a>
+<a id="241" class="Keyword">open</a> <a id="246" class="Keyword">import</a> <a id="253" href="Implicit.Algo.Properties.Weaken.html" class="Module">Implicit.Algo.Properties.Weaken</a>
+<a id="285" class="Keyword">open</a> <a id="290" class="Keyword">import</a> <a id="297" href="Implicit.Algo.Properties.Regularity.html" class="Module">Implicit.Algo.Properties.Regularity</a>
+<a id="333" class="Keyword">open</a> <a id="338" class="Keyword">import</a> <a id="345" href="Implicit.Algo.Properties.Polarity.html" class="Module">Implicit.Algo.Properties.Polarity</a>
+
+
+<a id="≊-↑ty0"></a><a id="381" href="Implicit.Algo.Properties.Trans.html#381" class="Function">≊-↑ty0</a> <a id="388" class="Symbol">:</a> <a id="390" href="Implicit.Algo.Constructs.Syntax.html#267" class="Generalizable">Σ₁</a> <a id="393" href="Implicit.Algo.Constructs.Syntax.html#432" class="Datatype Operator">≊</a> <a id="395" href="Implicit.Algo.Constructs.Syntax.html#270" class="Generalizable">Σ₂</a>
+       <a id="405" class="Symbol">→</a> <a id="407" href="Implicit.Algo.Constructs.Shift.html#889" class="Function Operator">↑tyᶜ0</a> <a id="413" href="Implicit.Algo.Constructs.Syntax.html#267" class="Generalizable">Σ₁</a> <a id="416" href="Implicit.Algo.Constructs.Shift.html#889" class="Function Operator">⇘</a> <a id="418" href="Implicit.Algo.Constructs.Syntax.html#273" class="Generalizable">Σ₁&#39;</a>
+       <a id="429" class="Symbol">→</a> <a id="431" href="Implicit.Algo.Constructs.Shift.html#889" class="Function Operator">↑tyᶜ0</a> <a id="437" href="Implicit.Algo.Constructs.Syntax.html#270" class="Generalizable">Σ₂</a> <a id="440" href="Implicit.Algo.Constructs.Shift.html#889" class="Function Operator">⇘</a> <a id="442" href="Implicit.Algo.Constructs.Syntax.html#277" class="Generalizable">Σ₂&#39;</a>
+       <a id="453" class="Symbol">→</a> <a id="455" href="Implicit.Algo.Constructs.Syntax.html#273" class="Generalizable">Σ₁&#39;</a> <a id="459" href="Implicit.Algo.Constructs.Syntax.html#432" class="Datatype Operator">≊</a> <a id="461" href="Implicit.Algo.Constructs.Syntax.html#277" class="Generalizable">Σ₂&#39;</a>
+<a id="465" href="Implicit.Algo.Properties.Trans.html#381" class="Function">≊-↑ty0</a> <a id="472" href="Implicit.Algo.Constructs.Syntax.html#478" class="InductiveConstructor">≊Z</a> <a id="475" href="Implicit.Algo.Constructs.Shift.html#652" class="InductiveConstructor">↑tyᶜ-□</a> <a id="482" class="Symbol">(</a><a id="483" href="Implicit.Algo.Constructs.Shift.html#693" class="InductiveConstructor">↑tyᶜ-τ</a> <a id="490" href="Implicit.Algo.Properties.Trans.html#490" class="Bound">up-t</a><a id="494" class="Symbol">)</a> <a id="496" class="Symbol">=</a> <a id="498" href="Implicit.Algo.Constructs.Syntax.html#478" class="InductiveConstructor">≊Z</a>
+<a id="501" href="Implicit.Algo.Properties.Trans.html#381" class="Function">≊-↑ty0</a> <a id="508" class="Symbol">(</a><a id="509" href="Implicit.Algo.Constructs.Syntax.html#510" class="InductiveConstructor">≊S</a> <a id="512" href="Implicit.Algo.Properties.Trans.html#512" class="Bound">newΣ</a><a id="516" class="Symbol">)</a> <a id="518" class="Symbol">(</a><a id="519" href="Implicit.Algo.Constructs.Shift.html#774" class="InductiveConstructor">↑tyᶜ-e</a> <a id="526" href="Implicit.Algo.Properties.Trans.html#526" class="Bound">up-e</a> <a id="531" href="Implicit.Algo.Properties.Trans.html#531" class="Bound">up1</a><a id="534" class="Symbol">)</a> <a id="536" class="Symbol">(</a><a id="537" href="Implicit.Algo.Constructs.Shift.html#774" class="InductiveConstructor">↑tyᶜ-e</a> <a id="544" href="Implicit.Algo.Properties.Trans.html#544" class="Bound">up-e₁</a> <a id="550" href="Implicit.Algo.Properties.Trans.html#550" class="Bound">up2</a><a id="553" class="Symbol">)</a> <a id="555" class="Keyword">with</a> <a id="560" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a> ← <a id="567" href="Implicit.Language.Shift.Properties.html#15411" class="Function">↑tyᵉ-unique</a> <a id="579" href="Implicit.Algo.Properties.Trans.html#526" class="Bound">up-e</a> <a id="584" href="Implicit.Algo.Properties.Trans.html#544" class="Bound">up-e₁</a> <a id="590" class="Symbol">=</a> <a id="592" href="Implicit.Algo.Constructs.Syntax.html#510" class="InductiveConstructor">≊S</a> <a id="595" class="Symbol">(</a><a id="596" href="Implicit.Algo.Properties.Trans.html#381" class="Function">≊-↑ty0</a> <a id="603" href="Implicit.Algo.Properties.Trans.html#512" class="Bound">newΣ</a> <a id="608" href="Implicit.Algo.Properties.Trans.html#531" class="Bound">up1</a> <a id="612" href="Implicit.Algo.Properties.Trans.html#550" class="Bound">up2</a><a id="615" class="Symbol">)</a>
+
+
+<a id="ss-grd+"></a><a id="619" href="Implicit.Algo.Properties.Trans.html#619" class="Function">ss-grd+</a> <a id="627" class="Symbol">:</a> <a id="629" href="Implicit.Language.Regular.Base.html#1077" class="Datatype">SRegular</a> <a id="638" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a>
+       <a id="647" class="Symbol">→</a> <a id="649" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="651" href="Implicit.Language.OpenClose.Base.html#822" class="Datatype Operator">⊢c</a> <a id="654" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+         <a id="665" class="Symbol">→</a> <a id="667" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="669" href="Implicit.Language.Ground.Base.html#273" class="Datatype Operator">≫</a> <a id="671" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="673" href="Implicit.Language.Ground.Base.html#273" class="Datatype Operator">⇘</a> <a id="675" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+         <a id="686" class="Symbol">→</a> <a id="688" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="690" href="Implicit.Algo.Base.html#295" class="Datatype Operator">⊢</a> <a id="692" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="694" href="Implicit.Algo.Base.html#295" class="Datatype Operator">⌞</a> <a id="696" href="Implicit.Language.Base.html#2329" class="InductiveConstructor">≤⁺</a> <a id="699" href="Implicit.Algo.Base.html#295" class="Datatype Operator">⌝</a> <a id="701" href="Implicit.Language.Base.html#387" class="Generalizable">B</a> <a id="703" href="Implicit.Algo.Base.html#295" class="Datatype Operator">⊣</a> <a id="705" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a>
+<a id="ss-grd-"></a><a id="707" href="Implicit.Algo.Properties.Trans.html#707" class="Function">ss-grd-</a> <a id="715" class="Symbol">:</a> <a id="717" href="Implicit.Language.Regular.Base.html#1077" class="Datatype">SRegular</a> <a id="726" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a>
+       <a id="735" class="Symbol">→</a> <a id="737" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="739" href="Implicit.Language.OpenClose.Base.html#822" class="Datatype Operator">⊢c</a> <a id="742" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+         <a id="753" class="Symbol">→</a> <a id="755" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="757" href="Implicit.Language.Ground.Base.html#273" class="Datatype Operator">≫</a> <a id="759" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="761" href="Implicit.Language.Ground.Base.html#273" class="Datatype Operator">⇘</a> <a id="763" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+         <a id="774" class="Symbol">→</a> <a id="776" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="778" href="Implicit.Algo.Base.html#295" class="Datatype Operator">⊢</a> <a id="780" href="Implicit.Language.Base.html#387" class="Generalizable">B</a> <a id="782" href="Implicit.Algo.Base.html#295" class="Datatype Operator">⌞</a> <a id="784" href="Implicit.Language.Base.html#2332" class="InductiveConstructor">≤⁻</a> <a id="787" href="Implicit.Algo.Base.html#295" class="Datatype Operator">⌝</a> <a id="789" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="791" href="Implicit.Algo.Base.html#295" class="Datatype Operator">⊣</a> <a id="793" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a>
+
+<a id="796" href="Implicit.Algo.Properties.Trans.html#619" class="Function">ss-grd+</a> <a id="804" href="Implicit.Algo.Properties.Trans.html#804" class="Bound">regΓ</a> <a id="809" href="Implicit.Algo.Properties.Trans.html#809" class="Bound">cloA</a> <a id="814" href="Implicit.Language.Ground.Base.html#332" class="InductiveConstructor">grd-int</a> <a id="822" class="Symbol">=</a> <a id="824" href="Implicit.Algo.Base.html#365" class="InductiveConstructor">s-int</a> <a id="830" href="Implicit.Algo.Properties.Trans.html#804" class="Bound">regΓ</a>
+<a id="835" href="Implicit.Algo.Properties.Trans.html#619" class="Function">ss-grd+</a> <a id="843" href="Implicit.Algo.Properties.Trans.html#843" class="Bound">regΓ</a> <a id="848" href="Implicit.Algo.Properties.Trans.html#848" class="Bound">cloA</a> <a id="853" class="Symbol">(</a><a id="854" href="Implicit.Language.Ground.Base.html#358" class="InductiveConstructor">grd-var=</a> <a id="863" href="Implicit.Algo.Properties.Trans.html#863" class="Bound">x</a><a id="864" class="Symbol">)</a> <a id="866" class="Symbol">=</a> <a id="868" href="Implicit.Algo.Base.html#804" class="InductiveConstructor">s-ex-l=</a> <a id="876" href="Implicit.Algo.Properties.Trans.html#843" class="Bound">regΓ</a> <a id="881" href="Implicit.Algo.Properties.Trans.html#863" class="Bound">x</a>
+<a id="883" href="Implicit.Algo.Properties.Trans.html#619" class="Function">ss-grd+</a> <a id="891" href="Implicit.Algo.Properties.Trans.html#891" class="Bound">regΓ</a> <a id="896" href="Implicit.Algo.Properties.Trans.html#896" class="Bound">cloA</a> <a id="901" class="Symbol">(</a><a id="902" href="Implicit.Language.Ground.Base.html#409" class="InductiveConstructor">grd-var∙</a> <a id="911" href="Implicit.Algo.Properties.Trans.html#911" class="Bound">x</a><a id="912" class="Symbol">)</a> <a id="914" class="Symbol">=</a> <a id="916" href="Implicit.Algo.Base.html#430" class="InductiveConstructor">s-var-∙</a> <a id="924" href="Implicit.Algo.Properties.Trans.html#891" class="Bound">regΓ</a> <a id="929" href="Implicit.Algo.Properties.Trans.html#911" class="Bound">x</a>
+<a id="931" href="Implicit.Algo.Properties.Trans.html#619" class="Function">ss-grd+</a> <a id="939" href="Implicit.Algo.Properties.Trans.html#939" class="Bound">regΓ</a> <a id="944" class="Symbol">(</a><a id="945" href="Implicit.Language.OpenClose.Base.html#984" class="InductiveConstructor">⊢c-arr</a> <a id="952" href="Implicit.Algo.Properties.Trans.html#952" class="Bound">cloA</a> <a id="957" href="Implicit.Algo.Properties.Trans.html#957" class="Bound">cloA₁</a><a id="962" class="Symbol">)</a> <a id="964" class="Symbol">(</a><a id="965" href="Implicit.Language.Ground.Base.html#459" class="InductiveConstructor">grd-arr</a> <a id="973" href="Implicit.Algo.Properties.Trans.html#973" class="Bound">grd</a> <a id="977" href="Implicit.Algo.Properties.Trans.html#977" class="Bound">grd₁</a><a id="981" class="Symbol">)</a> <a id="983" class="Symbol">=</a> <a id="985" href="Implicit.Algo.Base.html#990" class="InductiveConstructor">s-arr</a> <a id="991" class="Symbol">(</a><a id="992" href="Implicit.Algo.Properties.Trans.html#707" class="Function">ss-grd-</a> <a id="1000" href="Implicit.Algo.Properties.Trans.html#939" class="Bound">regΓ</a> <a id="1005" href="Implicit.Algo.Properties.Trans.html#952" class="Bound">cloA</a> <a id="1010" href="Implicit.Algo.Properties.Trans.html#973" class="Bound">grd</a><a id="1013" class="Symbol">)</a> <a id="1015" class="Symbol">(</a><a id="1016" href="Implicit.Algo.Properties.Trans.html#619" class="Function">ss-grd+</a> <a id="1024" href="Implicit.Algo.Properties.Trans.html#939" class="Bound">regΓ</a> <a id="1029" href="Implicit.Algo.Properties.Trans.html#957" class="Bound">cloA₁</a> <a id="1035" href="Implicit.Algo.Properties.Trans.html#977" class="Bound">grd₁</a><a id="1039" class="Symbol">)</a>
+<a id="1041" href="Implicit.Algo.Properties.Trans.html#619" class="Function">ss-grd+</a> <a id="1049" href="Implicit.Algo.Properties.Trans.html#1049" class="Bound">regΓ</a> <a id="1054" class="Symbol">(</a><a id="1055" href="Implicit.Language.OpenClose.Base.html#1041" class="InductiveConstructor">⊢c-∀</a> <a id="1060" href="Implicit.Algo.Properties.Trans.html#1060" class="Bound">cloA</a><a id="1064" class="Symbol">)</a> <a id="1066" class="Symbol">(</a><a id="1067" href="Implicit.Language.Ground.Base.html#541" class="InductiveConstructor">grd-∀</a> <a id="1073" href="Implicit.Algo.Properties.Trans.html#1073" class="Bound">grd</a><a id="1076" class="Symbol">)</a> <a id="1078" class="Symbol">=</a> <a id="1080" href="Implicit.Algo.Base.html#1087" class="InductiveConstructor">s-∀</a> <a id="1084" class="Symbol">(</a><a id="1085" href="Implicit.Algo.Properties.Trans.html#619" class="Function">ss-grd+</a> <a id="1093" class="Symbol">(</a><a id="1094" href="Implicit.Language.Regular.Base.html#1165" class="InductiveConstructor">reg-S∙</a> <a id="1101" href="Implicit.Algo.Properties.Trans.html#1049" class="Bound">regΓ</a><a id="1105" class="Symbol">)</a> <a id="1107" href="Implicit.Algo.Properties.Trans.html#1060" class="Bound">cloA</a> <a id="1112" href="Implicit.Algo.Properties.Trans.html#1073" class="Bound">grd</a><a id="1115" class="Symbol">)</a>
+
+<a id="1118" href="Implicit.Algo.Properties.Trans.html#707" class="Function">ss-grd-</a> <a id="1126" href="Implicit.Algo.Properties.Trans.html#1126" class="Bound">regΓ</a> <a id="1131" href="Implicit.Algo.Properties.Trans.html#1131" class="Bound">cloA</a> <a id="1136" href="Implicit.Language.Ground.Base.html#332" class="InductiveConstructor">grd-int</a> <a id="1144" class="Symbol">=</a> <a id="1146" href="Implicit.Algo.Base.html#365" class="InductiveConstructor">s-int</a> <a id="1152" href="Implicit.Algo.Properties.Trans.html#1126" class="Bound">regΓ</a>
+<a id="1157" href="Implicit.Algo.Properties.Trans.html#707" class="Function">ss-grd-</a> <a id="1165" href="Implicit.Algo.Properties.Trans.html#1165" class="Bound">regΓ</a> <a id="1170" href="Implicit.Algo.Properties.Trans.html#1170" class="Bound">cloA</a> <a id="1175" class="Symbol">(</a><a id="1176" href="Implicit.Language.Ground.Base.html#358" class="InductiveConstructor">grd-var=</a> <a id="1185" href="Implicit.Algo.Properties.Trans.html#1185" class="Bound">x</a><a id="1186" class="Symbol">)</a> <a id="1188" class="Symbol">=</a> <a id="1190" href="Implicit.Algo.Base.html#896" class="InductiveConstructor">s-ex-r=</a> <a id="1198" href="Implicit.Algo.Properties.Trans.html#1165" class="Bound">regΓ</a> <a id="1203" href="Implicit.Algo.Properties.Trans.html#1185" class="Bound">x</a>
+<a id="1205" href="Implicit.Algo.Properties.Trans.html#707" class="Function">ss-grd-</a> <a id="1213" href="Implicit.Algo.Properties.Trans.html#1213" class="Bound">regΓ</a> <a id="1218" href="Implicit.Algo.Properties.Trans.html#1218" class="Bound">cloA</a> <a id="1223" class="Symbol">(</a><a id="1224" href="Implicit.Language.Ground.Base.html#409" class="InductiveConstructor">grd-var∙</a> <a id="1233" href="Implicit.Algo.Properties.Trans.html#1233" class="Bound">x</a><a id="1234" class="Symbol">)</a> <a id="1236" class="Symbol">=</a> <a id="1238" href="Implicit.Algo.Base.html#430" class="InductiveConstructor">s-var-∙</a> <a id="1246" href="Implicit.Algo.Properties.Trans.html#1213" class="Bound">regΓ</a> <a id="1251" href="Implicit.Algo.Properties.Trans.html#1233" class="Bound">x</a>
+<a id="1253" href="Implicit.Algo.Properties.Trans.html#707" class="Function">ss-grd-</a> <a id="1261" href="Implicit.Algo.Properties.Trans.html#1261" class="Bound">regΓ</a> <a id="1266" class="Symbol">(</a><a id="1267" href="Implicit.Language.OpenClose.Base.html#984" class="InductiveConstructor">⊢c-arr</a> <a id="1274" href="Implicit.Algo.Properties.Trans.html#1274" class="Bound">cloA</a> <a id="1279" href="Implicit.Algo.Properties.Trans.html#1279" class="Bound">cloA₁</a><a id="1284" class="Symbol">)</a> <a id="1286" class="Symbol">(</a><a id="1287" href="Implicit.Language.Ground.Base.html#459" class="InductiveConstructor">grd-arr</a> <a id="1295" href="Implicit.Algo.Properties.Trans.html#1295" class="Bound">grd</a> <a id="1299" href="Implicit.Algo.Properties.Trans.html#1299" class="Bound">grd₁</a><a id="1303" class="Symbol">)</a> <a id="1305" class="Symbol">=</a> <a id="1307" href="Implicit.Algo.Base.html#990" class="InductiveConstructor">s-arr</a> <a id="1313" class="Symbol">(</a><a id="1314" href="Implicit.Algo.Properties.Trans.html#619" class="Function">ss-grd+</a> <a id="1322" href="Implicit.Algo.Properties.Trans.html#1261" class="Bound">regΓ</a> <a id="1327" href="Implicit.Algo.Properties.Trans.html#1274" class="Bound">cloA</a> <a id="1332" href="Implicit.Algo.Properties.Trans.html#1295" class="Bound">grd</a><a id="1335" class="Symbol">)</a> <a id="1337" class="Symbol">(</a><a id="1338" href="Implicit.Algo.Properties.Trans.html#707" class="Function">ss-grd-</a> <a id="1346" href="Implicit.Algo.Properties.Trans.html#1261" class="Bound">regΓ</a> <a id="1351" href="Implicit.Algo.Properties.Trans.html#1279" class="Bound">cloA₁</a> <a id="1357" href="Implicit.Algo.Properties.Trans.html#1299" class="Bound">grd₁</a><a id="1361" class="Symbol">)</a>
+<a id="1363" href="Implicit.Algo.Properties.Trans.html#707" class="Function">ss-grd-</a> <a id="1371" href="Implicit.Algo.Properties.Trans.html#1371" class="Bound">regΓ</a> <a id="1376" class="Symbol">(</a><a id="1377" href="Implicit.Language.OpenClose.Base.html#1041" class="InductiveConstructor">⊢c-∀</a> <a id="1382" href="Implicit.Algo.Properties.Trans.html#1382" class="Bound">cloA</a><a id="1386" class="Symbol">)</a> <a id="1388" class="Symbol">(</a><a id="1389" href="Implicit.Language.Ground.Base.html#541" class="InductiveConstructor">grd-∀</a> <a id="1395" href="Implicit.Algo.Properties.Trans.html#1395" class="Bound">grd</a><a id="1398" class="Symbol">)</a> <a id="1400" class="Symbol">=</a> <a id="1402" href="Implicit.Algo.Base.html#1087" class="InductiveConstructor">s-∀</a> <a id="1406" class="Symbol">(</a><a id="1407" href="Implicit.Algo.Properties.Trans.html#707" class="Function">ss-grd-</a> <a id="1415" class="Symbol">(</a><a id="1416" href="Implicit.Language.Regular.Base.html#1165" class="InductiveConstructor">reg-S∙</a> <a id="1423" href="Implicit.Algo.Properties.Trans.html#1371" class="Bound">regΓ</a><a id="1427" class="Symbol">)</a> <a id="1429" href="Implicit.Algo.Properties.Trans.html#1382" class="Bound">cloA</a> <a id="1434" href="Implicit.Algo.Properties.Trans.html#1395" class="Bound">grd</a><a id="1437" class="Symbol">)</a>
+
+<a id="ss-⊢r-eq+"></a><a id="1440" href="Implicit.Algo.Properties.Trans.html#1440" class="Function">ss-⊢r-eq+</a> <a id="1450" class="Symbol">:</a> <a id="1452" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="1454" href="Implicit.Algo.Base.html#295" class="Datatype Operator">⊢</a> <a id="1456" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="1458" href="Implicit.Algo.Base.html#295" class="Datatype Operator">⌞</a> <a id="1460" href="Implicit.Language.Base.html#2329" class="InductiveConstructor">≤⁺</a> <a id="1463" href="Implicit.Algo.Base.html#295" class="Datatype Operator">⌝</a> <a id="1465" href="Implicit.Language.Base.html#387" class="Generalizable">B</a> <a id="1467" href="Implicit.Algo.Base.html#295" class="Datatype Operator">⊣</a> <a id="1469" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a>
+          <a id="1481" class="Symbol">→</a> <a id="1483" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="1485" href="Implicit.Language.Regular.Base.html#186" class="Datatype Operator">⊢r</a> <a id="1488" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+          <a id="1500" class="Symbol">→</a> <a id="1502" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="1504" href="Agda.Builtin.Equality.html#150" class="Datatype Operator">≡</a> <a id="1506" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+
+<a id="ss-⊢r-eq-"></a><a id="1509" href="Implicit.Algo.Properties.Trans.html#1509" class="Function">ss-⊢r-eq-</a> <a id="1519" class="Symbol">:</a> <a id="1521" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="1523" href="Implicit.Algo.Base.html#295" class="Datatype Operator">⊢</a> <a id="1525" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="1527" href="Implicit.Algo.Base.html#295" class="Datatype Operator">⌞</a> <a id="1529" href="Implicit.Language.Base.html#2332" class="InductiveConstructor">≤⁻</a> <a id="1532" href="Implicit.Algo.Base.html#295" class="Datatype Operator">⌝</a> <a id="1534" href="Implicit.Language.Base.html#387" class="Generalizable">B</a> <a id="1536" href="Implicit.Algo.Base.html#295" class="Datatype Operator">⊣</a> <a id="1538" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a>
+          <a id="1550" class="Symbol">→</a> <a id="1552" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="1554" href="Implicit.Language.Regular.Base.html#186" class="Datatype Operator">⊢r</a> <a id="1557" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+           <a id="1570" class="Symbol">→</a> <a id="1572" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="1574" href="Agda.Builtin.Equality.html#150" class="Datatype Operator">≡</a> <a id="1576" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+
+<a id="1579" href="Implicit.Algo.Properties.Trans.html#1440" class="Function">ss-⊢r-eq+</a> <a id="1589" class="Symbol">(</a><a id="1590" href="Implicit.Algo.Base.html#365" class="InductiveConstructor">s-int</a> <a id="1596" href="Implicit.Algo.Properties.Trans.html#1596" class="Bound">regΓ</a><a id="1600" class="Symbol">)</a> <a id="1602" href="Implicit.Algo.Properties.Trans.html#1602" class="Bound">regA</a> <a id="1607" class="Symbol">=</a> <a id="1609" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a>
+<a id="1614" href="Implicit.Algo.Properties.Trans.html#1440" class="Function">ss-⊢r-eq+</a> <a id="1624" class="Symbol">(</a><a id="1625" href="Implicit.Algo.Base.html#430" class="InductiveConstructor">s-var-∙</a> <a id="1633" href="Implicit.Algo.Properties.Trans.html#1633" class="Bound">regΓ</a> <a id="1638" href="Implicit.Algo.Properties.Trans.html#1638" class="Bound">x</a><a id="1639" class="Symbol">)</a> <a id="1641" href="Implicit.Algo.Properties.Trans.html#1641" class="Bound">regA</a> <a id="1646" class="Symbol">=</a> <a id="1648" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a>
+<a id="1653" href="Implicit.Algo.Properties.Trans.html#1440" class="Function">ss-⊢r-eq+</a> <a id="1663" class="Symbol">(</a><a id="1664" href="Implicit.Algo.Base.html#522" class="InductiveConstructor">s-ex-l^</a> <a id="1672" href="Implicit.Algo.Properties.Trans.html#1672" class="Bound">inst</a><a id="1676" class="Symbol">)</a> <a id="1678" class="Symbol">(</a><a id="1679" href="Implicit.Language.Regular.Base.html#250" class="InductiveConstructor">⊢r-var-∙</a> <a id="1688" href="Implicit.Algo.Properties.Trans.html#1688" class="Bound">inΓ</a><a id="1691" class="Symbol">)</a> <a id="1693" class="Symbol">=</a> <a id="1695" href="Data.Empty.html#1069" class="Function">⊥-elim</a> <a id="1702" class="Symbol">(</a><a id="1703" href="Implicit.Language.Lookup.Properties.html#2026" class="Function">∋^-∋∙-false</a> <a id="1715" class="Symbol">(</a><a id="1716" href="Implicit.Language.EnvOps.Inst.html#915" class="Function">inst-∋^</a> <a id="1724" href="Implicit.Algo.Properties.Trans.html#1672" class="Bound">inst</a><a id="1728" class="Symbol">)</a> <a id="1730" href="Implicit.Algo.Properties.Trans.html#1688" class="Bound">inΓ</a><a id="1733" class="Symbol">)</a>
+<a id="1735" href="Implicit.Algo.Properties.Trans.html#1440" class="Function">ss-⊢r-eq+</a> <a id="1745" class="Symbol">(</a><a id="1746" href="Implicit.Algo.Base.html#804" class="InductiveConstructor">s-ex-l=</a> <a id="1754" href="Implicit.Algo.Properties.Trans.html#1754" class="Bound">regΓ</a> <a id="1759" href="Implicit.Algo.Properties.Trans.html#1759" class="Bound">x-in</a><a id="1763" class="Symbol">)</a> <a id="1765" class="Symbol">(</a><a id="1766" href="Implicit.Language.Regular.Base.html#250" class="InductiveConstructor">⊢r-var-∙</a> <a id="1775" href="Implicit.Algo.Properties.Trans.html#1775" class="Bound">inΓ</a><a id="1778" class="Symbol">)</a> <a id="1780" class="Symbol">=</a> <a id="1782" href="Data.Empty.html#1069" class="Function">⊥-elim</a> <a id="1789" class="Symbol">(</a><a id="1790" href="Implicit.Language.Lookup.Properties.html#2779" class="Function">∋∙-∋:=-false</a> <a id="1803" href="Implicit.Algo.Properties.Trans.html#1775" class="Bound">inΓ</a> <a id="1807" href="Implicit.Algo.Properties.Trans.html#1759" class="Bound">x-in</a><a id="1811" class="Symbol">)</a>
+<a id="1813" href="Implicit.Algo.Properties.Trans.html#1440" class="Function">ss-⊢r-eq+</a> <a id="1823" class="Symbol">(</a><a id="1824" href="Implicit.Algo.Base.html#990" class="InductiveConstructor">s-arr</a> <a id="1830" href="Implicit.Algo.Properties.Trans.html#1830" class="Bound">s</a> <a id="1832" href="Implicit.Algo.Properties.Trans.html#1832" class="Bound">s₁</a><a id="1834" class="Symbol">)</a> <a id="1836" class="Symbol">(</a><a id="1837" href="Implicit.Language.Regular.Base.html#299" class="InductiveConstructor">⊢r-arr</a> <a id="1844" href="Implicit.Algo.Properties.Trans.html#1844" class="Bound">regA</a> <a id="1849" href="Implicit.Algo.Properties.Trans.html#1849" class="Bound">regA₁</a><a id="1854" class="Symbol">)</a>
+  <a id="1858" class="Keyword">with</a> <a id="1863" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a> ← <a id="1870" href="Implicit.Language.Extension.Properties.html#2905" class="Function">⊆-antisymm</a> <a id="1881" class="Symbol">(</a><a id="1882" href="Implicit.Algo.Properties.Extension.html#350" class="Function">ss-⊆</a> <a id="1887" href="Implicit.Algo.Properties.Trans.html#1830" class="Bound">s</a><a id="1888" class="Symbol">)</a> <a id="1890" class="Symbol">(</a><a id="1891" href="Implicit.Algo.Properties.Extension.html#350" class="Function">ss-⊆</a> <a id="1896" href="Implicit.Algo.Properties.Trans.html#1832" class="Bound">s₁</a><a id="1898" class="Symbol">)</a>
+  <a id="1902" class="Keyword">with</a> <a id="1907" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a> ← <a id="1914" href="Implicit.Algo.Properties.Trans.html#1509" class="Function">ss-⊢r-eq-</a> <a id="1924" href="Implicit.Algo.Properties.Trans.html#1830" class="Bound">s</a> <a id="1926" href="Implicit.Algo.Properties.Trans.html#1844" class="Bound">regA</a>
+  <a id="1933" class="Keyword">with</a> <a id="1938" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a> ← <a id="1945" href="Implicit.Algo.Properties.Trans.html#1440" class="Function">ss-⊢r-eq+</a> <a id="1955" href="Implicit.Algo.Properties.Trans.html#1832" class="Bound">s₁</a> <a id="1958" href="Implicit.Algo.Properties.Trans.html#1849" class="Bound">regA₁</a> <a id="1964" class="Symbol">=</a> <a id="1966" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a>
+<a id="1971" href="Implicit.Algo.Properties.Trans.html#1440" class="Function">ss-⊢r-eq+</a> <a id="1981" class="Symbol">(</a><a id="1982" href="Implicit.Algo.Base.html#1087" class="InductiveConstructor">s-∀</a> <a id="1986" href="Implicit.Algo.Properties.Trans.html#1986" class="Bound">s</a><a id="1987" class="Symbol">)</a> <a id="1989" class="Symbol">(</a><a id="1990" href="Implicit.Language.Regular.Base.html#356" class="InductiveConstructor">⊢r-∀</a> <a id="1995" href="Implicit.Algo.Properties.Trans.html#1995" class="Bound">regA</a><a id="1999" class="Symbol">)</a> <a id="2001" class="Keyword">with</a> <a id="2006" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a> ← <a id="2013" href="Implicit.Algo.Properties.Trans.html#1440" class="Function">ss-⊢r-eq+</a> <a id="2023" href="Implicit.Algo.Properties.Trans.html#1986" class="Bound">s</a> <a id="2025" href="Implicit.Algo.Properties.Trans.html#1995" class="Bound">regA</a> <a id="2030" class="Symbol">=</a> <a id="2032" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a>
+
+<a id="2038" href="Implicit.Algo.Properties.Trans.html#1509" class="Function">ss-⊢r-eq-</a> <a id="2048" class="Symbol">(</a><a id="2049" href="Implicit.Algo.Base.html#365" class="InductiveConstructor">s-int</a> <a id="2055" href="Implicit.Algo.Properties.Trans.html#2055" class="Bound">regΓ</a><a id="2059" class="Symbol">)</a> <a id="2061" href="Implicit.Algo.Properties.Trans.html#2061" class="Bound">regA</a> <a id="2066" class="Symbol">=</a> <a id="2068" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a>
+<a id="2073" href="Implicit.Algo.Properties.Trans.html#1509" class="Function">ss-⊢r-eq-</a> <a id="2083" class="Symbol">(</a><a id="2084" href="Implicit.Algo.Base.html#430" class="InductiveConstructor">s-var-∙</a> <a id="2092" href="Implicit.Algo.Properties.Trans.html#2092" class="Bound">regΓ</a> <a id="2097" href="Implicit.Algo.Properties.Trans.html#2097" class="Bound">x</a><a id="2098" class="Symbol">)</a> <a id="2100" href="Implicit.Algo.Properties.Trans.html#2100" class="Bound">regA</a> <a id="2105" class="Symbol">=</a> <a id="2107" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a>
+<a id="2112" href="Implicit.Algo.Properties.Trans.html#1509" class="Function">ss-⊢r-eq-</a> <a id="2122" class="Symbol">(</a><a id="2123" href="Implicit.Algo.Base.html#641" class="InductiveConstructor">s-ex-r^</a> <a id="2131" href="Implicit.Algo.Properties.Trans.html#2131" class="Bound">inst</a><a id="2135" class="Symbol">)</a> <a id="2137" class="Symbol">(</a><a id="2138" href="Implicit.Language.Regular.Base.html#250" class="InductiveConstructor">⊢r-var-∙</a> <a id="2147" href="Implicit.Algo.Properties.Trans.html#2147" class="Bound">inΓ</a><a id="2150" class="Symbol">)</a> <a id="2152" class="Symbol">=</a> <a id="2154" href="Data.Empty.html#1069" class="Function">⊥-elim</a> <a id="2161" class="Symbol">(</a><a id="2162" href="Implicit.Language.Lookup.Properties.html#2026" class="Function">∋^-∋∙-false</a> <a id="2174" class="Symbol">(</a><a id="2175" href="Implicit.Language.EnvOps.Inst.html#915" class="Function">inst-∋^</a> <a id="2183" href="Implicit.Algo.Properties.Trans.html#2131" class="Bound">inst</a><a id="2187" class="Symbol">)</a> <a id="2189" href="Implicit.Algo.Properties.Trans.html#2147" class="Bound">inΓ</a><a id="2192" class="Symbol">)</a>
+<a id="2194" href="Implicit.Algo.Properties.Trans.html#1509" class="Function">ss-⊢r-eq-</a> <a id="2204" class="Symbol">(</a><a id="2205" href="Implicit.Algo.Base.html#896" class="InductiveConstructor">s-ex-r=</a> <a id="2213" href="Implicit.Algo.Properties.Trans.html#2213" class="Bound">regΓ</a> <a id="2218" href="Implicit.Algo.Properties.Trans.html#2218" class="Bound">x-in</a><a id="2222" class="Symbol">)</a> <a id="2224" class="Symbol">(</a><a id="2225" href="Implicit.Language.Regular.Base.html#250" class="InductiveConstructor">⊢r-var-∙</a> <a id="2234" href="Implicit.Algo.Properties.Trans.html#2234" class="Bound">inΓ</a><a id="2237" class="Symbol">)</a> <a id="2239" class="Symbol">=</a> <a id="2241" href="Data.Empty.html#1069" class="Function">⊥-elim</a> <a id="2248" class="Symbol">(</a><a id="2249" href="Implicit.Language.Lookup.Properties.html#2779" class="Function">∋∙-∋:=-false</a> <a id="2262" href="Implicit.Algo.Properties.Trans.html#2234" class="Bound">inΓ</a> <a id="2266" href="Implicit.Algo.Properties.Trans.html#2218" class="Bound">x-in</a><a id="2270" class="Symbol">)</a>
+<a id="2272" href="Implicit.Algo.Properties.Trans.html#1509" class="Function">ss-⊢r-eq-</a> <a id="2282" class="Symbol">(</a><a id="2283" href="Implicit.Algo.Base.html#990" class="InductiveConstructor">s-arr</a> <a id="2289" href="Implicit.Algo.Properties.Trans.html#2289" class="Bound">s</a> <a id="2291" href="Implicit.Algo.Properties.Trans.html#2291" class="Bound">s₁</a><a id="2293" class="Symbol">)</a> <a id="2295" class="Symbol">(</a><a id="2296" href="Implicit.Language.Regular.Base.html#299" class="InductiveConstructor">⊢r-arr</a> <a id="2303" href="Implicit.Algo.Properties.Trans.html#2303" class="Bound">regA</a> <a id="2308" href="Implicit.Algo.Properties.Trans.html#2308" class="Bound">regA₁</a><a id="2313" class="Symbol">)</a>
+  <a id="2317" class="Keyword">with</a> <a id="2322" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a> ← <a id="2329" href="Implicit.Language.Extension.Properties.html#2905" class="Function">⊆-antisymm</a> <a id="2340" class="Symbol">(</a><a id="2341" href="Implicit.Algo.Properties.Extension.html#350" class="Function">ss-⊆</a> <a id="2346" href="Implicit.Algo.Properties.Trans.html#2289" class="Bound">s</a><a id="2347" class="Symbol">)</a> <a id="2349" class="Symbol">(</a><a id="2350" href="Implicit.Algo.Properties.Extension.html#350" class="Function">ss-⊆</a> <a id="2355" href="Implicit.Algo.Properties.Trans.html#2291" class="Bound">s₁</a><a id="2357" class="Symbol">)</a> <a id="2359" class="Symbol">=</a> <a id="2361" href="Relation.Binary.PropositionalEquality.Core.html#1576" class="Function">cong₂</a> <a id="2367" href="Implicit.Language.Base.html#287" class="InductiveConstructor Operator">_`→_</a> <a id="2372" class="Symbol">(</a><a id="2373" href="Relation.Binary.PropositionalEquality.Core.html#1893" class="Function">sym</a> <a id="2377" class="Symbol">(</a><a id="2378" href="Implicit.Algo.Properties.Trans.html#1440" class="Function">ss-⊢r-eq+</a> <a id="2388" href="Implicit.Algo.Properties.Trans.html#2289" class="Bound">s</a> <a id="2390" href="Implicit.Algo.Properties.Trans.html#2303" class="Bound">regA</a><a id="2394" class="Symbol">))</a> <a id="2397" class="Symbol">(</a><a id="2398" href="Implicit.Algo.Properties.Trans.html#1509" class="Function">ss-⊢r-eq-</a> <a id="2408" href="Implicit.Algo.Properties.Trans.html#2291" class="Bound">s₁</a> <a id="2411" href="Implicit.Algo.Properties.Trans.html#2308" class="Bound">regA₁</a><a id="2416" class="Symbol">)</a>
+<a id="2418" href="Implicit.Algo.Properties.Trans.html#1509" class="Function">ss-⊢r-eq-</a> <a id="2428" class="Symbol">(</a><a id="2429" href="Implicit.Algo.Base.html#1087" class="InductiveConstructor">s-∀</a> <a id="2433" href="Implicit.Algo.Properties.Trans.html#2433" class="Bound">s</a><a id="2434" class="Symbol">)</a> <a id="2436" class="Symbol">(</a><a id="2437" href="Implicit.Language.Regular.Base.html#356" class="InductiveConstructor">⊢r-∀</a> <a id="2442" href="Implicit.Algo.Properties.Trans.html#2442" class="Bound">regA</a><a id="2446" class="Symbol">)</a> <a id="2448" class="Symbol">=</a> <a id="2450" href="Relation.Binary.PropositionalEquality.Core.html#1339" class="Function">cong</a> <a id="2455" href="Implicit.Language.Base.html#335" class="InductiveConstructor Operator">`∀_</a> <a id="2459" class="Symbol">(</a><a id="2460" href="Implicit.Algo.Properties.Trans.html#1509" class="Function">ss-⊢r-eq-</a> <a id="2470" href="Implicit.Algo.Properties.Trans.html#2433" class="Bound">s</a> <a id="2472" href="Implicit.Algo.Properties.Trans.html#2442" class="Bound">regA</a><a id="2476" class="Symbol">)</a>
+
+<a id="2479" class="Keyword">abstract</a>
+  <a id="s-trans"></a><a id="2490" href="Implicit.Algo.Properties.Trans.html#2490" class="Function">s-trans</a> <a id="2498" class="Symbol">:</a> <a id="2500" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="2502" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">⊢</a> <a id="2504" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="2506" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">≤⁺</a> <a id="2509" href="Implicit.Algo.Constructs.Syntax.html#255" class="Generalizable">Σ</a> <a id="2511" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">⊣</a> <a id="2513" href="Implicit.Language.Base.html#1745" class="Generalizable">Δ</a> <a id="2515" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">↪</a> <a id="2517" href="Implicit.Language.Base.html#387" class="Generalizable">B</a>
+        <a id="2527" class="Symbol">→</a> <a id="2529" href="Implicit.Language.Base.html#1745" class="Generalizable">Δ</a> <a id="2531" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">⊢</a> <a id="2533" href="Implicit.Language.Base.html#387" class="Generalizable">B</a> <a id="2535" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">≤⁺</a> <a id="2538" href="Implicit.Algo.Constructs.Syntax.html#257" class="Generalizable">Σ&#39;</a> <a id="2541" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">⊣</a> <a id="2543" href="Implicit.Language.Base.html#1745" class="Generalizable">Δ</a> <a id="2545" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">↪</a> <a id="2547" href="Implicit.Language.Base.html#390" class="Generalizable">C</a>
+        <a id="2557" class="Symbol">→</a> <a id="2559" href="Implicit.Algo.Constructs.Syntax.html#255" class="Generalizable">Σ</a> <a id="2561" href="Implicit.Algo.Constructs.Syntax.html#432" class="Datatype Operator">≊</a> <a id="2563" href="Implicit.Algo.Constructs.Syntax.html#257" class="Generalizable">Σ&#39;</a>
+        <a id="2574" class="Symbol">→</a> <a id="2576" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="2578" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">⊢</a> <a id="2580" href="Implicit.Language.Base.html#384" class="Generalizable">A</a> <a id="2582" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">≤⁺</a> <a id="2585" href="Implicit.Algo.Constructs.Syntax.html#257" class="Generalizable">Σ&#39;</a> <a id="2588" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">⊣</a> <a id="2590" href="Implicit.Language.Base.html#1745" class="Generalizable">Δ</a> <a id="2592" href="Implicit.Algo.Base.html#1274" class="Datatype Operator">↪</a> <a id="2594" href="Implicit.Language.Base.html#390" class="Generalizable">C</a>
+  <a id="2598" href="Implicit.Algo.Properties.Trans.html#2490" class="Function">s-trans</a> <a id="2606" class="Symbol">(</a><a id="2607" href="Implicit.Algo.Base.html#2327" class="InductiveConstructor">s-empty</a> <a id="2615" href="Implicit.Algo.Properties.Trans.html#2615" class="Bound">cloΓ</a> <a id="2620" href="Implicit.Algo.Properties.Trans.html#2620" class="Bound">cloA</a> <a id="2625" href="Implicit.Algo.Properties.Trans.html#2625" class="Bound">x</a><a id="2626" class="Symbol">)</a> <a id="2628" class="Symbol">(</a><a id="2629" href="Implicit.Algo.Base.html#2439" class="InductiveConstructor">s-type</a> <a id="2636" href="Implicit.Algo.Properties.Trans.html#2636" class="Bound">ss</a><a id="2638" class="Symbol">)</a> <a id="2640" href="Implicit.Algo.Constructs.Syntax.html#478" class="InductiveConstructor">≊Z</a> <a id="2643" class="Keyword">with</a> <a id="2648" href="Implicit.Algo.Properties.Trans.html#1440" class="Function">ss-⊢r-eq+</a> <a id="2658" href="Implicit.Algo.Properties.Trans.html#2636" class="Bound">ss</a> <a id="2661" class="Symbol">(</a><a id="2662" href="Implicit.Language.Ground.Properties.html#461" class="Function">⊢c-≫-⊢r</a> <a id="2670" href="Implicit.Algo.Properties.Trans.html#2615" class="Bound">cloΓ</a> <a id="2675" href="Implicit.Algo.Properties.Trans.html#2620" class="Bound">cloA</a> <a id="2680" href="Implicit.Algo.Properties.Trans.html#2625" class="Bound">x</a><a id="2681" class="Symbol">)</a>
+  <a id="2685" class="Symbol">...</a> <a id="2689" class="Symbol">|</a> <a id="2691" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a> <a id="2696" class="Symbol">=</a> <a id="2698" href="Implicit.Algo.Base.html#2439" class="InductiveConstructor">s-type</a> <a id="2705" class="Symbol">(</a><a id="2706" href="Implicit.Algo.Properties.Trans.html#619" class="Function">ss-grd+</a> <a id="2714" class="Bound">cloΓ</a> <a id="2719" class="Bound">cloA</a> <a id="2724" class="Bound">x</a><a id="2725" class="Symbol">)</a>
+  <a id="2729" href="Implicit.Algo.Properties.Trans.html#2490" class="Function">s-trans</a> <a id="2737" class="Symbol">(</a><a id="2738" href="Implicit.Algo.Base.html#2512" class="InductiveConstructor">s-term-c</a> <a id="2747" href="Implicit.Algo.Properties.Trans.html#2747" class="Bound">cloA</a> <a id="2752" href="Implicit.Algo.Properties.Trans.html#2752" class="Bound">ap</a> <a id="2755" href="Implicit.Algo.Properties.Trans.html#2755" class="Bound">⊢e</a> <a id="2758" href="Implicit.Algo.Properties.Trans.html#2758" class="Bound">s1</a><a id="2760" class="Symbol">)</a> <a id="2762" class="Symbol">(</a><a id="2763" href="Implicit.Algo.Base.html#2512" class="InductiveConstructor">s-term-c</a> <a id="2772" href="Implicit.Algo.Properties.Trans.html#2772" class="Bound">cloA₁</a> <a id="2778" href="Implicit.Algo.Properties.Trans.html#2778" class="Bound">ap₁</a> <a id="2782" href="Implicit.Algo.Properties.Trans.html#2782" class="Bound">⊢e₁</a> <a id="2786" href="Implicit.Algo.Properties.Trans.html#2786" class="Bound">s2</a><a id="2788" class="Symbol">)</a> <a id="2790" class="Symbol">(</a><a id="2791" href="Implicit.Algo.Constructs.Syntax.html#510" class="InductiveConstructor">≊S</a> <a id="2794" href="Implicit.Algo.Properties.Trans.html#2794" class="Bound">newΣ</a><a id="2798" class="Symbol">)</a>
+    <a id="2804" class="Keyword">with</a> <a id="2809" href="Implicit.Algo.Properties.Trans.html#2809" class="Bound">regA%</a> ← <a id="2817" href="Implicit.Language.Ground.Properties.html#461" class="Function">⊢c-≫-⊢r</a> <a id="2825" class="Symbol">(</a><a id="2826" href="Implicit.Algo.Properties.Regularity.html#1630" class="Function">s-env-in</a> <a id="2835" href="Implicit.Algo.Properties.Trans.html#2758" class="Bound">s1</a><a id="2837" class="Symbol">)</a> <a id="2839" href="Implicit.Algo.Properties.Trans.html#2747" class="Bound">cloA</a> <a id="2844" href="Implicit.Algo.Properties.Trans.html#2752" class="Bound">ap</a>
+    <a id="2851" class="Keyword">with</a> <a id="2856" href="Implicit.Algo.Properties.Trans.html#2856" class="Bound">relf</a> ← <a id="2863" href="Implicit.Algo.Properties.Id.html#1794" class="Function">⊢id0</a> <a id="2868" href="Implicit.Algo.Properties.Trans.html#2755" class="Bound">⊢e</a>
+    <a id="2875" class="Keyword">with</a> <a id="2880" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a> ← <a id="2887" href="Implicit.Algo.Properties.Id.html#1794" class="Function">⊢id0</a> <a id="2892" href="Implicit.Algo.Properties.Trans.html#2782" class="Bound">⊢e₁</a>
+    <a id="2900" class="Keyword">with</a> <a id="2905" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a> ← <a id="2912" href="Implicit.Language.Ground.Properties.html#1567" class="Function">⊢r-≫-eq&#39;</a> <a id="2921" class="Symbol">(</a><a id="2922" href="Implicit.Language.Extension.Properties.html#1684" class="Function">⊆-⊢r</a> <a id="2927" href="Implicit.Algo.Properties.Trans.html#2809" class="Bound">regA%</a> <a id="2933" class="Symbol">(</a><a id="2934" href="Implicit.Algo.Properties.Extension.html#692" class="Function">s-⊆</a> <a id="2938" href="Implicit.Algo.Properties.Trans.html#2758" class="Bound">s1</a><a id="2940" class="Symbol">))</a> <a id="2943" href="Implicit.Algo.Properties.Trans.html#2778" class="Bound">ap₁</a> <a id="2947" class="Symbol">=</a> <a id="2949" href="Implicit.Algo.Base.html#2512" class="InductiveConstructor">s-term-c</a> <a id="2958" href="Implicit.Algo.Properties.Trans.html#2747" class="Bound">cloA</a> <a id="2963" href="Implicit.Algo.Properties.Trans.html#2752" class="Bound">ap</a> <a id="2966" href="Implicit.Algo.Properties.Trans.html#2755" class="Bound">⊢e</a> <a id="2969" class="Symbol">(</a><a id="2970" href="Implicit.Algo.Properties.Trans.html#2490" class="Function">s-trans</a> <a id="2978" href="Implicit.Algo.Properties.Trans.html#2758" class="Bound">s1</a> <a id="2981" href="Implicit.Algo.Properties.Trans.html#2786" class="Bound">s2</a> <a id="2984" href="Implicit.Algo.Properties.Trans.html#2794" class="Bound">newΣ</a><a id="2988" class="Symbol">)</a>
+  <a id="2992" href="Implicit.Algo.Properties.Trans.html#2490" class="Function">s-trans</a> <a id="3000" class="Symbol">(</a><a id="3001" href="Implicit.Algo.Base.html#2512" class="InductiveConstructor">s-term-c</a> <a id="3010" href="Implicit.Algo.Properties.Trans.html#3010" class="Bound">cloA</a> <a id="3015" href="Implicit.Algo.Properties.Trans.html#3015" class="Bound">ap</a> <a id="3018" href="Implicit.Algo.Properties.Trans.html#3018" class="Bound">⊢e</a> <a id="3021" href="Implicit.Algo.Properties.Trans.html#3021" class="Bound">s1</a><a id="3023" class="Symbol">)</a> <a id="3025" class="Symbol">(</a><a id="3026" href="Implicit.Algo.Base.html#2677" class="InductiveConstructor">s-term-o</a> <a id="3035" href="Implicit.Algo.Properties.Trans.html#3035" class="Bound">opnA</a> <a id="3040" href="Implicit.Algo.Properties.Trans.html#3040" class="Bound">⊢e₁</a> <a id="3044" href="Implicit.Algo.Properties.Trans.html#3044" class="Bound">x</a> <a id="3046" href="Implicit.Algo.Properties.Trans.html#3046" class="Bound">s2</a><a id="3048" class="Symbol">)</a> <a id="3050" class="Symbol">(</a><a id="3051" href="Implicit.Algo.Constructs.Syntax.html#510" class="InductiveConstructor">≊S</a> <a id="3054" href="Implicit.Algo.Properties.Trans.html#3054" class="Bound">newΣ</a><a id="3058" class="Symbol">)</a> <a id="3060" class="Symbol">=</a> <a id="3062" class="Keyword">let</a> <a id="3066" href="Implicit.Algo.Properties.Trans.html#3066" class="Bound">regA</a> <a id="3071" class="Symbol">=</a> <a id="3073" href="Implicit.Language.Extension.Properties.html#1684" class="Function">⊆-⊢r</a> <a id="3078" class="Symbol">(</a><a id="3079" href="Implicit.Language.Ground.Properties.html#461" class="Function">⊢c-≫-⊢r</a> <a id="3087" class="Symbol">(</a><a id="3088" href="Implicit.Algo.Properties.Regularity.html#1630" class="Function">s-env-in</a> <a id="3097" href="Implicit.Algo.Properties.Trans.html#3021" class="Bound">s1</a><a id="3099" class="Symbol">)</a> <a id="3101" href="Implicit.Algo.Properties.Trans.html#3010" class="Bound">cloA</a> <a id="3106" href="Implicit.Algo.Properties.Trans.html#3015" class="Bound">ap</a><a id="3108" class="Symbol">)</a> <a id="3110" class="Symbol">(</a><a id="3111" href="Implicit.Algo.Properties.Extension.html#692" class="Function">s-⊆</a> <a id="3115" href="Implicit.Algo.Properties.Trans.html#3021" class="Bound">s1</a><a id="3117" class="Symbol">)</a>
+                                                                      <a id="3189" class="Keyword">in</a> <a id="3192" href="Data.Empty.html#1069" class="Function">⊥-elim</a> <a id="3199" class="Symbol">(</a><a id="3200" href="Implicit.Language.OpenClose.Base.html#479" class="Function">⊢r-⊢o-false</a> <a id="3212" href="Implicit.Algo.Properties.Trans.html#3066" class="Bound">regA</a> <a id="3217" href="Implicit.Algo.Properties.Trans.html#3035" class="Bound">opnA</a><a id="3221" class="Symbol">)</a>
+  <a id="3225" href="Implicit.Algo.Properties.Trans.html#2490" class="Function">s-trans</a> <a id="3233" href="Implicit.Algo.Properties.Trans.html#3233" class="Bound">s&#39;</a><a id="3235" class="Symbol">@(</a><a id="3237" href="Implicit.Algo.Base.html#2677" class="InductiveConstructor">s-term-o</a> <a id="3246" href="Implicit.Algo.Properties.Trans.html#3246" class="Bound">opnA</a> <a id="3251" href="Implicit.Algo.Properties.Trans.html#3251" class="Bound">⊢e</a> <a id="3254" href="Implicit.Algo.Properties.Trans.html#3254" class="Bound">x</a> <a id="3256" href="Implicit.Algo.Properties.Trans.html#3256" class="Bound">s1</a><a id="3258" class="Symbol">)</a> <a id="3260" class="Symbol">(</a><a id="3261" href="Implicit.Algo.Base.html#2512" class="InductiveConstructor">s-term-c</a> <a id="3270" href="Implicit.Algo.Properties.Trans.html#3270" class="Bound">cloA</a> <a id="3275" href="Implicit.Algo.Properties.Trans.html#3275" class="Bound">ap</a> <a id="3278" href="Implicit.Algo.Properties.Trans.html#3278" class="Bound">⊢e₁</a> <a id="3282" href="Implicit.Algo.Properties.Trans.html#3282" class="Bound">s2</a><a id="3284" class="Symbol">)</a> <a id="3286" class="Symbol">(</a><a id="3287" href="Implicit.Algo.Constructs.Syntax.html#510" class="InductiveConstructor">≊S</a> <a id="3290" href="Implicit.Algo.Properties.Trans.html#3290" class="Bound">newΣ</a><a id="3294" class="Symbol">)</a>
+    <a id="3300" class="Keyword">with</a> <a id="3305" href="Agda.Builtin.Equality.html#207" class="InductiveConstructor">refl</a> ← <a id="3312" href="Implicit.Language.Ground.Properties.html#1567" class="Function">⊢r-≫-eq&#39;</a> <a id="3321" class="Symbol">(</a><a id="3322" href="Implicit.Language.Extension.Properties.html#1684" class="Function">⊆-⊢r</a> <a id="3327" class="Symbol">(</a><a id="3328" href="Implicit.Algo.Properties.Polarity.html#218" class="Function">ss-polarity-</a> <a id="3341" href="Implicit.Algo.Properties.Trans.html#3254" class="Bound">x</a><a id="3342" class="Symbol">)</a> <a id="3344" class="Symbol">(</a><a id="3345" href="Implicit.Algo.Properties.Extension.html#692" class="Function">s-⊆</a> <a id="3349" href="Implicit.Algo.Properties.Trans.html#3233" class="Bound">s&#39;</a><a id="3351" class="Symbol">))</a> <a id="3354" href="Implicit.Algo.Properties.Trans.html#3275" class="Bound">ap</a> <a id="3357" class="Symbol">=</a> <a id="3359" href="Implicit.Algo.Base.html#2677" class="InductiveConstructor">s-term-o</a> <a id="3368" href="Implicit.Algo.Properties.Trans.html#3246" class="Bound">opnA</a> <a id="3373" href="Implicit.Algo.Properties.Trans.html#3251" class="Bound">⊢e</a> <a id="3376" href="Implicit.Algo.Properties.Trans.html#3254" class="Bound">x</a> <a id="3378" class="Symbol">(</a><a id="3379" href="Implicit.Algo.Properties.Trans.html#2490" class="Function">s-trans</a> <a id="3387" href="Implicit.Algo.Properties.Trans.html#3256" class="Bound">s1</a> <a id="3390" href="Implicit.Algo.Properties.Trans.html#3282" class="Bound">s2</a> <a id="3393" href="Implicit.Algo.Properties.Trans.html#3290" class="Bound">newΣ</a><a id="3397" class="Symbol">)</a>
+  <a id="3401" href="Implicit.Algo.Properties.Trans.html#2490" class="Function">s-trans</a> <a id="3409" href="Implicit.Algo.Properties.Trans.html#3409" class="Bound">s&#39;</a><a id="3411" class="Symbol">@(</a><a id="3413" href="Implicit.Algo.Base.html#2677" class="InductiveConstructor">s-term-o</a> <a id="3422" href="Implicit.Algo.Properties.Trans.html#3422" class="Bound">opnA</a> <a id="3427" href="Implicit.Algo.Properties.Trans.html#3427" class="Bound">⊢e</a> <a id="3430" href="Implicit.Algo.Properties.Trans.html#3430" class="Bound">x</a> <a id="3432" href="Implicit.Algo.Properties.Trans.html#3432" class="Bound">s1</a><a id="3434" class="Symbol">)</a> <a id="3436" class="Symbol">(</a><a id="3437" href="Implicit.Algo.Base.html#2677" class="InductiveConstructor">s-term-o</a> <a id="3446" href="Implicit.Algo.Properties.Trans.html#3446" class="Bound">opnA₁</a> <a id="3452" href="Implicit.Algo.Properties.Trans.html#3452" class="Bound">⊢e₁</a> <a id="3456" href="Implicit.Algo.Properties.Trans.html#3456" class="Bound">x₁</a> <a id="3459" href="Implicit.Algo.Properties.Trans.html#3459" class="Bound">s2</a><a id="3461" class="Symbol">)</a> <a id="3463" class="Symbol">(</a><a id="3464" href="Implicit.Algo.Constructs.Syntax.html#510" class="InductiveConstructor">≊S</a> <a id="3467" href="Implicit.Algo.Properties.Trans.html#3467" class="Bound">newΣ</a><a id="3471" class="Symbol">)</a> <a id="3473" class="Symbol">=</a> <a id="3475" class="Keyword">let</a> <a id="3479" href="Implicit.Algo.Properties.Trans.html#3479" class="Bound">regA</a> <a id="3484" class="Symbol">=</a> <a id="3486" href="Implicit.Language.Extension.Properties.html#1684" class="Function">⊆-⊢r</a> <a id="3491" class="Symbol">(</a><a id="3492" href="Implicit.Language.Regular.Properties.html#699" class="Function">⊢r-𝕣</a> <a id="3497" class="Symbol">(</a><a id="3498" href="Implicit.Algo.Properties.Regularity.html#5611" class="Function">t-⊢r</a> <a id="3503" href="Implicit.Algo.Properties.Trans.html#3427" class="Bound">⊢e</a><a id="3505" class="Symbol">))</a> <a id="3508" class="Symbol">(</a><a id="3509" href="Implicit.Algo.Properties.Extension.html#692" class="Function">s-⊆</a> <a id="3513" href="Implicit.Algo.Properties.Trans.html#3409" class="Bound">s&#39;</a><a id="3515" class="Symbol">)</a>
+                                                                            <a id="3593" class="Keyword">in</a> <a id="3596" href="Data.Empty.html#1069" class="Function">⊥-elim</a> <a id="3603" class="Symbol">(</a><a id="3604" href="Implicit.Language.OpenClose.Base.html#479" class="Function">⊢r-⊢o-false</a> <a id="3616" href="Implicit.Algo.Properties.Trans.html#3479" class="Bound">regA</a> <a id="3621" href="Implicit.Algo.Properties.Trans.html#3446" class="Bound">opnA₁</a><a id="3626" class="Symbol">)</a>
+  <a id="3630" href="Implicit.Algo.Properties.Trans.html#2490" class="Function">s-trans</a> <a id="3638" class="Symbol">(</a><a id="3639" href="Implicit.Algo.Base.html#2843" class="InductiveConstructor">s-∀l</a> <a id="3644" href="Implicit.Algo.Properties.Trans.html#3644" class="Bound">s1</a> <a id="3647" href="Implicit.Algo.Properties.Trans.html#3647" class="Bound">upᶜ</a> <a id="3651" href="Implicit.Algo.Properties.Trans.html#3651" class="Bound">upᵉ</a> <a id="3655" href="Implicit.Algo.Properties.Trans.html#3655" class="Bound">upC</a> <a id="3659" href="Implicit.Algo.Properties.Trans.html#3659" class="Bound">upD</a><a id="3662" class="Symbol">)</a> <a id="3664" href="Implicit.Algo.Properties.Trans.html#3664" class="Bound">s&#39;</a><a id="3666" class="Symbol">@(</a><a id="3668" href="Implicit.Algo.Base.html#2512" class="InductiveConstructor">s-term-c</a> <a id="3677" class="Symbol">{</a><a id="3678" class="Argument">A%</a> <a id="3681" class="Symbol">=</a> <a id="3683" href="Implicit.Algo.Properties.Trans.html#3683" class="Bound">A%</a><a id="3685" class="Symbol">}</a> <a id="3687" class="Symbol">{</a><a id="3688" class="Argument">Σ</a> <a id="3690" class="Symbol">=</a> <a id="3692" href="Implicit.Algo.Properties.Trans.html#3692" class="Bound">Σ′</a><a id="3694" class="Symbol">}</a> <a id="3696" class="Symbol">{</a><a id="3697" class="Argument">D</a> <a id="3699" class="Symbol">=</a> <a id="3701" href="Implicit.Algo.Properties.Trans.html#3701" class="Bound">D</a><a id="3702" class="Symbol">}</a> <a id="3704" href="Implicit.Algo.Properties.Trans.html#3704" class="Bound">cloA</a> <a id="3709" href="Implicit.Algo.Properties.Trans.html#3709" class="Bound">ap</a> <a id="3712" href="Implicit.Algo.Properties.Trans.html#3712" class="Bound">⊢e</a> <a id="3715" href="Implicit.Algo.Properties.Trans.html#3715" class="Bound">s2</a><a id="3717" class="Symbol">)</a> <a id="3719" class="Symbol">(</a><a id="3720" href="Implicit.Algo.Constructs.Syntax.html#510" class="InductiveConstructor">≊S</a> <a id="3723" href="Implicit.Algo.Properties.Trans.html#3723" class="Bound">newΣ</a><a id="3727" class="Symbol">)</a>
+    <a id="3733" class="Keyword">with</a> <a id="3738" href="Implicit.Language.Regular.Base.html#1263" class="InductiveConstructor">reg-S=</a> <a id="3745" href="Implicit.Algo.Properties.Trans.html#3745" class="Bound">regΓ</a> <a id="3750" href="Implicit.Algo.Properties.Trans.html#3750" class="Bound">regB</a> ← <a id="3757" href="Implicit.Algo.Properties.Regularity.html#2083" class="Function">s-env-out</a> <a id="3767" href="Implicit.Algo.Properties.Trans.html#3644" class="Bound">s1</a>
+    <a id="3774" class="Symbol">=</a> <a id="3776" class="Keyword">let</a> <a id="3780" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="3782" href="Implicit.Algo.Properties.Trans.html#3782" class="Bound">Σ″</a> <a id="3785" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a> <a id="3787" href="Implicit.Algo.Properties.Trans.html#3787" class="Bound">upΣ′</a> <a id="3792" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a> <a id="3794" class="Symbol">=</a> <a id="3796" href="Implicit.Algo.Properties.Shift.html#1038" class="Function">↑tyᶜ0-total</a> <a id="3808" href="Implicit.Algo.Properties.Trans.html#3692" class="Bound">Σ′</a>
+          <a id="3821" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="3823" href="Implicit.Algo.Properties.Trans.html#3823" class="Bound">A%&#39;</a> <a id="3827" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a> <a id="3829" href="Implicit.Algo.Properties.Trans.html#3829" class="Bound">upA%&#39;</a> <a id="3835" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a> <a id="3837" class="Symbol">=</a> <a id="3839" href="Implicit.Language.Shift.Properties.html#3117" class="Function">↑ty0-total</a> <a id="3850" href="Implicit.Algo.Properties.Trans.html#3683" class="Bound">A%</a>
+          <a id="3863" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="3865" href="Implicit.Algo.Properties.Trans.html#3865" class="Bound">D&#39;</a> <a id="3868" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a> <a id="3870" href="Implicit.Algo.Properties.Trans.html#3870" class="Bound">upD&#39;</a> <a id="3875" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a> <a id="3877" class="Symbol">=</a> <a id="3879" href="Implicit.Language.Shift.Properties.html#3117" class="Function">↑ty0-total</a> <a id="3890" href="Implicit.Algo.Properties.Trans.html#3701" class="Bound">D</a>
+      <a id="3898" class="Keyword">in</a> <a id="3901" href="Implicit.Algo.Base.html#2843" class="InductiveConstructor">s-∀l</a> <a id="3906" class="Symbol">(</a><a id="3907" href="Implicit.Algo.Properties.Trans.html#2490" class="Function">s-trans</a> <a id="3915" href="Implicit.Algo.Properties.Trans.html#3644" class="Bound">s1</a> <a id="3918" class="Symbol">(</a><a id="3919" href="Implicit.Algo.Properties.WeakenSVar.html#8928" class="Function">s-weaken=0</a> <a id="3930" href="Implicit.Algo.Properties.Trans.html#3664" class="Bound">s&#39;</a> <a id="3933" class="Symbol">(</a><a id="3934" href="Implicit.Language.Shift.Base.html#856" class="InductiveConstructor">↑ty-arr</a> <a id="3942" href="Implicit.Algo.Properties.Trans.html#3655" class="Bound">upC</a> <a id="3946" href="Implicit.Algo.Properties.Trans.html#3659" class="Bound">upD</a><a id="3949" class="Symbol">)</a> <a id="3951" class="Symbol">(</a><a id="3952" href="Implicit.Algo.Constructs.Shift.html#774" class="InductiveConstructor">↑tyᶜ-e</a> <a id="3959" href="Implicit.Algo.Properties.Trans.html#3651" class="Bound">upᵉ</a> <a id="3963" href="Implicit.Algo.Properties.Trans.html#3787" class="Bound">upΣ′</a><a id="3967" class="Symbol">)</a> <a id="3969" class="Symbol">(</a><a id="3970" href="Implicit.Language.Shift.Base.html#856" class="InductiveConstructor">↑ty-arr</a> <a id="3978" href="Implicit.Algo.Properties.Trans.html#3829" class="Bound">upA%&#39;</a> <a id="3984" href="Implicit.Algo.Properties.Trans.html#3870" class="Bound">upD&#39;</a><a id="3988" class="Symbol">)</a> <a id="3990" href="Implicit.Algo.Properties.Trans.html#3750" class="Bound">regB</a><a id="3994" class="Symbol">)</a> <a id="3996" class="Symbol">(</a><a id="3997" href="Implicit.Algo.Constructs.Syntax.html#510" class="InductiveConstructor">≊S</a> <a id="4000" class="Symbol">(</a><a id="4001" href="Implicit.Algo.Properties.Trans.html#381" class="Function">≊-↑ty0</a> <a id="4008" href="Implicit.Algo.Properties.Trans.html#3723" class="Bound">newΣ</a> <a id="4013" href="Implicit.Algo.Properties.Trans.html#3647" class="Bound">upᶜ</a> <a id="4017" href="Implicit.Algo.Properties.Trans.html#3787" class="Bound">upΣ′</a><a id="4021" class="Symbol">)))</a> <a id="4025" href="Implicit.Algo.Properties.Trans.html#3787" class="Bound">upΣ′</a> <a id="4030" href="Implicit.Algo.Properties.Trans.html#3651" class="Bound">upᵉ</a> <a id="4034" href="Implicit.Algo.Properties.Trans.html#3829" class="Bound">upA%&#39;</a> <a id="4040" href="Implicit.Algo.Properties.Trans.html#3870" class="Bound">upD&#39;</a>
+  <a id="4047" href="Implicit.Algo.Properties.Trans.html#2490" class="Function">s-trans</a> <a id="4055" href="Implicit.Algo.Properties.Trans.html#4055" class="Bound">s&#39;</a><a id="4057" class="Symbol">@(</a><a id="4059" href="Implicit.Algo.Base.html#2843" class="InductiveConstructor">s-∀l</a> <a id="4064" href="Implicit.Algo.Properties.Trans.html#4064" class="Bound">s1</a> <a id="4067" href="Implicit.Algo.Properties.Trans.html#4067" class="Bound">upᶜ</a> <a id="4071" href="Implicit.Algo.Properties.Trans.html#4071" class="Bound">upᵉ</a> <a id="4075" href="Implicit.Algo.Properties.Trans.html#4075" class="Bound">upC</a> <a id="4079" href="Implicit.Algo.Properties.Trans.html#4079" class="Bound">upD</a><a id="4082" class="Symbol">)</a> <a id="4084" class="Symbol">(</a><a id="4085" href="Implicit.Algo.Base.html#2677" class="InductiveConstructor">s-term-o</a> <a id="4094" href="Implicit.Algo.Properties.Trans.html#4094" class="Bound">opnA</a> <a id="4099" href="Implicit.Algo.Properties.Trans.html#4099" class="Bound">⊢e</a> <a id="4102" href="Implicit.Algo.Properties.Trans.html#4102" class="Bound">x</a> <a id="4104" href="Implicit.Algo.Properties.Trans.html#4104" class="Bound">s2</a><a id="4106" class="Symbol">)</a> <a id="4108" class="Symbol">(</a><a id="4109" href="Implicit.Algo.Constructs.Syntax.html#510" class="InductiveConstructor">≊S</a> <a id="4112" href="Implicit.Algo.Properties.Trans.html#4112" class="Bound">newΣ</a><a id="4116" class="Symbol">)</a>
+    <a id="4122" class="Keyword">with</a> <a id="4127" class="Symbol">(</a><a id="4128" href="Implicit.Language.Regular.Base.html#299" class="InductiveConstructor">⊢r-arr</a> <a id="4135" href="Implicit.Algo.Properties.Trans.html#4135" class="Bound">regC</a> <a id="4140" href="Implicit.Algo.Properties.Trans.html#4140" class="Bound">regD</a><a id="4144" class="Symbol">)</a> ← <a id="4148" href="Implicit.Algo.Properties.Regularity.html#5571" class="Function">s-⊢r</a> <a id="4153" href="Implicit.Algo.Properties.Trans.html#4055" class="Bound">s&#39;</a> <a id="4156" class="Symbol">=</a> <a id="4158" class="Keyword">let</a> <a id="4162" href="Implicit.Algo.Properties.Trans.html#4162" class="Bound">regA</a> <a id="4167" class="Symbol">=</a> <a id="4169" href="Implicit.Language.Extension.Properties.html#1684" class="Function">⊆-⊢r</a> <a id="4174" href="Implicit.Algo.Properties.Trans.html#4135" class="Bound">regC</a> <a id="4179" class="Symbol">(</a><a id="4180" href="Implicit.Algo.Properties.Extension.html#692" class="Function">s-⊆</a> <a id="4184" href="Implicit.Algo.Properties.Trans.html#4055" class="Bound">s&#39;</a><a id="4186" class="Symbol">)</a> <a id="4188" class="Keyword">in</a> <a id="4191" href="Data.Empty.html#1069" class="Function">⊥-elim</a> <a id="4198" class="Symbol">(</a><a id="4199" href="Implicit.Language.OpenClose.Base.html#479" class="Function">⊢r-⊢o-false</a> <a id="4211" href="Implicit.Algo.Properties.Trans.html#4162" class="Bound">regA</a> <a id="4216" href="Implicit.Algo.Properties.Trans.html#4094" class="Bound">opnA</a><a id="4220" class="Symbol">)</a>
+  <a id="4224" href="Implicit.Algo.Properties.Trans.html#2490" class="Function">s-trans</a> <a id="4232" class="Symbol">(</a><a id="4233" href="Implicit.Algo.Base.html#3054" class="InductiveConstructor">s-∀l-no</a> <a id="4241" href="Implicit.Algo.Properties.Trans.html#4241" class="Bound">s1</a> <a id="4244" href="Implicit.Algo.Properties.Trans.html#4244" class="Bound">upᶜ</a> <a id="4248" href="Implicit.Algo.Properties.Trans.html#4248" class="Bound">upᵉ</a> <a id="4252" href="Implicit.Algo.Properties.Trans.html#4252" class="Bound">upC</a> <a id="4256" href="Implicit.Algo.Properties.Trans.html#4256" class="Bound">upD</a><a id="4259" class="Symbol">)</a> <a id="4261" href="Implicit.Algo.Properties.Trans.html#4261" class="Bound">s&#39;</a><a id="4263" class="Symbol">@(</a><a id="4265" href="Implicit.Algo.Base.html#2512" class="InductiveConstructor">s-term-c</a> <a id="4274" class="Symbol">{</a><a id="4275" class="Argument">A%</a> <a id="4278" class="Symbol">=</a> <a id="4280" href="Implicit.Algo.Properties.Trans.html#4280" class="Bound">A%</a><a id="4282" class="Symbol">}</a> <a id="4284" class="Symbol">{</a><a id="4285" class="Argument">Σ</a> <a id="4287" class="Symbol">=</a> <a id="4289" href="Implicit.Algo.Properties.Trans.html#4289" class="Bound">Σ′</a><a id="4291" class="Symbol">}</a> <a id="4293" class="Symbol">{</a><a id="4294" class="Argument">D</a> <a id="4296" class="Symbol">=</a> <a id="4298" href="Implicit.Algo.Properties.Trans.html#4298" class="Bound">D</a><a id="4299" class="Symbol">}</a> <a id="4301" href="Implicit.Algo.Properties.Trans.html#4301" class="Bound">cloA</a> <a id="4306" href="Implicit.Algo.Properties.Trans.html#4306" class="Bound">ap</a> <a id="4309" href="Implicit.Algo.Properties.Trans.html#4309" class="Bound">⊢e</a> <a id="4312" href="Implicit.Algo.Properties.Trans.html#4312" class="Bound">s2</a><a id="4314" class="Symbol">)</a> <a id="4316" class="Symbol">(</a><a id="4317" href="Implicit.Algo.Constructs.Syntax.html#510" class="InductiveConstructor">≊S</a> <a id="4320" href="Implicit.Algo.Properties.Trans.html#4320" class="Bound">newΣ</a><a id="4324" class="Symbol">)</a>
+    <a id="4330" class="Keyword">with</a> <a id="4335" href="Implicit.Language.Regular.Base.html#1214" class="InductiveConstructor">reg-S^</a> <a id="4342" href="Implicit.Algo.Properties.Trans.html#4342" class="Bound">regB</a> ← <a id="4349" href="Implicit.Algo.Properties.Regularity.html#2083" class="Function">s-env-out</a> <a id="4359" href="Implicit.Algo.Properties.Trans.html#4241" class="Bound">s1</a>
+    <a id="4366" class="Symbol">=</a> <a id="4368" class="Keyword">let</a> <a id="4372" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="4374" href="Implicit.Algo.Properties.Trans.html#4374" class="Bound">Σ″</a> <a id="4377" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a> <a id="4379" href="Implicit.Algo.Properties.Trans.html#4379" class="Bound">upΣ′</a> <a id="4384" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a> <a id="4386" class="Symbol">=</a> <a id="4388" href="Implicit.Algo.Properties.Shift.html#1038" class="Function">↑tyᶜ0-total</a> <a id="4400" href="Implicit.Algo.Properties.Trans.html#4289" class="Bound">Σ′</a>
+          <a id="4413" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="4415" href="Implicit.Algo.Properties.Trans.html#4415" class="Bound">A%&#39;</a> <a id="4419" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a> <a id="4421" href="Implicit.Algo.Properties.Trans.html#4421" class="Bound">upA%&#39;</a> <a id="4427" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a> <a id="4429" class="Symbol">=</a> <a id="4431" href="Implicit.Language.Shift.Properties.html#3117" class="Function">↑ty0-total</a> <a id="4442" href="Implicit.Algo.Properties.Trans.html#4280" class="Bound">A%</a>
+          <a id="4455" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟨</a> <a id="4457" href="Implicit.Algo.Properties.Trans.html#4457" class="Bound">D&#39;</a> <a id="4460" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">,</a> <a id="4462" href="Implicit.Algo.Properties.Trans.html#4462" class="Bound">upD&#39;</a> <a id="4467" href="Implicit.Language.Prelude.html#672" class="InductiveConstructor Operator">⟩</a> <a id="4469" class="Symbol">=</a> <a id="4471" href="Implicit.Language.Shift.Properties.html#3117" class="Function">↑ty0-total</a> <a id="4482" href="Implicit.Algo.Properties.Trans.html#4298" class="Bound">D</a>
+      <a id="4490" class="Keyword">in</a> <a id="4493" href="Implicit.Algo.Base.html#3054" class="InductiveConstructor">s-∀l-no</a> <a id="4501" class="Symbol">(</a><a id="4502" href="Implicit.Algo.Properties.Trans.html#2490" class="Function">s-trans</a> <a id="4510" href="Implicit.Algo.Properties.Trans.html#4241" class="Bound">s1</a> <a id="4513" class="Symbol">(</a><a id="4514" href="Implicit.Algo.Properties.WeakenEVar.html#8956" class="Function">s-weaken^0</a> <a id="4525" href="Implicit.Algo.Properties.Trans.html#4261" class="Bound">s&#39;</a> <a id="4528" class="Symbol">(</a><a id="4529" href="Implicit.Language.Shift.Base.html#856" class="InductiveConstructor">↑ty-arr</a> <a id="4537" href="Implicit.Algo.Properties.Trans.html#4252" class="Bound">upC</a> <a id="4541" href="Implicit.Algo.Properties.Trans.html#4256" class="Bound">upD</a><a id="4544" class="Symbol">)</a>
+                                         <a id="4587" class="Symbol">(</a><a id="4588" href="Implicit.Algo.Constructs.Shift.html#774" class="InductiveConstructor">↑tyᶜ-e</a> <a id="4595" href="Implicit.Algo.Properties.Trans.html#4248" class="Bound">upᵉ</a> <a id="4599" href="Implicit.Algo.Properties.Trans.html#4379" class="Bound">upΣ′</a><a id="4603" class="Symbol">)</a> <a id="4605" class="Symbol">(</a><a id="4606" href="Implicit.Language.Shift.Base.html#856" class="InductiveConstructor">↑ty-arr</a> <a id="4614" href="Implicit.Algo.Properties.Trans.html#4421" class="Bound">upA%&#39;</a> <a id="4620" href="Implicit.Algo.Properties.Trans.html#4462" class="Bound">upD&#39;</a><a id="4624" class="Symbol">))</a> <a id="4627" class="Symbol">(</a><a id="4628" href="Implicit.Algo.Constructs.Syntax.html#510" class="InductiveConstructor">≊S</a> <a id="4631" class="Symbol">(</a><a id="4632" href="Implicit.Algo.Properties.Trans.html#381" class="Function">≊-↑ty0</a> <a id="4639" href="Implicit.Algo.Properties.Trans.html#4320" class="Bound">newΣ</a> <a id="4644" href="Implicit.Algo.Properties.Trans.html#4244" class="Bound">upᶜ</a> <a id="4648" href="Implicit.Algo.Properties.Trans.html#4379" class="Bound">upΣ′</a><a id="4652" class="Symbol">)))</a> <a id="4656" href="Implicit.Algo.Properties.Trans.html#4379" class="Bound">upΣ′</a> <a id="4661" href="Implicit.Algo.Properties.Trans.html#4248" class="Bound">upᵉ</a> <a id="4665" href="Implicit.Algo.Properties.Trans.html#4421" class="Bound">upA%&#39;</a> <a id="4671" href="Implicit.Algo.Properties.Trans.html#4462" class="Bound">upD&#39;</a>
+  <a id="4678" href="Implicit.Algo.Properties.Trans.html#2490" class="Function">s-trans</a> <a id="4686" href="Implicit.Algo.Properties.Trans.html#4686" class="Bound">s&#39;</a><a id="4688" class="Symbol">@(</a><a id="4690" href="Implicit.Algo.Base.html#3054" class="InductiveConstructor">s-∀l-no</a> <a id="4698" href="Implicit.Algo.Properties.Trans.html#4698" class="Bound">s1</a> <a id="4701" href="Implicit.Algo.Properties.Trans.html#4701" class="Bound">upᶜ</a> <a id="4705" href="Implicit.Algo.Properties.Trans.html#4705" class="Bound">upᵉ</a> <a id="4709" href="Implicit.Algo.Properties.Trans.html#4709" class="Bound">upC</a> <a id="4713" href="Implicit.Algo.Properties.Trans.html#4713" class="Bound">upD</a><a id="4716" class="Symbol">)</a> <a id="4718" class="Symbol">(</a><a id="4719" href="Implicit.Algo.Base.html#2677" class="InductiveConstructor">s-term-o</a> <a id="4728" href="Implicit.Algo.Properties.Trans.html#4728" class="Bound">opnA</a> <a id="4733" href="Implicit.Algo.Properties.Trans.html#4733" class="Bound">⊢e</a> <a id="4736" href="Implicit.Algo.Properties.Trans.html#4736" class="Bound">x</a> <a id="4738" href="Implicit.Algo.Properties.Trans.html#4738" class="Bound">s2</a><a id="4740" class="Symbol">)</a> <a id="4742" class="Symbol">(</a><a id="4743" href="Implicit.Algo.Constructs.Syntax.html#510" class="InductiveConstructor">≊S</a> <a id="4746" href="Implicit.Algo.Properties.Trans.html#4746" class="Bound">newΣ</a><a id="4750" class="Symbol">)</a>
+    <a id="4756" class="Keyword">with</a> <a id="4761" class="Symbol">(</a><a id="4762" href="Implicit.Language.Regular.Base.html#299" class="InductiveConstructor">⊢r-arr</a> <a id="4769" href="Implicit.Algo.Properties.Trans.html#4769" class="Bound">regC</a> <a id="4774" href="Implicit.Algo.Properties.Trans.html#4774" class="Bound">regD</a><a id="4778" class="Symbol">)</a> ← <a id="4782" href="Implicit.Algo.Properties.Regularity.html#5571" class="Function">s-⊢r</a> <a id="4787" href="Implicit.Algo.Properties.Trans.html#4686" class="Bound">s&#39;</a> <a id="4790" class="Symbol">=</a> <a id="4792" class="Keyword">let</a> <a id="4796" href="Implicit.Algo.Properties.Trans.html#4796" class="Bound">regA</a> <a id="4801" class="Symbol">=</a> <a id="4803" href="Implicit.Language.Extension.Properties.html#1684" class="Function">⊆-⊢r</a> <a id="4808" href="Implicit.Algo.Properties.Trans.html#4769" class="Bound">regC</a> <a id="4813" class="Symbol">(</a><a id="4814" href="Implicit.Algo.Properties.Extension.html#692" class="Function">s-⊆</a> <a id="4818" href="Implicit.Algo.Properties.Trans.html#4686" class="Bound">s&#39;</a><a id="4820" class="Symbol">)</a> <a id="4822" class="Keyword">in</a> <a id="4825" href="Data.Empty.html#1069" class="Function">⊥-elim</a> <a id="4832" class="Symbol">(</a><a id="4833" href="Implicit.Language.OpenClose.Base.html#479" class="Function">⊢r-⊢o-false</a> <a id="4845" href="Implicit.Algo.Properties.Trans.html#4796" class="Bound">regA</a> <a id="4850" href="Implicit.Algo.Properties.Trans.html#4728" class="Bound">opnA</a><a id="4854" class="Symbol">)</a>
+  <a id="4858" href="Implicit.Algo.Properties.Trans.html#2490" class="Function">s-trans</a> <a id="4866" class="Symbol">(</a><a id="4867" href="Implicit.Algo.Base.html#3266" class="InductiveConstructor">s-svar-term</a> <a id="4879" href="Implicit.Algo.Properties.Trans.html#4879" class="Bound">inΓ</a> <a id="4883" href="Implicit.Algo.Properties.Trans.html#4883" class="Bound">s</a><a id="4884" class="Symbol">)</a> <a id="4886" class="Symbol">(</a><a id="4887" href="Implicit.Algo.Base.html#2512" class="InductiveConstructor">s-term-c</a> <a id="4896" href="Implicit.Algo.Properties.Trans.html#4896" class="Bound">cloA</a> <a id="4901" href="Implicit.Algo.Properties.Trans.html#4901" class="Bound">ap</a> <a id="4904" href="Implicit.Algo.Properties.Trans.html#4904" class="Bound">⊢e</a> <a id="4907" href="Implicit.Algo.Properties.Trans.html#4907" class="Bound">s2</a><a id="4909" class="Symbol">)</a> <a id="4911" class="Symbol">(</a><a id="4912" href="Implicit.Algo.Constructs.Syntax.html#510" class="InductiveConstructor">≊S</a> <a id="4915" href="Implicit.Algo.Properties.Trans.html#4915" class="Bound">newΣ</a><a id="4919" class="Symbol">)</a> <a id="4921" class="Symbol">=</a> <a id="4923" href="Implicit.Algo.Base.html#3266" class="InductiveConstructor">s-svar-term</a> <a id="4935" href="Implicit.Algo.Properties.Trans.html#4879" class="Bound">inΓ</a> <a id="4939" class="Symbol">(</a><a id="4940" href="Implicit.Algo.Properties.Trans.html#2490" class="Function">s-trans</a> <a id="4948" href="Implicit.Algo.Properties.Trans.html#4883" class="Bound">s</a> <a id="4950" class="Symbol">(</a><a id="4951" href="Implicit.Algo.Base.html#2512" class="InductiveConstructor">s-term-c</a> <a id="4960" href="Implicit.Algo.Properties.Trans.html#4896" class="Bound">cloA</a> <a id="4965" href="Implicit.Algo.Properties.Trans.html#4901" class="Bound">ap</a> <a id="4968" href="Implicit.Algo.Properties.Trans.html#4904" class="Bound">⊢e</a> <a id="4971" href="Implicit.Algo.Properties.Trans.html#4907" class="Bound">s2</a><a id="4973" class="Symbol">)</a> <a id="4975" class="Symbol">(</a><a id="4976" href="Implicit.Algo.Constructs.Syntax.html#510" class="InductiveConstructor">≊S</a> <a id="4979" href="Implicit.Algo.Properties.Trans.html#4915" class="Bound">newΣ</a><a id="4983" class="Symbol">))</a>
+  <a id="4988" href="Implicit.Algo.Properties.Trans.html#2490" class="Function">s-trans</a> <a id="4996" class="Symbol">(</a><a id="4997" href="Implicit.Algo.Base.html#3266" class="InductiveConstructor">s-svar-term</a> <a id="5009" href="Implicit.Algo.Properties.Trans.html#5009" class="Bound">inΓ</a> <a id="5013" href="Implicit.Algo.Properties.Trans.html#5013" class="Bound">s</a><a id="5014" class="Symbol">)</a> <a id="5016" class="Symbol">(</a><a id="5017" href="Implicit.Algo.Base.html#2677" class="InductiveConstructor">s-term-o</a> <a id="5026" href="Implicit.Algo.Properties.Trans.html#5026" class="Bound">opnA</a> <a id="5031" href="Implicit.Algo.Properties.Trans.html#5031" class="Bound">⊢e</a> <a id="5034" href="Implicit.Algo.Properties.Trans.html#5034" class="Bound">ss</a> <a id="5037" href="Implicit.Algo.Properties.Trans.html#5037" class="Bound">s2</a><a id="5039" class="Symbol">)</a> <a id="5041" class="Symbol">(</a><a id="5042" href="Implicit.Algo.Constructs.Syntax.html#510" class="InductiveConstructor">≊S</a> <a id="5045" href="Implicit.Algo.Properties.Trans.html#5045" class="Bound">newΣ</a><a id="5049" class="Symbol">)</a>
+    <a id="5055" class="Keyword">with</a> <a id="5060" href="Implicit.Language.Regular.Base.html#299" class="InductiveConstructor">⊢r-arr</a> <a id="5067" href="Implicit.Algo.Properties.Trans.html#5067" class="Bound">regA</a> <a id="5072" href="Implicit.Algo.Properties.Trans.html#5072" class="Bound">regB</a> ← <a id="5079" href="Implicit.Algo.Properties.Regularity.html#5571" class="Function">s-⊢r</a> <a id="5084" href="Implicit.Algo.Properties.Trans.html#5013" class="Bound">s</a> <a id="5086" class="Symbol">=</a> <a id="5088" href="Data.Empty.html#1069" class="Function">⊥-elim</a> <a id="5095" class="Symbol">(</a><a id="5096" href="Implicit.Language.OpenClose.Base.html#479" class="Function">⊢r-⊢o-false</a> <a id="5108" href="Implicit.Algo.Properties.Trans.html#5067" class="Bound">regA</a> <a id="5113" href="Implicit.Algo.Properties.Trans.html#5026" class="Bound">opnA</a><a id="5117" class="Symbol">)</a>
+  <a id="5121" href="Implicit.Algo.Properties.Trans.html#2490" class="Function">s-trans</a> <a id="5129" class="Symbol">(</a><a id="5130" href="Implicit.Algo.Base.html#3380" class="InductiveConstructor">s-evar-infers</a> <a id="5144" class="Symbol">(</a><a id="5145" href="Implicit.Algo.Base.html#3615" class="InductiveConstructor">infs-s</a> <a id="5152" href="Implicit.Algo.Properties.Trans.html#5152" class="Bound">x</a> <a id="5154" href="Implicit.Algo.Properties.Trans.html#5154" class="Bound">infs</a><a id="5158" class="Symbol">)</a> <a id="5160" href="Implicit.Algo.Properties.Trans.html#5160" class="Bound">inst</a><a id="5164" class="Symbol">)</a> <a id="5166" href="Implicit.Algo.Properties.Trans.html#5166" class="Bound">s2</a> <a id="5169" class="Symbol">(</a><a id="5170" href="Implicit.Algo.Constructs.Syntax.html#510" class="InductiveConstructor">≊S</a> <a id="5173" href="Implicit.Algo.Properties.Trans.html#5173" class="Bound">newΣ</a><a id="5177" class="Symbol">)</a> <a id="5179" class="Symbol">=</a> <a id="5181" href="Data.Empty.html#1069" class="Function">⊥-elim</a> <a id="5188" class="Symbol">(</a><a id="5189" href="Implicit.Algo.Properties.Trans.html#5229" class="Function">≊-infs-false</a> <a id="5202" href="Implicit.Algo.Properties.Trans.html#5154" class="Bound">infs</a> <a id="5207" href="Implicit.Algo.Properties.Trans.html#5173" class="Bound">newΣ</a><a id="5211" class="Symbol">)</a>
+          <a id="5223" class="Keyword">where</a> <a id="5229" href="Implicit.Algo.Properties.Trans.html#5229" class="Function">≊-infs-false</a> <a id="5242" class="Symbol">:</a> <a id="5244" href="Implicit.Language.Base.html#1695" class="Generalizable">Γ</a> <a id="5246" href="Implicit.Algo.Base.html#1348" class="Datatype Operator">⊨</a> <a id="5248" href="Implicit.Algo.Constructs.Syntax.html#255" class="Generalizable">Σ</a> <a id="5250" href="Implicit.Algo.Base.html#1348" class="Datatype Operator">⟹</a> <a id="5252" href="Implicit.Language.Base.html#384" class="Generalizable">A</a>
+                             <a id="5283" class="Symbol">→</a> <a id="5285" href="Implicit.Algo.Constructs.Syntax.html#255" class="Generalizable">Σ</a> <a id="5287" href="Implicit.Algo.Constructs.Syntax.html#432" class="Datatype Operator">≊</a> <a id="5289" href="Implicit.Algo.Constructs.Syntax.html#257" class="Generalizable">Σ&#39;</a>
+                             <a id="5321" class="Symbol">→</a> <a id="5323" href="Data.Empty.html#914" class="Function">⊥</a>
+                <a id="5341" href="Implicit.Algo.Properties.Trans.html#5229" class="Function">≊-infs-false</a> <a id="5354" class="Symbol">(</a><a id="5355" href="Implicit.Algo.Base.html#3615" class="InductiveConstructor">infs-s</a> <a id="5362" href="Implicit.Algo.Properties.Trans.html#5362" class="Bound">x</a> <a id="5364" href="Implicit.Algo.Properties.Trans.html#5364" class="Bound">infs</a><a id="5368" class="Symbol">)</a> <a id="5370" class="Symbol">(</a><a id="5371" href="Implicit.Algo.Constructs.Syntax.html#510" class="InductiveConstructor">≊S</a> <a id="5374" href="Implicit.Algo.Properties.Trans.html#5374" class="Bound">newΣ</a><a id="5378" class="Symbol">)</a> <a id="5380" class="Symbol">=</a> <a id="5382" href="Implicit.Algo.Properties.Trans.html#5229" class="Function">≊-infs-false</a> <a id="5395" href="Implicit.Algo.Properties.Trans.html#5364" class="Bound">infs</a> <a id="5400" href="Implicit.Algo.Properties.Trans.html#5374" class="Bound">newΣ</a>
+</pre>
+    
+    <script>
+      function toggleModule(element) {
+        element.classList.toggle('collapsed');
+        element.classList.toggle('expanded');
+      }
+      
+      // Auto-expand path to current module
+      document.addEventListener('DOMContentLoaded', function() {
+        const currentModule = document.querySelector('.current-module');
+        if (currentModule) {
+          let parent = currentModule.closest('li');
+          while (parent) {
+            parent.classList.remove('collapsed');
+            parent.classList.add('expanded');
+            parent = parent.parentElement.closest('li');
+          }
+        }
+      });
+    </script>
+    <script>
+  const nav = document.querySelector('nav');
+  const scrollKey = 'sidebarScroll';
+
+  // Restore scroll position
+  document.addEventListener('DOMContentLoaded', () => {
+    const saved = localStorage.getItem(scrollKey);
+    if (saved !== null) {
+      nav.scrollTop = parseInt(saved, 10);
+    }
+  });
+
+  // Save scroll position
+  nav.addEventListener('scroll', () => {
+    localStorage.setItem(scrollKey, nav.scrollTop);
+  });
+</script>
+  </body>
+</html>
