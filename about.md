@@ -10,14 +10,20 @@ Previously I've got my MPhil degree from HKU in 2023 and BEng degree from Nankai
 
 ## Publications
 
+- **Local Contextual Type Inference**  
+  [PDF] [[Artifact]](https://github.com/juniorxxue/LCTI) [[Agda]]({{ site.url }}/proof/lcti)  
+  <u>Xu Xue</u>, Chen Cui, Shengyi Jiang, Bruno C. d. S. Oliveira  
+  *To appear in Symposium on Principles of Programming Languages (POPL 2026)*
+
+
 - **Contextual Typing**  
   [[PDF]]({{ site.url }}/paper/contextual.pdf) [[Artifact]](https://github.com/juniorxxue/contextual-typing) [[Agda]]({{ site.url }}/proof/contextual/README.html) [[Slides]]({{ site.url }}/slides/icfp2024.pdf)  
-  Xu Xue and Bruno C. d. S. Oliveira  
+  <u>Xu Xue</u> and Bruno C. d. S. Oliveira  
   *In International Conference on Functional Programming (ICFP 2024)*
 
 - **Applicative Intersection Types**  
   [[PDF]]({{ site.url }}/paper/aplas2022.pdf) [[Artifact]](https://zenodo.org/record/7053382) [[Coq]]({{ site.url }}/proof/appinter/toc.html) [[Slides]]({{ site.url }}/slides/aplas2022.pdf)  
-  Xu Xue, Bruno C. d. S. Oliveira and Ningning Xie  
+  <u>Xu Xue</u>, Bruno C. d. S. Oliveira and Ningning Xie  
   *In Asian Symposium on Programming Languages and Systems (APLAS 2022)*
 
 ## MPhil Thesis
@@ -38,4 +44,4 @@ ICFP'23 AEC, OOPSLA'24 AEC, OOPSLA'25 AEC
 
 ## Contact
 
-Email: xxue at cs.hku.hk 
+Email: xxue at cs.hku.hk
