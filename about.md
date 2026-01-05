@@ -11,7 +11,7 @@ Previously I've got my MPhil degree from HKU in 2023 and BEng degree from Nankai
 ## Publications
 
 - **Local Contextual Type Inference**  
-  [PDF] [[Artifact]](https://github.com/juniorxxue/LCTI) [[Agda]]({{ site.url }}/proof/lcti)  
+  [[PDF]]({{ site.url }}/paper/lcti.pdf) [[Artifact]](https://github.com/juniorxxue/LCTI) [[Agda]]({{ site.url }}/proof/lcti)  
   <u>Xu Xue</u>, Chen Cui, Shengyi Jiang, Bruno C. d. S. Oliveira  
   *To appear in Symposium on Principles of Programming Languages (POPL 2026)*
 
@@ -40,7 +40,7 @@ COMP3258 Functional Programming, HKU, 2022 Fall
 
 ## Academic Services
 
-ICFP'23 AEC, OOPSLA'24 AEC, OOPSLA'25 AEC
+ICFP'23 AEC, OOPSLA'24 AEC, OOPSLA'25 AEC, OOPSLA'26 AEC
 
 ## Contact
 
