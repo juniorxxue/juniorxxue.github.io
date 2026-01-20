@@ -40,7 +40,7 @@ COMP3258 Functional Programming, HKU, 2022 Fall
 
 ## Academic Services
 
-ICFP'23 AEC, OOPSLA'24 AEC, OOPSLA'25 AEC, OOPSLA'26 AEC
+ICFP'23 AEC, OOPSLA'24 AEC, OOPSLA'25 AEC, [OOPSLA'26 AEC](https://2026.splashcon.org/track/splash-2026-artifact-evaluation), [PLDI'26 AEC](https://pldi26.sigplan.org/track/pldi-2026-pldi-research-artifacts)
 
 ## Contact
 
