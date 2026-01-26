@@ -13,7 +13,7 @@ Previously I've got my MPhil degree from HKU in 2023 and BEng degree from Nankai
 - **Local Contextual Type Inference**  
   [[PDF]]({{ site.url }}/paper/lcti.pdf) [[Artifact]](https://github.com/juniorxxue/LCTI) [[Agda]]({{ site.url }}/proof/lcti) [[Slides]]({{ site.url }}/slides/popl2026.pdf)  
   <u>Xu Xue</u>, Chen Cui, Shengyi Jiang, Bruno C. d. S. Oliveira  
-  *To appear in Symposium on Principles of Programming Languages (POPL 2026)*
+  *In Symposium on Principles of Programming Languages (POPL 2026)*
 
 
 - **Contextual Typing**  
