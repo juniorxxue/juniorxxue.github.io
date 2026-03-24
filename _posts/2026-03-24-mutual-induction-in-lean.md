@@ -6,18 +6,17 @@ categories: [programming]
 tags: [types, programming-languages]
 ---
 
-This post is a small, standalone writeup extracted from a larger private development.
+> Disclaimer: this post is AI-generated, and the Lean code discussed here was also written by AI. 
 
-The goal is not to teach a sophisticated type system. The goal is to make one specific proof-engineering issue easy to see:
+I still think this experiment is worth documenting. It grew out of a real proof-engineering problem from a larger private development, and I expect to carry the same idea back into that main project. I plan to update it as I keep trying it in the real code base.
 
-- we have a mutually inductive, indexed definition,
-- we want mutually proved invariants about it,
-- the obvious Lean proof styles are either unsupported or much noisier than they feel in Agda,
-- and we want a final style that is still honest about Lean's induction principle while being pleasant enough to use interactively.
+The question is simple: how do we make mutual induction in Lean feel natural as Agda?
+
+Lean already has the induction principle we need. The problem is not logical power. The problem is that, for mutually inductive indexed judgments, the proof one naturally wants to write and the proof term Lean asks for can be uncomfortably far apart.
 
 The code lives in this [gist](https://gist.github.com/juniorxxue/6557e1efa3338bcee6811fabda02203b).
 
-## What the file contains
+## A tiny example with a real purpose
 
 The example uses two tiny indexed judgments:
 
@@ -29,51 +28,51 @@ You can read `n` as the input context size and `m` as the output context size. T
 - from `Check n e A m`, prove `n ≤ m`
 - from `Infer n e A m`, prove `n ≤ m`
 
-This is intentionally small. The mathematical content is trivial. The syntax and induction experience are the point.
+The mathematical content is intentionally trivial. That is exactly the point. If even a toy invariant like this becomes awkward to prove, then we are not looking at a deep mathematical obstacle. We are looking at a proof-engineering problem. Those are the problems that quietly dominate real developments, so they are worth isolating.
 
-## Why this is awkward in Lean
+## Why the obvious approaches are not very satisfying
 
 ### 1. Plain `induction h` is not supported
 
-For ordinary inductive families, `induction h` is the natural thing to write. For a mutually inductive family, Lean stops you. In practice, this is the first ergonomic wall: the proof one wants to write is not accepted.
+For an ordinary inductive family, `induction h` is the first thing most of us would try, and rightly so. It matches how we think. For a mutually inductive family, Lean rejects it.
 
-The Lean file includes a commented sketch showing this failed attempt.
+This matters more than it may sound. The very first proof shape that feels natural is unavailable, so the workflow becomes awkward immediately. The Lean file includes a commented sketch showing this failed attempt.
 
 ### 2. The raw mutual recursor works, but it is noisy
 
-The explicit approach is mathematically fine:
+The explicit approach is completely legitimate:
 
 - write the two theorem aliases,
 - write the two motives,
 - call `Check.rec` or `Infer.rec`,
 - provide all branch handlers for the whole mutual block.
 
-This is exactly the real induction principle, so there is nothing mysterious about it. But it is not a pleasant proof surface:
+This is the real induction principle, so there is nothing fake or mysterious about it. But it is also not the proof script I want to maintain:
 
 - you need to know the recursor name,
 - you need to hard-code the sibling motive,
 - the motive is mostly a copy of the theorem alias,
 - the branch order is global to the mutual block, not local to the theorem you are reading.
 
-In a small file, this is tolerable. In a real proof, it becomes a lot of syntax to carry around.
+In a toy example, this is merely annoying. In a serious development, it becomes expensive. The proof starts to read like eliminator plumbing instead of an explanation of the invariant. The explicit version is in the `Approach 1` section of the Lean file.
 
-The explicit version is in the `Approach 1` section of the Lean file.
+One more remark is that it discourages the interactive proof of human since everything looks like a argument instead of a proof block.
 
-### 3. Equation-style mutual theorem definitions are tempting, but brittle
+### 3. Equation-style mutual theorem definitions are tempting, but they stop feeling nice quickly
 
 If you come from Agda, the first instinct is often to write mutually recursive theorems by pattern matching on derivations directly. On tiny examples this can be pleasant.
 
-In larger indexed developments, though, this starts to compete with the real proof:
+The trouble is that, in larger indexed developments, this style starts to compete with the real proof:
 
 - termination annotations may be needed,
 - generalization becomes important,
 - equalities introduced by indices start to dominate the interaction.
 
-So even though this style can be attractive, it was not the approach that scaled best for the underlying project that motivated this writeup.
+So even though this style looks attractive at first, it is not the default I trust for a larger project. Once the indices become interesting, too much of the interaction is about convincing Lean that the recursion is acceptable or carrying around equalities that are not really the mathematical point.
 
-## The final idea
+## The compromise I actually want
 
-The final idea is modest:
+What I wanted was modest:
 
 - keep using Lean's real mutual recursor,
 - but derive the motive from the theorem alias automatically,
@@ -105,44 +104,37 @@ and
 induction h using InferGrowsDerivedGoal.induction with
 ```
 
-This does not change the induction principle. It only removes the manual motive plumbing.
+This does not invent a new induction principle. It only removes the manual motive plumbing. After that, the proof script goes back to looking like a proof script.
 
-## Why this felt like the right compromise
+## Why this feels like the right compromise
 
-This recovered most of the interaction style we wanted:
+This recovers most of the interaction style I actually want:
 
 - the theorem alias is the source of truth,
 - the motive is not duplicated by hand,
 - the proof body looks like normal induction again,
 - but the result is still just Lean's mutual recursor underneath.
 
-So it is not "magic induction". It is a small layer that lets the proof script look closer to how one would reason in Agda, while staying faithful to Lean's eliminator story.
+So this is not "magic induction." It is a very small layer that lets the proof script stay close to the way I would like to reason, while still being honest about what Lean is really doing underneath.
 
-## About the plugin side story
+This is also why I think the experiment is worth keeping around. If a tiny abstraction can make mutual proofs less noisy without hiding the real principle, then it has a good chance of surviving contact with a larger development. That is what I care about most. I expect to try this style in my main project, see where it breaks, and update this post as the idea evolves.
 
-During the exploration, we also tried an experimental mutual-induction plugin from GitHub. It was useful as a comparison point: it confirmed that there is real value in better proof ergonomics for mutual induction.
+## A note on the plugin detour
 
-But for this workflow it was not the final choice. The plugin solves a slightly different problem: proving several mutual goals together. The final approach in this writeup stays much closer to ordinary Lean proof scripts:
+During the exploration, we also tried an experimental mutual-induction plugin from GitHub. That was useful as a comparison point because it confirmed that the pain here is real: better ergonomics for mutual induction would genuinely help.
+
+But for this workflow it was not the final choice. The plugin solves a slightly different problem, namely proving several mutual goals together. What I wanted here was something closer to ordinary Lean scripts:
 
 - define goal aliases,
 - derive motives and induction shorthands,
 - use `induction ... using ...`.
 
-That felt simpler to keep in the main project.
+That felt simpler, easier to explain, and easier to keep in the main project.
 
-## How to experiment
-
-If you want to play with the file:
-
-1. Copy [MutualInductionStory.lean](https://gist.github.com/juniorxxue/6557e1efa3338bcee6811fabda02203b) into any Lean 4 project.
-2. Run Lean on it.
-3. Read the `Approach 1` and `Approach 2` sections side by side.
-4. Uncomment the plain `induction h` sketch to see the basic limitation directly.
-
-## The punchline
+## The real takeaway
 
 The problem was never that Lean lacks a mutual induction principle. It has one.
 
-The problem was that the surface syntax for using it directly is too far away from the proof one wants to write.
+The problem is that the surface syntax for using it directly is farther away from the proof I want to write than it should be.
 
-The small `derive_mutual_elim` command closes that gap enough to make mutual proofs feel workable again.
+The small `derive_mutual_elim` command closes that gap enough to make mutual proofs feel workable again, and that is why I think this little AI-generated experiment may still end up being genuinely useful.
