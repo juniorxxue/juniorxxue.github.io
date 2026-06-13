@@ -5,19 +5,15 @@
 
 title: TYPES.HK
 description: A minimal, text focused blog
-# baseurl: "/blog" # the subpath of your site, e.g. /blog/
-url: "" # the base hostname & protocol for your site
-# host: 0.0.0.0
+url: "https://types.hk" # the base hostname & protocol for your site
 
 
 #########################
 # more settings
 
 plugins:
-  - jekyll-redirect-from
-
-whitelist:
-  - jekyll-redirect-from
+  - jekyll-seo-tag
+  - jekyll-sitemap
 
 markdown: kramdown
 kramdown:
@@ -58,12 +54,6 @@ future: false
 exclude:
 - README.md
 - LICENSE.md
-
-exclude: [vendor]
-
-Blog: /
-About: /about
-
-# Add general links to site pages here
-links:
-  About: /about
+- vendor
+- Gemfile
+- Gemfile.lock

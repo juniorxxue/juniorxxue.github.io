@@ -2,24 +2,16 @@
 
 source "https://rubygems.org"
 
-gem "jekyll", "~> 4.2"
-gem "webrick", "~> 1.7.0"
-gem "jekyll-redirect-from", "~> 0.16.0"
-gem "rouge", "~> 4.1.0"
-# gem "webrick", "~> 1.8"
+# Use the github-pages gem so local builds match exactly what GitHub Pages runs
+# in production (same Jekyll version + supported plugin set).
+# Versions: https://pages.github.com/versions/
+gem "github-pages", group: :jekyll_plugins
 
-# # If you have any plugins, put them here!
-# group :jekyll_plugins do
-#   gem "jekyll-feed", "~> 0.12"
-#   gem "jekyll-seo-tag", "~> 2.8"
-# end
+# Local preview server (needed on Ruby 3+; not bundled by default).
+gem "webrick", "~> 1.8"
 
-# # Windows and JRuby does not include zoneinfo files, so bundle the tzinfo-data gem
-# # and associated library.
-# platforms :mingw, :x64_mingw, :mswin, :jruby do
-#   gem "tzinfo", ">= 1", "< 3"
-#   gem "tzinfo-data"
-# end
-
-# # Performance-booster for watching directories on Windows
-# gem "wdm", "~> 0.1.1", :platforms => [:mingw, :x64_mingw, :mswin]
+# Windows and JRuby do not include zoneinfo files, so bundle tzinfo-data.
+platforms :mingw, :x64_mingw, :mswin, :jruby do
+  gem "tzinfo", ">= 1", "< 3"
+  gem "tzinfo-data"
+end
