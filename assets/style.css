@@ -1,15 +1,9 @@
 @font-face {
     font-family: "Klee One";
-    src: url("fonts/Klee.ttf") format("truetype");
+    src: url("fonts/Klee.woff2") format("woff2");
     font-weight: normal;
     font-style: normal;
-}
-
-@font-face {
-    font-family: "Mononoki";
-    src: url("fonts/mononoki.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
+    font-display: swap;
 }
 
 body {
